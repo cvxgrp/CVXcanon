@@ -1,16 +1,46 @@
 #include <vector>
-#include "utils.hpp"
+#include "Utils.hpp"
+
+enum operatortype {
+	VARIABLE,
+	PROMOTE,
+	MUL,
+	RMUL,
+	MUL_ELEM,
+	DIV,
+	SUM,
+	NEG,
+	INDEX,
+	TRANSPOSE,
+	SUM_ENTRIES,
+	TRACE,
+	RESHAPE,
+	DIAG_VEC,
+	DIAG_MAT,
+	UPPER_TRI,
+	CONV,
+	HSTACK,
+	VSTACK,
+	SCALAR_CONST,
+	DENSE_CONST,
+	SPARSE_CONST,
+	PARAM,
+	NO_OP,
+	CONSTANT_ID
+};
+
+typedef operatortype OperatorType;
 
 class LinOp{	
 	public:
-		operatorType type;
+		OperatorType type;
 		void* data;
 		int size[2];
 		std::vector< LinOp* > args;
 };
 
-Matrix type_to_coeff(operatorType){
-	switch(operatorType){
+Matrix type_to_coeff(OperatorType op){
+	switch(op){
 		case VARIABLE:
 			//@ TODO FOR JOHN
 			break;
@@ -87,5 +117,5 @@ Matrix type_to_coeff(operatorType){
 			//@ TODO FOR JOHN
 			break;
 	}
-	return NULL;
+	return NULL_MATRIX;
 }

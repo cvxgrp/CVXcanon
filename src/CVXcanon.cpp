@@ -1,15 +1,14 @@
 #include "CVXcanon.hpp"
 #include <iostream>
 #include <map>
-#include "utils.hpp"
-#include "LinOp.hpp"
+#include "Utils.hpp"
 
 Matrix get_coefficient(LinOp &lin){
-	return NULL;
+	return NULL_MATRIX;
 }
 
 Matrix build_matrix(CoeffMap &coeff_map){
-	return NULL;
+	return NULL_MATRIX;
 }
 
 Matrix get_matrix(std::vector< LinOp* > constraints){
@@ -23,7 +22,7 @@ Matrix get_matrix(std::vector< LinOp* > constraints){
 		// add coefficient to map with constr. id
 
 	// Now have map, then call build_matrix
-	return NULL;
+	return NULL_MATRIX;
 }
 
 int main()
