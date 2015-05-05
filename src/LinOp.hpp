@@ -1,4 +1,5 @@
 #include <vector>
+#include <cassert>
 #include "Utils.hpp"
 
 enum operatortype {
@@ -118,4 +119,33 @@ Matrix type_to_coeff(OperatorType op){
 			break;
 	}
 	return NULL_MATRIX;
+}
+
+
+/**
+ * Return the coefficient matrix for SUM
+ *
+ * Parameters: LinOp with type SUM
+ * 
+ * Returns: 1 x N row vector, where N is the number of arguments.
+ */
+Matrix get_sum_coefficients(LinOp &lin)
+{
+	assert(lin.type==SUM);
+	return Matrix(1, lin.args.size());
+}
+
+
+/**
+ * Return the coefficients for a VARIABLE.
+ *
+ * Parameters:
+ * 
+ * Returns:
+ *
+ */
+void* get_variable_coeffs(LinOp &lin)
+{
+
+	return NULL;
 }
