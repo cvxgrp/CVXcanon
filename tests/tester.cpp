@@ -1,4 +1,6 @@
-#include "../src/lin_op.cpp"
+#include "../src/LinOp.hpp"
+#include "../src/ProblemData.hpp"
+
 #include <vector>
 
 int main(){
