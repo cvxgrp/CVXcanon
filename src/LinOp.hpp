@@ -24,7 +24,6 @@ enum operatortype {
 	SCALAR_CONST,
 	DENSE_CONST,
 	SPARSE_CONST,
-	PARAM,
 	NO_OP,
 	CONSTANT_ID
 };
@@ -37,13 +36,34 @@ class LinOp{
 		void* data;
 		int size[2];
 		std::vector< LinOp* > args;
+		
+		bool hasConstantType(){
+			return  type == SCALAR_CONST || 
+			type == DENSE_CONST || type == SPARSE_CONST;
+		}
 };
 
-Matrix type_to_coeff(OperatorType op){
-	switch(op){
-		case VARIABLE:
+
+map<int,Matrix> variable_coeffs(LinOp lin){
+	//@ TODO FOR JOHN
+	return SPARSE_CONST;
+}
+
+
+map<int,Matrix> const_coeffs(LinOp lin){
+		case SCALAR_CONST:
 			//@ TODO FOR JOHN
 			break;
+		case DENSE_CONST:
+			//@ TODO FOR JOHN
+			break;
+		case SPARSE_CONST:
+			//@ TODO FOR JOHN
+			break;					
+}
+
+Matrix func_coeffs(LinOp lin){
+	switch(op){
 		case PROMOTE:
 			//@ TODO FOR JOHN
 			break;
@@ -96,18 +116,6 @@ Matrix type_to_coeff(OperatorType op){
 			//@ TODO FOR JOHN
 			break;
 		case VSTACK:
-			//@ TODO FOR JOHN
-			break;
-		case SCALAR_CONST:
-			//@ TODO FOR JOHN
-			break;
-		case DENSE_CONST:
-			//@ TODO FOR JOHN
-			break;
-		case SPARSE_CONST:
-			//@ TODO FOR JOHN
-			break;
-		case PARAM:
 			//@ TODO FOR JOHN
 			break;
 		case NO_OP:
