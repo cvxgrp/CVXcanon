@@ -7,7 +7,7 @@ TARGET := bin/cvxcanon
 SRCEXT := cpp
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS := -g -Wall
+CFLAGS := -g -Wall -MMD
 LIB := 
 INC := -I include
 
@@ -24,6 +24,6 @@ clean:
 	@echo " $(RM) -r $(BUILDDIR) $(TARGET)"; $(RM) -r $(BUILDDIR) $(TARGET)
 
 test:
-	$(CC) $(CFLAGS) test/tester.cpp $(INC) $(LIB) -o bin/test
+	$(CC) $(CFLAGS) tests/tester.cpp $(INC) $(LIB) -o bin/test
 
 .PHONY: clean

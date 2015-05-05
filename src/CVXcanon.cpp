@@ -2,8 +2,13 @@
 #include <iostream>
 #include <map>
 #include "Utils.hpp"
+#include "LinOp.hpp"
 
-Matrix get_coefficient(LinOp &lin){
+map<int, Matrix> get_coefficient(LinOp &lin){
+	map<int, Matrix>;
+	if(lin.type == VARIABLE)
+
+
 	return NULL_MATRIX;
 }
 
