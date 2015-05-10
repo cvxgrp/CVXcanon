@@ -1,0 +1,3 @@
+[submodule "include/cvxpy"]
+	path = include/cvxpy
+	url = git@github.com:jacklzhu/cvxpy.git
