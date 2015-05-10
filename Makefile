@@ -1,4 +1,4 @@
-CC := g++ # This is the main compiler
+CC := g++-4.9 # This is the main compiler
 # CC := clang --analyze
 SRCDIR := src
 BUILDDIR := build
@@ -7,7 +7,7 @@ TARGET := bin/cvxcanon
 SRCEXT := cpp
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
-CFLAGS := -g -Wall -MMD
+CFLAGS := -g -std=c++11 -Wall -MMD 
 LIB := 
 INC := -I include
 

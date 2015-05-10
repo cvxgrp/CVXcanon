@@ -44,13 +44,13 @@ class LinOp{
 };
 
 
-map<int,Matrix> variable_coeffs(LinOp lin){
+std::map<int,Matrix> variable_coeffs(LinOp lin){
 	//@ TODO FOR JOHN
 	return SPARSE_CONST;
 }
 
 
-map<int,Matrix> const_coeffs(LinOp lin){
+std::map<int,Matrix> const_coeffs(LinOp lin){
 		case SCALAR_CONST:
 			//@ TODO FOR JOHN
 			break;
@@ -62,7 +62,7 @@ map<int,Matrix> const_coeffs(LinOp lin){
 			break;					
 }
 
-Matrix func_coeffs(LinOp lin){
+std::vector<Matrix> func_coeffs(LinOp lin){
 	switch(op){
 		case PROMOTE:
 			//@ TODO FOR JOHN
