@@ -113,8 +113,6 @@ std::vector<Matrix> get_func_coeffs(LinOp& lin){
 			std::cout << "INVALID LINOP!" << std::endl;
 			exit(-1);
 	}
-	// std::vector<Matrix> tmp;
-	// return tmp;
 }
 
 /*******************
