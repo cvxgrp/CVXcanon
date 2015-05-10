@@ -79,13 +79,12 @@ ProblemData build_matrix(std::vector< LinOp* > constraints){
 	int numRows = getTotalConstraintLength(constraints);
 	probData.data.resize(numRows, 1);
 	int vert_offset = 0;
-	int * horiz_offset;
-	*horiz_offset = 0;
+	int horiz_offset  = 0;
 	for(unsigned i = 0; i < constraints.size(); i++){
 		LinOp constr = *constraints[i];
 		process_constraint(constr, probData.V, probData.I, probData.J,
 						   probData.data, vert_offset, 
-						   probData.id_to_col, horiz_offset);
+						   probData.id_to_col, & horiz_offset);
 
 		probData.const_to_row[i] = vert_offset;
 		vert_offset += constr.size[0] * constr.size[1]; 		
