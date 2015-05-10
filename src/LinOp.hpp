@@ -2,6 +2,7 @@
 #include <cassert>
 #include <map>
 #include "Utils.hpp"
+#include <iostream>
 
 enum operatortype {
 	VARIABLE,
@@ -108,11 +109,12 @@ std::vector<Matrix> get_func_coeffs(LinOp& lin){
 			return get_hstack_mat(lin);
 		case VSTACK:
 			return get_vstack_mat(lin);
-		case NO_OP:
-			break;
+		default:
+			std::cout << "INVALID LINOP!" << std::endl;
+			exit(-1);
 	}
-	std::vector<Matrix> tmp;
-	return tmp;
+	// std::vector<Matrix> tmp;
+	// return tmp;
 }
 
 /*******************
@@ -143,8 +145,40 @@ Matrix sparse_ones(int rows, int cols)
 std::vector<Matrix> stack_matrices(LinOp &lin, bool vertical){
 	std::vector<Matrix> coeffs_mats;
 
-	//TODO:: IMPLEMENT ME!
+	// makes a coefficient for each argument,
+	// essentially an identity with an offset.
+	int offset = 0;
+	int num_args = lin.args.size();
+	for(int idx = 0; idx < num_args; idx++){
+		LinOp arg = *lin.args[idx];
 
+		// if we are using vstack, the arguments have columns that are interleaved.
+		// in hstack, the arguments are laid out in order. 
+		int column_offset;
+		int offset_increment;
+		if(vertical){
+			column_offset = lin.size[0];
+			offset_increment = arg.size[0];
+		} else {
+			column_offset = arg.size[0];
+			offset_increment = arg.size[0] * arg.size[1];
+		}
+
+		std::vector<Triplet> tripletList;
+		tripletList.reserve(arg.size[0] * arg.size[1]);
+		for(int i = 0; i < arg.size[0]; i++){
+			for(int j = 0; j < arg.size[1]; j++){
+				int row_idx = i + (j * column_offset) + offset;
+				int col_idx = i + (j * arg.size[0]);
+				tripletList.push_back(Triplet(row_idx, col_idx, 1));
+			}
+		}
+
+		Matrix coeff(lin.size[0] * lin.size[1], arg.size[0] * arg.size[1]);
+		coeff.setFromTriplets(tripletList.begin(), tripletList.end());
+		coeffs_mats.push_back(coeff);
+		offset += offset_increment;
+	}
 	return coeffs_mats;
 } 
 
@@ -165,10 +199,32 @@ std::vector<Matrix> get_hstack_mat(LinOp &lin){
 std::vector<Matrix> get_conv_mat(LinOp &lin){
 	assert(lin.type == CONV);
 
-	//TODO:: IMPLEMENT ME!
+	// it might be better to store this as a vector
+	// I assume that it is a nonzeros x 1 vector in the code
+	Matrix constant = *(Matrix *) lin.data;
 
-	Matrix m = NULL_MATRIX;
-	return build_vector(m);
+	// Convolution is implemented by creating a toeplitz matrix with constant
+	// as columns
+	int rows = lin.size[0];
+	int nonzeros = constant.rows();
+	int cols = lin.args[0]->size[0];
+
+	Matrix toeplitz(rows, cols);
+
+	std::vector<Triplet> tripletList;
+	tripletList.reserve(nonzeros * cols);
+	for(int col = 0; col < cols; col++){
+		int row_start = col;
+		for(int i = 0; i < nonzeros; i++){
+			int row_idx = row_start + i;
+
+			// change this depending representation
+			double val = constant.coeffRef(i, 1);
+			tripletList.push_back(Triplet(row_idx, col, val));
+		}
+	}
+	toeplitz.setFromTriplets(tripletList.begin(), tripletList.end());
+	return build_vector(toeplitz);
 }
 
 std::vector<Matrix> get_upper_tri_mat(LinOp &lin){
@@ -311,16 +367,32 @@ std::vector<Matrix> get_mul_elemwise_mat(LinOp &lin){
 
 std::vector<Matrix> get_rmul_mat(LinOp &lin){
 	assert(lin.type == RMUL);
-
 	Matrix constant = *(Matrix *) lin.data;
-	
-	Matrix ident = sparse_eye(lin.size[0]);
 
-	// Matrix coeffs = Eigen::KroneckerProductSparse(constant.transpose(), ident);
+	int rows = constant.rows();
+	int cols = constant.cols();
+	int n = lin.size[0];
 
-	// TODO! (Figure out how to use this function to avoid more nasty for-loops.)
+	// coeffs is the kronecker product between the transpose of the constant
+	// and a lin.size[0] identity matrix
+	Matrix coeffs(cols * n, rows * n);
+	std::vector<Triplet> tripletList;
+	tripletList.reserve(rows * cols * n);
+	for(int row = 0; row < rows; row++){
+		for(int col = 0; col < cols; col++){
+			double val = constant.coeffRef(row, col);
 
-	return build_vector(ident);
+			int row_start = col * n; 
+			int col_start = row * n;
+			for(int i = 0; i < n; i++){
+				int row_idx = row_start + i;
+				int col_idx = col_start + i;
+				tripletList.push_back(Triplet(row_idx, col_idx, val));
+			}
+		}
+	}
+	coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
+	return build_vector(coeffs);
 }
 
 
