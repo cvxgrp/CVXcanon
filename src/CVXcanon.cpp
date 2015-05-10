@@ -17,13 +17,13 @@ std::map<int, Matrix> mul_by_const(Matrix & coeff_mat, std::map<int, Matrix> & r
 std::map<int, Matrix> get_coefficient(LinOp &lin){
 	std::map<int, Matrix> coeffs;
 	if(lin.type == VARIABLE){
-		coeffs = variable_coeffs(lin);
+		coeffs = get_variable_coeffs(lin);
 	}
 	else if( lin.hasConstantType()){
-		coeffs = const_coeffs(lin);
+		coeffs = get_const_coeffs(lin);
 	}
 	else{
-		std::vector<Matrix> coeff_mat = func_coeffs(lin);
+		std::vector<Matrix> coeff_mat = get_func_coeffs(lin);
 		for(unsigned i = 0; i < lin.args.size(); i++){
 			Matrix coeff = coeff_mat[i];
 			std::map<int, Matrix> rh_coeffs = get_coefficient(*lin.args[i]);
