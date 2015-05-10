@@ -8,3 +8,4 @@
 typedef Eigen::Matrix<int, Eigen::Dynamic, 1> Vector;
 typedef Eigen::SparseMatrix<double> Matrix;
 typedef std::map<int, Matrix> CoeffMap;
+typedef Eigen::Triplet<double> Triplet;
