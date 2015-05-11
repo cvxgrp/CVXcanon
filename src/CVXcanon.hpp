@@ -1,9 +1,14 @@
+#ifndef CVXCANON_H
+#define CVXCANON_H
+
 #include <vector>
 #include "LinOp.hpp"
 #include "Utils.hpp"
-#include "CVXcanon.cpp"
+#include "ProblemData.hpp"
+
+int sum(int a);
 
 // Top Level Entry point
-Matrix build_matrix(std::vector< LinOp* > constraints);
+ProblemData build_matrix(std::vector< LinOp* > constraints);
 
-
+#endif

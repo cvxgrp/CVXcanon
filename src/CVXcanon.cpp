@@ -1,8 +1,9 @@
+#include "CVXcanon.hpp"
+
 #include <iostream>
 #include <map>
 #include "LinOp.hpp"
 #include "ProblemData.hpp"
-
 
 std::map<int, Matrix> mul_by_const(Matrix & coeff_mat, std::map<int, Matrix> & rh_coeffs){
 	std::map<int, Matrix> result;
@@ -93,7 +94,7 @@ ProblemData build_matrix(std::vector< LinOp* > constraints){
 }
 
 
-int main()
-{
-  std::cout << "Hello World!\n";
-}
+// int main()
+// {
+//   std::cout << "Hello World!\n";
+// }
