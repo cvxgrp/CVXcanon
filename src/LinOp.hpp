@@ -42,7 +42,7 @@ class LinOp{
 		void* data;
 		int size[2];
 		std::vector< LinOp* > args;
-		
+		~LinOp() {};
 		bool hasConstantType(){
 			return  type == SCALAR_CONST || 
 			type == DENSE_CONST || type == SPARSE_CONST;
