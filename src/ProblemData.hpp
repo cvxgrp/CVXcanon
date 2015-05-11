@@ -4,10 +4,10 @@
 
 class ProblemData{	
 	public:
-		std::vector<Matrix> V;
+		std::vector<double> V;
 		std::vector<int> I; 
 		std::vector<int> J;
-		Vector data;
+		std::vector<double> data;
 		std::map<int, int> id_to_col;
 		std::map<int, int> const_to_row;
 		~ProblemData(){ };

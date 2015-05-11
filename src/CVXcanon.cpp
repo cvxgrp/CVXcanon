@@ -43,7 +43,19 @@ int get_horiz_offset(int id, std::map<int, int> & offsets, int * horiz_offset, L
 	return offsets[id];
 }
 
-void process_constraint(LinOp & lin, std::vector<Matrix> V,
+
+void add_matrix_to_vectors(Matrix & block, std::vector<double> & V, std::vector<int>  &I,
+					 	std::vector<int> & J, int vert_offset, int horiz_offset){
+	for ( int k=0; k < block.outerSize(); ++k ){
+  		for ( Matrix::InnerIterator it(block,k); it; ++it ){
+		    V.push_back(it.value());
+		    I.push_back(it.row() + vert_offset);   // row index
+		    J.push_back(it.col() + horiz_offset);   // col index (here it is equal to k)
+  		}
+  	}
+}
+
+void process_constraint(LinOp & lin, std::vector<double> V,
 					    std::vector<int> I, std::vector<int> J,
 						Vector constant_vec, int vert_offset, 
 						std::map<int, int> id_to_col, int * horiz_offset){
@@ -58,9 +70,7 @@ void process_constraint(LinOp & lin, std::vector<Matrix> V,
 		}
 		else {
 			int offset = get_horiz_offset(id, id_to_col, horiz_offset, lin);
-			V.push_back(block);
-			I.push_back(vert_start + block.rows()); 	// Copying this from Steven Diamond's code, but doesn't seem right...
-			J.push_back(offset + block.cols());
+			add_matrix_to_vectors(block, V, I, J, offset, vert_offset);
 		}
 	}
 }
@@ -74,21 +84,29 @@ int getTotalConstraintLength(std::vector< LinOp* > constraints){
 	return result;
 }
 
+void add_problem_data(Vector constant_vec, std::vector<double> & problem_data){
+	for(unsigned i = 0; i < constant_vec.rows(); i++){
+		problem_data.push_back(constant_vec[i]);
+	}
+}
+
 ProblemData build_matrix(std::vector< LinOp* > constraints){
 	ProblemData probData;
 	int numRows = getTotalConstraintLength(constraints);
 	probData.data.resize(numRows, 1);
 	int vert_offset = 0;
 	int horiz_offset  = 0;
+	Vector data;
 	for(unsigned i = 0; i < constraints.size(); i++){
 		LinOp constr = *constraints[i];
 		process_constraint(constr, probData.V, probData.I, probData.J,
-						   probData.data, vert_offset, 
+						   data, vert_offset, 
 						   probData.id_to_col, & horiz_offset);
 
 		probData.const_to_row[i] = vert_offset;
 		vert_offset += constr.size[0] * constr.size[1]; 		
 	}
+	add_problem_data(data, probData.data);
 	return probData;
 }
 
