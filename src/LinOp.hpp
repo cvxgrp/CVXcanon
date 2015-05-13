@@ -2,10 +2,6 @@
 #define LINOP_H
 
 #include <vector>
-#include <cassert>
-#include <map>
-#include "Utils.hpp"
-#include <iostream>
 
 enum operatortype {
 	VARIABLE,
@@ -39,10 +35,10 @@ typedef operatortype OperatorType;
 class LinOp{	
 	public:
 		OperatorType type;
-		void* data;
-		int size[2];
+		std::vector< std::vector<double> > data;
+		std::vector< int > size;
 		std::vector< LinOp* > args;
-		~LinOp() {};
+		
 		bool hasConstantType(){
 			return  type == SCALAR_CONST || 
 			type == DENSE_CONST || type == SPARSE_CONST;

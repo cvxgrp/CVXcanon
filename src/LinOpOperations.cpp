@@ -1,12 +1,16 @@
 #include "LinOp.hpp"
+#include "LinOpOperations.hpp"
+#include "Utils.hpp"
+#include <cassert>
+#include <map>
+#include <iostream>
 
 /***********************
  * FUNCTION PROTOTYPES *
  ***********************/
+
 std::vector<Matrix> build_vector(Matrix &mat);
 std::vector<Matrix> get_sum_coefficients(LinOp &lin);
-std::map<int,Matrix> get_variable_coeffs(LinOp &lin);
-std::map<int,Matrix> get_const_coeffs(LinOp &lin);
 std::vector<Matrix> get_sum_entries_mat(LinOp &lin);
 std::vector<Matrix> get_trace_mat(LinOp &lin);
 std::vector<Matrix> get_neg_mat(LinOp &lin);
