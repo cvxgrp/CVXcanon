@@ -3,6 +3,7 @@
 #include <iostream>
 #include <map>
 #include "LinOp.hpp"
+#include "LinOpOperations.hpp"
 #include "ProblemData.hpp"
 
 std::map<int, Matrix> mul_by_const(Matrix & coeff_mat, std::map<int, Matrix> & rh_coeffs){
@@ -110,9 +111,3 @@ ProblemData build_matrix(std::vector< LinOp* > constraints){
 	add_problem_data(data, probData.data);
 	return probData;
 }
-
-
-// int main()
-// {
-//   std::cout << "Hello World!\n";
-// }
