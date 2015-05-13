@@ -7,16 +7,15 @@
 
 %include "std_vector.i"
 %include "std_map.i"
-%include "../ProblemData.hpp"
-%include "../LinOp.hpp"
+%include "ProblemData.hpp"
+%include "LinOp.hpp"
 
 namespace std {
    %template(IntVector) vector<int>;
    %template(DoubleVector) vector<double>;
-   %template(DoubleVector2D) vector<vector<double>>;
+   %template(DoubleVector2D) vector< vector<double> >;
    %template(IntIntMap) map<int, int>;
    %template(LinOpVector) vector< LinOp* >;
 }
 
-ProblemData build_matrix(int a);
-void print_type(LinOp op);
+ProblemData build_matrix(std::vector< LinOp* > constraints);
