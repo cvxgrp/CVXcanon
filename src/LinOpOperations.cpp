@@ -313,13 +313,12 @@ std::vector<Matrix> get_transpose_mat(LinOp &lin){
 
 std::vector<Matrix> get_index_mat(LinOp &lin){
 	assert(lin.type == INDEX);
-	int rows = lin.args[0]->size[0];
-	int cols = lin.args[0]->size[1];
-
 	std::vector<std::vector<int> > slices = get_slice_data(lin);
 	std::vector<int> row_slice = slices[0];
 	std::vector<int> col_slice = slices[1];
-
+	int rows = lin.args[0]->size[0];
+	int cols = lin.args[0]->size[1];
+	
 	std::vector<Triplet> tripletList;
 	// could reserve less if slice[2] > 1...
 	tripletList.reserve((row_slice[1] - row_slice[0]) * (col_slice[1] - col_slice[0]));
@@ -340,7 +339,6 @@ std::vector<Matrix> get_index_mat(LinOp &lin){
 
 std::vector<Matrix> get_mul_elemwise_mat(LinOp &lin){
 	assert(lin.type == MUL_ELEM);
-
 	Matrix constant = get_constant_data(lin);
 	int rows = constant.rows();
 	int cols = constant.cols();
@@ -366,7 +364,6 @@ std::vector<Matrix> get_mul_elemwise_mat(LinOp &lin){
 std::vector<Matrix> get_rmul_mat(LinOp &lin){
 	assert(lin.type == RMUL);
 	Matrix constant = get_constant_data(lin);
-
 	int rows = constant.rows();
 	int cols = constant.cols();
 	int n = lin.size[0];
@@ -398,6 +395,7 @@ std::vector<Matrix> get_mul_mat(LinOp &lin){
 	assert(lin.type == MUL);
 	// assumes lin.data points to a sparse eigen matrix.
 	Matrix block = get_constant_data(lin);
+
 	int block_rows = block.rows();
 	int block_cols = block.cols();
 	int num_blocks = lin.size[1];
@@ -443,7 +441,6 @@ std::vector<Matrix> get_reshape_mat(LinOp &lin){
 
 std::vector<Matrix> get_div_mat(LinOp &lin){
 	assert(lin.type == DIV);
-	// assume we are dividing by a scalar
 	double divisor = get_divisor_data(lin);
 	int n = lin.size[0] * lin.size[1];
 	Matrix coeffs = sparse_eye(n);
