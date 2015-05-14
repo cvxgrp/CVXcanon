@@ -1,7 +1,19 @@
-# Given a lin-op tree linPy
-# Returns a C lin-op tree object
 import CVXcanonPy
 from  cvxpy.lin_ops.lin_op import *
+from build_lin_op_tree import *
+
+
+def get_sparse_matrix(linOps):
+	args = CVXcanonPy.LinOpVector()
+	for lin in linOps:
+		args.push_back( build_lin_op_tree(lin) )
+	problemData = CVXcanonPy.build_matrix(args)
+	for i in range(problemData.V.size()):
+		V.append(problemData.V[i])
+		I.append(problemData.I[i])
+		J.append(problemData.J[i])
+		b.append(problemData.data[i])
+	return (V, I, J, b)
 
 def build_lin_op_tree(linPy):
 	linC = CVXcanonPy.LinOp()
