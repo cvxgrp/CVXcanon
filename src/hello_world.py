@@ -15,4 +15,3 @@ for n, obj in enumerate(objectives):
 	print "Solution to objective " + str(n)
 	print x.value
 	print obj.value
-	print
