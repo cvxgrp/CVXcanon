@@ -29,7 +29,9 @@ std::vector<Matrix> get_conv_mat(LinOp &lin);
 std::vector<Matrix> get_hstack_mat(LinOp &lin);
 std::vector<Matrix> get_vstack_mat(LinOp &lin);
 
+
 std::vector<Matrix> get_func_coeffs(LinOp& lin){
+	printf("LinOp switch statement.\n");
 	switch(lin.type){
 		case PROMOTE:
 			return get_promote_mat(lin);

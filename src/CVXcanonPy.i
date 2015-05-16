@@ -15,7 +15,7 @@ namespace std {
    %template(DoubleVector) vector<double>;
    %template(DoubleVector2D) vector< vector<double> >;
    %template(IntIntMap) map<int, int>;
-   %template(LinOpVector) vector< LinOp* >;
+   %template(LinOpVector) vector< LinOp * >;
 }
 
 ProblemData build_matrix(std::vector< LinOp* > constraints);
