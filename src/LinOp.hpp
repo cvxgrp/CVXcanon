@@ -44,6 +44,4 @@ class LinOp{
 			type == DENSE_CONST || type == SPARSE_CONST;
 		}
 };
-
-
 #endif

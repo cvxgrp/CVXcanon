@@ -57,8 +57,8 @@ void add_matrix_to_vectors(Matrix & block, std::vector<double> & V, std::vector<
   	}
 }
 
-void process_constraint(LinOp & lin, std::vector<double> V,
-					    std::vector<int> I, std::vector<int> J,
+void process_constraint(LinOp & lin, std::vector<double> &V,
+					    std::vector<int> &I, std::vector<int> &J,
 						Vector constant_vec, int vert_offset, 
 						std::map<int, int> id_to_col, int * horiz_offset){
 	
@@ -77,14 +77,10 @@ void process_constraint(LinOp & lin, std::vector<double> V,
 	}
 }
 
-
-
 int getTotalConstraintLength(std::vector< LinOp* > constraints){
 	int result = 0;
 	for(unsigned i = 0; i < constraints.size(); i++){
-		printf("About to get constraint length\n");
 		result += constraints[i]->size[0]*constraints[i]->size[1];
-		printf("Got constraint length\n");
 	}
 	return result;
 }
@@ -96,7 +92,6 @@ void add_problem_data(Vector constant_vec, std::vector<double> & problem_data){
 }
 
 ProblemData build_matrix(std::vector< LinOp* > constraints){
-	printf("In our C++ code.\n");
 	ProblemData probData;
 	int numRows = getTotalConstraintLength(constraints);
 	probData.data.resize(numRows, 1);
@@ -104,9 +99,7 @@ ProblemData build_matrix(std::vector< LinOp* > constraints){
 	int horiz_offset  = 0;
 	Vector data;
 	for(unsigned i = 0; i < constraints.size(); i++){
-		printf("About to dereference a linop pointer.\n");
 		LinOp constr = *constraints[i];
-		printf("Successfully dereferenced linop pointer.\n");
 		process_constraint(constr, probData.V, probData.I, probData.J,
 						   data, vert_offset, 
 						   probData.id_to_col, & horiz_offset);
@@ -116,8 +109,4 @@ ProblemData build_matrix(std::vector< LinOp* > constraints){
 	}
 	add_problem_data(data, probData.data);
 	return probData;
-}
-
-LinOp * get_ReferenceMan(LinOp &lin){
-	return &lin;
 }
