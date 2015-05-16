@@ -19,3 +19,4 @@ namespace std {
 }
 
 ProblemData build_matrix(std::vector< LinOp* > constraints);
+LinOp* get_ReferenceMan(LinOp &lin); 

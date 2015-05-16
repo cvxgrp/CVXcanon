@@ -6,9 +6,8 @@
 #include "Utils.hpp"
 #include "ProblemData.hpp"
 
-int sum(int a);
-
 // Top Level Entry point
 ProblemData build_matrix(std::vector< LinOp* > constraints);
+LinOp * get_ReferenceMan(LinOp &lin);
 
 #endif

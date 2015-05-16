@@ -7,10 +7,11 @@ def get_sparse_matrix(constrs):
 	linOps = [constr.expr for constr in constrs]
 	args = CVXcanonPy.LinOpVector()
 	for lin in linOps:
-		args.push_back( build_lin_op_tree(lin) )
+		args.push_back(build_lin_op_tree(lin))
 	print "Calling main code"
 	problemData = CVXcanonPy.build_matrix(args)
 	print "Done calling main code"
+
 	for i in range(problemData.V.size()):
 		V.append(problemData.V[i])
 		I.append(problemData.I[i])
@@ -50,10 +51,12 @@ def build_lin_op_tree(linPy):
 			for entry in row:
 				vec.push_back(entry)
 			linC.data.push_back(vec)
-			
+
 	# Setting size
 	linC.size.push_back( linPy.size[0] )
 	linC.size.push_back( linPy.size[1] )
 	# Updating the arguments
 	for argPy in linPy.args:
 		linC.args.push_back(build_lin_op_tree(argPy))
+
+	return linC

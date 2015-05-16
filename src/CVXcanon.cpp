@@ -117,3 +117,7 @@ ProblemData build_matrix(std::vector< LinOp* > constraints){
 	add_problem_data(data, probData.data);
 	return probData;
 }
+
+LinOp * get_ReferenceMan(LinOp &lin){
+	return &lin;
+}
