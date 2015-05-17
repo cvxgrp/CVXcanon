@@ -365,7 +365,7 @@ std::vector<Matrix> get_index_mat(LinOp &lin){
 	std::vector<Triplet> tripletList;
 	// could reserve less if slice[2] > 1...
 	tripletList.reserve((row_slice[1] - row_slice[0]) * (col_slice[1] - col_slice[0]));
-	int counter = 1;
+	int counter = 0;
 	for(int row = row_slice[0]; row < row_slice[1]; row += row_slice[2]){
 		for(int col = col_slice[0]; col < col_slice[1]; col += col_slice[2]){
 			int row_idx = counter;
