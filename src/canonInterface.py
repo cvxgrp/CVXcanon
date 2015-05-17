@@ -2,33 +2,42 @@ import CVXcanonPy
 import numpy as np
 
 def get_sparse_matrix(constrs):
+	print constrs
 	linOps = [constr.expr for constr in constrs]
 	args = CVXcanonPy.LinOpVector()
+
+	# make sure things stay in scope..
+	tmp = []
 	for lin in linOps:
-		tree = build_lin_op_tree(lin)
+		tree = build_lin_op_tree(lin, tmp)
+		tmp.append(tree)
 		args.push_back(tree)
 
 	print "Calling C++ code"
 	problemData = CVXcanonPy.build_matrix(args)
+	print "Returned from C++ code"
 
 	V, I, J, b = ([], [], [], [])
 	for i in range(problemData.V.size()):
 		V.append(problemData.V[i])
 		I.append(problemData.I[i])
 		J.append(problemData.J[i])
+
+	for i in range(problemData.data.size()):
 		b.append(problemData.data[i])
 
-	return (V, I, J, np.array(b))
+	print V, I, J, b
+	return (V, I, J, np.array(b).reshape(-1, 1))
 
-def build_lin_op_tree(linPy):
+def build_lin_op_tree(linPy, tmp):
 	linC = CVXcanonPy.LinOp()
 	# Setting the type of our lin op
-	linC.type =  eval("CVXcanonPy." + linPy.type.upper()) 
+	linC.type = eval("CVXcanonPy." + linPy.type.upper())
 	# Loading the data into our array
 	if linPy.data is None:
 		pass
 	elif isinstance(linPy.data, tuple)\
-	and isinstance(linPy.data[0], slice): # Tuple of slices 
+	and isinstance(linPy.data[0], slice): # Tuple of slices
 		for sl in linPy.data:
 			vec = CVXcanonPy.DoubleVector()
 			vec.push_back(sl.start)
@@ -59,6 +68,8 @@ def build_lin_op_tree(linPy):
 
 	# Updating the arguments
 	for argPy in linPy.args:
-		linC.args.push_back(build_lin_op_tree(argPy))
+		tree = build_lin_op_tree(argPy, tmp)
+		tmp.append(tree)
+		linC.args.push_back(tree)
 
 	return linC
