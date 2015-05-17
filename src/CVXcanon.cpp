@@ -57,18 +57,26 @@ void add_matrix_to_vectors(Matrix & block, std::vector<double> & V, std::vector<
   }
 }
 
+void extend_constant_vec(std::vector<double> &const_vec, Matrix &block){
+	for ( int k=0; k < block.outerSize(); ++k ){
+		for ( Matrix::InnerIterator it(block,k); it; ++it ){
+	    const_vec.push_back(it.value());
+		}
+  }
+}
+
 void process_constraint(LinOp & lin, std::vector<double> &V,
 					    std::vector<int> &I, std::vector<int> &J,
-						Vector constant_vec, int vert_offset, 
-						std::map<int, int> id_to_col, int & horiz_offset){
+						std::vector<double> &constant_vec, int vert_offset, 
+						std::map<int, int> &id_to_col, int & horiz_offset){
 	
 	std::map<int, Matrix> coeffs = get_coefficient(lin);
 	for(auto & kv : coeffs){
 		int id = kv.first;
 		Matrix block = coeffs[id];
 		int vert_start = vert_offset;
-		if ( lin.hasConstantType() ){
-			constant_vec.middleRows(vert_start, block.rows() * block.cols()) = block; 			// Double check this is always a column vec 
+		if ( id == CONSTANT_ID ){
+			 	extend_constant_vec(constant_vec, block);
 		}
 		else {
 			int offset = get_horiz_offset(id, id_to_col, horiz_offset, lin);
@@ -85,28 +93,20 @@ int getTotalConstraintLength(std::vector< LinOp* > constraints){
 	return result;
 }
 
-void add_problem_data(Vector constant_vec, std::vector<double> & problem_data){
-	for(unsigned i = 0; i < constant_vec.rows(); i++){
-		problem_data.push_back(constant_vec[i]);
-	}
-}
-
 ProblemData build_matrix(std::vector< LinOp* > constraints){
 	ProblemData probData;
 	int numRows = getTotalConstraintLength(constraints);
-	probData.data.resize(numRows, 1);
+	probData.data.reserve(numRows);
 	int vert_offset = 0;
 	int horiz_offset  = 0;
-	Vector data;
 	for(unsigned i = 0; i < constraints.size(); i++){
 		LinOp constr = *constraints[i];
 		process_constraint(constr, probData.V, probData.I, probData.J,
-						   data, vert_offset, 
+						   probData.data, vert_offset, 
 						   probData.id_to_col, horiz_offset);
 
 		probData.const_to_row[i] = vert_offset;
 		vert_offset += constr.size[0] * constr.size[1]; 		
 	}
-	add_problem_data(data, probData.data);
 	return probData;
 }

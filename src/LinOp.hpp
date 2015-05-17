@@ -27,7 +27,7 @@ enum operatortype {
 	DENSE_CONST,
 	SPARSE_CONST,
 	NO_OP,
-	CONSTANT_ID
+	CONSTANT_ID // change this to be a -1 to avoid colliding with variable id
 };
 
 typedef operatortype OperatorType;
