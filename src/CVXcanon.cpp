@@ -37,30 +37,30 @@ std::map<int, Matrix> get_coefficient(LinOp &lin){
 }
 
 
-int get_horiz_offset(int id, std::map<int, int> & offsets, int * horiz_offset, LinOp & lin){
+int get_horiz_offset(int id, std::map<int, int> & offsets, int & horiz_offset, LinOp & lin){
 	if( !offsets.count(id) ){
-		offsets[id] = *horiz_offset;
-		* horiz_offset += lin.size[0] * lin.size[1];
+		offsets[id] = horiz_offset;
+		horiz_offset += lin.size[0] * lin.size[1];
 	}
 	return offsets[id];
 }
 
 
 void add_matrix_to_vectors(Matrix & block, std::vector<double> & V, std::vector<int>  &I,
-					 	std::vector<int> & J, int vert_offset, int horiz_offset){
+					 	std::vector<int> & J, int vert_offset, int & horiz_offset){
 	for ( int k=0; k < block.outerSize(); ++k ){
-  		for ( Matrix::InnerIterator it(block,k); it; ++it ){
-		    V.push_back(it.value());
-		    I.push_back(it.row() + vert_offset);   // row index
-		    J.push_back(it.col() + horiz_offset);   // col index (here it is equal to k)
-  		}
-  	}
+		for ( Matrix::InnerIterator it(block,k); it; ++it ){
+	    V.push_back(it.value());
+	    I.push_back(it.row() + vert_offset);   // row index
+	    J.push_back(it.col() + horiz_offset);   // col index (here it is equal to k)
+		}
+  }
 }
 
 void process_constraint(LinOp & lin, std::vector<double> &V,
 					    std::vector<int> &I, std::vector<int> &J,
 						Vector constant_vec, int vert_offset, 
-						std::map<int, int> id_to_col, int * horiz_offset){
+						std::map<int, int> id_to_col, int & horiz_offset){
 	
 	std::map<int, Matrix> coeffs = get_coefficient(lin);
 	for(auto & kv : coeffs){
@@ -68,11 +68,11 @@ void process_constraint(LinOp & lin, std::vector<double> &V,
 		Matrix block = coeffs[id];
 		int vert_start = vert_offset;
 		if ( lin.hasConstantType() ){
-			constant_vec.middleRows(vert_start, block.rows() * block.cols()) = block; 			// Double check this part 
+			constant_vec.middleRows(vert_start, block.rows() * block.cols()) = block; 			// Double check this is always a column vec 
 		}
 		else {
 			int offset = get_horiz_offset(id, id_to_col, horiz_offset, lin);
-			add_matrix_to_vectors(block, V, I, J, offset, vert_offset);
+			add_matrix_to_vectors(block, V, I, J, vert_offset, offset);
 		}
 	}
 }
@@ -102,7 +102,7 @@ ProblemData build_matrix(std::vector< LinOp* > constraints){
 		LinOp constr = *constraints[i];
 		process_constraint(constr, probData.V, probData.I, probData.J,
 						   data, vert_offset, 
-						   probData.id_to_col, & horiz_offset);
+						   probData.id_to_col, horiz_offset);
 
 		probData.const_to_row[i] = vert_offset;
 		vert_offset += constr.size[0] * constr.size[1]; 		
