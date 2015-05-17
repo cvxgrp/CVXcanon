@@ -32,47 +32,69 @@ std::vector<Matrix> get_vstack_mat(LinOp &lin);
 
 std::vector<Matrix> get_func_coeffs(LinOp& lin){
 	printf("LinOp switch statement.\n");
+	printf("Type: %d\n", lin.type);
+	std::vector<Matrix> coeffs;
 	switch(lin.type){
 		case PROMOTE:
-			return get_promote_mat(lin);
+			coeffs = get_promote_mat(lin);
+			break;
 		case MUL:
-			return get_mul_mat(lin);
+			coeffs = get_mul_mat(lin);
+			break;
 		case RMUL:
-			return get_rmul_mat(lin);
+			coeffs = get_rmul_mat(lin);
+			break;
 		case MUL_ELEM:
-			return get_mul_elemwise_mat(lin);
+			coeffs = get_mul_elemwise_mat(lin);
+			break;
 		case DIV:
-			return get_div_mat(lin);
+			coeffs = get_div_mat(lin);
+			break;
 		case SUM:
-			return get_sum_coefficients(lin);
+			coeffs = get_sum_coefficients(lin);
+			break;
 		case NEG:
-			return get_neg_mat(lin);
+			coeffs = get_neg_mat(lin);
+			break;
 		case INDEX:
-			return get_index_mat(lin);
+			coeffs = get_index_mat(lin);
+			break;
 		case TRANSPOSE:
-			return get_transpose_mat(lin);
+			coeffs = get_transpose_mat(lin);
+			break;
 		case SUM_ENTRIES:
-			return get_sum_entries_mat(lin);
+			coeffs = get_sum_entries_mat(lin);
+			break;
 		case TRACE:
-			return get_trace_mat(lin);
+			coeffs = get_trace_mat(lin);
+			break;
 		case RESHAPE:
-			return get_reshape_mat(lin);
+			coeffs = get_reshape_mat(lin);
+			break;
 		case DIAG_VEC:
-			return get_diag_vec_mat(lin);
+			coeffs = get_diag_vec_mat(lin);
+			break;
 		case DIAG_MAT:
-			return get_diag_matrix_mat(lin);
+			coeffs = get_diag_matrix_mat(lin);
+			break;
 		case UPPER_TRI:
-			return get_upper_tri_mat(lin);
+			coeffs = get_upper_tri_mat(lin);
+			break;
 		case CONV:
-			return get_conv_mat(lin);
+			coeffs = get_conv_mat(lin);
+			break;
 		case HSTACK:
-			return get_hstack_mat(lin);
+			coeffs = get_hstack_mat(lin);
+			break;
 		case VSTACK:
-			return get_vstack_mat(lin);
+			coeffs = get_vstack_mat(lin);
+			break;
 		default:
 			std::cout << "INVALID LINOP!" << std::endl;
 			exit(-1);
 	}
+	printf("Returning from LinOp Switch\n");
+	return coeffs;
 }
 
 /*******************
@@ -140,6 +162,22 @@ std::vector<Matrix> stack_matrices(LinOp &lin, bool vertical){
 	return coeffs_mats;
 } 
 
+Matrix get_constant_data_as_column(LinOp &lin){
+	int rows = lin.data.size();
+	int cols = lin.data[0].size();
+	Matrix coeffs (rows * cols, 1);
+
+	std::vector<Triplet> tripletList;
+	tripletList.reserve(rows * cols);
+	for(int i = 0; i < rows; i++){
+		for(int j = 0; j < cols; j++){
+			tripletList.push_back(Triplet(cols * i +  j, 0, lin.data[i][j]));
+		}
+	}
+	coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
+	return coeffs;
+}
+
 // TODO: profile and see if it would be more efficient to not treat
 // everything as a sparse matrix.
 Matrix get_constant_data(LinOp &lin){
@@ -147,11 +185,14 @@ Matrix get_constant_data(LinOp &lin){
 	int cols = lin.data[0].size();
 	Matrix coeffs (rows, cols);
 
+	std::vector<Triplet> tripletList;
+	tripletList.reserve(rows * cols);
 	for(int i = 0; i < rows; i++){
 		for(int j = 0; j < cols; j++){
-			coeffs.insert(i, j) = lin.data[i][j];
+			tripletList.push_back(Triplet(i, j, lin.data[i][j]));
 		}
 	}
+	coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
 	return coeffs;
 }
 
@@ -219,7 +260,7 @@ std::vector<Matrix> get_conv_mat(LinOp &lin){
 			int row_idx = row_start + i;
 
 			// change this depending representation
-			double val = constant.coeffRef(i, 1);
+			double val = constant.coeffRef(i, 0);
 			tripletList.push_back(Triplet(row_idx, col, val));
 		}
 	}
@@ -341,24 +382,20 @@ std::vector<Matrix> get_index_mat(LinOp &lin){
 
 std::vector<Matrix> get_mul_elemwise_mat(LinOp &lin){
 	assert(lin.type == MUL_ELEM);
-	Matrix constant = get_constant_data(lin);
-	int rows = constant.rows();
-	int cols = constant.cols();
-
-	// turn constant into a column vector
-	constant.conservativeResize(rows * cols, 1);
+	Matrix constant = get_constant_data_as_column(lin);
+	int n = constant.rows();
 
 	// build a giant diagonal matrix
 	std::vector<Triplet> tripletList;
-	tripletList.reserve(rows * cols);
-	for(int i = 0; i < rows * cols; i++){
+	tripletList.reserve(n);
+	for(int i = 0; i < n; i++){
 		// TODO: coeffref is slow due to nature of sparse matrix elem access.
 		// speed this up by iterating over elements of sparse matrix first,
 		// or storing the point to a dense matrix instead of a sparse one.
-		tripletList.push_back(Triplet(i, i, constant.coeffRef(i, 1)));
+		tripletList.push_back(Triplet(i, i, constant.coeffRef(i, 0)));
 	}
 
-	Matrix coeffs(rows * cols, rows * cols);
+	Matrix coeffs(n, n);
 	coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
 	return build_vector(coeffs);
 }
@@ -457,6 +494,8 @@ std::vector<Matrix> get_div_mat(LinOp &lin){
 std::vector<Matrix> get_neg_mat(LinOp &lin){
 	assert(lin.type == NEG);
  	int n = lin.size[0] * lin.size[1];
+
+ 	// std::cout << "Size of neg mat " << n << std::endl;
 	Matrix coeffs = sparse_eye(n);
 	coeffs *= -1;
 	return build_vector(coeffs);
@@ -505,6 +544,8 @@ std::vector<Matrix> get_sum_coefficients(LinOp &lin){
 	std::vector<Matrix> coeffs;
 	Matrix scalar(1,1);
 	scalar.insert(0,0) = 1;
+
+	// printf("In SUM: Size is %d\n", n);
 	for(int i = 0; i < n; i++){
 		coeffs.push_back(scalar);
 	}
@@ -542,10 +583,9 @@ std::map<int,Matrix> get_const_coeffs(LinOp &lin){
 	assert(lin.hasConstantType());
 	std::map<int, Matrix> id_to_coeffs;
 	int id = CONSTANT_ID;
-	Matrix coeffs = get_constant_data(lin);
 
-	// reshape coeffs into a column vector
-	coeffs.conservativeResize(coeffs.rows()*coeffs.cols(), 1);
+	// get coeffs as a column vector
+	Matrix coeffs = get_constant_data_as_column(lin);
 
  	id_to_coeffs[id] = coeffs;
 	return id_to_coeffs;
