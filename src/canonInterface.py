@@ -1,5 +1,6 @@
 import CVXcanonPy
 import numpy as np
+from  cvxpy.lin_ops.lin_op import *
 
 def get_sparse_matrix(constrs):
 	print constrs
@@ -51,7 +52,7 @@ def build_lin_op_tree(linPy, tmp):
 		vec = CVXcanonPy.DoubleVector()
 		vec.push_back(linPy.data)
 		linC.data.push_back(vec)
-	elif isinstance(linPy.data, LinOp):
+	elif isinstance(linPy.data, lo.LinOp):
 		vec = CVXcanonPy.DoubleVector()
 		vec.push_back(linPy.data.data)
 		linC.data.push_back(vec)
