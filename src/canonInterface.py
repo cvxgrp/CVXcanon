@@ -52,7 +52,7 @@ def build_lin_op_tree(linPy, tmp):
 		vec = CVXcanonPy.DoubleVector()
 		vec.push_back(linPy.data)
 		linC.data.push_back(vec)
-	elif isinstance(linPy.data, lo.LinOp):
+	elif isinstance(linPy.data, LinOp):
 		vec = CVXcanonPy.DoubleVector()
 		vec.push_back(linPy.data.data)
 		linC.data.push_back(vec)
