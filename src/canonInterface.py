@@ -61,13 +61,16 @@ def build_lin_op_tree(linPy, tmp):
 		linC.data.push_back(vec)
 	elif isinstance(linPy.data, LinOp):
 		vec = CVXcanonPy.DoubleVector()
+
+		# wrongly assume that linPy.data is another linOp of type scalar_const.
+		# but sometimes it is of type sparse_const.
 		vec.push_back(linPy.data.data)
 		linC.data.push_back(vec)
 	else:
 		for row in linPy.data:
 			vec = CVXcanonPy.DoubleVector()
 			for entry in row:
-				vec.push_back(entry)
+				vec.push_back(float(entry))
 			linC.data.push_back(vec)
 
 	# Setting size
