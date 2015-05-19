@@ -1,7 +1,15 @@
 from cvxpy import *
-import numpy
+import numpy as np
 
 x = Variable(2)
+x = Variable(2)
+y = Variable(2)
+print Problem(Minimize(0), [x + y <= [1, 0]]).solve()
+
+'''
+x = Variable(2)
+
+
 constraints = [ 2 * x[0] + x[1] >= 1, x[0] + 3 * x[1] >= 1, \
 x[0] >= 0, x[1] >= 0 ]
 
@@ -13,4 +21,4 @@ for n, obj in enumerate(objectives):
 	prob.solve()
 	print "Solution to objective " + str(n)
 	print x.value
-	print obj.value
+	print obj.value '''

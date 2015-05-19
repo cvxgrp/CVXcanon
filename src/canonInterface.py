@@ -60,7 +60,7 @@ def build_lin_op_tree(linPy, tmp):
 		for row in linPy.data:
 			vec = CVXcanonPy.DoubleVector()
 			for entry in row:
-				vec.push_back(entry)
+				vec.push_back(float(entry)) 
 			linC.data.push_back(vec)
 
 	# Setting size

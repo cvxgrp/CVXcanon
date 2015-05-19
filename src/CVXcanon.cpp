@@ -12,6 +12,8 @@ std::map<int, std::vector<Matrix> > mul_by_const(Matrix & coeff_mat, std::map<in
 		int id = kv.first;
 		for(unsigned i = 0; i < kv.second.size(); i++){
 			Matrix rh = kv.second[i];
+			printf("LHS rows: %d, Columns: %d\n", coeff_mat.rows(), coeff_mat.cols());
+			printf("RHS rows: %d, Columns: %d\n", rh.rows(), rh.cols());
 			result[id].push_back( coeff_mat * rh );
 		}
 	} 
