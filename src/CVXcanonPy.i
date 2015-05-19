@@ -18,4 +18,4 @@ namespace std {
    %template(LinOpVector) vector< LinOp * >;
 }
 
-ProblemData build_matrix(std::vector< LinOp* > constraints);
+ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col);

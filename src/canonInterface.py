@@ -1,11 +1,18 @@
 import CVXcanonPy
 import numpy as np
 from  cvxpy.lin_ops.lin_op import *
-
-def get_sparse_matrix(constrs):
+from pdb import set_trace as bp
+def get_sparse_matrix(constrs, id_to_col = None):
 	print constrs
 	linOps = [constr.expr for constr in constrs]
 	args = CVXcanonPy.LinOpVector()
+
+	id_to_col_C = CVXcanonPy.IntIntMap()
+	if id_to_col is None:
+		id_to_col = {}
+
+	for id, col in id_to_col.items():
+		id_to_col_C[id] = col
 
 	# make sure things stay in scope..
 	tmp = []
@@ -15,7 +22,7 @@ def get_sparse_matrix(constrs):
 		args.push_back(tree)
 
 	print "Calling C++ code"
-	problemData = CVXcanonPy.build_matrix(args)
+	problemData = CVXcanonPy.build_matrix(args, id_to_col_C)
 	print "Returned from C++ code"
 
 	V, I, J, b = ([], [], [], [])
@@ -60,7 +67,7 @@ def build_lin_op_tree(linPy, tmp):
 		for row in linPy.data:
 			vec = CVXcanonPy.DoubleVector()
 			for entry in row:
-				vec.push_back(float(entry)) 
+				vec.push_back(entry)
 			linC.data.push_back(vec)
 
 	# Setting size

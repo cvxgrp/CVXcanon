@@ -129,19 +129,36 @@ int getTotalConstraintLength(std::vector< LinOp* > constraints){
 	return result;
 }
 
-ProblemData build_matrix(std::vector< LinOp* > constraints){
+/* function: build_matrix
+*
+* Description: Given a list of linear operations, this function returns a data
+* structure containing a sparse matrix representation of the
+* second order cone problem of the problem.
+*
+* Input: std::vector<LinOp *> constraints, our list of constraints represented 
+* as a linear operation tree
+*
+* Output: probData, a data structure which contains a sparse representation
+* of our second order cone matrix, a dense representation of our SOOC vector,
+* and maps containing our mapping from variables, and a map from the rows of our
+* matrix to their corresponding constraint.
+*
+*/
+
+ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col){
 	ProblemData probData;
 	int numRows = getTotalConstraintLength(constraints);
 	probData.data = std::vector<double> (numRows, 0);
+	probData.id_to_col = id_to_col; 						// TODO: Make this more efficient
 	int vert_offset = 0;
 	int horiz_offset  = 0;
-	for(unsigned i = 0; i < constraints.size(); i++){
+	for(unsigned i = 0; i < constraints.size(); i++){		// Processing each constraint
 		LinOp constr = *constraints[i];
 		process_constraint(constr, probData.V, probData.I, probData.J,
 						   				 probData.data, vert_offset, 
 						   				 probData.id_to_col, horiz_offset);
 
-		probData.const_to_row[i] = vert_offset;
+		probData.const_to_row[i] = vert_offset;				
 		vert_offset += constr.size[0] * constr.size[1]; 		
 	}
 	return probData;
