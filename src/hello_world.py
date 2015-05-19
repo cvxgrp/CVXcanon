@@ -2,7 +2,7 @@ from cvxpy import *
 import numpy
 
 x = Variable(1)
-Problem(Minimize(x),[]).solve()
+print Problem(Minimize(x),[x >= 4]).solve()
 '''
 constraints = [ 2 * x[0] + x[1] >= 1, x[0] + 3 * x[1] >= 1, \
 x[0] >= 0, x[1] >= 0 ]
