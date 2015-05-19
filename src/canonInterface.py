@@ -70,6 +70,13 @@ def build_lin_op_tree(linPy, tmp):
 			for entry in row:
 				vec.push_back(float(entry))
 			linC.data.push_back(vec)
+	elif isinstance(linPy.data, LinOp) and linPy.data.type is 'dense_const':
+		rows, cols = linPy.data.data.shape
+		for row in xrange(rows):
+			vec = CVXcanonPy.DoubleVector()
+			for col in xrange(cols):
+				vec.push_back(linPy.data.data[row, col])
+			linC.data.push_back(vec)
 	else:
 		for row in linPy.data:
 			vec = CVXcanonPy.DoubleVector()
