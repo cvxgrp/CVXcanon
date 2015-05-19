@@ -1,21 +1,52 @@
-from cvxpy import *
 import numpy as np
+from cvxpy import *
 
-# x = Variable(2)
-# x = Variable(2)
-# y = Variable(2)
-# print Problem(Minimize(0), [x + y <= [1, 0]]).solve()
 
-x = Variable(2)
-constraints = [ 2 * x[0] + x[1] >= 1, x[0] + 3 * x[1] >= 1, \
-x[0] >= 0, x[1] >= 0 ]
+numVariables = 4
 
-objectives  =   [x[0] + x[1], -x[0] - x[1], x[0],\
-max_elemwise( x[0], x[1] ), x[0] ** 2 + 9 * x[1] ** 2 ]
 
-for n, obj in enumerate(objectives):
-	prob = Problem(Minimize(obj), constraints)
-	prob.solve()
-	print "Solution to objective " + str(n)
-	print x.value
-	print obj.value
+def cumProb( p, numbers, values):
+ 	sum = None
+	
+	for i in range(2 ** numVariables):
+
+		rules = []
+
+		for j in range(len(numbers)):
+			rules.append( ((i & ( 1 << ( numbers[j] -  1 ) )) >> ( numbers[j] -  1 )) == values[j] )  
+
+		if all(rules):
+			if(sum is None):
+				sum = p[i]
+			else:
+				sum += p[i]
+	print sum
+	return sum
+
+
+p = Variable( 2 ** numVariables )
+
+constraints = [sum(p) == 1]
+
+constraints.append(p >= 0)
+
+constraints.append( cumProb( p, [1], [1]) == .9)
+constraints.append( cumProb( p, [2], [1]) == .9 )
+constraints.append( cumProb( p, [3], [1]) == .1 )
+constraints.append( cumProb( p, [3], [1]) == .1 )
+
+constraints.append( cumProb(p, [3, 4, 1], [1, 0, 1]) == \
+.7 * cumProb(p, [3], [1])  )
+
+constraints.append( cumProb(p, [2, 3, 4], [1, 0, 1]) == \
+.6 * cumProb(p, [2, 3], [1, 0])  )
+
+
+objective = Maximize( cumProb(p, [4], [1] ) )
+prob = Problem(objective, constraints)
+print "Maximum probability, ", prob.solve()
+
+
+objective = Minimize( cumProb(p, [4], [1] ))
+prob = Problem(objective, constraints)
+print "Minimum probability, ", prob.solve()
