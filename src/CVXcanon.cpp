@@ -14,7 +14,12 @@ std::map<int, std::vector<Matrix> > mul_by_const(Matrix & coeff_mat, std::map<in
 			Matrix rh = kv.second[i];
 			printf("LHS rows: %d, Columns: %d\n", coeff_mat.rows(), coeff_mat.cols());
 			printf("RHS rows: %d, Columns: %d\n", rh.rows(), rh.cols());
-			result[id].push_back( coeff_mat * rh );
+			if(coeff_mat.rows() == 1 && coeff_mat.cols() == 1) {
+				double scalar = coeff_mat.coeffRef(0, 0);
+				result[id].push_back(scalar * rh);
+			} else {
+				result[id].push_back( coeff_mat * rh );
+			}
 		}
 	} 
 	return result;
@@ -24,18 +29,21 @@ std::map<int, std::vector<Matrix> > mul_by_const(Matrix & coeff_mat, std::map<in
 std::map<int, std::vector<Matrix> > get_coefficient(LinOp &lin){
 	std::map<int, std::vector<Matrix> > coeffs;
 	if(lin.type == VARIABLE){ 				// If a lin op is a variable, we hit one of our base cases
+		printf("Variable\n");
 		std::map<int, Matrix> new_coeffs = get_variable_coeffs(lin);
 		for( auto & kv : new_coeffs){
 			coeffs[kv.first].push_back(kv.second);
 		}
 	}
 	else if( lin.hasConstantType()){								// If it is a constant, we hit our other base case
+		printf("Constant\n");
 		std::map<int, Matrix> new_coeffs = get_const_coeffs(lin);	// id here will be CONSTANT_TYPE
 		for( auto & kv : new_coeffs){
 			coeffs[kv.first].push_back(kv.second);
 		}
 	}
 	else{
+		printf("Recursive step\n");
 		std::vector<Matrix> coeff_mat = get_func_coeffs(lin); // The function coefficient by which we multiply the arguments
 		for(unsigned i = 0; i < lin.args.size(); i++){		  // in order
 			Matrix coeff = coeff_mat[i];
@@ -81,18 +89,21 @@ void add_matrix_to_vectors(Matrix & block, std::vector<double> & V, std::vector<
 	}
 }
 
-void extend_constant_vec(std::vector<double> &const_vec, Matrix &block){
+void extend_constant_vec(std::vector<double> &const_vec, int &vert_offset, 
+												 Matrix &block){
+	int cols = block.cols();
 	for ( int k=0; k < block.outerSize(); ++k ){
 		for ( Matrix::InnerIterator it(block,k); it; ++it ){
-	    	const_vec.push_back(it.value());
+			int idx = vert_offset + (it.row() * cols) + it.col();
+	    const_vec[idx] += it.value();
 		}
 	}
 }
 
 void process_constraint(LinOp & lin, std::vector<double> &V,
-					    std::vector<int> &I, std::vector<int> &J,
-						std::vector<double> &constant_vec, int vert_offset, 
-						std::map<int, int> &id_to_col, int & horiz_offset){
+					    					std::vector<int> &I, std::vector<int> &J,
+												std::vector<double> &constant_vec, int &vert_offset, 
+												std::map<int, int> &id_to_col, int & horiz_offset){
 	std::map<int, std::vector<Matrix> > coeffs = get_coefficient(lin);	// Getting the coefficient for the current constraint 	
 	for(auto & kv : coeffs){
 		int id = kv.first;									// We determine the horiz offset by the id
@@ -100,7 +111,7 @@ void process_constraint(LinOp & lin, std::vector<double> &V,
 		for(unsigned i = 0; i < blocks.size(); i++){
 			Matrix block = blocks[i];		
 			if ( id == CONSTANT_ID ){							// If this LinOp is a we add these coefficients  
-				 	extend_constant_vec(constant_vec, block);	// to our constant vec.
+				 	extend_constant_vec(constant_vec, vert_offset, block);	// to our constant vec.
 			}
 			else {
 				int offset = get_horiz_offset(id, id_to_col, horiz_offset, lin);
@@ -121,14 +132,14 @@ int getTotalConstraintLength(std::vector< LinOp* > constraints){
 ProblemData build_matrix(std::vector< LinOp* > constraints){
 	ProblemData probData;
 	int numRows = getTotalConstraintLength(constraints);
-	probData.data.reserve(numRows);
+	probData.data = std::vector<double> (numRows, 0);
 	int vert_offset = 0;
 	int horiz_offset  = 0;
 	for(unsigned i = 0; i < constraints.size(); i++){
 		LinOp constr = *constraints[i];
 		process_constraint(constr, probData.V, probData.I, probData.J,
-						   probData.data, vert_offset, 
-						   probData.id_to_col, horiz_offset);
+						   				 probData.data, vert_offset, 
+						   				 probData.id_to_col, horiz_offset);
 
 		probData.const_to_row[i] = vert_offset;
 		vert_offset += constr.size[0] * constr.size[1]; 		
