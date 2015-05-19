@@ -12,8 +12,6 @@ std::map<int, std::vector<Matrix> > mul_by_const(Matrix & coeff_mat, std::map<in
 		int id = kv.first;
 		for(unsigned i = 0; i < kv.second.size(); i++){
 			Matrix rh = kv.second[i];
-			printf("LHS rows: %d, Columns: %d\n", coeff_mat.rows(), coeff_mat.cols());
-			printf("RHS rows: %d, Columns: %d\n", rh.rows(), rh.cols());
 			if(coeff_mat.rows() == 1 && coeff_mat.cols() == 1) {
 				double scalar = coeff_mat.coeffRef(0, 0);
 				result[id].push_back(scalar * rh);
@@ -29,21 +27,18 @@ std::map<int, std::vector<Matrix> > mul_by_const(Matrix & coeff_mat, std::map<in
 std::map<int, std::vector<Matrix> > get_coefficient(LinOp &lin){
 	std::map<int, std::vector<Matrix> > coeffs;
 	if(lin.type == VARIABLE){ 				// If a lin op is a variable, we hit one of our base cases
-		printf("Variable\n");
 		std::map<int, Matrix> new_coeffs = get_variable_coeffs(lin);
 		for( auto & kv : new_coeffs){
 			coeffs[kv.first].push_back(kv.second);
 		}
 	}
 	else if( lin.hasConstantType()){								// If it is a constant, we hit our other base case
-		printf("Constant\n");
 		std::map<int, Matrix> new_coeffs = get_const_coeffs(lin);	// id here will be CONSTANT_TYPE
 		for( auto & kv : new_coeffs){
 			coeffs[kv.first].push_back(kv.second);
 		}
 	}
 	else{
-		printf("Recursive step\n");
 		std::vector<Matrix> coeff_mat = get_func_coeffs(lin); // The function coefficient by which we multiply the arguments
 		for(unsigned i = 0; i < lin.args.size(); i++){		  // in order
 			Matrix coeff = coeff_mat[i];

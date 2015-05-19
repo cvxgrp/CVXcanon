@@ -31,8 +31,6 @@ std::vector<Matrix> get_vstack_mat(LinOp &lin);
 
 
 std::vector<Matrix> get_func_coeffs(LinOp& lin){
-	printf("LinOp switch statement.\n");
-	printf("Type: %d\n", lin.type);
 	std::vector<Matrix> coeffs;
 	switch(lin.type){
 		case PROMOTE:
@@ -93,7 +91,6 @@ std::vector<Matrix> get_func_coeffs(LinOp& lin){
 			std::cout << "INVALID LINOP!" << std::endl;
 			exit(-1);
 	}
-	printf("Returning from LinOp Switch\n");
 	return coeffs;
 }
 

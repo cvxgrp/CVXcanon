@@ -3,7 +3,7 @@ import numpy as np
 from  cvxpy.lin_ops.lin_op import *
 from pdb import set_trace as bp
 def get_sparse_matrix(constrs, id_to_col = None):
-	print constrs
+	# print constrs
 	linOps = [constr.expr for constr in constrs]
 	args = CVXcanonPy.LinOpVector()
 
@@ -34,7 +34,7 @@ def get_sparse_matrix(constrs, id_to_col = None):
 	for i in range(problemData.data.size()):
 		b.append(problemData.data[i])
 
-	print V, I, J, b
+	# print V, I, J, b
 	return (V, I, J, np.array(b).reshape(-1, 1))
 
 def build_lin_op_tree(linPy, tmp):
@@ -59,13 +59,17 @@ def build_lin_op_tree(linPy, tmp):
 		vec = CVXcanonPy.DoubleVector()
 		vec.push_back(linPy.data)
 		linC.data.push_back(vec)
-	elif isinstance(linPy.data, LinOp):
+	elif isinstance(linPy.data, LinOp) and linPy.data.type is 'scalar_const':
 		vec = CVXcanonPy.DoubleVector()
-
-		# wrongly assume that linPy.data is another linOp of type scalar_const.
-		# but sometimes it is of type sparse_const.
 		vec.push_back(linPy.data.data)
 		linC.data.push_back(vec)
+	elif isinstance(linPy.data, LinOp) and linPy.data.type is 'sparse_const': # huge shitman special casing...
+		data = linPy.data.data.todense()
+		for row in data:
+			vec = CVXcanonPy.DoubleVector()
+			for entry in row:
+				vec.push_back(float(entry))
+			linC.data.push_back(vec)
 	else:
 		for row in linPy.data:
 			vec = CVXcanonPy.DoubleVector()
