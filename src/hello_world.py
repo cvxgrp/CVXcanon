@@ -1,8 +1,14 @@
 from cvxpy import *
 import numpy
+<<<<<<< .merge_file_X23cYo
 x = Variable(2)
 y = Variable(2)
 print Problem(Minimize(0), [x + y <= [1, 0]]).solve()
+=======
+
+x = Variable(1)
+print Problem(Minimize(x),[x >= 4]).solve()
+>>>>>>> .merge_file_wOMV3o
 '''
 x = Variable(2)
 

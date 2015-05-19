@@ -3,7 +3,9 @@
 
 #include <vector>
 
+
 static const int CONSTANT_ID = -1;
+
 
 enum operatortype {
 	VARIABLE,
