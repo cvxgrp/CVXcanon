@@ -132,8 +132,9 @@ int getTotalConstraintLength(std::vector< LinOp* > constraints){
 *
 */
 
-ProblemData build_matrix(std::vector< LinOp* > constraints){
+ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col){
 	ProblemData probData;
+	probData.id_to_col = id_to_col; 						// TODO: Make this more efficient
 	int numRows = getTotalConstraintLength(constraints); 	// Determining the length that our
 	probData.data.reserve(numRows); 					 	// output vector must be
 	int vert_offset = 0;
