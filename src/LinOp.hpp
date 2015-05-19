@@ -3,6 +3,8 @@
 
 #include <vector>
 
+static const int CONSTANT_ID = -1;
+
 enum operatortype {
 	VARIABLE,
 	PROMOTE,
@@ -26,8 +28,7 @@ enum operatortype {
 	SCALAR_CONST,
 	DENSE_CONST,
 	SPARSE_CONST,
-	NO_OP,
-	CONSTANT_ID // change this to be a -1 to avoid colliding with variable id
+	NO_OP
 };
 
 typedef operatortype OperatorType;

@@ -1,9 +1,11 @@
 from cvxpy import *
 import numpy
-
-x = Variable(1)
-Problem(Minimize(x),[x >= 2]).solve()
+x = Variable(2)
+y = Variable(2)
+print Problem(Minimize(x[0]), [x[0]>=2, y >= 0]).solve()
 '''
+x = Variable(2)
+
 constraints = [ 2 * x[0] + x[1] >= 1, x[0] + 3 * x[1] >= 1, \
 x[0] >= 0, x[1] >= 0 ]
 
