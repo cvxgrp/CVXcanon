@@ -2,7 +2,7 @@ from cvxpy import *
 import numpy
 x = Variable(2)
 y = Variable(2)
-print Problem(Minimize(x[0]), [x[0]>=2, y >= 0]).solve()
+print Problem(Minimize(0), [x + y <= [1, 0]]).solve()
 '''
 x = Variable(2)
 
