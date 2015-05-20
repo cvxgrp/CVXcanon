@@ -1,13 +1,13 @@
-import CVXcanonPy
+import CVXcanon
 import numpy as np
 from  cvxpy.lin_ops.lin_op import *
 from pdb import set_trace as bp
 def get_sparse_matrix(constrs, id_to_col = None):
 	# print constrs
 	linOps = [constr.expr for constr in constrs]
-	args = CVXcanonPy.LinOpVector()
+	args = CVXcanon.LinOpVector()
 
-	id_to_col_C = CVXcanonPy.IntIntMap()
+	id_to_col_C = CVXcanon.IntIntMap()
 	if id_to_col is None:
 		id_to_col = {}
 
@@ -22,7 +22,7 @@ def get_sparse_matrix(constrs, id_to_col = None):
 		args.push_back(tree)
 
 	print "Calling C++ code"
-	problemData = CVXcanonPy.build_matrix(args, id_to_col_C)
+	problemData = CVXcanon.build_matrix(args, id_to_col_C)
 	print "Returned from C++ code"
 
 	V, I, J, b = ([], [], [], [])
@@ -38,9 +38,9 @@ def get_sparse_matrix(constrs, id_to_col = None):
 	return (V, I, J, np.array(b).reshape(-1, 1))
 
 def build_lin_op_tree(linPy, tmp):
-	linC = CVXcanonPy.LinOp()
+	linC = CVXcanon.LinOp()
 	# Setting the type of our lin op
-	linC.type = eval("CVXcanonPy." + linPy.type.upper())
+	linC.type = eval("CVXcanon." + linPy.type.upper())
 	# Loading the data into our array
 	if linPy.data is None:
 		pass
@@ -58,30 +58,30 @@ def build_lin_op_tree(linPy, tmp):
 				vec.push_back(sl.step)
 			linC.data.push_back(vec) 		 
 	elif isinstance(linPy.data, float) or isinstance(linPy.data, int):
-		vec = CVXcanonPy.DoubleVector()
+		vec = CVXcanon.DoubleVector()
 		vec.push_back(linPy.data)
 		linC.data.push_back(vec)
 	elif isinstance(linPy.data, LinOp) and linPy.data.type is 'scalar_const':
-		vec = CVXcanonPy.DoubleVector()
+		vec = CVXcanon.DoubleVector()
 		vec.push_back(linPy.data.data)
 		linC.data.push_back(vec)
 	elif isinstance(linPy.data, LinOp) and linPy.data.type is 'sparse_const': # huge shitman special casing...
 		data = np.array(linPy.data.data.todense())
 		for row in data:
-			vec = CVXcanonPy.DoubleVector()
+			vec = CVXcanon.DoubleVector()
 			for entry in row:
 				vec.push_back(float(entry))
 			linC.data.push_back(vec)
 	elif isinstance(linPy.data, LinOp) and linPy.data.type is 'dense_const':
 		rows, cols = linPy.data.data.shape
 		for row in xrange(rows):
-			vec = CVXcanonPy.DoubleVector()
+			vec = CVXcanon.DoubleVector()
 			for col in xrange(cols):
 				vec.push_back(linPy.data.data[row, col])
 			linC.data.push_back(vec)
 	else:
 		for row in linPy.data:
-			vec = CVXcanonPy.DoubleVector()
+			vec = CVXcanon.DoubleVector()
 			for entry in row:
 				vec.push_back(float(entry))
 			linC.data.push_back(vec)

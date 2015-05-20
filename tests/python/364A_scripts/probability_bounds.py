@@ -26,6 +26,8 @@ def cumProb( p, numbers, values):
 
 p = Variable( 2 ** numVariables )
 
+
+
 constraints = [sum(p) == 1]
 
 constraints.append(p >= 0)
