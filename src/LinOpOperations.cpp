@@ -8,7 +8,6 @@
 /***********************
  * FUNCTION PROTOTYPES *
  ***********************/
-
 std::vector<Matrix> build_vector(Matrix &mat);
 std::vector<Matrix> get_sum_coefficients(LinOp &lin);
 std::vector<Matrix> get_sum_entries_mat(LinOp &lin);
@@ -29,7 +28,18 @@ std::vector<Matrix> get_conv_mat(LinOp &lin);
 std::vector<Matrix> get_hstack_mat(LinOp &lin);
 std::vector<Matrix> get_vstack_mat(LinOp &lin);
 
-
+/**
+ * Computes a vector of coefficient matrices for the linOp LIN based on the
+ * type of linOp.
+ *
+ * Note: This function assumes LIN has been initialized with the correct
+ * data, size, and arguments for each linOp type. No error-checking or
+ * error-handling for these types of errors is performed. 
+ *
+ * Parameters: LinOp node LIN
+ *
+ * Returns: std::vector of sparse coefficient matrices for LIN
+ */ 
 std::vector<Matrix> get_func_coeffs(LinOp& lin){
 	std::vector<Matrix> coeffs;
 	switch(lin.type){
@@ -88,7 +98,7 @@ std::vector<Matrix> get_func_coeffs(LinOp& lin){
 			coeffs = get_vstack_mat(lin);
 			break;
 		default:
-			std::cout << "INVALID LINOP!" << std::endl;
+			std::cout << "Error: linOp type invalid." << std::endl;
 			exit(-1);
 	}
 	return coeffs;
@@ -98,20 +108,30 @@ std::vector<Matrix> get_func_coeffs(LinOp& lin){
  * HELPER FUNCTIONS
  *******************/
 
+/**
+ * Returns a vector containing the sparse matrix MAT
+ */ 
 std::vector<Matrix> build_vector(Matrix &mat){
 	std::vector<Matrix> vec;
  	vec.push_back(mat);
  	return vec;
 }
 
-// returns N x N sparse identity
+/**
+ * Returns an N x N sparse identity matrix. 
+ */
 Matrix sparse_eye (int n){
 	Matrix eye_n(n, n);
 	eye_n.setIdentity();
 	return eye_n;
 }
 
-// Todo: is this efficient? 
+/**
+ * Returns a sparse ROWS x COLS matrix of all ones. 
+ *
+ * TODO: This function returns a sparse representation of a dense matrix,
+ * which might not be extremely efficient, but does make it easier downstream.
+ */
 Matrix sparse_ones(int rows, int cols)
 {	
  	Eigen::MatrixXd ones = Eigen::MatrixXd::Ones(rows, cols);
@@ -119,18 +139,33 @@ Matrix sparse_ones(int rows, int cols)
  	return mat;
 }
 
+/**
+ * Builds and returns the stacked coefficient matrices for both horizontal
+ * and vertical stacking linOps.
+ *
+ * Constructs coefficient matrix COEFF for each argument of LIN. COEFF is
+ * essentially an identity matrix with an offset to account for stacking.
+ *
+ * If the stacking is vertical, the columns of the matrix for each argument 
+ * are interleaved with each other. Otherwise, if the stacking is horizontal,
+ * the columns are laid out in the order of the arguments. 
+ * 
+ * Parameters: linOP LIN that performs a stacking operation (HSTACK or VSTACK)
+ * 						 boolean VERTICAL: True if vertical stack. False otherwise.
+ *
+ * Returns: vector COEFF_MATS containing the stacked coefficient matrices 
+ * 					for each argument.
+ * 
+ */
 std::vector<Matrix> stack_matrices(LinOp &lin, bool vertical){
 	std::vector<Matrix> coeffs_mats;
-
-	// makes a coefficient for each argument,
-	// essentially an identity with an offset.
 	int offset = 0;
 	int num_args = lin.args.size();
 	for(int idx = 0; idx < num_args; idx++){
 		LinOp arg = *lin.args[idx];
 
-		// if we are using vstack, the arguments have columns that are interleaved.
-		// in hstack, the arguments are laid out in order. 
+		/* If VSTACK, columns that are interleaved. Otherwise, they are 
+			 laid out in order. */
 		int column_offset;
 		int offset_increment;
 		if(vertical){
@@ -159,6 +194,29 @@ std::vector<Matrix> stack_matrices(LinOp &lin, bool vertical){
 	return coeffs_mats;
 } 
 
+/******************
+ * The remaining helper functions are all used to retrieve constant
+ * data from the linOp object. Depending on the interface to the calling
+ * package, the implementation of these functions will have to change 
+ * accordingly!
+ *
+ * These functions assume constant data is represented as a single
+ * std::vector<std::vector<double> > and read the data into sparse matrices.
+ *
+ * TODO: This is extremely inefficient, especially when the matrices are
+ * dense!
+ ******************/
+
+/**
+ * Returns the matrix stored in the data field of LIN as a single column 
+ * vector which preserves the columnwise ordering of the original elements.
+ * Similar to reshape(n, 1).
+ *
+ * Params: LinOp LIN with DATA containing a 2d vector representation of a
+ * 				 matrix.
+ * 
+ * Returns: sparse eigen matrix COEFFS as a column vector (dimension n x 1)
+ */
 Matrix get_constant_data_as_column(LinOp &lin){
 	int rows = lin.data.size();
 	int cols = lin.data[0].size();
@@ -175,8 +233,17 @@ Matrix get_constant_data_as_column(LinOp &lin){
 	return coeffs;
 }
 
-// TODO: profile and see if it would be more efficient to not treat
-// everything as a sparse matrix.
+/**
+ * Returns the matrix stored in the data field of LIN as a sparse eigen matrix
+ *
+ * Params: LinOp LIN with DATA containing a 2d vector representation of a
+ * 				 matrix.
+ * 
+ * Returns: sparse eigen matrix COEFFS 
+ * 
+ * TODO: profile and see if it would be more efficient to not treat 
+ * everything as a sparse matrix in the downsteam code. 
+ */
 Matrix get_constant_data(LinOp &lin){
 	int rows = lin.data.size();
 	int cols = lin.data[0].size();
@@ -193,6 +260,23 @@ Matrix get_constant_data(LinOp &lin){
 	return coeffs;
 }
 
+/**
+ * Interface for the INDEX linOp to retrieve slice data. Assumes that the
+ * INDEX linOp stores slice data in the following format
+ * 			
+ * 		vector(row_data, col_data),
+ *
+ * where row_data = vector(start_idx, end_idx, step_size) and 
+ * col_data = vector(start_idx, end_idx, step_size).
+ *
+ * Parameters: linOp LIN with type INDEX and slice data.
+ * 
+ * Returns: a std::vector containing 2 std::vector of ints.
+ * 					The first vector is the row slice data in the form
+ * 							(start, end, step_size)
+ * 					The second the vector is the column slice data in the form
+ * 							(start, end, step_size)
+ */
 std::vector<std::vector<int> > get_slice_data(LinOp &lin){
 	assert(lin.type==INDEX);
 	std::vector<double> row = lin.data[0];
@@ -209,15 +293,30 @@ std::vector<std::vector<int> > get_slice_data(LinOp &lin){
 	}
 	slices.push_back(row_slice);
 	slices.push_back(col_slice);
-
 	return slices;
 }
 
+/**
+ * Interface for the DIV linOp to retrieve the constant divisor. 
+ * 
+ * Parameters: linOp LIN of type DIV with a scalar divisor stored in the
+ * 							0,0 component of the data matrix. 
+ *
+ * Returns: scalar divisor 
+ */
 double get_divisor_data(LinOp &lin){
 	assert(lin.type==DIV);
 	return lin.data[0][0];
 }
 
+/**
+ * Interface for the VARIABLE linOp to retrieve its variable ID.
+ *
+ * Parameters: linOp LIN of type VARIABLE with a variable ID in the
+ * 							0,0 component of the data matrix. 
+ * 
+ * Returns: integer variable ID
+ */
 int get_id_data(LinOp &lin){
 	assert(lin.type==VARIABLE);
 	return int(lin.data[0][0]);
@@ -227,16 +326,36 @@ int get_id_data(LinOp &lin){
  * LinOP -> Matrix FUNCTIONS
  *****************************/
 
+/**
+ * Return the coefficients for VSTACK.
+ *
+ * Parameters: linOp LIN with type VSTACK
+ * Returns: vector of coefficient matrices for each argument. 
+ */
 std::vector<Matrix> get_vstack_mat(LinOp &lin){
 	assert(lin.type == VSTACK);
 	return stack_matrices(lin, true);
 }
 
+/**
+ * Return the coefficients for HSTACK
+ *
+ * Parameters: linOp LIN with type HSTACK
+ * Returns: vector of coefficient matrices for each argument. 
+ */
 std::vector<Matrix> get_hstack_mat(LinOp &lin){
 	assert(lin.type == HSTACK);
 	return stack_matrices(lin, false);
 }
 
+/**
+ * Return the coefficients for CONV
+ *
+ * Parameters:
+ * 
+ * Returns:
+ *
+ */
 std::vector<Matrix> get_conv_mat(LinOp &lin){
 	assert(lin.type == CONV);
 	Matrix constant = get_constant_data(lin);
@@ -265,6 +384,14 @@ std::vector<Matrix> get_conv_mat(LinOp &lin){
 	return build_vector(toeplitz);
 }
 
+/**
+ * Return the coefficients for UPPER_TRI
+ *
+ * Parameters:
+ * 
+ * Returns:
+ *
+ */
 std::vector<Matrix> get_upper_tri_mat(LinOp &lin){
 	assert(lin.type == UPPER_TRI);
 	int rows = lin.args[0]->size[0];
@@ -293,6 +420,14 @@ std::vector<Matrix> get_upper_tri_mat(LinOp &lin){
 	return build_vector(coeffs);
 }
 
+/**
+ * Return the coefficients for DIAG_MAT.
+ *
+ * Parameters:
+ * 
+ * Returns:
+ *
+ */
 std::vector<Matrix> get_diag_matrix_mat(LinOp &lin){
 	assert(lin.type == DIAG_MAT);
 	int rows = lin.size[0];
@@ -312,6 +447,14 @@ std::vector<Matrix> get_diag_matrix_mat(LinOp &lin){
 	return build_vector(coeffs);
 }
 
+/**
+ * Return the coefficients for DIAG_VEC
+ *
+ * Parameters:
+ * 
+ * Returns:
+ *
+ */
 std::vector<Matrix> get_diag_vec_mat(LinOp &lin){
 	assert(lin.type == DIAG_VEC);
 	int rows = lin.size[0];
@@ -331,6 +474,14 @@ std::vector<Matrix> get_diag_vec_mat(LinOp &lin){
 	return build_vector(coeffs);
 }
 
+/**
+ * Return the coefficients for TRANSPOSE.
+ *
+ * Parameters:
+ * 
+ * Returns:
+ *
+ */
 std::vector<Matrix> get_transpose_mat(LinOp &lin){
 	assert(lin.type == TRANSPOSE);
 	int rows = lin.size[0];
@@ -351,6 +502,14 @@ std::vector<Matrix> get_transpose_mat(LinOp &lin){
 	return build_vector(coeffs);
 }
 
+/**
+ * Return the coefficients for INDEX
+ *
+ * Parameters:
+ * 
+ * Returns:
+ *
+ */
 std::vector<Matrix> get_index_mat(LinOp &lin){
 	assert(lin.type == INDEX);
 	std::vector<std::vector<int> > slices = get_slice_data(lin);
@@ -377,6 +536,14 @@ std::vector<Matrix> get_index_mat(LinOp &lin){
 	return build_vector(coeffs);
 }
 
+/**
+ * Return the coefficients for MUL_ELEM.
+ *
+ * Parameters:
+ * 
+ * Returns:
+ *
+ */
 std::vector<Matrix> get_mul_elemwise_mat(LinOp &lin){
 	assert(lin.type == MUL_ELEM);
 	Matrix constant = get_constant_data_as_column(lin);
@@ -397,6 +564,14 @@ std::vector<Matrix> get_mul_elemwise_mat(LinOp &lin){
 	return build_vector(coeffs);
 }
 
+/**
+ * Return the coefficients for RMUL
+ *
+ * Parameters:
+ * 
+ * Returns:
+ *
+ */
 std::vector<Matrix> get_rmul_mat(LinOp &lin){
 	assert(lin.type == RMUL);
 	Matrix constant = get_constant_data(lin);
@@ -426,7 +601,14 @@ std::vector<Matrix> get_rmul_mat(LinOp &lin){
 	return build_vector(coeffs);
 }
 
-
+/**
+ * Return the coefficients for MUL.
+ *
+ * Parameters:
+ * 
+ * Returns:
+ *
+ */
 std::vector<Matrix> get_mul_mat(LinOp &lin){
 	assert(lin.type == MUL);
 	// assumes lin.data points to a sparse eigen matrix.
@@ -459,7 +641,14 @@ std::vector<Matrix> get_mul_mat(LinOp &lin){
 	return build_vector(coeffs);
 }
 
-
+/**
+ * Return the coefficients for PROMOTE
+ *
+ * Parameters:
+ * 
+ * Returns:
+ *
+ */
 std::vector<Matrix> get_promote_mat(LinOp &lin){
 	assert(lin.type == PROMOTE);
 	int num_entries = lin.size[0] * lin.size[1];
@@ -467,6 +656,14 @@ std::vector<Matrix> get_promote_mat(LinOp &lin){
 	return build_vector(ones);
 }
 
+/**
+ * Return the coefficients for RESHAPE
+ *
+ * Parameters:
+ * 
+ * Returns:
+ *
+ */
 std::vector<Matrix> get_reshape_mat(LinOp &lin){
 	assert(lin.type == RESHAPE);
 	Matrix one(1,1);
@@ -474,7 +671,14 @@ std::vector<Matrix> get_reshape_mat(LinOp &lin){
 	return build_vector(one);
 }
 
-
+/**
+ * Return the coefficients for DIV.
+ *
+ * Parameters:
+ * 
+ * Returns:
+ *
+ */
 std::vector<Matrix> get_div_mat(LinOp &lin){
 	assert(lin.type == DIV);
 	double divisor = get_divisor_data(lin);
@@ -485,21 +689,27 @@ std::vector<Matrix> get_div_mat(LinOp &lin){
 }
 
 /**
- * Todo...
+ * Return the coefficients for NEG.
+ *
+ * Parameters:
+ * 
+ * Returns:
  *
  */
 std::vector<Matrix> get_neg_mat(LinOp &lin){
 	assert(lin.type == NEG);
  	int n = lin.size[0] * lin.size[1];
-
- 	// std::cout << "Size of neg mat " << n << std::endl;
 	Matrix coeffs = sparse_eye(n);
 	coeffs *= -1;
 	return build_vector(coeffs);
 }
 
 /**
- * Todo...
+ * Return the coefficients for TRACE.
+ *
+ * Parameters:
+ * 
+ * Returns:
  *
  */
  std::vector<Matrix> get_trace_mat(LinOp &lin){
