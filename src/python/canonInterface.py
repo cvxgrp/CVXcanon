@@ -47,9 +47,7 @@ def build_lin_op_tree(linPy, tmp):
 	elif isinstance(linPy.data, tuple)\
 	and isinstance(linPy.data[0], slice): # Tuple of slices
 		for sl in linPy.data:
-			vec = CVXcanonPy.DoubleVector()
-			if sl.start is None:
-				vec.push_back(vec)
+			vec = CVXcanon.DoubleVector()
 			vec.push_back(sl.start)
 			vec.push_back(sl.stop)
 			if sl.step is None:
@@ -65,19 +63,19 @@ def build_lin_op_tree(linPy, tmp):
 		vec = CVXcanon.DoubleVector()
 		vec.push_back(linPy.data.data)
 		linC.data.push_back(vec)
-	elif isinstance(linPy.data, LinOp) and linPy.data.type is 'sparse_const': # huge shitman special casing...
-		data = np.array(linPy.data.data.todense())
-		for row in data:
-			vec = CVXcanon.DoubleVector()
-			for entry in row:
-				vec.push_back(float(entry))
-			linC.data.push_back(vec)
-	elif isinstance(linPy.data, LinOp) and linPy.data.type is 'dense_const':
-		rows, cols = linPy.data.data.shape
+	elif isinstance(linPy.data, LinOp) and (linPy.data.type is 'sparse_const' or \
+						linPy.data.type is 'dense_const'):  # huge shitman special casing...
+	
+		if linPy.data.type is 'sparse_const':
+			data = linPy.data.data.todense()
+		else:
+			data = linPy.data.data
+
+		rows, cols = data.shape
 		for row in xrange(rows):
 			vec = CVXcanon.DoubleVector()
 			for col in xrange(cols):
-				vec.push_back(linPy.data.data[row, col])
+				vec.push_back(data[row, col])
 			linC.data.push_back(vec)
 	else:
 		for row in linPy.data:
