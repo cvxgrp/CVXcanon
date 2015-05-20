@@ -1,4 +1,4 @@
-%module CVXcanonPy
+%module CVXcanon
 
 %{
 #define SWIG_FILE_WITH_INIT
