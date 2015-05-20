@@ -349,19 +349,18 @@ std::vector<Matrix> get_hstack_mat(LinOp &lin){
 }
 
 /**
- * Return the coefficients for CONV
+ * Return the coefficients for CONV operator. The coefficient matrix is
+ * constructed by creating a toeplitz matrix with the constant vector
+ * in DATA as the columns.
  *
- * Parameters:
+ * Parameters: linOp LIN with type CONV. Data should should contain a 
+ *						 column vector that the variables are convolved with.
  * 
- * Returns:
- *
+ * Returns: vector of coefficients for convolution linOp
  */
 std::vector<Matrix> get_conv_mat(LinOp &lin){
 	assert(lin.type == CONV);
 	Matrix constant = get_constant_data(lin);
-
-	// Convolution is implemented by creating a toeplitz matrix with constant
-	// as columns
 	int rows = lin.size[0];
 	int nonzeros = constant.rows();
 	int cols = lin.args[0]->size[0];
@@ -375,7 +374,8 @@ std::vector<Matrix> get_conv_mat(LinOp &lin){
 		for(int i = 0; i < nonzeros; i++){
 			int row_idx = row_start + i;
 
-			// change this depending representation
+			// TODO: speed up this reference by changing the representation of
+			// the column to a dense matrix.
 			double val = constant.coeffRef(i, 0);
 			tripletList.push_back(Triplet(row_idx, col, val));
 		}
@@ -385,12 +385,11 @@ std::vector<Matrix> get_conv_mat(LinOp &lin){
 }
 
 /**
- * Return the coefficients for UPPER_TRI
+ * Return the coefficients for UPPER_TRI. 
  *
- * Parameters:
- * 
- * Returns:
  *
+ * Parameters: LinOp with type UPPER_TRI.
+ * Returns: vector of coefficients for upper triangular matrix linOp
  */
 std::vector<Matrix> get_upper_tri_mat(LinOp &lin){
 	assert(lin.type == UPPER_TRI);
@@ -751,8 +750,6 @@ std::vector<Matrix> get_sum_coefficients(LinOp &lin){
 	std::vector<Matrix> coeffs;
 	Matrix scalar(1,1);
 	scalar.insert(0,0) = 1;
-
-	// printf("In SUM: Size is %d\n", n);
 	for(int i = 0; i < n; i++){
 		coeffs.push_back(scalar);
 	}
