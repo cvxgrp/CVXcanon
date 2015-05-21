@@ -1,4 +1,3 @@
-from cvxpy import *
-from CVXcanon import *
+import cvxpy
+import cvxcanon
 
-print myOtherFunction(2,5)
