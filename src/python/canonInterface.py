@@ -40,6 +40,29 @@ def get_sparse_matrix(constrs, id_to_col=None):
     return (V, I, J, np.array(b).reshape(-1, 1))
 
 
+def push_dense(linC, linPy):
+	if isinstance(linPy.data, LinOp) and (linPy.data.type is 'sparse_const' or \
+						linPy.data.type is 'dense_const'):  # huge shitman special casing...
+		if linPy.data.type is 'sparse_const':
+			data = linPy.data.data.todense()
+			data = np.array(data)
+		else:
+			data = linPy.data.data
+			data = np.array(data)
+		rows, cols = data.shape
+		for row in xrange(rows):
+			vec = CVXcanon.DoubleVector()
+			for col in xrange(cols):
+				vec.push_back(data[row, col])
+			linC.data.push_back(vec)
+	else:
+		for row in linPy.data:
+			vec = CVXcanon.DoubleVector()
+			for entry in row:
+				vec.push_back(float(entry))
+			linC.data.push_back(vec)
+
+
 def build_lin_op_tree(linPy, tmp):
 	linC = CVXcanon.LinOp()
 	# Setting the type of our lin op
@@ -77,26 +100,8 @@ def build_lin_op_tree(linPy, tmp):
 		vec = CVXcanon.DoubleVector()
 		vec.push_back(linPy.data.data)
 		linC.data.push_back(vec)
-	elif isinstance(linPy.data, LinOp) and (linPy.data.type is 'sparse_const' or \
-						linPy.data.type is 'dense_const'):  # huge shitman special casing...
-		if linPy.data.type is 'sparse_const':
-			data = linPy.data.data.todense()
-		else:
-			data = linPy.data.data
-
-		rows, cols = data.shape
-		for row in xrange(rows):
-			vec = CVXcanon.DoubleVector()
-			for col in xrange(cols):
-				vec.push_back(data[row, col])
-			linC.data.push_back(vec)
 	else:
-		for row in linPy.data:
-			vec = CVXcanon.DoubleVector()
-			for entry in row:
-				vec.push_back(float(entry))
-			linC.data.push_back(vec)
-
+		push_dense(linC, linPy)
 	# Setting size
 	linC.size.push_back( int(linPy.size[0]) )
 	linC.size.push_back( int(linPy.size[1]) )
