@@ -47,8 +47,8 @@ obj += sum([f_tilde[i] * pTilde[i] for i in range(n)])
 objective = Maximize(obj)
 problem = Problem(objective, constraints)
 val = problem.solve()
-print val
-print f.value
-print f_tilde.value
+pass #print val
+pass #print f.value
+pass #print f_tilde.value
 for i in range(n):
-	print M.value[i,:] / f_tilde[i].value
+	pass #print M.value[i,:] / f_tilde[i].value

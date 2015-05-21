@@ -66,8 +66,8 @@ constraints = [A*p == vstack(-g, d.T), abs(p) <= Pmax.T, 0 <= g, g <= Gmax]
 prob = Problem(obj, constraints)
 val = prob.solve()
 
-print val
-print g.value
+pass #print val
+pass #print g.value
 
 
 
@@ -90,8 +90,8 @@ for i in range(m): # N -1 redundancy
 prob = Problem(obj, constraints)
 val = prob.solve()
 
-print val
-print g.value
+pass #print val
+pass #print g.value
 
 
 # the code below is not data for the problem
@@ -124,13 +124,13 @@ import matplotlib.pyplot as plt
 for i in range(12): #plot edges
     for j in range(i):
         if Ad[i,j] == 1:
-            plt.plot((XY[i,0], XY[j,0]), (XY[i,1], XY[j,1]), 'k-')
+            pass #plt.plot((XY[i,0], XY[j,0]), (XY[i,1], XY[j,1]), 'k-')
 for j in range(k): #plot nodes
-    plt.plot(XY[j,0],XY[j,1],'rs', markersize=12)
-    plt.text(XY[j,0]-epsx,XY[j,1]+epsy,str(j+1))      
+    pass #plt.plot(XY[j,0],XY[j,1],'rs', markersize=12)
+    pass #plt.text(XY[j,0]-epsx,XY[j,1]+epsy,str(j+1))      
 for j in range(k,n):
-    plt.plot(XY[j,0],XY[j,1],'ko')
-plt.axis('off')
-plt.savefig('pwr_net.eps')
+    pass #plt.plot(XY[j,0],XY[j,1],'ko')
+pass #plt.axis('off')
+pass #plt.savefig('pwr_net.eps')
 if __name__ == '__main__':
-    plt.show()
+    pass #plt.show()

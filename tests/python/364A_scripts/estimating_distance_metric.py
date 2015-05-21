@@ -44,8 +44,8 @@ obj = Minimize(objective)
 prob = Problem(obj, [])
 val = prob.solve()
 
-print "P", P.value
-print "training error", val
+pass #print "P", P.value
+pass #print "training error", val
 
 
 testing_error = 0
@@ -54,4 +54,4 @@ Z_test = X_test - Y_test
 for i in range(N_test):
 	testing_error += (d_test[i] -  Z_test[:,i].T.dot( P.value.dot(Z_test[:,i]).T))**2
 
-print "Testing error:", testing_error
+pass #print "Testing error:", testing_error

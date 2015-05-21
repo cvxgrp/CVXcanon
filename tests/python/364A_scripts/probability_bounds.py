@@ -21,7 +21,7 @@ def cumProb( p, numbers, values):
 				sum = p[i]
 			else:
 				sum += p[i]
-	print sum
+	pass #print sum
 	return sum
 
 
@@ -47,11 +47,11 @@ constraints.append( cumProb(p, [2, 3, 4], [1, 0, 1]) == \
 
 objective = Maximize( cumProb(p, [4], [1] ) )
 prob = Problem(objective, constraints)
-print "Maximum probability, ", prob.solve()
+pass #print "Maximum probability, ", prob.solve()
 
 
 objective = Minimize( cumProb(p, [4], [1] ))
 prob = Problem(objective, constraints)
-print "Minimum probability, ", prob.solve()
+pass #print "Minimum probability, ", prob.solve()
 toc = time.clock()
-print toc - tic
+pass #print toc - tic

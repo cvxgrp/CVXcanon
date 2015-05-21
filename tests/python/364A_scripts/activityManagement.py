@@ -36,12 +36,12 @@ for i in range(4):
 	x[i] = x_star.value[i] + x_star.value[4 + i]
 
 
-print "Optimal revenue:", result 
-print "Optimal activity levels:", x
+pass #print "Optimal revenue:", result 
+pass #print "Optimal activity levels:", x
 
 average_rate = np.array([0] * 4)
 
 for i in range(4):
 	average_rate[i] = (x_star.value[i] * p_star.value[i] + x_star.value[i + 4] * p_star.value[i + 4]) / x[i]
 
-print "Average rate:", average_rate
+pass #print "Average rate:", average_rate

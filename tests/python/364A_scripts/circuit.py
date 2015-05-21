@@ -26,7 +26,7 @@ v[2] =    math.log(1 + I.value[2]/26.0)
 v = np.mat(v)
 e = np.linalg.pinv(A.T)*v.T
 
-print e == A * v.T
+pass #print e == A * v.T
 
-print e
-print v
+pass #print e
+pass #print v

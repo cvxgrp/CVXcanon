@@ -17,8 +17,8 @@ for limit in limits:
 	result = prob.solve()
 	vals.append(result)
 
-plt.plot(limits, vals)
-plt.xlabel('u')
-plt.ylabel('p *')
-plt.title('Sensitivity analysis')
-plt.show()
+pass #plt.plot(limits, vals)
+pass #plt.xlabel('u')
+pass #plt.ylabel('p *')
+pass #plt.title('Sensitivity analysis')
+pass #plt.show()

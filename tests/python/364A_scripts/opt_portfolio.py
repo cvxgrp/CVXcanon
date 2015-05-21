@@ -72,14 +72,14 @@ w_star = w_star[:,0]
 #       the "target" solution w_star.
 import matplotlib.pyplot as plt
 colors = ['b','r','g','c','m']
-plt.figure(figsize=(13,5))
+pass #plt.figure(figsize=(13,5))
 for j in range(n):
-    plt.plot(range(T), ws[:,j], colors[j])
-    plt.plot(range(T), [w_star[j]]*T,  colors[j]+'--')
+    pass #plt.plot(range(T), ws[:,j], colors[j])
+    pass #plt.plot(range(T), [w_star[j]]*T,  colors[j]+'--')
     non_zero_trades = abs(us[:,j]) > threshold
-    print non_zero_trades
-plt.ylabel('post-trade weights')
-plt.xlabel('period $t$')
+    pass #print non_zero_trades
+pass #plt.ylabel('post-trade weights')
+pass #plt.xlabel('period $t$')
 
 num_non_zero_trades = 0.0
 for i in range(len(us)):
@@ -87,6 +87,6 @@ for i in range(len(us)):
 	if any(moved):
 		num_non_zero_trades +=1
 
-print num_non_zero_trades/(T)
+pass #print num_non_zero_trades/(T)
 
-plt.show()
+pass #plt.show()

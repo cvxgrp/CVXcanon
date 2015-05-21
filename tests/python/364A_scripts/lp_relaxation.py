@@ -43,22 +43,22 @@ for t in ts:
 	maximum_failure.append(np.amax(A*x_hat - b))
 
 min_t = np.argmin(feasible_vals)
-print "Best feasible t, ", feasible_ts[min_t]
+pass #print "Best feasible t, ", feasible_ts[min_t]
 
 for i in range(len(vals)):
 	if(feasible_t[i]):
-		plt.scatter(ts[i], vals[i], marker='o')
+		pass #plt.scatter(ts[i], vals[i], marker='o')
 	else:
-		plt.scatter(ts[i], vals[i], marker='x')
+		pass #plt.scatter(ts[i], vals[i], marker='x')
 
-plt.xlabel('t')
-plt.ylabel('Objective value')
-plt.title('LP Relaxation')
-plt.show()
+pass #plt.xlabel('t')
+pass #plt.ylabel('Objective value')
+pass #plt.title('LP Relaxation')
+pass #plt.show()
 
-print maximum_failure
+pass #print maximum_failure
 
-plt.plot(ts, maximum_failure)
-plt.xlabel('t')
-plt.ylabel('Maximum failure')
-plt.show()
+pass #plt.plot(ts, maximum_failure)
+pass #plt.xlabel('t')
+pass #plt.ylabel('Maximum failure')
+pass #plt.show()

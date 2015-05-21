@@ -81,7 +81,7 @@ tolerance = 1.0
 
 
 for theta in range(360):
-	print theta
+	pass #print theta
 	rad = theta * math.pi / 180.0
 	unit_vec = np.array([math.cos(rad), math.sin(rad)])
 	
@@ -115,10 +115,10 @@ for theta in range(360):
 	
 	max_dists.append(max_norm_found * unit_vec )	
 
-	print max_norm_found
+	pass #print max_norm_found
 
 X = [vec[0] for vec in max_dists ] 
 Y = [vec[1] for vec in max_dists ]
 
-plt.fill(X,Y)
-plt.show()
+pass #plt.fill(X,Y)
+pass #plt.show()
