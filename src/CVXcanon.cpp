@@ -86,10 +86,10 @@ void add_matrix_to_vectors(Matrix & block, std::vector<double> & V, std::vector<
 
 void extend_constant_vec(std::vector<double> &const_vec, int &vert_offset, 
 												 Matrix &block){
-	int cols = block.cols();
+	int rows = block.rows();
 	for ( int k=0; k < block.outerSize(); ++k ){
 		for ( Matrix::InnerIterator it(block,k); it; ++it ){
-			int idx = vert_offset + (it.row() * cols) + it.col();
+			int idx = vert_offset + (it.col() * rows) + it.row();
 	    const_vec[idx] += it.value();
 		}
 	}

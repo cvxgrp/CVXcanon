@@ -210,8 +210,7 @@ std::vector<Matrix> stack_matrices(LinOp &lin, bool vertical){
 /**
  * Returns the matrix stored in the data field of LIN as a single column 
  * vector which preserves the columnwise ordering of the original elements.
- * Similar to reshape(n, 1).
- *
+ * 
  * Params: LinOp LIN with DATA containing a 2d vector representation of a
  * 				 matrix.
  * 
@@ -226,7 +225,7 @@ Matrix get_constant_data_as_column(LinOp &lin){
 	tripletList.reserve(rows * cols);
 	for(int i = 0; i < rows; i++){
 		for(int j = 0; j < cols; j++){
-			tripletList.push_back(Triplet(cols * i +  j, 0, lin.data[i][j]));
+			tripletList.push_back(Triplet(rows * j +  i, 0, lin.data[i][j]));
 		}
 	}
 	coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
@@ -386,7 +385,6 @@ std::vector<Matrix> get_conv_mat(LinOp &lin){
 
 /**
  * Return the coefficients for UPPER_TRI. 
- *
  *
  * Parameters: LinOp with type UPPER_TRI.
  * Returns: vector of coefficients for upper triangular matrix linOp
