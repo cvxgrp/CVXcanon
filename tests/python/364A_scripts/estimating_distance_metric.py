@@ -7,7 +7,7 @@ import copy
 
 from scipy import linalg as la
 np.random.seed(8)
-
+settings.USE_CVXCANON = True
 n = 5 # Dimension
 N = 100 # Number of sample
 N_test = 10 # Samples for test set

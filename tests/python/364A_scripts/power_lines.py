@@ -10,7 +10,7 @@ m = 18     # number of edges (transmission lines)
 k = 4      # number of generators
 # transmission line capacities = 
 
-
+settings.USE_CVXCANON = True
 Pmax = np.matrix("""
     4.8005,
     1.9246,

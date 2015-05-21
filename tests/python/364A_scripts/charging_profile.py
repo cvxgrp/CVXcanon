@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 np.random.seed(1)
-
+settings.USE_CVXCANON = True
 T = 96
 t = np.linspace(1, T, num=T).reshape(T,1)
 p = np.exp(-np.cos((t-15)*2*np.pi/T)+0.01*np.random.randn(T,1))

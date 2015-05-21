@@ -3,6 +3,7 @@
 
 import numpy as np
 from cvxpy import *
+settings.USE_CVXCANON = True
 A = np.array(np.mat(
 '0  1  0  0  0  0  1  0  0  0  1  1  1  0  0  1  0  1  1  0  1  1  0  1  0  1  1  1  0  1;\
  1  0  0  0  0  0  1  1  0  0  1  0  1  0  0  1  1  0  0  0  0  0  0  0  1  0  0  1  1  0;\

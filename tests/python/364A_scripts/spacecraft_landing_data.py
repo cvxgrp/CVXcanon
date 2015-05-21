@@ -3,7 +3,8 @@ from cvxpy import *
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
-
+import time
+settings.USE_CVXCANON = False
 h = 1.
 g = 0.1
 m = 10.
@@ -18,6 +19,7 @@ K = 35
 
 ps = []
 val = 0
+tic = time.time()
 while val != float('inf'):  
 	print "K=", K
 	v =  Variable( 3, K) 
@@ -51,6 +53,8 @@ while val != float('inf'):
 	 
 	val = prob.solve()
 	K -= 1
+toc = time.time()
+print toc - tic
 
 
 p = ps[-2]# Last p which was feasible

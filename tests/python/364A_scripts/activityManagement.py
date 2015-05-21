@@ -2,6 +2,7 @@ from cvxpy import *
 import numpy as np
 
 # Create two scalar optimization variables.
+settings.USE_CVXCANON = True
 
 A = np.array([ [1, 2, 0, 1], \
 [0, 0, 3, 1], \

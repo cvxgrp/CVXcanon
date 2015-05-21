@@ -4,9 +4,9 @@ import numpy as np
 from cvxpy import *
 import matplotlib.pyplot as plt
 import copy
+import time
 
-
-
+settings.USE_CVXCANON = True
 n =   100
 a =     1
 b =     6
@@ -99,7 +99,11 @@ constraints.append( t <= tmax)
 
 s = np.zeros((n,1))
 prob = Problem(obj, constraints)
+
+tic =time.time()
 prob.solve()
+toc = time.time()
+print toc - tic
 
 for i in range(n):
      s[i] = d[i] / t.value[i]

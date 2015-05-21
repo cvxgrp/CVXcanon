@@ -1,7 +1,7 @@
 import numpy as np
 from cvxpy import *
 import matplotlib.pyplot as plt
-
+settings.USE_CVXCANON = True
 x = Variable()
 u = Parameter()
 

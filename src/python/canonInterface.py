@@ -46,10 +46,21 @@ def build_lin_op_tree(linPy, tmp):
 		pass
 	elif isinstance(linPy.data, tuple)\
 	and isinstance(linPy.data[0], slice): # Tuple of slices
-		for sl in linPy.data:
+		for i, sl in enumerate(linPy.data):
 			vec = CVXcanon.DoubleVector()
-			vec.push_back(sl.start)
-			vec.push_back(sl.stop)
+			#bp()
+			if (sl.start is None):
+				vec.push_back(0)
+			elif(sl.start < 0):
+				vec.push_back(linPy.args[0].size[i] + (sl.start))
+			else:
+				vec.push_back(sl.start)
+			if(sl.stop is None):
+				vec.push_back(linPy.args[0].size[i])
+			elif(sl.stop < 0):
+				vec.push_back(linPy.args[0].size[i] + (sl.stop))
+			else:
+				vec.push_back(sl.stop)
 			if sl.step is None:
 				vec.push_back(1.0)
 			else:
@@ -65,7 +76,6 @@ def build_lin_op_tree(linPy, tmp):
 		linC.data.push_back(vec)
 	elif isinstance(linPy.data, LinOp) and (linPy.data.type is 'sparse_const' or \
 						linPy.data.type is 'dense_const'):  # huge shitman special casing...
-	
 		if linPy.data.type is 'sparse_const':
 			data = linPy.data.data.todense()
 		else:

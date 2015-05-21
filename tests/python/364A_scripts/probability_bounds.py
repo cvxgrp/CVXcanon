@@ -1,9 +1,10 @@
 import numpy as np
 from cvxpy import *
+import time
 
-
+tic = time.clock()
 numVariables = 4
-
+settings.USE_CVXCANON = True
 
 def cumProb( p, numbers, values):
  	sum = None
@@ -52,3 +53,5 @@ print "Maximum probability, ", prob.solve()
 objective = Minimize( cumProb(p, [4], [1] ))
 prob = Problem(objective, constraints)
 print "Minimum probability, ", prob.solve()
+toc = time.clock()
+print toc - tic

@@ -7,7 +7,7 @@ import math
 
 m = .1
 theta = 15.0 / 180.0 * math.pi
-
+settings.USE_CVXCANON = True
 T_max = 200
 p_int = np.asmatrix([0.0,0.0])
 p_des = np.asmatrix([10.0,2.0])
@@ -24,7 +24,8 @@ last_feasible_k = None
 last_feasible_p = None
 last_feasible_t = None
 
-k= int(k_min)
+k_min = 0
+k = (k_min+k_max)/2
 while k_min < k_max:
 	k += 1
 	print k

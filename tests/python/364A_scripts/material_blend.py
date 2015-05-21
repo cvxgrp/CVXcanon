@@ -4,7 +4,7 @@ from cvxpy import *
 m = 4 # the number of raw materials
 n = 2 # the number of blended materials
 q = 3 # the number of constituents
-
+settings.USE_CVXCANON = False
 # the ith column of C is c_i
 C = np.array([[ .9,  .8, .7, .6],
               [.08, .12, .2, .2],

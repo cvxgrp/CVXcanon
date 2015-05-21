@@ -3,7 +3,7 @@ from cvxpy import *
 import matplotlib.pyplot as pyplot
 import heapq
 
-
+settings.USE_CVXCANON = True
 np.random.seed(0)
 m=100
 k=40 # max # permuted measurements

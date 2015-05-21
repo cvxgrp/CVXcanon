@@ -5,7 +5,7 @@ import math
 A = np.array(np.mat('-1 -1 0 0 0;\
 	0 1 -1 -1 0;\
 	0 0 0 1 1'))
-
+settings.USE_CVXCANON = True
 I = Variable(5)
 I_entr = Variable(2)
 f_0 = -entr(I_entr[0])-I[2] - 26.0 * log(I[2])

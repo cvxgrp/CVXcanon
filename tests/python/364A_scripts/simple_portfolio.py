@@ -2,7 +2,7 @@ import numpy as np
 from cvxpy import *
 import matplotlib.pyplot as plt
 
-
+settings.USE_CVXCANON = True
 np.random.seed(1)
 n = 20
 pbar = np.ones((n,1))*.03 + np.r_[np.random.rand(n-1,1), np.zeros((1,1))]*.12;

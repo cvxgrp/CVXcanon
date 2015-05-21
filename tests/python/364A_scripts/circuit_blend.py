@@ -8,7 +8,7 @@ import math
 
 n = 10 # number of variables
 k = 6  # number of designs
-
+settings.USE_CVXCANON = True
 # component widths from known designs
 # each column of W is a different design
 W ='1.8381    1.5803   12.4483    4.4542    6.5637    5.8225;\
@@ -45,4 +45,4 @@ constraints = [theta * P < P_spec, theta * D < D_spec, theta * A < A_spec]
 
 prob = Problem(objective, constraints)
 prob.solve()
-print np.exp(dot.Y( theta.value ))
+print np.exp(Y.dot( theta.value ))

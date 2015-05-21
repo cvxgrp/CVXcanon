@@ -74,6 +74,8 @@ from cvxpy import *
 import matplotlib.pyplot as plt
 import math
 
+
+settings.USE_CVXCANON = True
 max_dists = [] 
 tolerance = 1.0
 
