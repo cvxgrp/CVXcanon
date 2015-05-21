@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 
 
 np.random.seed(0)
-(m, n) = (300, 100)
+(m, n) = (2000, 1000)
 A = np.random.rand(m, n); A = np.asmatrix(A)
 b = A.dot(np.ones((n, 1)))/2; b = np.asmatrix(b)
 c = - np.random.rand(n, 1); c = np.asmatrix(c)
-settings.USE_CVXCANON = True
+settings.USE_CVXCANON = False
 # Solving the LP relaxation 
 x = Variable(n)
 ts = np.arange(0,1,.01)
