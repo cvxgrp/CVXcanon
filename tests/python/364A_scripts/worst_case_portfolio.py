@@ -21,7 +21,7 @@ prob = Problem(objective, constraints)
 
 risk = prob.solve()
 
-print "Risk:, ", risk
-print "Sigma: ", Sigma.value
+pass #print "Risk:, ", risk
+pass #print "Sigma: ", Sigma.value
 
-print "Diagonal risk: ", x.T.dot(np.diag(np.diag(Sigma.value)).dot(x))
+pass #print "Diagonal risk: ", x.T.dot(np.diag(np.diag(Sigma.value)).dot(x))

@@ -51,38 +51,38 @@ prob = Problem(obj, constraints)
 val = prob.solve(solver=ECOS)
 
 # Plotting nodes
-plt.figure(1)
+pass #plt.figure(1)
 for i in range(len(Q)):
-	plt.plot([qs[t].value[i][0,0] for t in range(T) ])
-	plt.hold(True)
-plt.legend(["Node " + str(i+1) for i in range(1 + len(Q))])
-plt.title("Node occupancy during evacuation")
-plt.xlabel("Time")
-plt.ylabel("Node occupancy")
-plt.show()
+	pass #plt.plot([qs[t].value[i][0,0] for t in range(T) ])
+	pass #plt.hold(True)
+pass #plt.legend(["Node " + str(i+1) for i in range(1 + len(Q))])
+pass #plt.title("Node occupancy during evacuation")
+pass #plt.xlabel("Time")
+pass #plt.ylabel("Node occupancy")
+pass #plt.show()
 
 
 
-plt.figure(2)
+pass #plt.figure(2)
 for i in range(len(F)):
-	plt.plot([fs[t].value[i][0,0] for t in range(T) ])
-	plt.hold(True)
-plt.legend(["Edge " + str(i+1) for i in range(1 + len(F))])
-plt.title("Edge flow during evacuation")
-plt.xlabel("Time")
-plt.ylabel("Edge flow")
-plt.show()
+	pass #plt.plot([fs[t].value[i][0,0] for t in range(T) ])
+	pass #plt.hold(True)
+pass #plt.legend(["Edge " + str(i+1) for i in range(1 + len(F))])
+pass #plt.title("Edge flow during evacuation")
+pass #plt.xlabel("Time")
+pass #plt.ylabel("Edge flow")
+pass #plt.show()
 
 
 
-plt.figure(3)
+pass #plt.figure(3)
 
 exposures = [r * np.asmatrix(qs[i].value ) + s * np.square(np.asmatrix(qs[i].value ))\
 + rtild * np.abs(np.asmatrix(fs[i].value )) + stild * np.square(np.asmatrix(fs[i].value ) ) for i in range(T)]
 
 exposures = [ exposures[t][0,0] for t in range(T) ]
-plt.plot(   exposures ) 
-plt.title("Risk exposure flow during evacuation")
-plt.xlabel("Time")
-plt.ylabel("Exposure")
-plt.show()
+pass #plt.plot(   exposures ) 
+pass #plt.title("Risk exposure flow during evacuation")
+pass #plt.xlabel("Time")
+pass #plt.ylabel("Exposure")
+pass #plt.show()

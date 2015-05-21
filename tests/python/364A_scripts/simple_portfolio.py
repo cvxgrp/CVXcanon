@@ -21,25 +21,25 @@ constraints = [sum_entries(x) == 1, sum_entries(pbar.T * x) >= unif_return]
 
 prob = Problem(objective, constraints)
 result = prob.solve()
-print "Uniform return:", unif_return
-print "No additional constraints"
-print "Risk:", result
+pass #print "Uniform return:", unif_return
+pass #print "No additional constraints"
+pass #print "Risk:", result
 
-print "No shorts"
+pass #print "No shorts"
 constraints.append(x >= 0 )
 prob = Problem(objective, constraints)
 result = prob.solve()
-print "No additional constraints"
-print "Risk:", result
+pass #print "No additional constraints"
+pass #print "Risk:", result
 
 
-print "Short limit"
+pass #print "Short limit"
 constraints.pop()
 constraints.append( sum_entries(neg(x)) <= .5)
 prob = Problem(objective, constraints)
 result = prob.solve()
-print "No additional constraints"
-print "Risk:", result
+pass #print "No additional constraints"
+pass #print "Risk:", result
 
 # Optimal trade-off curve, no shorts
 minimum_return = Parameter(sign="positive")
@@ -57,11 +57,11 @@ for val in min_returns:
 	result = prob.solve()
 	risk.append(result)
 
-plt.plot(risk, returns)
-plt.xlabel('Risk')
-plt.ylabel('Return')
-plt.title('Optimal portfolio with no shorting')
-plt.show()
+pass #plt.plot(risk, returns)
+pass #plt.xlabel('Risk')
+pass #plt.ylabel('Return')
+pass #plt.title('Optimal portfolio with no shorting')
+pass #plt.show()
 
 # Optimal trade-off curve, limited shorts
 minimum_return = Parameter(sign="positive")
@@ -79,8 +79,8 @@ for val in min_returns:
 	result = prob.solve()
 	risk.append(result)
 
-plt.plot(risk, returns)
-plt.xlabel('Risk')
-plt.ylabel('Return')
-plt.title('Optimal portfolio with limited shorts')
-plt.show()
+pass #plt.plot(risk, returns)
+pass #plt.xlabel('Risk')
+pass #plt.ylabel('Return')
+pass #plt.title('Optimal portfolio with limited shorts')
+pass #plt.show()

@@ -16,7 +16,7 @@ h = .1
 lc = np.asmatrix([-math.sin(theta), math.cos(theta)]).T
 rc = np.asmatrix([math.sin(theta), math.cos(theta)]).T
 g = np.asmatrix([0.0, -9.8]).T 
-print lc, rc, g
+pass #print lc, rc, g
 
 k_max = 100
 
@@ -28,7 +28,7 @@ k_min = 0
 k = (k_min+k_max)/2
 while k_min < k_max:
 	k += 1
-	print k
+	pass #print k
 	F = Variable(2, k)
 	Tl = Variable(k)
 	Tr = Variable(k)
@@ -51,7 +51,7 @@ while k_min < k_max:
 	obj = Minimize(0)
 	prob = Problem(obj, constraints)
 	val = prob.solve(solver="ECOS")
-	print val
+	pass #print val
 	if val == float('inf'):
 		pass
 		#k_min = k + 1
@@ -61,18 +61,18 @@ while k_min < k_max:
 		last_feasible_p = p.T.value
 		last_feasible_t = [Tl.value, Tr.value]
 
-plt.plot(last_feasible_p[:,0], last_feasible_p[:,1])
-plt.title("Trajectory")
-plt.show()
+pass #plt.plot(last_feasible_p[:,0], last_feasible_p[:,1])
+pass #plt.title("Trajectory")
+pass #plt.show()
 
 
 
-plt.plot(last_feasible_t[0]/50.0)
-plt.hold(True)
-plt.plot(last_feasible_t[1]/50.0)
-plt.show()
-plt.title("Trajectory")
+pass #plt.plot(last_feasible_t[0]/50.0)
+pass #plt.hold(True)
+pass #plt.plot(last_feasible_t[1]/50.0)
+pass #plt.show()
+pass #plt.title("Trajectory")
 
-print k
+pass #print k
 
 

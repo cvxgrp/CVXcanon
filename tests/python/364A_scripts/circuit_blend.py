@@ -45,4 +45,4 @@ constraints = [theta * P < P_spec, theta * D < D_spec, theta * A < A_spec]
 
 prob = Problem(objective, constraints)
 prob.solve()
-print np.exp(Y.dot( theta.value ))
+pass #print np.exp(Y.dot( theta.value ))

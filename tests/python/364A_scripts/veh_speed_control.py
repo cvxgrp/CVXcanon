@@ -103,7 +103,7 @@ prob = Problem(obj, constraints)
 tic =time.time()
 prob.solve()
 toc = time.time()
-print toc - tic
+pass #print toc - tic
 
 for i in range(n):
      s[i] = d[i] / t.value[i]
@@ -111,5 +111,5 @@ for i in range(n):
 
 
 
-plt.plot(s)
-plt.show()
+pass #plt.plot(s)
+pass #plt.show()

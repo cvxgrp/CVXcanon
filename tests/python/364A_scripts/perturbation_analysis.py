@@ -22,13 +22,13 @@ u_2.value = -3
 prob = Problem(obj, constraints)
 
 p_star = prob.solve()
-print "Optimal value,", p_star
+pass #print "Optimal value,", p_star
 
-print "x,", x.value
+pass #print "x,", x.value
 
-print "Lambda 1", constraints[0].dual_value
-print "Lambda 2", constraints[1].dual_value
-print "Lambda 3", constraints[2].dual_value
+pass #print "Lambda 1", constraints[0].dual_value
+pass #print "Lambda 2", constraints[1].dual_value
+pass #print "Lambda 3", constraints[2].dual_value
 
 delta_1 = [0, -.1, .1]
 delta_2 = [0, -.1, .1]
@@ -37,4 +37,4 @@ for d1 in delta_1:
 	for d2 in delta_2:
 		u_1.value = -2 + d1 
 		u_2.value = -3 + d2
-		print d1, d2, prob.solve()
+		pass #print d1, d2, prob.solve()

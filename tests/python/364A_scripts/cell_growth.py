@@ -57,10 +57,10 @@ constraints = [S*v == 0, v <= vmax, 0<=v]
 objective = Maximize(v[-1])
 prob = Problem(objective, constraints)
 val_orig = prob.solve()
-print "Maximal rate: ", val_orig
-print "L1: ", constraints[0].dual_value
-print "L2: ", constraints[1].dual_value
-print "L3: ", constraints[2].dual_value
+pass #print "Maximal rate: ", val_orig
+pass #print "L1: ", constraints[0].dual_value
+pass #print "L2: ", constraints[1].dual_value
+pass #print "L3: ", constraints[2].dual_value
 
 
 for i in range(len(vmax)):
@@ -71,7 +71,7 @@ for i in range(len(vmax)):
 	prob = Problem(objective, constraints)
 	val = prob.solve()
 	if val < .2 * val_orig:
-		print "Essential gene:", i	
+		pass #print "Essential gene:", i	
 
 
 
@@ -85,4 +85,4 @@ for i in range(len(vmax)):
 		prob = Problem(objective, constraints)
 		val = prob.solve()
 		if val < .2 * val_orig:
-			print "Synthetic lethal:", i, j
+			pass #print "Synthetic lethal:", i, j

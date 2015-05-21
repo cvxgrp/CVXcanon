@@ -37,15 +37,15 @@ obj = Minimize( norm(v) )
 prob = Problem(obj, constraints)
 prob.solve()
 
-print x.value
-print v.value
+pass #print x.value
+pass #print v.value
 
-plt.figure(1)
-plt.plot(xtrue)
-plt.plot(x.value)
-plt.legend(["True signal", "MLE signal"])
-plt.title("Maximum likelihood reconstruction of FIR filter with constraints")
-plt.show()
+pass #plt.figure(1)
+pass #plt.plot(xtrue)
+pass #plt.plot(x.value)
+pass #plt.legend(["True signal", "MLE signal"])
+pass #plt.title("Maximum likelihood reconstruction of FIR filter with constraints")
+pass #plt.show()
 
 
 
@@ -54,9 +54,9 @@ obj = Minimize( norm(v) )
 prob = Problem(obj, constraints)
 prob.solve()
 
-plt.figure(1)
-plt.plot(xtrue)
-plt.plot(x.value)
-plt.legend(["True signal", "MLE signal"])
-plt.title("Maximum likelihood reconstruction of FIR filter no constraints")
-plt.show()
+pass #plt.figure(1)
+pass #plt.plot(xtrue)
+pass #plt.plot(x.value)
+pass #plt.legend(["True signal", "MLE signal"])
+pass #plt.title("Maximum likelihood reconstruction of FIR filter no constraints")
+pass #plt.show()

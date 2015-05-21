@@ -21,7 +21,7 @@ ps = []
 val = 0
 tic = time.time()
 while val != float('inf'):  
-	print "K=", K
+	pass #print "K=", K
 	v =  Variable( 3, K) 
 	p =  Variable( 3, K)  
 	f =  Variable( 3, K) 
@@ -54,7 +54,7 @@ while val != float('inf'):
 	val = prob.solve()
 	K -= 1
 toc = time.time()
-print toc - tic
+pass #print toc - tic
 
 
 p = ps[-2]# Last p which was feasible
@@ -63,7 +63,7 @@ p = ps[-2]# Last p which was feasible
 # use the following code to plot your trajectories
 # and the glide cone (don't modify)
 # -------------------------------------------------------
-fig = plt.figure()
+fig = pass #plt.figure()
 ax = fig.gca(projection='3d')
 
 X = np.linspace(-40, 55, num=30)
@@ -77,5 +77,5 @@ ax.plot(xs=p.value[0,:].A1,ys=p.value[1,:].A1,zs=p.value[2,:].A1)
 ax.set_xlabel('x'); ax.set_ylabel('y'); ax.set_zlabel('z')
 
 
-plt.title('Minimum time path ')
-plt.show()
+pass #plt.title('Minimum time path ')
+pass #plt.show()

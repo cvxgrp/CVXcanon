@@ -91,7 +91,7 @@ prob.solve()
 
 deviations = [P.value[i,j] * (1 - P.value[i,j]) for i in range(n) for j in range(n)]
 
-print max(deviations)
+pass #print max(deviations)
 
 v = np.asmatrix([i+1 for i in range(n)])
-print P.value * v.T
+pass #print P.value * v.T

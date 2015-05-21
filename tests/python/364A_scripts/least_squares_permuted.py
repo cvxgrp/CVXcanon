@@ -1,5 +1,5 @@
-import numpy as np
 from cvxpy import *
+import numpy as np
 import matplotlib.pyplot as pyplot
 import heapq
 
@@ -78,6 +78,6 @@ for _ in range(20):
 	P_fixed = optimizeP(A, x_fixed, y)
 
 
-print "Num permuted the same as k: ",  numPermuted(P) == k 
-print "Final objective", result
-print "P = I error", firstIter
+pass #print "Num permuted the same as k: ",  numPermuted(P) == k 
+pass #print "Final objective", result
+pass #print "P = I error", firstIter
