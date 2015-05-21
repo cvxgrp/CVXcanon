@@ -12,6 +12,8 @@ import matplotlib.pyplot as plt
 
 def run_testfile(filename):
 	print filename
+
+
 	settings.USE_CVXCANON = False	
 	start = time.time()
 	exec("from cvxpy import *\nsettings.USE_CVXCANON=False\n" + open(filename).read())
@@ -25,15 +27,19 @@ def run_testfile(filename):
 	print "oldtime: ", oldtime, ", newtime: ", newtime
 	return (oldtime, newtime)
 
-files = glob.glob("./364A_scripts/*")
+files = glob.glob("./364A_scripts/*.py")
 
 oldtime = [];
 newtime = [];
 for testfile in files:
 	print "testing: ", testfile
-	(o, n) = run_testfile(testfile);
-	oldtime += [o]
-	newtime += [n]
+	try:
+		(o, n) = run_testfile(testfile);
+		oldtime += [o]
+		newtime += [n]
+	except (RuntimeError, TypeError, NameError, AttributeError):
+		pass
+
 
 plt.scatter(oldtime, newtime)
 plt.show()
