@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import copy
 import time
 
-settings.USE_CVXCANON = True
+
 n =   100
 a =     1
 b =     6
