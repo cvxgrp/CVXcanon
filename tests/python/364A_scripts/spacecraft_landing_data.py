@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 import time
-settings.USE_CVXCANON = False
+
 h = 1.
 g = 0.1
 m = 10.

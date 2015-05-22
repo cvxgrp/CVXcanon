@@ -2,7 +2,6 @@ import numpy as np
 from cvxpy import *
 import matplotlib.pyplot as pyplot
 
-settings.USE_CVXCANON = True
 Sigma = Semidef(4)
 
 x = np.array([.1, .2, -.05, .1])

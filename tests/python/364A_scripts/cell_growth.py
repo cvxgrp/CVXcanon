@@ -5,7 +5,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import copy
 import math
 
-settings.USE_CVXCANON = True
+
 
 
 # data file for flux balance analysis in systems biology

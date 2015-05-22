@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 np.random.seed(1)
 N = 100
-settings.USE_CVXCANON = True
+
 # create an increasing input signal
 xtrue = np.zeros(N)
 xtrue[0:40] = 0.1
