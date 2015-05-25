@@ -2,6 +2,7 @@ import CVXcanon
 import numpy as np
 from  cvxpy.lin_ops.lin_op import *
 from pdb import set_trace as bp
+import scipy.sparse
 
 
 def get_sparse_matrix(constrs, id_to_col=None):
@@ -42,20 +43,21 @@ def get_sparse_matrix(constrs, id_to_col=None):
 def push_dense(linC, linPy):
   if isinstance(linPy.data, LinOp):  # huge shitman special casing...
     if linPy.data.type is 'sparse_const':
-      data = linPy.data.data.todense()
+      coo = scipy.sparse.coo_matrix(linPy.data.data)
+      linC.addSparseData(coo.data, coo.row, coo.col)
     elif linPy.data.type is 'dense_const':
-      data = linPy.data.data
+      data = np.ascontiguousarray(linPy.data.data)
+      linC.addDenseData(data)
     else:
       raise NotImplementedError()
   else:
     data = linPy.data
-
-  rows, cols = data.shape
-  for row in xrange(rows):
-    vec = CVXcanon.DoubleVector()
-    for col in xrange(cols):
-      vec.push_back(data[row, col])
-    linC.data.push_back(vec)
+    rows, cols = data.shape
+    for row in xrange(rows):
+      vec = CVXcanon.DoubleVector()
+      for col in xrange(cols):
+        vec.push_back(data[row, col])
+      linC.data.push_back(vec)
 
 
 def build_lin_op_tree(linPy, tmp):
