@@ -217,16 +217,16 @@ std::vector<Matrix> stack_matrices(LinOp &lin, bool vertical){
  * Returns: sparse eigen matrix COEFFS as a column vector (dimension n x 1)
  */
 Matrix get_constant_data_as_column(LinOp &lin){
-	int rows = lin.data.size();
-	int cols = lin.data[0].size();
+	int rows = lin.dataRows;
+	int cols = lin.dataCols;
 	Matrix coeffs (rows * cols, 1);
 
 	std::vector<Triplet> tripletList;
 	tripletList.reserve(rows * cols);
-	for(int i = 0; i < rows; i++){
-		for(int j = 0; j < cols; j++){
-			tripletList.push_back(Triplet(rows * j +  i, 0, lin.data[i][j]));
-		}
+
+	int n = lin.V.size();
+	for(int idx = 0; idx < n; idx++){
+		tripletList.push_back(Triplet(rows * lin.J[idx] +  lin.I[idx], 0, lin.V[idx]));
 	}
 	coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
 	return coeffs;
@@ -244,16 +244,15 @@ Matrix get_constant_data_as_column(LinOp &lin){
  * everything as a sparse matrix in the downsteam code. 
  */
 Matrix get_constant_data(LinOp &lin){
-	int rows = lin.data.size();
-	int cols = lin.data[0].size();
+	int rows = lin.dataRows;
+	int cols = lin.dataCols;
 	Matrix coeffs (rows, cols);
 
 	std::vector<Triplet> tripletList;
 	tripletList.reserve(rows * cols);
-	for(int i = 0; i < rows; i++){
-		for(int j = 0; j < cols; j++){
-			tripletList.push_back(Triplet(i, j, lin.data[i][j]));
-		}
+	int n = lin.V.size();
+	for(int idx = 0; idx < n; idx++){
+		tripletList.push_back(Triplet(lin.I[idx], lin.J[idx], lin.V[idx]));
 	}
 	coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
 	return coeffs;

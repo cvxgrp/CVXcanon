@@ -2,6 +2,7 @@
 #define LINOP_H
 
 #include <vector>
+#include <cassert>
 
 
 static const int CONSTANT_ID = -1;
@@ -38,13 +39,40 @@ typedef operatortype OperatorType;
 class LinOp{	
 	public:
 		OperatorType type;
-		std::vector< std::vector<double> > data;
+		std::vector<double> V;
+		std::vector<int> I;
+		std::vector<int> J;
+		int dataRows;
+		int dataCols;
+
 		std::vector< int > size;
 		std::vector< LinOp* > args;
 		
+		std::vector<std::vector<double> > data;
+
 		bool hasConstantType(){
 			return  type == SCALAR_CONST || 
 			type == DENSE_CONST || type == SPARSE_CONST;
+		}
+
+		void addDenseData(double* matrix, int rows, int cols){
+			for (int i=0; i < rows; i++){
+  			for(int j=0; j < cols; j++){
+  				I.push_back(i);
+  				J.push_back(j);
+  				V.push_back(matrix[i * cols + j]);
+  			}
+  		}
+		}
+
+		void addSparseData(double *data, int data_len, double *rows, int rows_len,
+										 	 double *cols, int cols_len){
+			assert(rows_len == data_len && cols_len == data_len);
+			for(int i = 0; i < data_len; i++){
+				V.push_back(data[i]);
+				I.push_back(int(rows[i]));
+				J.push_back(int(cols[i]));
+			}
 		}
 };
 #endif
