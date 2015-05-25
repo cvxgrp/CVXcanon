@@ -22,9 +22,9 @@ def get_sparse_matrix(constrs, id_to_col=None):
         tmp.append(tree)
         args.push_back(tree)
 
-    print "Calling C++ code"
+    # print "Calling C++ code"
     problemData = CVXcanon.build_matrix(args, id_to_col_C)
-    print "Returned from C++ code"
+    # print "Returned from C++ code"
 
     V, I, J, b = ([], [], [], [])
     for i in range(problemData.V.size()):
