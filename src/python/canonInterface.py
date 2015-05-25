@@ -41,7 +41,12 @@ def get_sparse_matrix(constrs, id_to_col=None):
 
 
 def push_dense(linC, linPy):
+  
+   
   if isinstance(linPy.data, LinOp):  # huge shitman special casing...
+    (rows, cols) linPy.data.data.shape
+    linC.dataRows = rows 
+    linC.dataCols = cols
     if linPy.data.type is 'sparse_const':
       coo = scipy.sparse.coo_matrix(linPy.data.data)
       linC.addSparseData(coo.data, coo.row, coo.col)
@@ -59,11 +64,19 @@ def push_dense(linC, linPy):
         vec.push_back(data[row, col])
       linC.data.push_back(vec)
 
+   
 
 def build_lin_op_tree(linPy, tmp):
   linC = CVXcanon.LinOp()
   # Setting the type of our lin op
   linC.type = eval("CVXcanon." + linPy.type.upper())
+  
+
+  # Setting size
+  linC.size.push_back( int(linPy.size[0]) )
+  linC.size.push_back( int(linPy.size[1]) )
+
+
   # Loading the data into our array
   if linPy.data is None:
     pass
@@ -99,10 +112,7 @@ def build_lin_op_tree(linPy, tmp):
     linC.data.push_back(vec)
   else:
     push_dense(linC, linPy)
-  # Setting size
-  linC.size.push_back( int(linPy.size[0]) )
-  linC.size.push_back( int(linPy.size[1]) )
-
+  
   # Updating the arguments
   for argPy in linPy.args:
     tree = build_lin_op_tree(argPy, tmp)
