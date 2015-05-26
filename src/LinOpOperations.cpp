@@ -221,10 +221,9 @@ Matrix get_constant_data_as_column(LinOp &lin){
 	int cols = lin.dataCols;
 	Matrix coeffs (rows * cols, 1);
 
-	std::vector<Triplet> tripletList;
-	tripletList.reserve(rows * cols);
-
 	int n = lin.V.size();
+	std::vector<Triplet> tripletList;
+	tripletList.reserve(n);
 	for(int idx = 0; idx < n; idx++){
 		tripletList.push_back(Triplet(rows * lin.J[idx] +  lin.I[idx], 0, lin.V[idx]));
 	}
@@ -249,8 +248,8 @@ Matrix get_constant_data(LinOp &lin){
 	Matrix coeffs (rows, cols);
 
 	std::vector<Triplet> tripletList;
-	tripletList.reserve(rows * cols);
 	int n = lin.V.size();
+	tripletList.reserve(n);
 	for(int idx = 0; idx < n; idx++){
 		tripletList.push_back(Triplet(lin.I[idx], lin.J[idx], lin.V[idx]));
 	}
@@ -607,7 +606,6 @@ std::vector<Matrix> get_rmul_mat(LinOp &lin){
  */
 std::vector<Matrix> get_mul_mat(LinOp &lin){
 	assert(lin.type == MUL);
-	// assumes lin.data points to a sparse eigen matrix.
 	Matrix block = get_constant_data(lin);
 
 	int block_rows = block.rows();

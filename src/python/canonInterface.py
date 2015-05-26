@@ -6,6 +6,7 @@ import scipy.sparse
 
 
 def get_sparse_matrix(constrs, id_to_col=None):
+    # print constrs
     linOps = [constr.expr for constr in constrs]
     args = CVXcanon.LinOpVector()
 
@@ -41,10 +42,8 @@ def get_sparse_matrix(constrs, id_to_col=None):
 
 
 def push_dense(linC, linPy):
-  
-   
   if isinstance(linPy.data, LinOp):  # huge shitman special casing...
-    (rows, cols) linPy.data.data.shape
+    (rows, cols) = linPy.data.data.shape
     linC.dataRows = rows 
     linC.dataCols = cols
     if linPy.data.type is 'sparse_const':
@@ -56,13 +55,11 @@ def push_dense(linC, linPy):
     else:
       raise NotImplementedError()
   else:
-    data = linPy.data
-    rows, cols = data.shape
-    for row in xrange(rows):
-      vec = CVXcanon.DoubleVector()
-      for col in xrange(cols):
-        vec.push_back(data[row, col])
-      linC.data.push_back(vec)
+    (rows, cols) = linPy.data.shape
+    linC.dataRows = rows 
+    linC.dataCols = cols
+    data = np.ascontiguousarray(linPy.data)
+    linC.addDenseData(data)
 
    
 
@@ -106,10 +103,19 @@ def build_lin_op_tree(linPy, tmp):
     vec = CVXcanon.DoubleVector()
     vec.push_back(linPy.data)
     linC.data.push_back(vec)
+    linC.dataRows = 1
+    linC.dataCols = 1
+    data = np.ascontiguousarray(np.matrix(linPy.data))
+    linC.addDenseData(data)
   elif isinstance(linPy.data, LinOp) and linPy.data.type is 'scalar_const':
     vec = CVXcanon.DoubleVector()
     vec.push_back(linPy.data.data)
     linC.data.push_back(vec)
+    linC.dataRows = 1
+    linC.dataCols = 1
+    data = np.ascontiguousarray(np.matrix(linPy.data.data))
+    linC.addDenseData(data)
+
   else:
     push_dense(linC, linPy)
   

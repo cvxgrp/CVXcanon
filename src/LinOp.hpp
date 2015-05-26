@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <cassert>
+#include <iostream>
 
 
 static const int CONSTANT_ID = -1;
@@ -56,12 +57,13 @@ class LinOp{
 		}
 
 		void addDenseData(double* matrix, int rows, int cols){
+			dataRows = rows;
+			dataCols = cols;
 			for (int i=0; i < rows; i++){
   			for(int j=0; j < cols; j++){
   				I.push_back(i);
   				J.push_back(j);
-  				V.push_back(matrix[i * cols + j]);
-  			}
+  				V.push_back(matrix[i * cols + j]);  			}
   		}
 		}
 
