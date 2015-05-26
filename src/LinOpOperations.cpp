@@ -368,13 +368,11 @@ std::vector<Matrix> get_conv_mat(LinOp &lin){
 	tripletList.reserve(nonzeros * cols);
 	for(int col = 0; col < cols; col++){
 		int row_start = col;
-		for(int i = 0; i < nonzeros; i++){
-			int row_idx = row_start + i;
-
-			// TODO: speed up this reference by changing the representation of
-			// the column to a dense matrix.
-			double val = constant.coeffRef(i, 0);
-			tripletList.push_back(Triplet(row_idx, col, val));
+		for ( int k=0; k < constant.outerSize(); ++k ){
+			for ( Matrix::InnerIterator it(constant,k); it; ++it ){
+				int row_idx = row_start + it.row();
+		    tripletList.push_back(Triplet(row_idx, col, it.value()));
+			}
 		}
 	}
 	toeplitz.setFromTriplets(tripletList.begin(), tripletList.end());
@@ -547,11 +545,10 @@ std::vector<Matrix> get_mul_elemwise_mat(LinOp &lin){
 	// build a giant diagonal matrix
 	std::vector<Triplet> tripletList;
 	tripletList.reserve(n);
-	for(int i = 0; i < n; i++){
-		// TODO: coeffref is slow due to nature of sparse matrix elem access.
-		// speed this up by iterating over elements of sparse matrix first,
-		// or storing the point to a dense matrix instead of a sparse one.
-		tripletList.push_back(Triplet(i, i, constant.coeffRef(i, 0)));
+	for ( int k=0; k < constant.outerSize(); ++k ){
+		for ( Matrix::InnerIterator it(constant,k); it; ++it ){
+		    tripletList.push_back(Triplet(it.row(), it.row(), it.value()));
+		}
 	}
 
 	Matrix coeffs(n, n);
@@ -579,12 +576,12 @@ std::vector<Matrix> get_rmul_mat(LinOp &lin){
 	Matrix coeffs(cols * n, rows * n);
 	std::vector<Triplet> tripletList;
 	tripletList.reserve(rows * cols * n);
-	for(int row = 0; row < rows; row++){
-		for(int col = 0; col < cols; col++){
-			double val = constant.coeffRef(row, col);
+	for ( int k=0; k < constant.outerSize(); ++k ){
+		for ( Matrix::InnerIterator it(constant,k); it; ++it ){
+			double val = it.value();
 
-			int row_start = col * n; 
-			int col_start = row * n;
+			int row_start = it.col() * n;
+			int col_start = it.row() * n;
 			for(int i = 0; i < n; i++){
 				int row_idx = row_start + i;
 				int col_idx = col_start + i;
@@ -621,13 +618,9 @@ std::vector<Matrix> get_mul_mat(LinOp &lin){
 	for(int curr_block = 0; curr_block < num_blocks; curr_block++){
 		int start_i = curr_block * block_rows;
 		int start_j = curr_block * block_cols;
-		for(int i = 0; i < block_rows; i++){
-			for(int j = 0; j < block_cols; j++){
-				// TODO: coeffref is slow due to nature of sparse matrix elem access.
-				// speed this up by iterating over elements of sparse matrix first,
-				// or storing the point to a dense matrix instead of a sparse one.
-				tripletList.push_back(Triplet(start_i + i, start_j + j,
-															block.coeffRef(i, j)));
+		for ( int k=0; k < block.outerSize(); ++k ){
+			for ( Matrix::InnerIterator it(block,k); it; ++it ){
+				tripletList.push_back(Triplet(start_i + it.row(), start_j + it.col(), it.value()));
 			}
 		}
 	}
