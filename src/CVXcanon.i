@@ -22,7 +22,7 @@
 																					 (double *row_idxs, int rows_len),
 																					 (double *col_idxs, int cols_len)};
 
-%apply (double* ARGOUT_ARRAY1, int DIM1) {(double* values, int numValues)}
+%apply (double* ARGOUT_ARRAY1, int DIM1) {(double* values, int num_values)}
 %include "ProblemData.hpp"
 
 %include "LinOp.hpp"
