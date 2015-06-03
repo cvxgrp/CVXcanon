@@ -116,7 +116,7 @@ void process_constraint(LinOp & lin, std::vector<double> &V,
 	}
 }
 
-int getTotalConstraintLength(std::vector< LinOp* > constraints){
+int get_total_constraint_length(std::vector< LinOp* > constraints){
 	int result = 0;
 	for(unsigned i = 0; i < constraints.size(); i++){
 		result += constraints[i]->size[0]*constraints[i]->size[1];
@@ -133,27 +133,27 @@ int getTotalConstraintLength(std::vector< LinOp* > constraints){
 * Input: std::vector<LinOp *> constraints, our list of constraints represented 
 * as a linear operation tree
 *
-* Output: probData, a data structure which contains a sparse representation
-* of our second order cone matrix, a dense representation of our SOOC vector,
+* Output: prob_data, a data structure which contains a sparse representation
+* of the coefficient matrix, a dense representation of the constant vector,
 * and maps containing our mapping from variables, and a map from the rows of our
 * matrix to their corresponding constraint.
 *
 */
 
 ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col){
-	ProblemData probData;
-	int numRows = getTotalConstraintLength(constraints);
-	probData.const_vec = std::vector<double> (numRows, 0);
-	probData.id_to_col = id_to_col; 						// TODO: Make this more efficient
+	ProblemData prob_data;
+	int num_rows = get_total_constraint_length(constraints);
+	prob_data.const_vec = std::vector<double> (num_rows, 0);
+	prob_data.id_to_col = id_to_col; 						// TODO: Make this more efficient
 	int vert_offset = 0;
 	int horiz_offset  = 0;
 	for(unsigned i = 0; i < constraints.size(); i++){		// Processing each constraint
 		LinOp constr = *constraints[i];
-		process_constraint(constr, probData.V, probData.I, probData.J,
-						   				 probData.const_vec, vert_offset, 
-						   				 probData.id_to_col, horiz_offset);
-		probData.const_to_row[i] = vert_offset;				
+		process_constraint(constr, prob_data.V, prob_data.I, prob_data.J,
+						   				 prob_data.const_vec, vert_offset, 
+						   				 prob_data.id_to_col, horiz_offset);
+		prob_data.const_to_row[i] = vert_offset;				
 		vert_offset += constr.size[0] * constr.size[1]; 		
 	}
-	return probData;
+	return prob_data;
 }
