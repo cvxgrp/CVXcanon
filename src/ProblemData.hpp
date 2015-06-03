@@ -14,7 +14,7 @@ class ProblemData{
 		std::map<int, int> const_to_row;
 
 		// loads data into a NUMPY array VALUES.
-		// probably specifid to the python wrapper?
+		// probably specific to the python wrapper?
 		void getV(double* values, int numValues){
 			for(int i = 0; i < numValues; i++){
 				values[i] = V[i];
