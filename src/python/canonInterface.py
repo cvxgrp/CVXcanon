@@ -5,25 +5,44 @@ import scipy.sparse
 from collections import deque
 
 
-def get_sparse_matrix(constrs, id_to_col=None):
+def get_problem_matrix(constrs, id_to_col=None):
+    '''
+    Builds a sparse representation of the problem data by calling CVXCanon's
+    C++ build_matrix function.
+    
+    Parameters
+    ----------
+        constrs: A list of python linOp trees 
+        id_to_col: A map from variable id to offset withoun our matrix
+    
+    Returns
+    ----------
+        V, I, J: numpy arrays encoding a sparse representation of our problem
+        const_vec: a numpy column vector representing the constant_data in our problem
+    '''
     linOps = [constr.expr for constr in constrs]
-    args = CVXcanon.LinOpVector()
+    lin_vec = CVXcanon.LinOpVector()
 
     id_to_col_C = CVXcanon.IntIntMap()
     if id_to_col is None:
         id_to_col = {}
 
+    # Loading the variable offsets from our
+    # Python map into a C++ map
     for id, col in id_to_col.items():
         id_to_col_C[id] = col
 
-    # make sure things stay in scope..
+    # This array keeps variables data in scope
+    # after build_lin_op_tree returns
     tmp = []
     for lin in linOps:
         tree = build_lin_op_tree(lin, tmp)
         tmp.append(tree)
-        args.push_back(tree)
+        lin_vec.push_back(tree)
 
-    problemData = CVXcanon.build_matrix(args, id_to_col_C)
+    problemData = CVXcanon.build_matrix(lin_vec, id_to_col_C)
+    
+    # Unpacking
     V = problemData.getV(len(problemData.V))
     I = problemData.getI(len(problemData.I))
     J = problemData.getJ(len(problemData.J))
@@ -33,6 +52,9 @@ def get_sparse_matrix(constrs, id_to_col=None):
 
 
 def format_matrix(matrix, format='dense'):
+    ''' Returns the matrix in the appropriate form, 
+        so that it can be efficiently loaded with our swig wrapper
+    '''
     if(format == 'dense'):
         return np.asfortranarray(matrix)
     elif(format == 'sparse'):
@@ -44,7 +66,9 @@ def format_matrix(matrix, format='dense'):
 
 
 def set_matrix_data(linC, linPy):
-    if isinstance(linPy.data, LinOp):  # huge shitman special casing...
+    '''  Calls the appropriate CVXCanon function to set the matrix data field of our C++ linOp.
+    '''
+    if isinstance(linPy.data, LinOp):
         if linPy.data.type is 'sparse_const':
             coo = format_matrix(linPy.data.data, 'sparse')
             linC.set_sparse_data(coo.data, coo.row.astype(float),
@@ -58,9 +82,15 @@ def set_matrix_data(linC, linPy):
 
 
 def set_slice_data(linC, linPy):
+    '''  
+    Loads the slice data, start, stop, and step into our C++ linOp.
+    The semantics of the slice operator is treated exactly the same as in Python.
+    Note that the 'None' cases had to be handled at the wrapper level, since we must load
+    integers into our vector. 
+    '''
     for i, sl in enumerate(linPy.data):
-        vec = CVXcanon.DoubleVector()
-        if (sl.start is None):
+        vec = CVXcanon.IntVector()
+        if (sl.start is None): 
             vec.push_back(0)
         else:
             vec.push_back(sl.start)
@@ -69,18 +99,35 @@ def set_slice_data(linC, linPy):
         else:
             vec.push_back(sl.stop)
         if sl.step is None:
-            vec.push_back(1.0)
+            vec.push_back(1)
         else:
             vec.push_back(sl.step)
         linC.slice.push_back(vec)
 
 
-type_map = { "VARIABLE": CVXcanon.VARIABLE,"PROMOTE": CVXcanon.PROMOTE,"MUL": CVXcanon.MUL,"RMUL": CVXcanon.RMUL,\
-"MUL_ELEM": CVXcanon.MUL_ELEM,"DIV": CVXcanon.DIV,"SUM": CVXcanon.SUM,"NEG": CVXcanon.NEG,"INDEX": CVXcanon.INDEX,\
-"TRANSPOSE": CVXcanon.TRANSPOSE,"SUM_ENTRIES": CVXcanon.SUM_ENTRIES,"TRACE": CVXcanon.TRACE,"RESHAPE": CVXcanon.RESHAPE,\
-"DIAG_VEC": CVXcanon.DIAG_VEC,"DIAG_MAT": CVXcanon.DIAG_MAT,"UPPER_TRI": CVXcanon.UPPER_TRI,"CONV": CVXcanon.CONV,\
-"HSTACK": CVXcanon.HSTACK,"VSTACK": CVXcanon.VSTACK,"SCALAR_CONST": CVXcanon.SCALAR_CONST,"DENSE_CONST": CVXcanon.DENSE_CONST,\
-"SPARSE_CONST": CVXcanon.SPARSE_CONST,"NO_OP": CVXcanon.NO_OP }
+type_map = { "VARIABLE": CVXcanon.VARIABLE,
+"PROMOTE": CVXcanon.PROMOTE,
+"MUL": CVXcanon.MUL,
+"RMUL": CVXcanon.RMUL,
+"MUL_ELEM": CVXcanon.MUL_ELEM,
+"DIV": CVXcanon.DIV,
+"SUM": CVXcanon.SUM,
+"NEG": CVXcanon.NEG,
+"INDEX": CVXcanon.INDEX,
+"TRANSPOSE": CVXcanon.TRANSPOSE,
+"SUM_ENTRIES": CVXcanon.SUM_ENTRIES,
+"TRACE": CVXcanon.TRACE,
+"RESHAPE": CVXcanon.RESHAPE,
+"DIAG_VEC": CVXcanon.DIAG_VEC,
+"DIAG_MAT": CVXcanon.DIAG_MAT,
+"UPPER_TRI": CVXcanon.UPPER_TRI,
+"CONV": CVXcanon.CONV,
+"HSTACK": CVXcanon.HSTACK,
+"VSTACK": CVXcanon.VSTACK,
+"SCALAR_CONST": CVXcanon.SCALAR_CONST,
+"DENSE_CONST": CVXcanon.DENSE_CONST,
+"SPARSE_CONST": CVXcanon.SPARSE_CONST,
+"NO_OP": CVXcanon.NO_OP }
 
 def get_type(ty):
     if ty in type_map:
@@ -92,12 +139,16 @@ def get_type(ty):
 
 def build_lin_op_tree(root_linPy, tmp):
     '''
-    Breadth first, post-order traversal
-
-    params: A python linOp tree, root_linPy, and an array tmp to 
-    keep data from going out of scope
-
-    returns: root_linC, a C++ LinOp tree created through our swig interface
+    Breadth-first, pre-order traversal on the Python linOp tree
+    Parameters
+    -------------
+    root_linPy: a Python LinOp tree
+    
+    tmp: an array to keep data from going out of scope
+    
+    Returns
+    --------
+    root_linC: a C++ LinOp tree created through our swig interface
     '''
     Q = deque()
     root_linC = CVXcanon.LinOp()
@@ -120,10 +171,10 @@ def build_lin_op_tree(root_linPy, tmp):
         linC.size.push_back(int(linPy.size[0]))
         linC.size.push_back(int(linPy.size[1]))
 
-        # Loading the data into our array
+        # Loading the problem data into the appropriate array format
         if linPy.data is None:
             pass
-        elif isinstance(linPy.data, tuple) and isinstance(linPy.data[0], slice):  # Tuple of slices
+        elif isinstance(linPy.data, tuple) and isinstance(linPy.data[0], slice):
             set_slice_data(linC, linPy)
         elif isinstance(linPy.data, float) or isinstance(linPy.data, int):
             linC.set_dense_data(format_matrix(linPy.data, 'scalar'))
