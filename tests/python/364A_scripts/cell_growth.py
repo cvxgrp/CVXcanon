@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import copy
 import math
-
+import time
 
 
 
@@ -13,6 +13,8 @@ import math
 # models and kinetic parameter fitting" OMICS 7 (3), 301-316. 
 import numpy as np
 
+
+TIME = 0
 # Stoichiometric matrix
 #	columns are M1	M2	M3	M4	M5	M6	
 # For your interest, the rows correspond to the following equations
@@ -53,10 +55,17 @@ vmax = np.matrix("""
 
 v = Variable(n)
 
+ANSWERS = []
 constraints = [S*v == 0, v <= vmax, 0<=v]
 objective = Maximize(v[-1])
 prob = Problem(objective, constraints)
+
+tic = time.time()
 val_orig = prob.solve()
+toc = time.time()
+TIME += toc - tic 
+
+ANSWERS.append(val_orig)
 pass #print "Maximal rate: ", val_orig
 pass #print "L1: ", constraints[0].dual_value
 pass #print "L2: ", constraints[1].dual_value
@@ -69,7 +78,13 @@ for i in range(len(vmax)):
 	constraints = [S*v == 0, v <= vmax_prime, 0<=v]
 	objective = Maximize(v[-1])
 	prob = Problem(objective, constraints)
+	
+	tic = time.time()
 	val = prob.solve()
+	toc = time.time()
+
+	TIME += toc - tic
+	ANSWERS.append(val)
 	if val < .2 * val_orig:
 		pass #print "Essential gene:", i	
 
@@ -83,6 +98,12 @@ for i in range(len(vmax)):
 		constraints = [S*v == 0, v <= vmax_prime, 0<=v]
 		objective = Maximize(v[-1])
 		prob = Problem(objective, constraints)
+		
+		tic = time.time()
 		val = prob.solve()
+		toc = time.time()
+
+		TIME += toc - tic
+		ANSWERS.append(val)
 		if val < .2 * val_orig:
 			pass #print "Synthetic lethal:", i, j

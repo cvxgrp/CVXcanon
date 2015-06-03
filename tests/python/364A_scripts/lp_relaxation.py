@@ -1,8 +1,10 @@
 import numpy as np
 from cvxpy import *
 import matplotlib.pyplot as plt
+import time
 
-
+ANSWERS = []
+TIME = 0
 np.random.seed(0)
 (m, n) = (300, 100)
 A = np.random.rand(m, n); A = np.asmatrix(A)
@@ -16,7 +18,12 @@ obj = Minimize(c.T * x)
 constraints = [A*x <= b, 0 <= x, x <= 1]
 
 prob = Problem(obj, constraints)
+tic = time.time()
 L = prob.solve()
+toc = time.time()
+TIME += toc - tic
+ANSWERS.append(L)
+
 
 vals = []
 maximum_failure = []

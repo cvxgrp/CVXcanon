@@ -2,10 +2,10 @@ import numpy as np
 from cvxpy import *
 import matplotlib.pyplot as pyplot
 import time
-TIME = 0
 
+TIME = 0
 Sigma = Semidef(4)
-ANSWERS = []
+
 x = np.array([.1, .2, -.05, .1])
 
 constraints = [Sigma == Sigma.T]
@@ -19,6 +19,7 @@ Sigma[3,3] == .1]
 objective = Maximize(quad_form(x,Sigma))
 
 prob = Problem(objective, constraints)
+
 tic = time.time()
 risk = prob.solve()
 toc = time.time()
