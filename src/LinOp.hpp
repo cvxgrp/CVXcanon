@@ -58,7 +58,7 @@ class LinOp{
 		
 		/* Slice Data: stores slice data as (row_slice, col_slice)
  		 * where slice = (start, end, step_size) */
-		std::vector<std::vector<double> > slice;
+		std::vector<std::vector<int> > slice;
 
 		/* Checks if LinOp is constant type */
 		bool has_constant_type(){
