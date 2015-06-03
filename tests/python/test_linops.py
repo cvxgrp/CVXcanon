@@ -7,7 +7,7 @@ from cvxpy import *
 import numpy as np
 from cvxpy.tests.base_test import *
 import scipy
-
+import scipy.sparse
 
 class TestLinOps(BaseTest):
     def assertDataEqual(self, original_data, canon_data):
@@ -20,7 +20,10 @@ class TestLinOps(BaseTest):
             if key == 'b' or key == 'h' or key == 'c':
                 M1 = M1.reshape(-1, 1)
                 M2 = M2.reshape(-1, 1)
-
+            if (np.linalg.norm(M1 - M2, 'fro') > 1e-10):
+                print scipy.sparse.coo_matrix(M1)
+                print '\n'
+                print scipy.sparse.coo_matrix(M2)
             self.assertTrue(np.linalg.norm(M1 - M2, 'fro') < 1e-10)
 
     def assertConstraintsMatch(self, constraints):
@@ -42,13 +45,13 @@ class TestLinOps(BaseTest):
         self.assertConstraintsMatch([x1 + x2 == A])
 
     def test_promote(self):
-        rows, cols = 10, 10
+        rows = 10
         b = Variable()
         v1 = Variable(rows, 1)
         self.assertConstraintsMatch([v1 == b])
 
     def test_mul(self):
-        rows, cols = 17, 26
+        rows, cols = 15, 17
 
         A = np.random.randn(rows, cols)
         b = Variable(rows, 1)
@@ -58,7 +61,6 @@ class TestLinOps(BaseTest):
 
     def test_rmul(self):
         rows, cols = 15, 17
-
         A = np.random.randn(rows, cols)
         b = Variable(1, cols)
         x = Variable(1, rows)
@@ -84,32 +86,30 @@ class TestLinOps(BaseTest):
         self.assertConstraintsMatch([x1 - x2 == A])
 
     def test_index(self):
-        print "WARNING: INDEXING TEST NOT RUN!"
-        # rows, cols = 15, 17
-        # X = Variable(rows, cols)
+        rows, cols = 15, 17
+        X = Variable(rows, cols)
 
-        # TODO: Our indexing code breaks on a lot of these test-> seg faults :(
-        # for trial in xrange(10):
-        #     xi = np.random.choice(rows)
-        #     xj = np.random.choice(rows)
-        #     xk = np.random.choice(rows)
-        #     ry = np.random.choice(cols)
-        #     if xk == 0:
-        #         xk = 1
-        #     if np.random.rand() < 0.5:
-        #         xk *= -1
+        for trial in xrange(100):
+            xi = np.random.choice(rows)
+            xj = np.random.choice(rows)
+            xk = np.random.choice(rows)
+            ry = np.random.choice(cols)
+            if xk == 0:
+                xk = 1
+            if np.random.rand() < 0.5:
+                xk *= -1
 
-        #     yi = np.random.choice(cols)
-        #     yj = np.random.choice(cols)
-        #     yk = np.random.choice(cols)
-        #     rx = np.random.choice(rows)
-        #     if yk == 0:
-        #         yk = 1
-        #     if np.random.rand() < 0.5:
-        #         yk *= -1
+            yi = np.random.choice(cols)
+            yj = np.random.choice(cols)
+            yk = np.random.choice(cols)
+            rx = np.random.choice(rows)
+            if yk == 0:
+                yk = 1
+            if np.random.rand() < 0.5:
+                yk *= -1
 
-        #     constr = [X[xi:xj:xk, ry] == 0, X[rx, yi:yj:yk]]
-        #     self.assertConstraintsMatch(constr)
+            constr = [X[xi:xj:xk, ry] == 0, X[rx, yi:yj:yk] == 0]
+            self.assertConstraintsMatch(constr)
 
     def test_transpose(self):
         rows, cols = 15, 17
@@ -195,7 +195,8 @@ class TestLinOps(BaseTest):
         A = np.random.randn(5 * rows, cols)
         constr = [vstack(X1, X2, X3, X4, X5) == A]
         self.assertConstraintsMatch(constr)
-        
 
 if __name__ == '__main__':
+    # suite = unittest.TestLoader().loadTestsFromTestCase(TestLinOps)
+    # unittest.TextTestRunner(verbosity=2).run(suite)
     unittest.main()
