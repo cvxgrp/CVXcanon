@@ -514,7 +514,14 @@ std::vector<Matrix> get_transpose_mat(LinOp &lin){
 }
 
 /**
- * Return the coefficients for INDEX
+ * Return the coefficients for INDEX: a N by ROWS*COLS matrix
+ * where N is the number of total elements in the slice. Element i, j
+ * is 1 if element j in the vectorized matrix is the i-th element of the 
+ * slice and 0 otherwise.
+ *
+ * Implement Python Slice semantics, e.g. if ROW_START (or ROW_END) is 
+ * negative, it is assumed to refer to ROWS + ROW_START (ROWS + ROW_END). 
+ * Same for columns. 
  *
  * Parameters: LinOp of type INDEX
  * 
@@ -526,6 +533,8 @@ std::vector<Matrix> get_index_mat(LinOp &lin){
 	int rows = lin.args[0]->size[0];
 	int cols = lin.args[0]->size[1];
 	Matrix coeffs (lin.size[0] * lin.size[1], rows * cols);
+
+	/* If slice is empty, return empty matrix */
 	if(coeffs.rows () * coeffs.cols() == 0){
 		return build_vector(coeffs);
 	}
@@ -534,6 +543,7 @@ std::vector<Matrix> get_index_mat(LinOp &lin){
 	std::vector<int> row_slice = slices[0];
 	std::vector<int> col_slice = slices[1];
 	
+	/* Row Slice Data */
 	int row_start = row_slice[0];
 	if(row_start < 0){
 		row_start = rows + row_start;
@@ -544,6 +554,7 @@ std::vector<Matrix> get_index_mat(LinOp &lin){
 	}
 	int row_step = row_slice[2];
 
+	/* Column Slice Data */
 	int col_start = col_slice[0];
 	if(col_start < 0){
 		col_start = cols + col_start;
@@ -554,7 +565,8 @@ std::vector<Matrix> get_index_mat(LinOp &lin){
 	}
 	int col_step = col_slice[2];
 
-
+	/* Set the index coefficients by looping over the column selection
+	 * first to remain consistent with CVXPY. */
 	std::vector<Triplet> tripletList;	
 	int col = col_start;
 	int counter = 0;
@@ -568,9 +580,9 @@ std::vector<Matrix> get_index_mat(LinOp &lin){
 				break;
 			}
 			int row_idx = counter;
-			counter++;
 			int col_idx = col * rows + row;
 			tripletList.push_back(Triplet(row_idx, col_idx, 1.0));
+			counter++;
 			row += row_step;
 			if((row_step > 0 && row >= row_end) || (row_step < 0 && row <= row_end)){
 				break;
@@ -588,8 +600,8 @@ std::vector<Matrix> get_index_mat(LinOp &lin){
 
 /**
  * Return the coefficients for MUL_ELEM: an N x N diagonal matrix where the
- * ij-th element on the diagonal corresponds to the element i, j in the 
- * data matrix CONSTANT.
+ * n-th element on the diagonal corresponds to the element n = j*rows + i in 
+ * the data matrix CONSTANT.
  *
  * Parameters: linOp of type MUL_ELEM
  * 
