@@ -6,8 +6,7 @@
 #include "LinOpOperations.hpp"
 #include "ProblemData.hpp"
 
-std::map<int, std::vector<Matrix> > mul_by_const(Matrix & coeff_mat, std::map<int, std::vector<Matrix> > & rh_coeffs){
-	std::map<int, std::vector<Matrix> > result;
+std::map<int, std::vector<Matrix> > mul_by_const(Matrix & coeff_mat, std::map<int, std::vector<Matrix> > & rh_coeffs, std::map<int, std::vector<Matrix> > &result){
 	for(auto & kv : rh_coeffs){
 		int id = kv.first;
 		for(unsigned i = 0; i < kv.second.size(); i++){
@@ -43,7 +42,8 @@ std::map<int, std::vector<Matrix> > get_coefficient(LinOp &lin){
 		for(unsigned i = 0; i < lin.args.size(); i++){		  // in order
 			Matrix coeff = coeff_mat[i];
 			std::map<int, std::vector<Matrix> > rh_coeffs = get_coefficient(*lin.args[i]);
-			std::map<int, std::vector< Matrix> > new_coeffs = mul_by_const(coeff, rh_coeffs);
+			std::map<int, std::vector< Matrix> > new_coeffs;
+			mul_by_const(coeff, rh_coeffs, new_coeffs);
 			for( auto & kv : new_coeffs ) {
 				coeffs[kv.first].insert( coeffs[kv.first].end(), 
 											kv.second.begin(),
@@ -143,14 +143,14 @@ int getTotalConstraintLength(std::vector< LinOp* > constraints){
 ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col){
 	ProblemData probData;
 	int numRows = getTotalConstraintLength(constraints);
-	probData.data = std::vector<double> (numRows, 0);
+	probData.const_vec = std::vector<double> (numRows, 0);
 	probData.id_to_col = id_to_col; 						// TODO: Make this more efficient
 	int vert_offset = 0;
 	int horiz_offset  = 0;
 	for(unsigned i = 0; i < constraints.size(); i++){		// Processing each constraint
 		LinOp constr = *constraints[i];
 		process_constraint(constr, probData.V, probData.I, probData.J,
-						   				 probData.data, vert_offset, 
+						   				 probData.const_vec, vert_offset, 
 						   				 probData.id_to_col, horiz_offset);
 
 		probData.const_to_row[i] = vert_offset;				

@@ -8,20 +8,22 @@
 %include "numpy.i"
 %include "std_vector.i"
 %include "std_map.i"
-%include "ProblemData.hpp"
 
 %init %{
 	import_array();
 %}
 
 /* Typemap for the addDenseData(double* matrix, int rows, int cols) C/C++ routine */
-%apply (double* IN_ARRAY2, int DIM1, int DIM2) {(double* matrix, int rows, int cols)};
+%apply (double* IN_FARRAY2, int DIM1, int DIM2) {(double* matrix, int rows, int cols)};
 
 /* Typemap for the addSparseData(double * data, int data_len, double *rows, int rows_len,
 										 	 double *cols, int cols_len) C/C++ routine */
-%apply (double* INPLACE_ARRAY1, int DIM1) {(double* data, int data_len),
+%apply (double* INPLACE_ARRAY1, int DIM1) {(double *data, int data_len),
 																					 (double *rows, int rows_len),
 																					 (double *cols, int cols_len)};
+
+%apply (double* ARGOUT_ARRAY1, int DIM1) {(double* values, int numValues)}
+%include "ProblemData.hpp"
 
 %include "LinOp.hpp"
 namespace std {

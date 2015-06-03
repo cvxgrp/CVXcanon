@@ -4,7 +4,7 @@
 
 swig:
 	swig -outcurrentdir -c++ -python -I../ ../CVXcanon.i
-	g++ -std=c++11 -g -gdwarf-3 -fPIC -Wall -I../ `python-config --include --ldflags` -I/Users/JohnMiller/Documents/junior_year/quarter_3/ee364b/final_project/CVXcanon/.env/lib/python2.7/site-packages/numpy/core/include -shared ../LinOpOperations.cpp ../CVXcanon.cpp CVXcanon_wrap.cxx -o _CVXcanon.so
+	g++ -std=c++11 -O3 -gdwarf-3 -fPIC -Wall -I../ `python-config --include --ldflags` -I/Users/JohnMiller/Documents/junior_year/quarter_3/ee364b/final_project/CVXcanon/.env/lib/python2.7/site-packages/numpy/core/include -shared ../LinOpOperations.cpp ../CVXcanon.cpp CVXcanon_wrap.cxx -o _CVXcanon.so
 	cp CVXcanon.py _CVXcanon.so ../../tests/python
 
 python:

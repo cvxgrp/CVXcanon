@@ -4,6 +4,7 @@
 #include <vector>
 #include <cassert>
 #include <iostream>
+#include "Utils.hpp"
 
 
 static const int CONSTANT_ID = -1;
@@ -48,6 +49,9 @@ class LinOp{
 
 		std::vector< int > size;
 		std::vector< LinOp* > args;
+
+		double * data_ptr = NULL;
+		Matrix test;
 		
 		std::vector<std::vector<double> > data;
 
@@ -59,11 +63,13 @@ class LinOp{
 		void addDenseData(double* matrix, int rows, int cols){
 			dataRows = rows;
 			dataCols = cols;
+			data_ptr = matrix;
 			for (int i=0; i < rows; i++){
   			for(int j=0; j < cols; j++){
   				I.push_back(i);
   				J.push_back(j);
-  				V.push_back(matrix[i * cols + j]);  			}
+  				V.push_back(matrix[j * rows + i]);  			
+  			}
   		}
 		}
 

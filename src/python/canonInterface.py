@@ -26,40 +26,47 @@ def get_sparse_matrix(constrs, id_to_col=None):
 
     # print "Calling C++ code"
     problemData = CVXcanon.build_matrix(args, id_to_col_C)
+    V = problemData.getV(len(problemData.V))
+    I = problemData.getI(len(problemData.I))
+    J = problemData.getJ(len(problemData.J))
+    const_vec = problemData.getConstVec(len(problemData.const_vec))
+
     # print "Returned from C++ code"
 
-    V, I, J, b = ([], [], [], [])
-    for i in range(problemData.V.size()):
-        V.append(problemData.V[i])
-        I.append(problemData.I[i])
-        J.append(problemData.J[i])
+    # V, I, J, b = ([], [], [], [])
+    # for i in range(problemData.V.size()):
+    #     V.append(problemData.V[i])
+    #     I.append(problemData.I[i])
+    #     J.append(problemData.J[i])
 
-    for i in range(problemData.data.size()):
-        b.append(problemData.data[i])
-
+    # for i in range(problemData.data.size()):
+    #     b.append(problemData.data[i])
     # print V, I, J, b
-    return (V, I, J, np.array(b).reshape(-1, 1))
+    # return problemData, np.asarray(problemData.const_vec).reshape(-1, 1)
+    return V, I, J, const_vec.reshape(-1, 1)
 
 
-def push_dense(linC, linPy):
+def push_dense(linC, linPy, tmp):
   if isinstance(linPy.data, LinOp):  # huge shitman special casing...
     (rows, cols) = linPy.data.data.shape
     linC.dataRows = rows 
     linC.dataCols = cols
     if linPy.data.type is 'sparse_const':
       coo = scipy.sparse.coo_matrix(linPy.data.data)
-      linC.addSparseData(coo.data, coo.row, coo.col)
+      linC.addSparseData(coo.data, coo.row.astype(float), coo.col.astype(float))
     elif linPy.data.type is 'dense_const':
-      data = np.ascontiguousarray(linPy.data.data)
-      linC.addDenseData(data)
+      mat = np.asfortranarray(linPy.data.data)
+      tmp.append(mat)
+      linC.addDenseData(mat)
     else:
       raise NotImplementedError()
   else:
     (rows, cols) = linPy.data.shape
     linC.dataRows = rows 
     linC.dataCols = cols
-    data = np.ascontiguousarray(linPy.data)
-    linC.addDenseData(data)
+    mat = np.asfortranarray(linPy.data)
+    tmp.append(mat)
+    linC.addDenseData(mat)
 
    
 
@@ -105,19 +112,21 @@ def build_lin_op_tree(linPy, tmp):
     linC.data.push_back(vec)
     linC.dataRows = 1
     linC.dataCols = 1
-    data = np.ascontiguousarray(np.matrix(linPy.data))
-    linC.addDenseData(data)
+    mat = np.asfortranarray(np.matrix(linPy.data))
+    tmp.append(mat)
+    linC.addDenseData(mat)
   elif isinstance(linPy.data, LinOp) and linPy.data.type is 'scalar_const':
     vec = CVXcanon.DoubleVector()
     vec.push_back(linPy.data.data)
     linC.data.push_back(vec)
     linC.dataRows = 1
     linC.dataCols = 1
-    data = np.ascontiguousarray(np.matrix(linPy.data.data))
-    linC.addDenseData(data)
+    mat = np.asfortranarray(np.matrix(linPy.data.data))
+    tmp.append(mat)
+    linC.addDenseData(mat)
 
   else:
-    push_dense(linC, linPy)
+    push_dense(linC, linPy, tmp)
   
   # Updating the arguments
   for argPy in linPy.args:
