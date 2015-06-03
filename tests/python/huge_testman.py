@@ -15,14 +15,22 @@ def run_testfile(filename):
 
 
 	settings.USE_CVXCANON = False	
-	start = time.time()
 	exec("from cvxpy import *\nsettings.USE_CVXCANON=False\n" + open(filename).read())
-	oldtime = time.time() - start
+	oldtime = TIME
+	OLD_ANSWERS = ANSWERS
+
 
 	settings.USE_CVXCANON = True
-	start = time.time()
 	exec("from cvxpy import *\nsettings.USE_CVXCANON=True\n" + open(filename).read())
-	newtime =  time.time() - start
+	newtime =  TIME
+	NEW_ANSWERS = ANSWERS
+	same_lengths = len(NEW_ANSWERS) == len(OLD_ANSWERS)
+	same_vals = [ OLD_ANSWERS[i] == NEW_ANSWERS[i] \
+	for i in range(min(len(OLD_ANSWERS), len(NEW_ANSWERS)))] 
+	if not( same_lengths and all(same_vals) ):
+		print "**** TEST " + filename + " FAILED: Different Answers *****"
+	else:
+		print "***** TEST " + filename + " SUCCESSS, SAME ANSWERS ******"
 
 	print "oldtime: ", oldtime, ", newtime: ", newtime
 	return (oldtime, newtime)
