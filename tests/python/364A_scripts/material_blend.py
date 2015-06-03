@@ -1,6 +1,9 @@
 import numpy as np
 from cvxpy import *
+import time
 
+ANSWERS = []
+TIME = 0
 m = 4 # the number of raw materials
 n = 2 # the number of blended materials
 q = 3 # the number of constituents
@@ -45,7 +48,11 @@ obj += sum([f_tilde[i] * pTilde[i] for i in range(n)])
 
 objective = Maximize(obj)
 problem = Problem(objective, constraints)
+tic = time.time()
 val = problem.solve()
+toc = time.time()
+TIME += toc - tic
+ANSWERS.append(val)
 pass #print val
 pass #print f.value
 pass #print f_tilde.value

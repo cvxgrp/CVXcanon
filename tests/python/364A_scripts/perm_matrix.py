@@ -3,7 +3,10 @@
 
 import numpy as np
 from cvxpy import *
+import time
 
+ANSWERS = []
+TIME = 0
 A = np.array(np.mat(
 '0  1  0  0  0  0  1  0  0  0  1  1  1  0  0  1  0  1  1  0  1  1  0  1  0  1  1  1  0  1;\
  1  0  0  0  0  0  1  1  0  0  1  0  1  0  0  1  1  0  0  0  0  0  0  0  1  0  0  1  1  0;\
@@ -87,8 +90,10 @@ for i in range(n):
 obj = Minimize(trace(W.T * P))
 
 prob = Problem(obj, constraints)
-prob.solve()
-
+tic = time.time()
+ANSWERS.append(prob.solve())
+toc = time.time()
+TIME += TOC - tic
 deviations = [P.value[i,j] * (1 - P.value[i,j]) for i in range(n) for j in range(n)]
 
 pass #print max(deviations)

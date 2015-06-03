@@ -3,8 +3,10 @@ from cvxpy import *
 import numpy as np
 import matplotlib.pyplot as plt
 import math
+import time
 
-
+ANSWERS = []
+TIME = 0
 T = 20
 A = np.array([[-1.,-1., 0., 0., 0., 0., 0., 0., 0.],
  [ 1., 0.,-1., 0., 0., 0., 0., 0., 0.],
@@ -48,7 +50,12 @@ for i in range(T-1):
 
 obj = Minimize(obj_func)
 prob = Problem(obj, constraints)
+
+tic = time.time()
 val = prob.solve(solver=ECOS)
+toc = time.time()
+TIME += toc - tic
+ANSWERS.append(val)
 
 # Plotting nodes
 pass #plt.figure(1)

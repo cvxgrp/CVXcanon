@@ -3,12 +3,13 @@ from cvxpy import *
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import math
-
+import time
 
 
 n = 10 # number of variables
 k = 6  # number of designs
-
+ANSWERS = []
+TIME = 0
 # component widths from known designs
 # each column of W is a different design
 W ='1.8381    1.5803   12.4483    4.4542    6.5637    5.8225;\
@@ -44,5 +45,9 @@ objective = Minimize(0)
 constraints = [theta * P < P_spec, theta * D < D_spec, theta * A < A_spec]
 
 prob = Problem(objective, constraints)
-prob.solve()
+tic = time.time()
+ANSWERS.append(prob.solve())
+toc = time.time()
+TIME += toc - tic
+print TIME
 pass #print np.exp(Y.dot( theta.value ))

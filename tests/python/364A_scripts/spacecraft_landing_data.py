@@ -14,7 +14,7 @@ v0 = np.matrix('-10; 0; -10')
 alpha = 0.5
 gamma = 1.
 K = 35
-
+ANSWERS = []
 
 
 ps = []
@@ -52,6 +52,7 @@ while val != float('inf'):
 	ps.append(p)
 	 
 	val = prob.solve()
+	ANSWERS.append(val)
 	K -= 1
 toc = time.time()
 pass #print toc - tic

@@ -1,7 +1,7 @@
 import numpy as np
 from cvxpy import *
 import copy
-
+import time
 
 # data for power flow problem
 import numpy as np
@@ -9,7 +9,7 @@ n = 12     # total number of nodes
 m = 18     # number of edges (transmission lines)
 k = 4      # number of generators
 # transmission line capacities = 
-
+TIME = 0
 
 Pmax = np.matrix("""
     4.8005,
@@ -64,7 +64,11 @@ p = Variable(m)
 obj = Minimize(c.T*g)
 constraints = [A*p == vstack(-g, d.T), abs(p) <= Pmax.T, 0 <= g, g <= Gmax]
 prob = Problem(obj, constraints)
+tic = time.time()
 val = prob.solve()
+toc = time.time()
+TIME += toc - tic
+ANSWERS.append(val)
 
 pass #print val
 pass #print g.value
@@ -88,7 +92,11 @@ for i in range(m): # N -1 redundancy
 	constraints.append( abs(flows[i]) <= Pmax.T )
 
 prob = Problem(obj, constraints)
+tic = time.time()
 val = prob.solve()
+toc = time.time()
+TIME += toc - tic
+ANSWERS.append(val)
 
 pass #print val
 pass #print g.value
