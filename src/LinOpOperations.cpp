@@ -140,6 +140,31 @@ Matrix sparse_ones(int rows, int cols)
 }
 
 /**
+ * Reshapes the input matrix into a single column vector that preserves
+ * columnwise ordering. Equivalent to Matlab's (:) operation.
+ *
+ * Params: sparse Eigen matrix MAT of size ROWS by COLS.
+ * Returns: sparse Eigen matrix OUT of size ROWS * Cols by 1
+ */
+
+Matrix sparse_reshape_to_vec(Matrix &mat){
+	int rows = mat.rows();
+	int cols = mat.cols();
+	Matrix out(rows * cols, 1);
+	std::vector<Triplet> tripletList;
+	tripletList.reserve(rows * cols);
+	for( int k = 0; k < mat.outerSize(); ++k){
+		for(Matrix::InnerIterator it(mat, k); it; ++it){
+			tripletList.push_back(Triplet(it.col() * rows + it.row(), 0, 
+													  it.value()));
+		}
+	}
+	out.setFromTriplets(tripletList.begin(), tripletList.end());
+	out.makeCompressed();
+	return out;
+}
+
+/**
  * Builds and returns the stacked coefficient matrices for both horizontal
  * and vertical stacking linOps.
  *
@@ -202,39 +227,21 @@ std::vector<Matrix> stack_matrices(LinOp &lin, bool vertical){
  * accordingly!
  ******************/
 
-/**
- *
- * ADD COMMENT TO THIS FUNCTION!
- *
- */
-
-Matrix sparse_reshape_to_vec(Matrix &in){
-	int rows = in.rows();
-	int cols = in.cols();
-	Matrix out(rows * cols, 1);
-	std::vector<Triplet> tripletList;
-	tripletList.reserve(rows * cols);
-	for( int k = 0; k < in.outerSize(); ++k){
-		for(Matrix::InnerIterator it(in, k); it; ++it){
-			tripletList.push_back(Triplet(it.col() * rows + it.row(), 0, 
-													  it.value()));
-		}
-	}
-	out.setFromTriplets(tripletList.begin(), tripletList.end());
-	out.makeCompressed();
-	return out;
-}
 
 /**
  * Returns the matrix stored in the data field of LIN as a sparse eigen matrix
+ * If COLUMN is true, the matrix is reshaped into a column vector which
+ * preserves the columnwise ordering of the elements, equivalent to 
+ * matlab (:) operator.
+ *
+ * Note all matrices are returned in a sparse representation to force
+ * sparse matrix operations in build_matrix. 
  *
  * Params: LinOp LIN with DATA containing a 2d vector representation of a
- * 				 matrix.
+ * 				 matrix. boolean COLUMN 
  * 
  * Returns: sparse eigen matrix COEFFS 
- * 
- * TODO: profile and see if it would be more efficient to not treat 
- * everything as a sparse matrix in the downsteam code. 
+ *
  */
 Matrix get_constant_data(LinOp &lin, bool column){
 	Matrix coeffs;
@@ -296,7 +303,7 @@ std::vector<std::vector<int> > get_slice_data(LinOp &lin){
  * Interface for the DIV linOp to retrieve the constant divisor. 
  * 
  * Parameters: linOp LIN of type DIV with a scalar divisor stored in the
- * 							0,0 component of the data matrix. 
+ * 							0,0 component of the DENSE_DATA matrix. 
  *
  * Returns: scalar divisor 
  */
@@ -309,7 +316,7 @@ double get_divisor_data(LinOp &lin){
  * Interface for the VARIABLE linOp to retrieve its variable ID.
  *
  * Parameters: linOp LIN of type VARIABLE with a variable ID in the
- * 							0,0 component of the data matrix. 
+ * 							0,0 component of the DENSE_DATA matrix. 
  * 
  * Returns: integer variable ID
  */
@@ -516,27 +523,64 @@ std::vector<Matrix> get_transpose_mat(LinOp &lin){
  */
 std::vector<Matrix> get_index_mat(LinOp &lin){
 	assert(lin.type == INDEX);
+	int rows = lin.args[0]->size[0];
+	int cols = lin.args[0]->size[1];
+	Matrix coeffs (lin.size[0] * lin.size[1], rows * cols);
+	if(coeffs.rows () * coeffs.cols() == 0){
+		return build_vector(coeffs);
+	}
+
 	std::vector<std::vector<int> > slices = get_slice_data(lin);
 	std::vector<int> row_slice = slices[0];
 	std::vector<int> col_slice = slices[1];
-	int rows = lin.args[0]->size[0];
-	int cols = lin.args[0]->size[1];
 	
-	std::vector<Triplet> tripletList;
-	// could reserve less if slice[2] > 1...
-	tripletList.reserve((row_slice[1] - row_slice[0]) * 
-											(col_slice[1] - col_slice[0]));
+	int row_start = row_slice[0];
+	if(row_start < 0){
+		row_start = rows + row_start;
+	}
+	int row_end = row_slice[1];
+	if(row_end < 0){
+		row_end = rows + row_end;
+	}
+	int row_step = row_slice[2];
+
+	int col_start = col_slice[0];
+	if(col_start < 0){
+		col_start = cols + col_start;
+	}
+	int col_end = col_slice[1];
+	if(col_end < 0){
+		col_end = cols + col_end;
+	}
+	int col_step = col_slice[2];
+
+
+	std::vector<Triplet> tripletList;	
+	int col = col_start;
 	int counter = 0;
-	for(int row = row_slice[0]; row < row_slice[1]; row += row_slice[2]){
-		for(int col = col_slice[0]; col < col_slice[1]; col += col_slice[2]){
+	while(true){
+		if(col < 0 || col >= cols){
+				break;
+		}
+		int row = row_start;
+		while(true){
+			if(row < 0 || row >= rows){
+				break;
+			}
 			int row_idx = counter;
 			counter++;
 			int col_idx = col * rows + row;
 			tripletList.push_back(Triplet(row_idx, col_idx, 1.0));
+			row += row_step;
+			if((row_step > 0 && row >= row_end) || (row_step < 0 && row <= row_end)){
+				break;
+			}	
+		}
+		col += col_step;
+		if((col_step > 0 && col >= col_end) || (col_step < 0 && col <= col_end)){
+			break;
 		}
 	}
-
-	Matrix coeffs (lin.size[0] * lin.size[1], rows*cols);
 	coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
 	coeffs.makeCompressed();
 	return build_vector(coeffs);

@@ -76,14 +76,10 @@ def build_lin_op_tree(root_linPy, tmp):
                 vec = CVXcanon.DoubleVector()
                 if (sl.start is None):
                     vec.push_back(0)
-                elif(sl.start < 0):
-                    vec.push_back(linPy.args[0].size[i] + (sl.start))
                 else:
                     vec.push_back(sl.start)
                 if(sl.stop is None):
                     vec.push_back(linPy.args[0].size[i])
-                elif(sl.stop < 0):
-                    vec.push_back(linPy.args[0].size[i] + (sl.stop))
                 else:
                     vec.push_back(sl.stop)
                 if sl.step is None:
