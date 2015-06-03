@@ -278,8 +278,8 @@ Matrix get_constant_data(LinOp &lin, bool column){
  */
 std::vector<std::vector<int> > get_slice_data(LinOp &lin){
 	assert(lin.type==INDEX);
-	std::vector<double> row = lin.data[0];
-	std::vector<double> col = lin.data[1];
+	std::vector<double> row = lin.slice[0];
+	std::vector<double> col = lin.slice[1];
 	assert(row.size() == 3);
 	assert(col.size() == 3);
 
@@ -305,7 +305,7 @@ std::vector<std::vector<int> > get_slice_data(LinOp &lin){
  */
 double get_divisor_data(LinOp &lin){
 	assert(lin.type==DIV);
-	return lin.data[0][0];
+	return lin.dense_data(0, 0);
 }
 
 /**
@@ -318,7 +318,7 @@ double get_divisor_data(LinOp &lin){
  */
 int get_id_data(LinOp &lin){
 	assert(lin.type==VARIABLE);
-	return int(lin.data[0][0]);
+	return int(lin.dense_data(0, 0));
 }
 
 /*****************************
@@ -791,7 +791,7 @@ std::map<int,Matrix> get_variable_coeffs(LinOp &lin){
  * Returns:
  */
 std::map<int,Matrix> get_const_coeffs(LinOp &lin){
-	assert(lin.hasConstantType());
+	assert(lin.has_constant_type());
 	std::map<int, Matrix> id_to_coeffs;
 	int id = CONSTANT_ID;
 

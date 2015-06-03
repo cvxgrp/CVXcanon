@@ -19,8 +19,8 @@
 /* Typemap for the addSparseData(double * data, int data_len, double *rows, int rows_len,
 										 	 double *cols, int cols_len) C/C++ routine */
 %apply (double* INPLACE_ARRAY1, int DIM1) {(double *data, int data_len),
-																					 (double *rows, int rows_len),
-																					 (double *cols, int cols_len)};
+																					 (double *row_idxs, int rows_len),
+																					 (double *col_idxs, int cols_len)};
 
 %apply (double* ARGOUT_ARRAY1, int DIM1) {(double* values, int numValues)}
 %include "ProblemData.hpp"

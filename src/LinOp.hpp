@@ -40,42 +40,45 @@ typedef operatortype OperatorType;
 
 class LinOp{	
 	public:
+		/*  */
 		OperatorType type;
-		int dataRows;
-		int dataCols;
-
 		std::vector< int > size;
 		std::vector< LinOp* > args;
 
+		/* Sparse Data Fields */
+		bool sparse = false; /* True only if linOp has sparse_data*/
 		Matrix sparse_data;
-		bool sparse = false;
+		int rows;
+		int cols;
+
+		/*  */
 		Eigen::MatrixXd dense_data;
 		
-		std::vector<std::vector<double> > data;
+		/* Slice Data */
+		std::vector<std::vector<double> > slice;
 
-		bool hasConstantType(){
+		bool has_constant_type(){
 			return  type == SCALAR_CONST || 
 			type == DENSE_CONST || type == SPARSE_CONST;
 		}
 
-		void addDenseData(double* matrix, int rows, int cols){
-			Eigen::Map<Eigen::MatrixXd> mf(matrix, rows, cols);
-			dense_data = mf;
+		void set_dense_data(double* matrix, int rows, int cols){
+			dense_data = Eigen::Map<Eigen::MatrixXd> (matrix, rows, cols);
 		}
 
-		void addSparseData(double *data, int data_len, double *rows, int rows_len,
-										 	 double *cols, int cols_len){
+		void set_sparse_data(double *data, int data_len, double *row_idxs,
+												 int rows_len, double *col_idxs, int cols_len){
 			assert(rows_len == data_len && cols_len == data_len);
 			sparse = true;
-			Matrix coeffs (dataRows, dataCols);
+			Matrix sparse_coeffs(rows, cols);  
 			std::vector<Triplet> tripletList;
 			tripletList.reserve(data_len);
 			for(int idx = 0; idx < data_len; idx++){
-				tripletList.push_back(Triplet(int(rows[idx]), int(cols[idx]), data[idx]));
+				tripletList.push_back(Triplet(int(row_idxs[idx]), int(col_idxs[idx]), data[idx]));
 			}
-			coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
-			coeffs.makeCompressed();
-			sparse_data = coeffs; 
+			sparse_coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
+			sparse_coeffs.makeCompressed();
+			sparse_data = sparse_coeffs;
 		}
 };
 #endif

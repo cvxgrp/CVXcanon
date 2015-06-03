@@ -31,7 +31,7 @@ std::map<int, std::vector<Matrix> > get_coefficient(LinOp &lin){
 			coeffs[kv.first].push_back(kv.second);
 		}
 	}
-	else if( lin.hasConstantType()){								// If it is a constant, we hit our other base case
+	else if( lin.has_constant_type()){								// If it is a constant, we hit our other base case
 		std::map<int, Matrix> new_coeffs = get_const_coeffs(lin);	// id here will be CONSTANT_TYPE
 		for( auto & kv : new_coeffs){
 			coeffs[kv.first].push_back(kv.second);
@@ -152,7 +152,6 @@ ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> i
 		process_constraint(constr, probData.V, probData.I, probData.J,
 						   				 probData.const_vec, vert_offset, 
 						   				 probData.id_to_col, horiz_offset);
-
 		probData.const_to_row[i] = vert_offset;				
 		vert_offset += constr.size[0] * constr.size[1]; 		
 	}
