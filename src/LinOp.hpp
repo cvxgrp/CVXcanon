@@ -48,8 +48,6 @@ class LinOp{
 		/* Sparse Data Fields */
 		bool sparse = false; /* True only if linOp has sparse_data*/
 		Matrix sparse_data;
-		int rows;
-		int cols;
 
 		/*  */
 		Eigen::MatrixXd dense_data;
@@ -67,7 +65,8 @@ class LinOp{
 		}
 
 		void set_sparse_data(double *data, int data_len, double *row_idxs,
-												 int rows_len, double *col_idxs, int cols_len){
+												 int rows_len, double *col_idxs, int cols_len,
+												 int rows, int cols){
 			assert(rows_len == data_len && cols_len == data_len);
 			sparse = true;
 			Matrix sparse_coeffs(rows, cols);  
