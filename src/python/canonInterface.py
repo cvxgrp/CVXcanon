@@ -35,10 +35,11 @@ def get_sparse_matrix(constrs, id_to_col=None):
 def set_matrix_data(linC, linPy):
     if isinstance(linPy.data, LinOp):  # huge shitman special casing...
         if linPy.data.type is 'sparse_const':
-            linC.rows = linPy.data.data.shape[0]
-            linC.cols = linPy.data.data.shape[1]
+            rows = linPy.data.data.shape[0]
+            cols = linPy.data.data.shape[1]
             coo = scipy.sparse.coo_matrix(linPy.data.data)
-            linC.set_sparse_data(coo.data, coo.row.astype(float), coo.col.astype(float))
+            linC.set_sparse_data(coo.data, coo.row.astype(float),
+                                 coo.col.astype(float), rows, cols)
         elif linPy.data.type is 'dense_const':
             linC.set_dense_data(np.asfortranarray(linPy.data.data))
         else:
