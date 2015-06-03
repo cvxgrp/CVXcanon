@@ -209,28 +209,25 @@ std::vector<Matrix> stack_matrices(LinOp &lin, bool vertical){
  ******************/
 
 /**
- * Returns the matrix stored in the data field of LIN as a single column 
- * vector which preserves the columnwise ordering of the original elements.
- * 
- * Params: LinOp LIN with DATA containing a 2d vector representation of a
- * 				 matrix.
- * 
- * Returns: sparse eigen matrix COEFFS as a column vector (dimension n x 1)
+ *
+ * ADD COMMENT TO THIS FUNCTION!
+ *
  */
-Matrix get_constant_data_as_column(LinOp &lin){
-	int rows = lin.dataRows;
-	int cols = lin.dataCols;
-	Matrix coeffs (rows * cols, 1);
 
-	int n = lin.V.size();
+Matrix sparse_reshape_to_vec(Matrix & in){
+	int rows = in.rows();
+	int cols = in.cols();
+	Matrix out(rows * cols, 1);
 	std::vector<Triplet> tripletList;
-	tripletList.reserve(n);
-	for(int idx = 0; idx < n; idx++){
-		tripletList.push_back(Triplet(rows * lin.J[idx] +  lin.I[idx], 0, lin.V[idx]));
+	tripletList.reserve(rows * cols);
+	for( int k = 0; k < in.outerSize(); ++k){
+		for(Matrix::InnerIterator it(in, k); it; ++it){
+			tripletList.push_back(Triplet(it.col() * rows + it.row(), 0, it.value()));
+		}
 	}
-	coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
-	coeffs.makeCompressed();  
-	return coeffs;
+	out.setFromTriplets(tripletList.begin(), tripletList.end());
+	out.makeCompressed();
+	return out;
 }
 
 /**
@@ -244,27 +241,22 @@ Matrix get_constant_data_as_column(LinOp &lin){
  * TODO: profile and see if it would be more efficient to not treat 
  * everything as a sparse matrix in the downsteam code. 
  */
-Matrix get_constant_data(LinOp &lin){
-	if(lin.data_ptr == NULL || true) {
-		int rows = lin.dataRows;
-		int cols = lin.dataCols;
-		Matrix coeffs (rows, cols);
-
-		std::vector<Triplet> tripletList;
-		int n = lin.V.size();
-		tripletList.reserve(n);
-		for(int idx = 0; idx < n; idx++){
-			tripletList.push_back(Triplet(lin.I[idx], lin.J[idx], lin.V[idx]));
+Matrix get_constant_data(LinOp &lin, bool column){
+	Matrix coeffs;
+	if(lin.sparse){
+		if(column){
+			coeffs = sparse_reshape_to_vec(lin.sparse_data);
 		}
-		coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
-		coeffs.makeCompressed();  
-		return coeffs;
+		coeffs = lin.sparse_data;
 	} else {
-		std::cout << "HOLY SHIT! THIS WORKED!!" << std::endl;
-		Eigen::Map<Eigen::MatrixXd> mf(lin.data_ptr, lin.dataRows, lin.dataCols);
-		Matrix mat = mf.sparseView();
- 		return mat;
+		if(column){
+			Eigen::Map<Eigen::MatrixXd> column(lin.dense_data.data(),lin.dense_data.rows() * lin.dense_data.cols(), 1);
+			coeffs = column.sparseView();
+		} else {
+			coeffs = lin.dense_data.sparseView();
+		}
 	}
+	return coeffs;
 }
 
 /**
@@ -358,7 +350,8 @@ std::vector<Matrix> get_hstack_mat(LinOp &lin){
 /**
  * Return the coefficients for CONV operator. The coefficient matrix is
  * constructed by creating a toeplitz matrix with the constant vector
- * in DATA as the columns.
+ * in DATA as the columns. Multiplication by this matrix is equivalent
+ * to convolution.
  *
  * Parameters: linOp LIN with type CONV. Data should should contain a 
  *						 column vector that the variables are convolved with.
@@ -367,7 +360,7 @@ std::vector<Matrix> get_hstack_mat(LinOp &lin){
  */
 std::vector<Matrix> get_conv_mat(LinOp &lin){
 	assert(lin.type == CONV);
-	Matrix constant = get_constant_data(lin);
+	Matrix constant = get_constant_data(lin, false);
 	int rows = lin.size[0];
 	int nonzeros = constant.rows();
 	int cols = lin.args[0]->size[0];
@@ -554,7 +547,7 @@ std::vector<Matrix> get_index_mat(LinOp &lin){
  */
 std::vector<Matrix> get_mul_elemwise_mat(LinOp &lin){
 	assert(lin.type == MUL_ELEM);
-	Matrix constant = get_constant_data_as_column(lin);
+	Matrix constant = get_constant_data(lin, true);
 	int n = constant.rows();
 
 	// build a giant diagonal matrix
@@ -582,7 +575,7 @@ std::vector<Matrix> get_mul_elemwise_mat(LinOp &lin){
  */
 std::vector<Matrix> get_rmul_mat(LinOp &lin){
 	assert(lin.type == RMUL);
-	Matrix constant = get_constant_data(lin);
+	Matrix constant = get_constant_data(lin, false);
 	int rows = constant.rows();
 	int cols = constant.cols();
 	int n = lin.size[0];
@@ -620,7 +613,7 @@ std::vector<Matrix> get_rmul_mat(LinOp &lin){
  */
 std::vector<Matrix> get_mul_mat(LinOp &lin){
 	assert(lin.type == MUL);
-	Matrix block = get_constant_data(lin);
+	Matrix block = get_constant_data(lin, false);
 
 	int block_rows = block.rows();
 	int block_cols = block.cols();
@@ -737,7 +730,7 @@ std::vector<Matrix> get_neg_mat(LinOp &lin){
  *
  * Parameters: LinOp with type SUM_ENTRIES
  * 
- * Returns: A vector of length N where each element is a 1x1 matrix
+ * Returns:
  */
  std::vector<Matrix> get_sum_entries_mat(LinOp &lin){
  	assert(lin.type == SUM_ENTRIES);
@@ -803,7 +796,7 @@ std::map<int,Matrix> get_const_coeffs(LinOp &lin){
 	int id = CONSTANT_ID;
 
 	// get coeffs as a column vector
-	Matrix coeffs = get_constant_data_as_column(lin);
+	Matrix coeffs = get_constant_data(lin, true);
 	coeffs.makeCompressed();
  	id_to_coeffs[id] = coeffs;
 	return id_to_coeffs;

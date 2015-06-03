@@ -41,17 +41,15 @@ typedef operatortype OperatorType;
 class LinOp{	
 	public:
 		OperatorType type;
-		std::vector<double> V;
-		std::vector<int> I;
-		std::vector<int> J;
 		int dataRows;
 		int dataCols;
 
 		std::vector< int > size;
 		std::vector< LinOp* > args;
 
-		double * data_ptr = NULL;
-		Matrix test;
+		Matrix sparse_data;
+		bool sparse = false;
+		Eigen::MatrixXd dense_data;
 		
 		std::vector<std::vector<double> > data;
 
@@ -61,26 +59,23 @@ class LinOp{
 		}
 
 		void addDenseData(double* matrix, int rows, int cols){
-			dataRows = rows;
-			dataCols = cols;
-			data_ptr = matrix;
-			for (int i=0; i < rows; i++){
-  			for(int j=0; j < cols; j++){
-  				I.push_back(i);
-  				J.push_back(j);
-  				V.push_back(matrix[j * rows + i]);  			
-  			}
-  		}
+			Eigen::Map<Eigen::MatrixXd> mf(matrix, rows, cols);
+			dense_data = mf;
 		}
 
 		void addSparseData(double *data, int data_len, double *rows, int rows_len,
 										 	 double *cols, int cols_len){
 			assert(rows_len == data_len && cols_len == data_len);
-			for(int i = 0; i < data_len; i++){
-				V.push_back(data[i]);
-				I.push_back(int(rows[i]));
-				J.push_back(int(cols[i]));
+			sparse = true;
+			Matrix coeffs (dataRows, dataCols);
+			std::vector<Triplet> tripletList;
+			tripletList.reserve(data_len);
+			for(int idx = 0; idx < data_len; idx++){
+				tripletList.push_back(Triplet(int(rows[idx]), int(cols[idx]), data[idx]));
 			}
+			coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
+			coeffs.makeCompressed();
+			sparse_data = coeffs; 
 		}
 };
 #endif
