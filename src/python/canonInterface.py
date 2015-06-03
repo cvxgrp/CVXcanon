@@ -32,20 +32,47 @@ def get_sparse_matrix(constrs, id_to_col=None):
     return V, I, J, const_vec.reshape(-1, 1)
 
 
+def format_matrix(matrix, format='dense'):
+    if(format == 'dense'):
+        return np.asfortranarray(matrix)
+    elif(format == 'sparse'):
+        return scipy.sparse.coo_matrix(matrix)
+    elif(format == 'scalar'):
+        return np.asfortranarray(np.matrix(matrix))
+    else:
+        raise NotImplementedError()
+
+
 def set_matrix_data(linC, linPy):
     if isinstance(linPy.data, LinOp):  # huge shitman special casing...
         if linPy.data.type is 'sparse_const':
-            rows = linPy.data.data.shape[0]
-            cols = linPy.data.data.shape[1]
-            coo = scipy.sparse.coo_matrix(linPy.data.data)
+            coo = format_matrix(linPy.data.data, 'sparse')
             linC.set_sparse_data(coo.data, coo.row.astype(float),
-                                 coo.col.astype(float), rows, cols)
+                                 coo.col.astype(float), coo.shape[0], coo.shape[1])
         elif linPy.data.type is 'dense_const':
-            linC.set_dense_data(np.asfortranarray(linPy.data.data))
+            linC.set_dense_data(format_matrix(linPy.data.data))
         else:
             raise NotImplementedError()
     else:
-        linC.set_dense_data(np.asfortranarray(linPy.data))
+        linC.set_dense_data(format_matrix(linPy.data))
+
+
+def set_slice_data(linC, linPy):
+    for i, sl in enumerate(linPy.data):
+        vec = CVXcanon.DoubleVector()
+        if (sl.start is None):
+            vec.push_back(0)
+        else:
+            vec.push_back(sl.start)
+        if(sl.stop is None):
+            vec.push_back(linPy.args[0].size[i])
+        else:
+            vec.push_back(sl.stop)
+        if sl.step is None:
+            vec.push_back(1.0)
+        else:
+            vec.push_back(sl.step)
+        linC.slice.push_back(vec)
 
 
 type_map = { "VARIABLE": CVXcanon.VARIABLE,"PROMOTE": CVXcanon.PROMOTE,"MUL": CVXcanon.MUL,"RMUL": CVXcanon.RMUL,\
@@ -97,26 +124,11 @@ def build_lin_op_tree(root_linPy, tmp):
         if linPy.data is None:
             pass
         elif isinstance(linPy.data, tuple) and isinstance(linPy.data[0], slice):  # Tuple of slices
-            for i, sl in enumerate(linPy.data):
-                vec = CVXcanon.DoubleVector()
-                if (sl.start is None):
-                    vec.push_back(0)
-                else:
-                    vec.push_back(sl.start)
-                if(sl.stop is None):
-                    vec.push_back(linPy.args[0].size[i])
-                else:
-                    vec.push_back(sl.stop)
-                if sl.step is None:
-                    vec.push_back(1.0)
-                else:
-                    vec.push_back(sl.step)
-
-                linC.slice.push_back(vec)
+            set_slice_data(linC, linPy)
         elif isinstance(linPy.data, float) or isinstance(linPy.data, int):
-            linC.set_dense_data(np.asfortranarray(np.matrix(linPy.data)))
+            linC.set_dense_data(format_matrix(linPy.data, 'scalar'))
         elif isinstance(linPy.data, LinOp) and linPy.data.type is 'scalar_const':
-            linC.set_dense_data(np.asfortranarray(np.matrix(linPy.data.data)))
+            linC.set_dense_data(format_matrix(linPy.data.data, 'scalar'))
         else:
             set_matrix_data(linC, linPy)
 
