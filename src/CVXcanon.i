@@ -29,6 +29,7 @@
 namespace std {
    %template(IntVector) vector<int>;
    %template(DoubleVector) vector<double>;
+   %template(IntVector2D) vector< vector<int> >;
    %template(DoubleVector2D) vector< vector<double> >;
    %template(IntIntMap) map<int, int>;
    %template(LinOpVector) vector< LinOp * >;
