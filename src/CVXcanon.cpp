@@ -6,7 +6,9 @@
 #include "LinOpOperations.hpp"
 #include "ProblemData.hpp"
 
-std::map<int, std::vector<Matrix> > mul_by_const(Matrix & coeff_mat, std::map<int, std::vector<Matrix> > & rh_coeffs, std::map<int, std::vector<Matrix> > &result){
+std::map<int, std::vector<Matrix> > mul_by_const(Matrix &coeff_mat, 
+																								 std::map<int, std::vector<Matrix> > &rh_coeffs, 
+																								 std::map<int, std::vector<Matrix> > &result){
 	for(auto & kv : rh_coeffs){
 		int id = kv.first;
 		for(unsigned i = 0; i < kv.second.size(); i++){
@@ -55,7 +57,8 @@ std::map<int, std::vector<Matrix> > get_coefficient(LinOp &lin){
 }
 
 
-int get_horiz_offset(int id, std::map<int, int> & offsets, int & horiz_offset, LinOp & lin){
+int get_horiz_offset(int id, std::map<int, int> &offsets, 
+										 int &horiz_offset, LinOp &lin){
 	if( !offsets.count(id) ){
 		offsets[id] = horiz_offset;
 		horiz_offset += lin.size[0] * lin.size[1];
@@ -73,8 +76,9 @@ int get_horiz_offset(int id, std::map<int, int> & offsets, int & horiz_offset, L
 * the offset of this block within our larger matrix.
 */
 
-void add_matrix_to_vectors(Matrix & block, std::vector<double> & V, std::vector<int>  &I,
-					 	std::vector<int> & J, int vert_offset, int & horiz_offset){
+void add_matrix_to_vectors(Matrix & block, std::vector<double> &V, 
+													 std::vector<int>  &I, std::vector<int> &J, 
+													 int vert_offset, int &horiz_offset){
 	for ( int k=0; k < block.outerSize(); ++k ){
 		for ( Matrix::InnerIterator it(block,k); it; ++it ){
 		    V.push_back(it.value());
@@ -140,7 +144,8 @@ int get_total_constraint_length(std::vector< LinOp* > constraints){
 *
 */
 
-ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col){
+ProblemData build_matrix(std::vector< LinOp* > constraints, 
+												 std::map<int, int> id_to_col){
 	ProblemData prob_data;
 	int num_rows = get_total_constraint_length(constraints);
 	prob_data.const_vec = std::vector<double> (num_rows, 0);
