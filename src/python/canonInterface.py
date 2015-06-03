@@ -48,13 +48,38 @@ def set_matrix_data(linC, linPy):
         linC.set_dense_data(np.asfortranarray(linPy.data))
 
 
+type_map = { "VARIABLE": CVXcanon.VARIABLE,"PROMOTE": CVXcanon.PROMOTE,"MUL": CVXcanon.MUL,"RMUL": CVXcanon.RMUL,\
+"MUL_ELEM": CVXcanon.MUL_ELEM,"DIV": CVXcanon.DIV,"SUM": CVXcanon.SUM,"NEG": CVXcanon.NEG,"INDEX": CVXcanon.INDEX,\
+"TRANSPOSE": CVXcanon.TRANSPOSE,"SUM_ENTRIES": CVXcanon.SUM_ENTRIES,"TRACE": CVXcanon.TRACE,"RESHAPE": CVXcanon.RESHAPE,\
+"DIAG_VEC": CVXcanon.DIAG_VEC,"DIAG_MAT": CVXcanon.DIAG_MAT,"UPPER_TRI": CVXcanon.UPPER_TRI,"CONV": CVXcanon.CONV,\
+"HSTACK": CVXcanon.HSTACK,"VSTACK": CVXcanon.VSTACK,"SCALAR_CONST": CVXcanon.SCALAR_CONST,"DENSE_CONST": CVXcanon.DENSE_CONST,\
+"SPARSE_CONST": CVXcanon.SPARSE_CONST,"NO_OP": CVXcanon.NO_OP }
+
+def get_type(ty):
+    if ty in type_map:
+        return type_map[ty]
+    else:
+        raise NotImplementedError()  
+
+
+
 def build_lin_op_tree(root_linPy, tmp):
+    '''
+    Breadth first, post-order traversal
+
+    params: A python linOp tree, root_linPy, and an array tmp to 
+    keep data from going out of scope
+
+    returns: root_linC, a C++ LinOp tree created through our swig interface
+    '''
     Q = deque()
     root_linC = CVXcanon.LinOp()
     Q.append((root_linPy, root_linC))
+    
     while len(Q) > 0:
         linPy, linC = Q.popleft()
-        # Updating the arguments
+        
+        # Updating the arguments our LinOp
         for argPy in linPy.args:
             tree = CVXcanon.LinOp()
             tmp.append(tree)
@@ -62,7 +87,7 @@ def build_lin_op_tree(root_linPy, tmp):
             linC.args.push_back(tree)
 
         # Setting the type of our lin op
-        linC.type = eval("CVXcanon." + linPy.type.upper())
+        linC.type = get_type(linPy.type.upper())
 
         # Setting size
         linC.size.push_back(int(linPy.size[0]))
