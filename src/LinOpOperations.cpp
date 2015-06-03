@@ -200,12 +200,6 @@ std::vector<Matrix> stack_matrices(LinOp &lin, bool vertical){
  * data from the linOp object. Depending on the interface to the calling
  * package, the implementation of these functions will have to change 
  * accordingly!
- *
- * These functions assume constant data is represented as a single
- * std::vector<std::vector<double> > and read the data into sparse matrices.
- *
- * TODO: This is extremely inefficient, especially when the matrices are
- * dense!
  ******************/
 
 /**
@@ -214,7 +208,7 @@ std::vector<Matrix> stack_matrices(LinOp &lin, bool vertical){
  *
  */
 
-Matrix sparse_reshape_to_vec(Matrix & in){
+Matrix sparse_reshape_to_vec(Matrix &in){
 	int rows = in.rows();
 	int cols = in.cols();
 	Matrix out(rows * cols, 1);
@@ -222,7 +216,8 @@ Matrix sparse_reshape_to_vec(Matrix & in){
 	tripletList.reserve(rows * cols);
 	for( int k = 0; k < in.outerSize(); ++k){
 		for(Matrix::InnerIterator it(in, k); it; ++it){
-			tripletList.push_back(Triplet(it.col() * rows + it.row(), 0, it.value()));
+			tripletList.push_back(Triplet(it.col() * rows + it.row(), 0, 
+													  it.value()));
 		}
 	}
 	out.setFromTriplets(tripletList.begin(), tripletList.end());
@@ -250,7 +245,9 @@ Matrix get_constant_data(LinOp &lin, bool column){
 		coeffs = lin.sparse_data;
 	} else {
 		if(column){
-			Eigen::Map<Eigen::MatrixXd> column(lin.dense_data.data(),lin.dense_data.rows() * lin.dense_data.cols(), 1);
+			Eigen::Map<Eigen::MatrixXd> column(lin.dense_data.data(),
+																				 lin.dense_data.rows() * 
+																				 lin.dense_data.cols(), 1);
 			coeffs = column.sparseView();
 		} else {
 			coeffs = lin.dense_data.sparseView();
@@ -384,7 +381,9 @@ std::vector<Matrix> get_conv_mat(LinOp &lin){
 }
 
 /**
- * Return the coefficients for UPPER_TRI. 
+ * Return the coefficients for UPPER_TRI: an ENTRIES by ROWS * COLS matrix
+ * where the i, j entry in the original matrix has a 1 in row COUNT and 
+ * corresponding column if j > i and 0 otherwise.
  *
  * Parameters: LinOp with type UPPER_TRI.
  * Returns: vector of coefficients for upper triangular matrix linOp
@@ -395,7 +394,7 @@ std::vector<Matrix> get_upper_tri_mat(LinOp &lin){
 	int cols = lin.args[0]->size[1];
 
 	int entries = lin.size[0];
-	Matrix coeffs(entries, rows*cols);
+	Matrix coeffs(entries, rows * cols);
 
 	std::vector<Triplet> tripletList;
 	tripletList.reserve((rows * cols) / float(2));
@@ -418,11 +417,13 @@ std::vector<Matrix> get_upper_tri_mat(LinOp &lin){
 }
 
 /**
- * Return the coefficients for DIAG_MAT.
+ * Return the coefficients for DIAG_MAT (diagonal matrix to vector): a 
+ * N by N^2 matrix where each row has a 1 in the row * N + row entry 
+ * corresponding to the diagonal and 0 otherwise.
  *
- * Parameters:
+ * Parameters: LinOp of type DIAG_MAT
  * 
- * Returns:
+ * Returns: vector containing coefficient matrix COEFFS
  *
  */
 std::vector<Matrix> get_diag_matrix_mat(LinOp &lin){
@@ -446,11 +447,13 @@ std::vector<Matrix> get_diag_matrix_mat(LinOp &lin){
 }
 
 /**
- * Return the coefficients for DIAG_VEC
+ * Return the coefficients for DIAG_VEC (vector to diagonal matrix): a 
+ * N^2 by N matrix where each column I has a 1 in row I * N + I 
+ * corresponding to the diagonal entry and 0 otherwise.
  *
- * Parameters:
+ * Parameters: linOp of type DIAG_VEC
  * 
- * Returns:
+ * Returns: vector containing coefficient matrix COEFFS
  *
  */
 std::vector<Matrix> get_diag_vec_mat(LinOp &lin){
@@ -467,18 +470,19 @@ std::vector<Matrix> get_diag_vec_mat(LinOp &lin){
 		int col_idx = i;
 		tripletList.push_back(Triplet(row_idx, col_idx, 1.0));
 	}
-
 	coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
 	coeffs.makeCompressed();
 	return build_vector(coeffs);
 }
 
 /**
- * Return the coefficients for TRANSPOSE.
+ * Return the coefficients for TRANSPOSE: a ROWS*COLS by ROWS*COLS matrix
+ * such that element ij in the vectorized matrix is mapped to ji after
+ * multiplication (i.e. entry (rows * j + i, i * cols + j) = 1 and else 0)
  *
- * Parameters:
+ * Parameters: linOp of type TRANSPOSE
  * 
- * Returns:
+ * Returns: vector containing coefficient matrix COEFFS
  *
  */
 std::vector<Matrix> get_transpose_mat(LinOp &lin){
@@ -505,9 +509,9 @@ std::vector<Matrix> get_transpose_mat(LinOp &lin){
 /**
  * Return the coefficients for INDEX
  *
- * Parameters:
+ * Parameters: LinOp of type INDEX
  * 
- * Returns:
+ * Returns: vector containing coefficient matrix COEFFS
  *
  */
 std::vector<Matrix> get_index_mat(LinOp &lin){
@@ -520,7 +524,8 @@ std::vector<Matrix> get_index_mat(LinOp &lin){
 	
 	std::vector<Triplet> tripletList;
 	// could reserve less if slice[2] > 1...
-	tripletList.reserve((row_slice[1] - row_slice[0]) * (col_slice[1] - col_slice[0]));
+	tripletList.reserve((row_slice[1] - row_slice[0]) * 
+											(col_slice[1] - col_slice[0]));
 	int counter = 0;
 	for(int row = row_slice[0]; row < row_slice[1]; row += row_slice[2]){
 		for(int col = col_slice[0]; col < col_slice[1]; col += col_slice[2]){
@@ -538,11 +543,13 @@ std::vector<Matrix> get_index_mat(LinOp &lin){
 }
 
 /**
- * Return the coefficients for MUL_ELEM.
+ * Return the coefficients for MUL_ELEM: an N x N diagonal matrix where the
+ * ij-th element on the diagonal corresponds to the element i, j in the 
+ * data matrix CONSTANT.
  *
- * Parameters:
+ * Parameters: linOp of type MUL_ELEM
  * 
- * Returns:
+ * Returns: vector containing the coefficient matrix COEFFS
  *
  */
 std::vector<Matrix> get_mul_elemwise_mat(LinOp &lin){
@@ -558,7 +565,6 @@ std::vector<Matrix> get_mul_elemwise_mat(LinOp &lin){
 		    tripletList.push_back(Triplet(it.row(), it.row(), it.value()));
 		}
 	}
-
 	Matrix coeffs(n, n);
 	coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
 	coeffs.makeCompressed();
@@ -566,11 +572,13 @@ std::vector<Matrix> get_mul_elemwise_mat(LinOp &lin){
 }
 
 /**
- * Return the coefficients for RMUL
+ * Return the coefficients for RMUL (right multiplication): a ROWS * N
+ * by COLS * N matrix given by the kronecker product between the 
+ * transpose of the constant matrix CONSTANT and a N x N identity matrix.
  *
- * Parameters:
+ * Parameters: linOp of type RMUL
  * 
- * Returns:
+ * Returns: vector containing the corresponding coefficient matrix COEFFS
  *
  */
 std::vector<Matrix> get_rmul_mat(LinOp &lin){
@@ -580,8 +588,6 @@ std::vector<Matrix> get_rmul_mat(LinOp &lin){
 	int cols = constant.cols();
 	int n = lin.size[0];
 
-	// coeffs is the kronecker product between the transpose of the constant
-	// and a lin.size[0] identity matrix
 	Matrix coeffs(cols * n, rows * n);
 	std::vector<Triplet> tripletList;
 	tripletList.reserve(rows * cols * n);
@@ -589,6 +595,7 @@ std::vector<Matrix> get_rmul_mat(LinOp &lin){
 		for ( Matrix::InnerIterator it(constant,k); it; ++it ){
 			double val = it.value();
 
+			// each element of CONSTANT occupies an N x N block in the matrix
 			int row_start = it.col() * n;
 			int col_start = it.row() * n;
 			for(int i = 0; i < n; i++){
@@ -604,11 +611,13 @@ std::vector<Matrix> get_rmul_mat(LinOp &lin){
 }
 
 /**
- * Return the coefficients for MUL.
+ * Return the coefficients for MUL (left multiplication): a NUM_BLOCKS * ROWS 
+ * by NUM_BLOCKS * COLS block diagonal matrix where each diagonal block is the 
+ * constant data BLOCK.
  *
- * Parameters:
+ * Parameters: linOp with type MUL
  * 
- * Returns:
+ * Returns: vector containing coefficient matrix COEFFS
  *
  */
 std::vector<Matrix> get_mul_mat(LinOp &lin){
@@ -621,8 +630,6 @@ std::vector<Matrix> get_mul_mat(LinOp &lin){
 
 	Matrix coeffs (num_blocks * block_rows, num_blocks * block_cols);
 
-	// There is probably a more efficient way to do this, but eigen sparse
-	// matrix documentation is, well, sparse.
 	std::vector<Triplet> tripletList;
 	tripletList.reserve(num_blocks * block_rows * block_cols);
 	for(int curr_block = 0; curr_block < num_blocks; curr_block++){
@@ -630,7 +637,8 @@ std::vector<Matrix> get_mul_mat(LinOp &lin){
 		int start_j = curr_block * block_cols;
 		for ( int k=0; k < block.outerSize(); ++k ){
 			for ( Matrix::InnerIterator it(block,k); it; ++it ){
-				tripletList.push_back(Triplet(start_i + it.row(), start_j + it.col(), it.value()));
+				tripletList.push_back(Triplet(start_i + it.row(), start_j + it.col(),
+																			it.value()));
 			}
 		}
 	}
@@ -640,11 +648,13 @@ std::vector<Matrix> get_mul_mat(LinOp &lin){
 }
 
 /**
- * Return the coefficients for PROMOTE
+ * Return the coefficients for PROMOTE: a column vector of size N with all 
+ * entries 1. Note this is treated as sparse for consistency of later
+ * multiplications with sparse matrices.
  *
- * Parameters:
+ * Parameters: linOP with type PROMOTE
  * 
- * Returns:
+ * Returns: vector containing coefficient matrix ONES.
  *
  */
 std::vector<Matrix> get_promote_mat(LinOp &lin){
@@ -656,11 +666,13 @@ std::vector<Matrix> get_promote_mat(LinOp &lin){
 }
 
 /**
- * Return the coefficients for RESHAPE
+ * Return the coefficients for RESHAPE: a 1x1 matrix [1]. In Eigen, this
+ * requires special case handling to multiply against an arbitrary m x n 
+ * matrix.
  *
- * Parameters:
+ * Parameters: LinOp with type RESHAPE
  * 
- * Returns:
+ * Returns: vector containing the coefficient matrix ONE.
  *
  */
 std::vector<Matrix> get_reshape_mat(LinOp &lin){
@@ -672,15 +684,17 @@ std::vector<Matrix> get_reshape_mat(LinOp &lin){
 }
 
 /**
- * Return the coefficients for DIV.
+ * Return the coefficients for DIV: a diagonal matrix where each diagonal 
+ * entry is 1 / DIVISOR.
  *
- * Parameters:
+ * Parameters: linOp with type DIV
  * 
- * Returns:
+ * Returns: vector containing the coefficient matrix COEFFS
  *
  */
 std::vector<Matrix> get_div_mat(LinOp &lin){
 	assert(lin.type == DIV);
+	// assumes scalar divisor
 	double divisor = get_divisor_data(lin);
 	int n = lin.size[0] * lin.size[1];
 	Matrix coeffs = sparse_eye(n);
@@ -690,12 +704,11 @@ std::vector<Matrix> get_div_mat(LinOp &lin){
 }
 
 /**
- * Return the coefficients for NEG.
+ * Return the coefficients for NEG: -I, where I is an identity of size m * n.
  *
- * Parameters:
- * 
- * Returns:
+ * Parameters: linOp with type NEG
  *
+ * Returns: vector containing the coefficient matrix COEFFS
  */
 std::vector<Matrix> get_neg_mat(LinOp &lin){
 	assert(lin.type == NEG);
@@ -707,11 +720,13 @@ std::vector<Matrix> get_neg_mat(LinOp &lin){
 }
 
 /**
- * Return the coefficients for TRACE.
+ * Return the coefficients for TRACE: A single row vector v^T \in R^(n^2)
+ * with 1 if v_{i}  corresponds to a diagonal entry (i.e. i * n + i) and 0 
+ * otherwise.
  *
- * Parameters:
+ * Parameters: LinOp with type TRACE
  * 
- * Returns:
+ * Returns: vector containing the coefficient matrix COEFFS
  *
  */
  std::vector<Matrix> get_trace_mat(LinOp &lin){
@@ -719,18 +734,19 @@ std::vector<Matrix> get_neg_mat(LinOp &lin){
  	int rows = lin.args[0]->size[0];
  	Matrix coeffs (1, rows*rows);
  	for(int i = 0; i < rows; i++){
- 		coeffs.insert(0, i*rows + i) = 1;
+ 		coeffs.insert(0, i * rows + i) = 1;
  	}
  	coeffs.makeCompressed();
  	return build_vector(coeffs);
  }
 
 /**
- * Return the coefficient matrix for SUM_ENTRIES
+ * Return the coefficient matrix for SUM_ENTRIES. A single row vector of 1's
+ * of size 1 by (data.rows x data.cols).
  *
  * Parameters: LinOp with type SUM_ENTRIES
  * 
- * Returns:
+ * Returns: vector containing the coefficient matrix COEFFS
  */
  std::vector<Matrix> get_sum_entries_mat(LinOp &lin){
  	assert(lin.type == SUM_ENTRIES);
@@ -743,7 +759,9 @@ std::vector<Matrix> get_neg_mat(LinOp &lin){
  }
 
 /**
- * Return the coefficient matrix for SUM
+ * Return the coefficient matrix for SUM. Note each element is a 1x1 matrix,
+ * i.e. a scalar, and requires special case handling Eigen to multiply with 
+ * a general m x n matrix. 
  *
  * Parameters: LinOp with type SUM
  * 
@@ -763,11 +781,13 @@ std::vector<Matrix> get_sum_coefficients(LinOp &lin){
 }
 
 /**
- * Return the coefficients for a VARIABLE.
+ * Return a map from the variable ID to the coefficient matrix for the
+ * corresponding VARIABLE linOp, which is an identity matrix of total
+ * linop size x total linop size.
  *
- * Parameters:
+ * Parameters: VARIABLE Type LinOp LIN
  * 
- * Returns:
+ * Returns: Map from VARIABLE_ID to coefficient matrix COEFFS for LIN
  *
  */
 std::map<int,Matrix> get_variable_coeffs(LinOp &lin){
@@ -784,11 +804,15 @@ std::map<int,Matrix> get_variable_coeffs(LinOp &lin){
 }
 
 /**
- * Returns the matrix for a constant type
+ * Returns a map from CONSTANT_ID to the data matrix of the corresponding
+ * CONSTANT type LinOp. The coefficient matrix is the data matrix reshaped
+ * as a ROWS * COLS by 1 column vector. 
+ * Note the data is treated as sparse regardless of the underlying 
+ * representation.
  *
- * Parameters:
+ * Parameters: CONSTANT linop LIN
  *
- * Returns:
+ * Returns: map from CONSTANT_ID to the coefficient matrix COEFFS for LIN.
  */
 std::map<int,Matrix> get_const_coeffs(LinOp &lin){
 	assert(lin.has_constant_type());
