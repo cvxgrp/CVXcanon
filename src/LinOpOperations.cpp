@@ -272,6 +272,10 @@ Matrix get_constant_data(LinOp &lin, bool column){
  * where row_data = vector(start_idx, end_idx, step_size) and 
  * col_data = vector(start_idx, end_idx, step_size).
  *
+ * Implements Python slice semantics, e.g. if ROW_START (or ROW_END) is 
+ * negative, it is assumed to refer to ROWS + ROW_START (ROWS + ROW_END). 
+ * Same for columns. 
+ *
  * Parameters: linOp LIN with type INDEX and slice data.
  * 
  * Returns: a std::vector containing 2 std::vector of ints.
@@ -280,20 +284,27 @@ Matrix get_constant_data(LinOp &lin, bool column){
  * 					The second the vector is the column slice data in the form
  * 							(start, end, step_size)
  */
-std::vector<std::vector<int> > get_slice_data(LinOp &lin){
+std::vector<std::vector<int> > get_slice_data(LinOp &lin, int rows, int cols){
 	assert(lin.type==INDEX);
-	std::vector<double> row = lin.slice[0];
-	std::vector<double> col = lin.slice[1];
-	assert(row.size() == 3);
-	assert(col.size() == 3);
+	std::vector<int> row_slice = lin.slice[0];
+	std::vector<int> col_slice = lin.slice[1];
+	assert(row_slice.size() == 3);
+	assert(col_slice.size() == 3);
 
-	std::vector<int> row_slice;
-	std::vector<int> col_slice;
-	std::vector<std::vector<int> > slices;
-	for(int i = 0; i < 3; i++){
-		row_slice.push_back(int(row[i]));
-		col_slice.push_back(int(col[i]));
+	if(row_slice[0] < 0){
+		row_slice[0] = rows + row_slice[0];
 	}
+	if(row_slice[1] < 0){
+		row_slice[1] = rows + row_slice[1];
+	}
+
+	if(col_slice[0] < 0){
+		col_slice[0] = cols + col_slice[0];
+	}
+	if(col_slice[1] < 0){
+		col_slice[1] = cols + col_slice[1];
+	}
+	std::vector<std::vector<int> > slices;
 	slices.push_back(row_slice);
 	slices.push_back(col_slice);
 	return slices;
@@ -514,7 +525,10 @@ std::vector<Matrix> get_transpose_mat(LinOp &lin){
 }
 
 /**
- * Return the coefficients for INDEX
+ * Return the coefficients for INDEX: a N by ROWS*COLS matrix
+ * where N is the number of total elements in the slice. Element i, j
+ * is 1 if element j in the vectorized matrix is the i-th element of the 
+ * slice and 0 otherwise.
  *
  * Parameters: LinOp of type INDEX
  * 
@@ -526,35 +540,26 @@ std::vector<Matrix> get_index_mat(LinOp &lin){
 	int rows = lin.args[0]->size[0];
 	int cols = lin.args[0]->size[1];
 	Matrix coeffs (lin.size[0] * lin.size[1], rows * cols);
+
+	/* If slice is empty, return empty matrix */
 	if(coeffs.rows () * coeffs.cols() == 0){
 		return build_vector(coeffs);
 	}
 
-	std::vector<std::vector<int> > slices = get_slice_data(lin);
-	std::vector<int> row_slice = slices[0];
-	std::vector<int> col_slice = slices[1];
+	std::vector<std::vector<int> > slices = get_slice_data(lin, rows, cols);
 	
-	int row_start = row_slice[0];
-	if(row_start < 0){
-		row_start = rows + row_start;
-	}
-	int row_end = row_slice[1];
-	if(row_end < 0){
-		row_end = rows + row_end;
-	}
-	int row_step = row_slice[2];
+	/* Row Slice Data */
+	int row_start = slices[0][0];
+	int row_end = slices[0][1];
+	int row_step = slices[0][2];
 
-	int col_start = col_slice[0];
-	if(col_start < 0){
-		col_start = cols + col_start;
-	}
-	int col_end = col_slice[1];
-	if(col_end < 0){
-		col_end = cols + col_end;
-	}
-	int col_step = col_slice[2];
+	/* Column Slice Data */
+	int col_start = slices[1][0];
+	int col_end = slices[1][1];
+	int col_step = slices[1][2];
 
-
+	/* Set the index coefficients by looping over the column selection
+	 * first to remain consistent with CVXPY. */
 	std::vector<Triplet> tripletList;	
 	int col = col_start;
 	int counter = 0;
@@ -568,9 +573,9 @@ std::vector<Matrix> get_index_mat(LinOp &lin){
 				break;
 			}
 			int row_idx = counter;
-			counter++;
 			int col_idx = col * rows + row;
 			tripletList.push_back(Triplet(row_idx, col_idx, 1.0));
+			counter++;
 			row += row_step;
 			if((row_step > 0 && row >= row_end) || (row_step < 0 && row <= row_end)){
 				break;
@@ -588,8 +593,8 @@ std::vector<Matrix> get_index_mat(LinOp &lin){
 
 /**
  * Return the coefficients for MUL_ELEM: an N x N diagonal matrix where the
- * ij-th element on the diagonal corresponds to the element i, j in the 
- * data matrix CONSTANT.
+ * n-th element on the diagonal corresponds to the element n = j*rows + i in 
+ * the data matrix CONSTANT.
  *
  * Parameters: linOp of type MUL_ELEM
  * 

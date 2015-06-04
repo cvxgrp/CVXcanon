@@ -15,16 +15,32 @@ def run_testfile(filename):
 
 
 	settings.USE_CVXCANON = False	
-	start = time.time()
 	exec("from cvxpy import *\nsettings.USE_CVXCANON=False\n" + open(filename).read())
-	oldtime = time.time() - start
+	oldtime = TIME
+	OLD_ANSWERS = ANSWERS
+
 
 	settings.USE_CVXCANON = True
-	start = time.time()
 	exec("from cvxpy import *\nsettings.USE_CVXCANON=True\n" + open(filename).read())
-	newtime =  time.time() - start
+	newtime =  TIME
+	NEW_ANSWERS = ANSWERS
+	if(len(NEW_ANSWERS) != len(OLD_ANSWERS)):
+		print "**** TEST " + filename + " FAILED: Different Number of Answers *****"
+	for i in range(min(len(OLD_ANSWERS), len(NEW_ANSWERS))):
+		if (OLD_ANSWERS[i] == -float('inf') and NEW_ANSWERS[i] != -float('inf')):
+			print "**** TEST " + filename + " FAILED: Different Answers *****"
+			return (oldtime, newtime)
+		elif(OLD_ANSWERS[i] == float('inf') and NEW_ANSWERS[i] != float('inf')):
+			print "**** TEST " + filename + " FAILED: Different Answers *****"
+			return (oldtime, newtime)
+		elif(OLD_ANSWERS[i] == NEW_ANSWERS[i]):
+			continue
+		elif(np.abs(OLD_ANSWERS[i] - NEW_ANSWERS[i]) > 1e-6 ):
+			print "**** TEST " + filename + " FAILED: Different Answers *****"
+			return (oldtime, newtime)
+	
 
-	print "oldtime: ", oldtime, ", newtime: ", newtime
+	print "***** TEST " + filename + " SUCCESSS, SAME ANSWERS ******"
 	return (oldtime, newtime)
 
 files = glob.glob("./364A_scripts/*.py")
@@ -35,6 +51,7 @@ for testfile in files:
 	print "testing: ", testfile
 	try:
 		(o, n) = run_testfile(testfile);
+		print "oldtime: ", o, ", newtime: ", n
 		oldtime += [o]
 		newtime += [n]
 	except (RuntimeError, TypeError, NameError, AttributeError):
