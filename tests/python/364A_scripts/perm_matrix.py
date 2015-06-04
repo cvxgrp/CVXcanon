@@ -93,7 +93,7 @@ prob = Problem(obj, constraints)
 tic = time.time()
 ANSWERS.append(prob.solve())
 toc = time.time()
-TIME += TOC - tic
+TIME += toc - tic
 deviations = [P.value[i,j] * (1 - P.value[i,j]) for i in range(n) for j in range(n)]
 
 pass #print max(deviations)

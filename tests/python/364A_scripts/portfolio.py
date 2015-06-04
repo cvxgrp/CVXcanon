@@ -4,6 +4,8 @@ import matplotlib.pyplot as pyplot
 import time
 
 TIME = 0
+ANSWERS = []
+
 Sigma = Semidef(4)
 
 x = np.array([.1, .2, -.05, .1])
