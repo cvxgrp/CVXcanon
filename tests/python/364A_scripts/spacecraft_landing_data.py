@@ -5,6 +5,8 @@ from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 import time
 
+TIME = 0
+
 h = 1.
 g = 0.1
 m = 10.
@@ -19,7 +21,6 @@ ANSWERS = []
 
 ps = []
 val = 0
-tic = time.time()
 while val != float('inf'):  
 	pass #print "K=", K
 	v =  Variable( 3, K) 
@@ -50,11 +51,13 @@ while val != float('inf'):
 	
 	prob = Problem(obj, constraints)
 	ps.append(p)
-	 
+	tic = time.time()
 	val = prob.solve()
+	toc = time.time()
+	TIME += toc - tic
 	ANSWERS.append(val)
 	K -= 1
-toc = time.time()
+
 pass #print toc - tic
 
 

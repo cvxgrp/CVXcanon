@@ -5,6 +5,8 @@ import numpy as np
 from cvxpy import *
 import time
 
+np.random.seed(0)
+
 ANSWERS = []
 TIME = 0
 A = np.array(np.mat(
@@ -100,3 +102,5 @@ pass #print max(deviations)
 
 v = np.asmatrix([i+1 for i in range(n)])
 pass #print P.value * v.T
+
+print prob.solve()
