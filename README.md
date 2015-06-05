@@ -5,13 +5,22 @@ Convex optimization modeling tools like CVX, CVXPY, and Convex.Jl translate high
 
 
 ## Usage with CVXPY
-To install CVXCanon with CVXPY, simply run ```pip install cvxcanon```. From there, set the flag ```cvxpy.settings.USE_CANON = TRUE``` before constructing a CVXPY problem. For example, 
+To install CVXCanon with CVXPY, simply run ```pip install cvxcanon```. From there, set the flag ```cvxpy.settings.USE_CVXCANON = True``` before constructing a CVXPY problem. For example, 
 
 ``` python
+import numpy
 from cvxpy import *
+
 settings.USE_CVXCANON = True
-x = Variable()
-Minimize(x, [A*x == b]).solve()
+
+m = 30
+n = 20
+numpy.random.seed(1)
+A = numpy.random.randn(m, n)
+b = numpy.random.randn(m)
+
+x = Variable(n)
+Minimize(norm(Ax - b)).solve()
 ```
 The use of CVXPY's Parameters is currently disabled in CVXCanon. One can expect a 2 - 10x  speed-up over the original CVXPY implementation on most other problems.
 
