@@ -41,7 +41,7 @@ To use CVXcanon with the CVX solver of your choice one must take the following s
 ```python 
 V, I, J, b = canonInterface.get_problem_matrix(lin_expr_tree, var_offset_map)
 ```
-where ```V, I, J``` is a COO represenation of the problem matrix ```A```. Matrix ```V, I, J``` and vector ```b``` can then be passed to your solver as needed.
+where ```V, I, J``` is a COO representation of the problem matrix ```A```. Matrix ```V, I, J``` and vector ```b``` can then be passed to your solver as needed.
 
 ## Code Organization
 - **/src/** contains the source code for CVXcanon
