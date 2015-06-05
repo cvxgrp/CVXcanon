@@ -11,9 +11,13 @@ canon = Extension('_CVXcanon',
 
 setup(
 	name='CVXcanon',
-	version='0.1.1',
+	version='0.0.1.dev1',
     author='Jack Zhu, John Miller, Paul Quigley',
     author_email='jackzhu@stanford.edu, millerjp@stanford.edu, piq93@stanford.edu',
 	ext_modules=[canon],
-    py_modules=['canonInterface','CVXcanon']
+    py_modules=['canonInterface','CVXcanon'],
+    description='A low-level library to perform the matrix building step in cvxpy, a convex optimization modeling software.',
+    license='GPLv3',
+    url='https://github.com/jacklzhu/CVXcanon',
+    install_requires=['numpy']
 )
