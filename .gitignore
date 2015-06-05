@@ -1,9 +1,14 @@
-gnore the build and lib dirs
+# Ignore the build and lib dirs
 build
 lib/*
 
 # Ignore any executables
 bin/*
+src/python/CVXcanon.py
+src/python/CVXcanon_wrap.cpp
+src/python/build
+src/python/CVXcanon.egg-info
+src/python/dist
 
 # Ignore Mac specific files
 .DS_Store
