@@ -88,8 +88,9 @@ class LinOp{
 		 * exactly to compile and run properly. 
 		 */
 		void set_sparse_data(double *data, int data_len, double *row_idxs,
-												 int rows_len, double *col_idxs, int cols_len,
-												 int rows, int cols){
+			int rows_len, double *col_idxs, int cols_len,
+			int rows, int cols){
+			
 			assert(rows_len == data_len && cols_len == data_len);
 			sparse = true;
 			Matrix sparse_coeffs(rows, cols);  

@@ -7,8 +7,9 @@
 #include "ProblemData.hpp"
 
 std::map<int, std::vector<Matrix> > mul_by_const(Matrix &coeff_mat, 
-																								 std::map<int, std::vector<Matrix> > &rh_coeffs, 
-																								 std::map<int, std::vector<Matrix> > &result){
+	std::map<int, std::vector<Matrix> > &rh_coeffs, 
+	std::map<int, std::vector<Matrix> > &result){
+	
 	for(auto & kv : rh_coeffs){
 		int id = kv.first;
 		for(unsigned i = 0; i < kv.second.size(); i++){
