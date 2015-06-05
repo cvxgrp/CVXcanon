@@ -1,15 +1,15 @@
 # CVXcanon
 
 ## Introduction
-Convex optimization modeling tools like CVX, CVXPY, and Convex.Jl all translate high-level problem descriptions into low-level, canonical forms that are then passed to an backend solver. We introduce CVXCanon, a software package that factors out the common operations that all such modeling systems perform into a single library with a simple C interface. CVXCanon not only removes the need to reimplement this canonicalization process in new languages, but also provides significant performance gains on many systems.
+Convex optimization modeling tools like CVX, CVXPY, and Convex.Jl translate high-level problem descriptions into low-level, canonical forms that are then passed to an backend solver. CVXCanon is a software package that factors out the common operations that all such modeling systems perform into a single library with a simple C++ interface. CVXCanon removes the need to reimplement this canonicalization process in new languages and provides significant performance gains over high level language implement.
 
 ## Layout
 - **/src/** contains the source code for CVXCanon
 	- **CVXcanon.(c/h)pp** implements our matrix building algorithm. This file also provides the main access point into CVXCanon's functionality, the ```build_matrix``` function.
 	-  **LinOp.hpp** defines the LinOp class, our linear atoms which we traverse when building our matrix.
 	- **LinOpOperations.(c/h)pp** defines functions which we can use to get coefficients corresponding to each of the LinOp. This includes 18 special cases, one for each LinOp.
-    - **ProblemData.hpp** defines the structure returned by ```build_matrix```, which incldues a sparse representation of our problem matrix and our constant vector. 
-    - ** CVXcanon.i ** exposes functions and data types to SWIG, allowing us to automatically generate bindings for CVXCanon in a variety of common programming languages.
+    - **ProblemData.hpp** defines the structure returned by ```build_matrix```, which includes a sparse representation of our problem matrix and our constant vector. 
+    - **CVXcanon.i** exposes functions and data types to SWIG, allowing us to automatically generate bindings for CVXCanon in a variety of common programming languages.
 
 - **/src/python** contains code specific to our integration of CVXCanon with CVXPY.
 	- **canonInterface.py** implements code which calls our swig binding of CVXCanon, including the including the function ```get_problem_matrix```. It also defines a function to create a C++ LinOp tree from a Python LinOp tree, handling a variety of special cases related to data representation.
@@ -47,12 +47,3 @@ and then pass ```A``` and ```b``` on to your solver as needed.
 
 ## Contact
 If you have comments or concerns, please do not hesitate to contact one of us at  {piq93,jackzhu,millerjp}@stanford.edu.
-
-
-
-
-
-
-
-
-
