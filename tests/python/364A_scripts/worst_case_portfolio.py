@@ -3,8 +3,6 @@ from cvxpy import *
 import matplotlib.pyplot as pyplot
 import time
 
-settings.USE_CVXCANON = False
-
 TIME = 0
 
 Sigma = Semidef(4)

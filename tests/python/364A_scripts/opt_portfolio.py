@@ -26,7 +26,6 @@ generateReturns = lambda: np.random.multivariate_normal(mug,Sigma)
 from cvxpy import *
 import copy
 
-settings.USE_CVXCANON = True
 #Getting w_star
 kappa = kappa_2
 
