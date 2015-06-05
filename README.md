@@ -39,10 +39,9 @@ To use CVXcanon with the CVX solver of your choice one must take the following s
 3. With these two steps implemented, you have essentially recreated **canonInterface.py** in the language of your choice. You now should be able to execute code of the form
 
 ```python 
-A, b = canonInterface.get_problem_matrix(mat_cache.constraints, var_offsets)
+V, I, J, b = canonInterface.get_problem_matrix(lin_expr_tree, var_offset_map)
 ```
-
-and then pass ```A``` and ```b``` on to your solver as needed.
+where ```V, I, J``` is a COO represenation of the problem matrix ```A```. Matrix ```V, I, J``` and vector ```b``` can then be passed to your solver as needed.
 
 ## Code Organization
 - **/src/** contains the source code for CVXcanon
