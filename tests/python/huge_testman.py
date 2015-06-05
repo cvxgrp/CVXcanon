@@ -45,20 +45,22 @@ def run_testfile(filename):
 
 files = glob.glob("./364A_scripts/*.py")
 
-oldtime = [];
-newtime = [];
+oldtime = {};
+newtime = {};
+fnames = [];
+iters = 30
+
 for testfile in files:
-	print "testing: ", testfile
-	try:
-		(o, n) = run_testfile(testfile);
-		print "oldtime: ", o, ", newtime: ", n
-		oldtime += [o]
-		newtime += [n]
-	except (RuntimeError, TypeError, NameError, AttributeError):
-		pass
-
-
-plt.scatter(oldtime, newtime)
-plt.show()
-
-
+	oldtime[testfile] = []
+	newtime[testfile] = []
+	
+	for _ in range(30):
+		print "testing: ", testfile
+		try:
+			(o, n) = run_testfile(testfile);
+			oldtime[testfile] += [o]
+			newtime[testfile] += [n]
+			fnames += [testfile]
+		except (RuntimeError, TypeError, NameError, AttributeError):
+			pass
+list(set(fnames))
