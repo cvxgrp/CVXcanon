@@ -20,7 +20,7 @@ A = numpy.random.randn(m, n)
 b = numpy.random.randn(m)
 
 x = Variable(n)
-Minimize(norm(Ax - b)).solve()
+Minimize(norm(A*x - b)).solve()
 ```
 The use of CVXPY's Parameters is currently disabled in CVXCanon. One can expect a 2 - 10x  speed-up over the original CVXPY implementation on most other problems.
 
