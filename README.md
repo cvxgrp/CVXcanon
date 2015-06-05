@@ -15,7 +15,7 @@ Minimize(x, [A*x == b]).solve()
 ```
 The use of CVXPY's Parameters is currently disabled in CVXCanon. One can expect a 2 - 10x  speed-up over the original CVXPY implementation on most other problems.
 
-Note: CVXCanon is not currently shipped with the default CVXPY, though there are plans to do this in the near future. We currently have a custom fork of CVXPY available at https://github.com/jacklzhu/cvxpy. To test CVXCanon before this happens, clone the repo and run the included setup.py script before installing CVXCanon.
+Note: CVXCanon is not currently shipped with the default CVXPY, though there are plans to do this in the near future. We currently have a custom fork of CVXPY available at [https://github.com/jacklzhu/cvxpy](https://github.com/jacklzhu/cvxpy). To test CVXCanon before this happens, clone the repo and run the included setup.py script before installing CVXCanon.
 
 ## Integration with other CVX.* solvers
 To use CVXCanon with the CVX solver of your choice one must take the following steps:
