@@ -12,3 +12,9 @@ src/python/dist
 
 # Ignore Mac specific files
 .DS_Store
+
+# Ignore compiled python files
+*.pyc
+
+# Ignore virtual env
+.env/*
