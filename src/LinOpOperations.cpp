@@ -275,6 +275,7 @@ Matrix get_constant_data(LinOp &lin, bool column) {
 			coeffs = lin.dense_data.sparseView();
 		}
 	}
+	coeffs.makeCompressed();
 	return coeffs;
 }
 
@@ -654,7 +655,7 @@ std::vector<Matrix> get_rmul_mat(LinOp &lin) {
 
 	Matrix coeffs(cols * n, rows * n);
 	std::vector<Triplet> tripletList;
-	tripletList.reserve(rows * cols * n);
+	tripletList.reserve(n * constant.nonZeros());
 	for ( int k = 0; k < constant.outerSize(); ++k ) {
 		for ( Matrix::InnerIterator it(constant, k); it; ++it ) {
 			double val = it.value();
@@ -687,15 +688,15 @@ std::vector<Matrix> get_rmul_mat(LinOp &lin) {
 std::vector<Matrix> get_mul_mat(LinOp &lin) {
 	assert(lin.type == MUL);
 	Matrix block = get_constant_data(lin, false);
-
 	int block_rows = block.rows();
 	int block_cols = block.cols();
+	// int num_nonzeros = lin.size[0];
 	int num_blocks = lin.size[1];
 
 	Matrix coeffs (num_blocks * block_rows, num_blocks * block_cols);
 
 	std::vector<Triplet> tripletList;
-	tripletList.reserve(num_blocks * block_rows * block_cols);
+	tripletList.reserve(num_blocks * block.nonZeros());
 	for (int curr_block = 0; curr_block < num_blocks; curr_block++) {
 		int start_i = curr_block * block_rows;
 		int start_j = curr_block * block_cols;
