@@ -18,7 +18,6 @@ import numpy as np
 from cvxpy.lin_ops.lin_op import *
 import scipy.sparse
 from collections import deque
-from pdb import set_trace as bp
 
 
 def get_problem_matrix(constrs, id_to_col=None):
@@ -52,12 +51,10 @@ def get_problem_matrix(constrs, id_to_col=None):
     # after build_lin_op_tree returns
     tmp = []
     for lin in linOps:
-        print len(lin)
         tree = build_lin_op_tree(lin, tmp)
         tmp.append(tree)
         lin_vec.push_back(tree)
 
-    bp
     problemData = CVXcanon.build_matrix(lin_vec, id_to_col_C)
 
     # Unpacking
