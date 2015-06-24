@@ -18,18 +18,19 @@ import numpy as np
 from cvxpy.lin_ops.lin_op import *
 import scipy.sparse
 from collections import deque
+from pdb import set_trace as bp
 
 
 def get_problem_matrix(constrs, id_to_col=None):
     '''
     Builds a sparse representation of the problem data by calling CVXCanon's
     C++ build_matrix function.
-    
+
     Parameters
     ----------
-        constrs: A list of python linOp trees 
+        constrs: A list of python linOp trees
         id_to_col: A map from variable id to offset withoun our matrix
-    
+
     Returns
     ----------
         V, I, J: numpy arrays encoding a sparse representation of our problem
@@ -51,12 +52,14 @@ def get_problem_matrix(constrs, id_to_col=None):
     # after build_lin_op_tree returns
     tmp = []
     for lin in linOps:
+        print len(lin)
         tree = build_lin_op_tree(lin, tmp)
         tmp.append(tree)
         lin_vec.push_back(tree)
 
+    bp
     problemData = CVXcanon.build_matrix(lin_vec, id_to_col_C)
-    
+
     # Unpacking
     V = problemData.getV(len(problemData.V))
     I = problemData.getI(len(problemData.I))
@@ -67,7 +70,7 @@ def get_problem_matrix(constrs, id_to_col=None):
 
 
 def format_matrix(matrix, format='dense'):
-    ''' Returns the matrix in the appropriate form, 
+    ''' Returns the matrix in the appropriate form,
         so that it can be efficiently loaded with our swig wrapper
     '''
     if(format == 'dense'):
@@ -97,15 +100,15 @@ def set_matrix_data(linC, linPy):
 
 
 def set_slice_data(linC, linPy):
-    '''  
+    '''
     Loads the slice data, start, stop, and step into our C++ linOp.
     The semantics of the slice operator is treated exactly the same as in Python.
     Note that the 'None' cases had to be handled at the wrapper level, since we must load
-    integers into our vector. 
+    integers into our vector.
     '''
     for i, sl in enumerate(linPy.data):
         vec = CVXcanon.IntVector()
-        if (sl.start is None): 
+        if (sl.start is None):
             vec.push_back(0)
         else:
             vec.push_back(sl.start)
@@ -120,36 +123,38 @@ def set_slice_data(linC, linPy):
         linC.slice.push_back(vec)
 
 
-type_map = { "VARIABLE": CVXcanon.VARIABLE,
-"PROMOTE": CVXcanon.PROMOTE,
-"MUL": CVXcanon.MUL,
-"RMUL": CVXcanon.RMUL,
-"MUL_ELEM": CVXcanon.MUL_ELEM,
-"DIV": CVXcanon.DIV,
-"SUM": CVXcanon.SUM,
-"NEG": CVXcanon.NEG,
-"INDEX": CVXcanon.INDEX,
-"TRANSPOSE": CVXcanon.TRANSPOSE,
-"SUM_ENTRIES": CVXcanon.SUM_ENTRIES,
-"TRACE": CVXcanon.TRACE,
-"RESHAPE": CVXcanon.RESHAPE,
-"DIAG_VEC": CVXcanon.DIAG_VEC,
-"DIAG_MAT": CVXcanon.DIAG_MAT,
-"UPPER_TRI": CVXcanon.UPPER_TRI,
-"CONV": CVXcanon.CONV,
-"HSTACK": CVXcanon.HSTACK,
-"VSTACK": CVXcanon.VSTACK,
-"SCALAR_CONST": CVXcanon.SCALAR_CONST,
-"DENSE_CONST": CVXcanon.DENSE_CONST,
-"SPARSE_CONST": CVXcanon.SPARSE_CONST,
-"NO_OP": CVXcanon.NO_OP }
+type_map = {
+    "VARIABLE": CVXcanon.VARIABLE,
+    "PROMOTE": CVXcanon.PROMOTE,
+    "MUL": CVXcanon.MUL,
+    "RMUL": CVXcanon.RMUL,
+    "MUL_ELEM": CVXcanon.MUL_ELEM,
+    "DIV": CVXcanon.DIV,
+    "SUM": CVXcanon.SUM,
+    "NEG": CVXcanon.NEG,
+    "INDEX": CVXcanon.INDEX,
+    "TRANSPOSE": CVXcanon.TRANSPOSE,
+    "SUM_ENTRIES": CVXcanon.SUM_ENTRIES,
+    "TRACE": CVXcanon.TRACE,
+    "RESHAPE": CVXcanon.RESHAPE,
+    "DIAG_VEC": CVXcanon.DIAG_VEC,
+    "DIAG_MAT": CVXcanon.DIAG_MAT,
+    "UPPER_TRI": CVXcanon.UPPER_TRI,
+    "CONV": CVXcanon.CONV,
+    "HSTACK": CVXcanon.HSTACK,
+    "VSTACK": CVXcanon.VSTACK,
+    "SCALAR_CONST": CVXcanon.SCALAR_CONST,
+    "DENSE_CONST": CVXcanon.DENSE_CONST,
+    "SPARSE_CONST": CVXcanon.SPARSE_CONST,
+    "NO_OP": CVXcanon.NO_OP
+}
+
 
 def get_type(ty):
     if ty in type_map:
         return type_map[ty]
     else:
-        raise NotImplementedError()  
-
+        raise NotImplementedError()
 
 
 def build_lin_op_tree(root_linPy, tmp):
@@ -158,9 +163,9 @@ def build_lin_op_tree(root_linPy, tmp):
     Parameters
     -------------
     root_linPy: a Python LinOp tree
-    
+
     tmp: an array to keep data from going out of scope
-    
+
     Returns
     --------
     root_linC: a C++ LinOp tree created through our swig interface
@@ -168,10 +173,10 @@ def build_lin_op_tree(root_linPy, tmp):
     Q = deque()
     root_linC = CVXcanon.LinOp()
     Q.append((root_linPy, root_linC))
-    
+
     while len(Q) > 0:
         linPy, linC = Q.popleft()
-        
+
         # Updating the arguments our LinOp
         for argPy in linPy.args:
             tree = CVXcanon.LinOp()
