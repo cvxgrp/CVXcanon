@@ -4,6 +4,7 @@ python:
 # command to install dependencies
 install:
   - "sudo apt-get install swig"
+  - "sudo apt-get install gcc"
   - "pip install numpy"
   - cd src/python
   - "python setup.py install"
