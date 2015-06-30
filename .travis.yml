@@ -14,7 +14,7 @@ install:
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
 
    # compiling library
-  - "pip install numpy"
+  - "sudo pip install numpy"
   - "sudo apt-get install swig"
   - "cd src/python"
   - "sudo python setup.py install"
@@ -28,6 +28,7 @@ install:
   - "cd include"
   - "git clone https://github.com/jacklzhu/cvxpy.git"
   - "cd cvxpy"
+  - "pip install numpy"
   - "python setup.py install"
   - "cd ../../"
 
