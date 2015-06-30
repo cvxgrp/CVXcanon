@@ -16,7 +16,7 @@ install:
    # cvxpy dependency 
   - sudo apt-get install -qq libatlas-base-dev gfortran
   - export ATLAS="/usr/lib/atlas-base/libatlas.so"
-  - "pip install numpy"
+  - "sudo pip install numpy"
 
   # adding cvxpy 
   - "cd include"
