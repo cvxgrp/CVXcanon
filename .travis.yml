@@ -3,6 +3,7 @@ python:
   - "2.7"
 # command to install dependencies
 install:
+  - "sudo apt-get install swig"
   - "pip install numpy"
   - cd src/python
   - "python setup.py install"
