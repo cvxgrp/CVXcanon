@@ -25,3 +25,6 @@ install:
 
 # command to run tests
 script:  "python tests/python/test_linops.py"
+
+notifications:
+  email: false
