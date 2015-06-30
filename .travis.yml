@@ -3,10 +3,10 @@ python:
   - "2.7"
 before_install:
 # We need this line to have g++4.8 available in apt
-	- sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-	- sudo apt-get update -qq
-	- if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
-	- if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
+  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+  - sudo apt-get update -qq
+  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
 # command to install dependencies
 install:
   - "sudo apt-get install -qq gcc-4.8 g++-4.8"
