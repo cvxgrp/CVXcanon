@@ -1,13 +1,11 @@
 import unittest
-import sys 
-sys.path.append("../../src/python/")
-import canonInterface
 
 from cvxpy import *
 import numpy as np
 from cvxpy.tests.base_test import *
 import scipy
 import scipy.sparse
+
 
 class TestLinOps(BaseTest):
     def assertDataEqual(self, original_data, canon_data):
