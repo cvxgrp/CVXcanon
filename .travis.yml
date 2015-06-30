@@ -1,7 +1,4 @@
 language: python
-virtualenv:
-  system_site_packages: true
-
 python:
   - "2.7"
 before_install:
@@ -13,18 +10,18 @@ install:
   # compiler dependencies
   - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
-  # cvxpy dependency
-  #- sudo apt-get install -qq libatlas-base-dev gfortran
-  #- export ATLAS="/usr/lib/atlas-base/libatlas.so"
-  # wrapper code
-  - "sudo apt-get install swig"
+  # cvxpy dependency (scipy)
+  - sudo apt-get install -qq libatlas-base-dev gfortran
+  - export ATLAS="/usr/lib/atlas-base/libatlas.so"
   - "pip install numpy"
+  - "pip install scipy"
   # adding cvxpy 
   - "cd include"
   - "git clone https://github.com/jacklzhu/cvxpy.git"
   - "cd cvxpy"
   - "python setup.py install"
   # compiling library
+  - "sudo apt-get install swig"
   - "cd ../../src/python"
   - "python setup.py install"
   - "cd ../../"
