@@ -1,0 +1,16 @@
+language: python
+python:
+  - "2.7"
+# command to install dependencies
+install:
+  - "pip install numpy"
+  - cd src/python
+  - "python setup.py install"
+  - "cd ../../include/cvxpy"
+  - "python setup.py install"
+  - "cd ../../"
+
+# command to run tests
+script: 
+	- "cd tests/python"
+	- "python test_linops.py"
