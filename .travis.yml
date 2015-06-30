@@ -11,6 +11,4 @@ install:
   - "cd ../../"
 
 # command to run tests
-script: 
-	- "cd tests/python"
-	- "python test_linops.py"
+script:  "python tests/python/test_linops.py"
