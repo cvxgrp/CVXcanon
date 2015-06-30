@@ -13,21 +13,22 @@ install:
   - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
   - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
 
-   # cvxpy dependency 
+  - "sudo pip install numpy"
+
+  # compiling library
+  - "sudo apt-get install swig"
+  - "cd src/python"
+  - "sudo python setup.py install"
+  - "cd ../../"
+
+  # cvxpy dependency 
   - sudo apt-get install -qq libatlas-base-dev gfortran
   - export ATLAS="/usr/lib/atlas-base/libatlas.so"
-  - "sudo pip install numpy"
 
   # adding cvxpy 
   - "cd include"
   - "git clone https://github.com/jacklzhu/cvxpy.git"
   - "cd cvxpy"
-  - "sudo python setup.py install"
-  - "cd ../../"
-
-   # compiling library
-  - "sudo apt-get install swig"
-  - "cd src/python"
   - "sudo python setup.py install"
   - "cd ../../"
 
