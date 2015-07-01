@@ -24,10 +24,11 @@ std::map<int, std::vector<Matrix> > mul_by_const(Matrix &coeff_mat,
         std::map<int, std::vector<Matrix> > &rh_coeffs,
         std::map<int, std::vector<Matrix> > &result) {
 
-	for (auto & kv : rh_coeffs) {
-		int id = kv.first;
-		for (unsigned i = 0; i < kv.second.size(); i++) {
-			Matrix rh = kv.second[i];
+	typedef std::map<int, std::vector<Matrix> >::iterator it_type;
+	for (it_type it = rh_coeffs.begin(); it != rh_coeffs.end(); ++it){
+		int id = it->first;
+		for (unsigned i = 0; i < it->second.size(); i++) {
+			Matrix rh = it->second[i];
 			if (coeff_mat.rows() == 1 && coeff_mat.cols() == 1) {
 				double scalar = coeff_mat.coeffRef(0, 0);
 				result[id].push_back(scalar * rh);
@@ -39,19 +40,20 @@ std::map<int, std::vector<Matrix> > mul_by_const(Matrix &coeff_mat,
 	return result;
 }
 
-
 std::map<int, std::vector<Matrix> > get_coefficient(LinOp &lin) {
 	std::map<int, std::vector<Matrix> > coeffs;
 	if (lin.type == VARIABLE) { 				// If a lin op is a variable, we hit one of our base cases
 		std::map<int, Matrix> new_coeffs = get_variable_coeffs(lin);
-		for ( auto & kv : new_coeffs) {
-			coeffs[kv.first].push_back(kv.second);
+		typedef std::map<int, Matrix >::iterator it_type;
+		for(it_type it = new_coeffs.begin(); it != new_coeffs.end(); ++it){
+			coeffs[it->first].push_back(it->second);
 		}
 	}
 	else if ( lin.has_constant_type()) {								// If it is a constant, we hit our other base case
 		std::map<int, Matrix> new_coeffs = get_const_coeffs(lin);	// id here will be CONSTANT_TYPE
-		for ( auto & kv : new_coeffs) {
-			coeffs[kv.first].push_back(kv.second);
+		typedef std::map<int, Matrix >::iterator it_type;
+		for(it_type it = new_coeffs.begin(); it != new_coeffs.end(); ++it){
+			coeffs[it->first].push_back(it->second);
 		}
 	}
 	else {
@@ -61,10 +63,11 @@ std::map<int, std::vector<Matrix> > get_coefficient(LinOp &lin) {
 			std::map<int, std::vector<Matrix> > rh_coeffs = get_coefficient(*lin.args[i]);
 			std::map<int, std::vector< Matrix> > new_coeffs;
 			mul_by_const(coeff, rh_coeffs, new_coeffs);
-			for ( auto & kv : new_coeffs ) {
-				coeffs[kv.first].insert( coeffs[kv.first].end(),
-				                         kv.second.begin(),
-				                         kv.second.end() );
+
+			typedef std::map<int, std::vector< Matrix> >::iterator it_type;
+			for (it_type it = new_coeffs.begin(); it != new_coeffs.end(); ++it){
+				coeffs[it->first].insert(coeffs[it->first].end(), it->second.begin(), 
+																 it->second.end());
 			}
 		}
 	}

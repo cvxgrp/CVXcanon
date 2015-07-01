@@ -24,7 +24,7 @@ canon = Extension(
     swig_opts=['-c++', '-I../', '-outcurrentdir'],
     # need to include numpy.h header (see above)
     include_dirs=['../'],
-    extra_compile_args=['-std=c++11'],
+    extra_compile_args=[],
     extra_link_args=[]
 )
 
