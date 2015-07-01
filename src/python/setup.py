@@ -29,6 +29,8 @@ class CustomBuild(build):
         build.run(self)
 
 
+# Ensure the swig generated CVXcanon.py module is present before python
+# copies sources to the build directory
 class CustomInstall(install):
     def run(self):
         self.run_command('build_ext')
