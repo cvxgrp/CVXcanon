@@ -1,23 +1,44 @@
-import numpy
 from setuptools import setup
+from setuptools.command.build_ext import build_ext as _build_ext
 from distutils.core import Extension
 
-canon = Extension('_CVXcanon',
-	sources=['CVXcanon.i','../CVXcanon.cpp','../LinOpOperations.cpp'],
-	swig_opts=['-c++','-I../','-outcurrentdir'],
-	include_dirs=[numpy.get_include(),'../'],
-	extra_compile_args=['-std=c++11'],
-	extra_link_args=[]);
+
+# bootstrap the setup.py script to install numpy before compiling the
+# C++ extension since we need to link with the numpy.h header
+#
+# This "hack" has the downside that numpy will be automatically installed
+# if the user types setup.py -help, etc.
+#    - see https://github.com/scipy/scipy/blob/master/setup.py#L205 for how
+#      one way to avoid this
+class build_ext(_build_ext):
+    def finalize_options(self):
+        _build_ext.finalize_options(self)
+        # Prevent numpy from thinking it is still in its setup process:
+        __builtins__.__NUMPY_SETUP__ = False
+        import numpy
+        self.include_dirs.append(numpy.get_include())
+
+canon = Extension(
+    '_CVXcanon',
+    sources=['CVXcanon.i', '../CVXcanon.cpp', '../LinOpOperations.cpp'],
+    swig_opts=['-c++', '-I../', '-outcurrentdir'],
+    # need to include numpy.h header (see above)
+    include_dirs=['../'],
+    extra_compile_args=['-std=c++11'],
+    extra_link_args=[]
+)
 
 setup(
-	name='CVXcanon',
-	version='0.0.1.dev1',
+    name='CVXcanon',
+    version='0.0.1.dev1',
     author='Jack Zhu, John Miller, Paul Quigley',
     author_email='jackzhu@stanford.edu, millerjp@stanford.edu, piq93@stanford.edu',
-	ext_modules=[canon],
-    py_modules=['canonInterface','CVXcanon'],
+    ext_modules=[canon],
+    py_modules=['canonInterface', 'CVXcanon'],
     description='A low-level library to perform the matrix building step in cvxpy, a convex optimization modeling software.',
     license='GPLv3',
     url='https://github.com/jacklzhu/CVXcanon',
-    install_requires=['numpy']
+    install_requires=['numpy'],
+    cmdclass={'build_ext': build_ext},
+    setup_requires=['numpy']
 )
