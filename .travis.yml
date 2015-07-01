@@ -1,17 +1,21 @@
 language: python
 python:
   - "2.7"
-virtualenv:
-  system_site_packages: true
 before_install:
-  - pip install numpy
-  - pip install scipy
   #- export CXX=g++
   #- export CC=gcc
   # We need this line to have g++4.8 available in apt
  # - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
  # - sudo apt-get update -qq
 # command to install dependencies
+ # Install conda
+  - sudo pip install conda
+  # install deps
+  - sudo conda init
+  - sudo conda update conda --yes
+  - deps='pip numpy scipy'
+  - conda create -p $HOME/py --yes $deps "python=$TRAVIS_PYTHON_VERSION"
+  - export PATH=$HOME/py/bin:$PATH
 install:
   # compiler dependencies
   #- if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
