@@ -65,7 +65,7 @@ public:
 	std::vector<LinOp*> args;
 
 	/* Sparse Data Fields */
-	bool sparse = false; // True only if linOp has sparse_data
+	bool sparse; // True only if linOp has sparse_data
 	Matrix sparse_data;
 
 	/* Dense Data Field */
@@ -74,6 +74,11 @@ public:
 	/* Slice Data: stores slice data as (row_slice, col_slice)
 	 * where slice = (start, end, step_size) */
 	std::vector<std::vector<int> > slice;
+
+	/* Constructor */
+	LinOp(){
+		sparse = false; // sparse by default
+	}
 
 	/* Checks if LinOp is constant type */
 	bool has_constant_type() {

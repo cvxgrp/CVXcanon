@@ -122,9 +122,11 @@ void process_constraint(LinOp & lin, std::vector<double> &V,
                         std::vector<double> &constant_vec, int &vert_offset,
                         std::map<int, int> &id_to_col, int & horiz_offset) {
 	std::map<int, std::vector<Matrix> > coeffs = get_coefficient(lin);	// Getting the coefficient for the current constraint
-	for (auto & kv : coeffs) {
-		int id = kv.first;									// We determine the horiz offset by the id
-		std::vector<Matrix> blocks = coeffs[id];							//
+
+	typedef std::map<int, std::vector<Matrix> >::iterator it_type;
+	for(it_type it = coeffs.begin(); it != coeffs.end(); ++it){
+		int id = it->first;									// We determine the horiz offset by the id
+		std::vector<Matrix> blocks = it->second;
 		for (unsigned i = 0; i < blocks.size(); i++) {
 			Matrix block = blocks[i];
 			if ( id == CONSTANT_ID ) {							// If this LinOp is a we add these coefficients
