@@ -9,7 +9,7 @@ from distutils.command.build import build
 # C++ extension since we need to link with the numpy.h header
 #
 # This "hack" has the downside that numpy will be automatically installed
-# if the user types setup.py -help, etc.
+# if the user types setup.py -help etc, and numpy is not currently installed
 #    - see https://github.com/scipy/scipy/blob/master/setup.py#L205 for how
 #      one way to avoid this
 class build_ext(_build_ext):
