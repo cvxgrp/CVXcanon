@@ -1,6 +1,8 @@
 from setuptools import setup
 from setuptools.command.build_ext import build_ext as _build_ext
+from setuptools.command.install import install
 from distutils.core import Extension
+from distutils.command.build import build
 
 
 # bootstrap the setup.py script to install numpy before compiling the
@@ -18,14 +20,26 @@ class build_ext(_build_ext):
         import numpy
         self.include_dirs.append(numpy.get_include())
 
+
+# Ensure the swig generated CVXcanon.py module is present before python
+# copies sources to the build directory
+class CustomBuild(build):
+    def run(self):
+        self.run_command('build_ext')
+        build.run(self)
+
+
+class CustomInstall(install):
+    def run(self):
+        self.run_command('build_ext')
+        self.do_egg_install()
+
 canon = Extension(
     '_CVXcanon',
     sources=['CVXcanon.i', '../CVXcanon.cpp', '../LinOpOperations.cpp'],
     swig_opts=['-c++', '-I../', '-outcurrentdir'],
     # need to include numpy.h header (see above)
     include_dirs=['../'],
-    extra_compile_args=[],
-    extra_link_args=[]
 )
 
 setup(
@@ -39,6 +53,6 @@ setup(
     license='GPLv3',
     url='https://github.com/jacklzhu/CVXcanon',
     install_requires=['numpy'],
-    cmdclass={'build_ext': build_ext},
+    cmdclass={'build_ext': build_ext, 'build': CustomBuild, 'install': CustomInstall},
     setup_requires=['numpy']
 )
