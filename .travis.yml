@@ -1,7 +1,11 @@
 language: python
 python:
   - "2.7"
+virtualenv:
+  system_site_packages: true
 before_install:
+  - pip install numpy
+  - pip install scipy
   #- export CXX=g++
   #- export CC=gcc
   # We need this line to have g++4.8 available in apt
