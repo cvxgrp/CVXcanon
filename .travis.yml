@@ -12,6 +12,10 @@ before_install:
   - export PATH=$HOME/py/bin:$PATH
 # command to install dependencies
 install:
+  # cvxpy dependency 
+  - sudo apt-get install -qq libatlas-base-dev gfortran
+  - export ATLAS="/usr/lib/atlas-base/libatlas.so"
+
   # compiling library
   - "sudo apt-get install swig"
   - "cd src/python"
