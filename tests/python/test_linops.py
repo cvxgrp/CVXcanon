@@ -10,17 +10,9 @@ class TestLinOps(BaseTest):
         for key in ['A', 'b', 'c', 'G', 'h']:
             M1, M2 = original_data[key], canon_data[key]
             if isinstance(M1, sp.csc.csc_matrix):
-                M1 = M1.todense()
-                M2 = M2.todense()
-
-            if key == 'b' or key == 'h' or key == 'c':
-                M1 = M1.reshape(-1, 1)
-                M2 = M2.reshape(-1, 1)
-            if (np.linalg.norm(M1 - M2, 'fro') > 1e-10):
-                print sp.coo_matrix(M1)
-                print '\n'
-                print sp.coo_matrix(M2)
-            self.assertTrue(np.linalg.norm(M1 - M2, 'fro') < 1e-10)
+                self.assertTrue((M1 - M2).nnz == 0)
+            else:
+                self.assertTrue(np.allclose(M1, M2))
 
     def assertConstraintsMatch(self, constraints):
         settings.USE_CVXCANON = False
@@ -41,11 +33,10 @@ class TestLinOps(BaseTest):
         self.assertConstraintsMatch([x1 + x2 == A])
 
     def test_sum_sparse(self):
-        n = 10
+        n = 100
         x1 = Variable(n, n)
         x2 = Variable(n, n)
-        A = sp.eye(n)
-        A_sp = Constant(A)
+        A_sp = sp.eye(n)
         self.assertConstraintsMatch([x1 + x2 == A_sp])
 
     def test_promote(self):
