@@ -93,7 +93,12 @@ def set_matrix_data(linC, linPy):
         else:
             raise NotImplementedError()
     else:
-        linC.set_dense_data(format_matrix(linPy.data))
+        if linPy.type is 'sparse_const':
+            coo = format_matrix(linPy.data, 'sparse')
+            linC.set_sparse_data(coo.data, coo.row.astype(float),
+                                 coo.col.astype(float), coo.shape[0], coo.shape[1])
+        else:
+            linC.set_dense_data(format_matrix(linPy.data))
 
 
 def set_slice_data(linC, linPy):

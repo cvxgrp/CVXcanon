@@ -1,17 +1,15 @@
 import unittest
-
 from cvxpy import *
 import numpy as np
 from cvxpy.tests.base_test import *
-import scipy
-import scipy.sparse
+import scipy.sparse as sp
 
 
 class TestLinOps(BaseTest):
     def assertDataEqual(self, original_data, canon_data):
         for key in ['A', 'b', 'c', 'G', 'h']:
             M1, M2 = original_data[key], canon_data[key]
-            if isinstance(M1, scipy.sparse.csc.csc_matrix):
+            if isinstance(M1, sp.csc.csc_matrix):
                 M1 = M1.todense()
                 M2 = M2.todense()
 
@@ -19,9 +17,9 @@ class TestLinOps(BaseTest):
                 M1 = M1.reshape(-1, 1)
                 M2 = M2.reshape(-1, 1)
             if (np.linalg.norm(M1 - M2, 'fro') > 1e-10):
-                print scipy.sparse.coo_matrix(M1)
+                print sp.coo_matrix(M1)
                 print '\n'
-                print scipy.sparse.coo_matrix(M2)
+                print sp.coo_matrix(M2)
             self.assertTrue(np.linalg.norm(M1 - M2, 'fro') < 1e-10)
 
     def assertConstraintsMatch(self, constraints):
@@ -35,12 +33,20 @@ class TestLinOps(BaseTest):
 
         self.assertDataEqual(cvxpy_data, cvx_canon_data)
 
-    def test_sum(self):
+    def test_sum_dense(self):
         rows, cols = 3, 3
         x1 = Variable(rows, cols)
         x2 = Variable(rows, cols)
         A = np.random.randn(rows, cols)
         self.assertConstraintsMatch([x1 + x2 == A])
+
+    def test_sum_sparse(self):
+        n = 10
+        x1 = Variable(n, n)
+        x2 = Variable(n, n)
+        A = sp.eye(n)
+        A_sp = Constant(A)
+        self.assertConstraintsMatch([x1 + x2 == A_sp])
 
     def test_promote(self):
         rows = 10
