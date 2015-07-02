@@ -283,6 +283,5 @@ class TestLinOps(BaseTest):
         self.assertConstraintsMatch(constr)
 
 if __name__ == '__main__':
-    # suite = unittest.TestLoader().loadTestsFromTestCase(TestLinOps)
-    # unittest.TextTestRunner(verbosity=2).run(suite)
-    unittest.main()
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestLinOps)
+    unittest.TextTestRunner(verbosity=2).run(suite)
