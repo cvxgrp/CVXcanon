@@ -263,8 +263,9 @@ Matrix get_constant_data(LinOp &lin, bool column) {
 	if (lin.sparse) {
 		if (column) {
 			coeffs = sparse_reshape_to_vec(lin.sparse_data);
+		} else {
+			coeffs = lin.sparse_data;
 		}
-		coeffs = lin.sparse_data;
 	} else {
 		if (column) {
 			Eigen::Map<Eigen::MatrixXd> column(lin.dense_data.data(),
