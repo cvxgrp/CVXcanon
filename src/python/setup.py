@@ -3,6 +3,15 @@ from setuptools.command.build_ext import build_ext as _build_ext
 from setuptools.command.install import install
 from distutils.core import Extension
 from distutils.command.build import build
+import distutils.spawn
+
+# check for swig
+if not distutils.spawn.find_executable('swig'):
+    from sys import platform as _platform
+    import subprocess
+     # install SWIG
+    if _platform == "linux" or _platform == "linux2":
+        subprocess.call(["apt-get", "install", "swig"])
 
 
 # bootstrap the setup.py script to install numpy before compiling the
