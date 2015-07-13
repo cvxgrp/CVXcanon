@@ -26,9 +26,7 @@ install:
   - "sudo apt-get install swig"
 
   # compiling library
-  - "cd src/python"
   - "python setup.py install"
-  - "cd ../../"
 
   # adding cvxpy 
   - "cd include"
