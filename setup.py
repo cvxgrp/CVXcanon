@@ -41,12 +41,13 @@ canon = Extension(
     sources=['src/python/CVXcanon.i', 'src/CVXcanon.cpp', 'src/LinOpOperations.cpp'],
     swig_opts=['-c++', '-outdir', 'src/python', '-I./src/', '-I./src/python/'],
     # also need to include numpy.h header (see comment in build_ext)
-    include_dirs=['src/', 'src/python/', 'include/']
+    include_dirs=['src/', 'src/python/', 'include/Eigen']
 )
+
 
 setup(
     name='CVXcanon',
-    version='0.0.1.dev1',
+    version='0.0.1.dev3',
     author='Jack Zhu, John Miller, Paul Quigley',
     author_email='jackzhu@stanford.edu, millerjp@stanford.edu, piq93@stanford.edu',
     ext_modules=[canon],

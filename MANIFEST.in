@@ -1,0 +1,3 @@
+graft src
+graft src/python
+include tests/python/test_linops.py
