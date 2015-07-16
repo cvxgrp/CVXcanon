@@ -148,7 +148,8 @@ type_map = {
     "SCALAR_CONST": CVXcanon.SCALAR_CONST,
     "DENSE_CONST": CVXcanon.DENSE_CONST,
     "SPARSE_CONST": CVXcanon.SPARSE_CONST,
-    "NO_OP": CVXcanon.NO_OP
+    "NO_OP": CVXcanon.NO_OP,
+    "KRON": CVXcanon.KRON
 }
 
 

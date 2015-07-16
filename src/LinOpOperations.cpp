@@ -42,6 +42,7 @@ std::vector<Matrix> get_upper_tri_mat(LinOp &lin);
 std::vector<Matrix> get_conv_mat(LinOp &lin);
 std::vector<Matrix> get_hstack_mat(LinOp &lin);
 std::vector<Matrix> get_vstack_mat(LinOp &lin);
+std::vector<Matrix> get_kron_mat(LinOp &lin);
 
 /**
  * Computes a vector of coefficient matrices for the linOp LIN based on the
@@ -112,6 +113,8 @@ std::vector<Matrix> get_func_coeffs(LinOp& lin) {
 	case VSTACK:
 		coeffs = get_vstack_mat(lin);
 		break;
+	case KRON:
+		coeffs = get_kron_mat(lin);
 	default:
 		std::cout << "Error: linOp type invalid." << std::endl;
 		exit(-1);
@@ -356,6 +359,44 @@ int get_id_data(LinOp &lin) {
 /*****************************
  * LinOP -> Matrix FUNCTIONS
  *****************************/
+/**
+ * Return the coefficients for KRON.
+ *
+ * Parameters: linOp LIN with type KRON
+ * Returns: vector containing the coefficient matrix for the Kronecker 
+ 						product. 
+ */
+std::vector<Matrix> get_kron_mat(LinOp &lin) {
+	assert(lin.type == KRON);
+	Matrix constant = get_constant_data(lin, false);
+	int lh_rows = constant.rows();
+	int lh_cols = constant.cols();
+	int rh_rows =  lin.args[0]->size[0];
+	int rh_cols =  lin.args[0]->size[1];
+
+	int rows = rh_rows * rh_cols * lh_rows * lh_cols;
+	int cols = rh_rows * rh_cols;
+	Matrix coeffs(rows, cols);
+
+	std::vector<Triplet> tripletList;
+	tripletList.reserve(rh_rows * rh_cols * constant.nonZeros());
+	for ( int k = 0; k < constant.outerSize(); ++k ) {
+		for ( Matrix::InnerIterator it(constant, k); it; ++it ) {
+			int row = (rh_rows * rh_cols * (lh_rows * it.col())) + (it.row() * rh_rows);
+			int col = 0;
+			for(int j = 0; j < rh_cols; j++){
+				row += j * (lh_rows * rh_rows);
+				for(int i = 0; i < rh_rows; i++) {					
+					tripletList.push_back(Triplet(row + i, col, it.value()));
+					col++;
+				}
+			}
+		}
+	}
+	coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
+	coeffs.makeCompressed();
+	return build_vector(coeffs);
+}
 
 /**
  * Return the coefficients for VSTACK.
@@ -691,7 +732,6 @@ std::vector<Matrix> get_mul_mat(LinOp &lin) {
 	Matrix block = get_constant_data(lin, false);
 	int block_rows = block.rows();
 	int block_cols = block.cols();
-	// int num_nonzeros = lin.size[0];
 	int num_blocks = lin.size[1];
 
 	Matrix coeffs (num_blocks * block_rows, num_blocks * block_cols);

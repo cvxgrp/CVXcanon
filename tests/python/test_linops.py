@@ -282,6 +282,24 @@ class TestLinOps(BaseTest):
         constr = [vstack(X1, X2, X3, X4, X5) == A_sp]
         self.assertConstraintsMatch(constr)
 
+    # def test_kron_dense(self):
+    #     m, n = 13, 15
+    #     p, q = 17, 19
+    #     X = Variable(m, n)
+    #     C = np.random.randn(p, q)
+    #     A = np.random.randn(p * m, q * n)
+    #     constr = [kron(C, X) == A]
+    #     self.assertConstraintsMatch(constr)
+
+    # def test_kron_sparse(self):
+    #     m, n = 13, 15
+    #     p, q = 17, 19
+    #     X = Variable(m, n)
+    #     C = sp.rand(p, q, density=0.1)
+    #     A = sp.rand(p * m, q * n, density=0.1)
+    #     constr = [kron(C, X) == A]
+    #     self.assertConstraintsMatch(constr)
+
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(TestLinOps)
     unittest.TextTestRunner(verbosity=2).run(suite)
