@@ -386,11 +386,11 @@ std::vector<Matrix> get_kron_mat(LinOp &lin) {
 			int row = (rh_rows * rh_cols * (lh_rows * it.col())) + (it.row() * rh_rows);
 			int col = 0;
 			for(int j = 0; j < rh_cols; j++){
-				row += j * (lh_rows * rh_rows);
 				for(int i = 0; i < rh_rows; i++) {					
 					tripletList.push_back(Triplet(row + i, col, it.value()));
 					col++;
 				}
+				row += lh_rows * rh_rows;
 			}
 		}
 	}
