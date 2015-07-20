@@ -56,3 +56,4 @@ namespace std {
 
 /* Wrapper for entry point into CVXCanon Library */
 ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col);
+ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col, std::vector<int> constr_offsets);

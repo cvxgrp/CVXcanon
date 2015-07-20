@@ -94,9 +94,9 @@ int get_horiz_offset(int id, std::map<int, int> &offsets,
 * This function takes horizontal and vertical offset, which indicate
 * the offset of this block within our larger matrix.
 */
-void add_matrix_to_vectors(Matrix & block, std::vector<double> &V,
+void add_matrix_to_vectors(Matrix &block, std::vector<double> &V,
                            std::vector<int>  &I, std::vector<int> &J,
-                           int vert_offset, int &horiz_offset){
+                           int &vert_offset, int &horiz_offset){
 	for ( int k = 0; k < block.outerSize(); ++k ) {
 		for ( Matrix::InnerIterator it(block, k); it; ++it ){
 			V.push_back(it.value());
@@ -154,8 +154,7 @@ int get_total_constraint_length(std::vector< LinOp* > constraints){
 /* function: build_matrix
 *
 * Description: Given a list of linear operations, this function returns a data
-* structure containing a sparse matrix representation of the
-* second order cone problem of the problem.
+* structure containing a sparse matrix representation of the cone program.
 *
 * Input: std::vector<LinOp *> constraints, our list of constraints represented
 * as a linear operation tree
@@ -184,6 +183,32 @@ ProblemData build_matrix(std::vector< LinOp* > constraints,
 		                   prob_data.id_to_col, horiz_offset);
 		prob_data.const_to_row[i] = vert_offset;
 		vert_offset += constr.size[0] * constr.size[1];
+	}
+	return prob_data;
+}
+
+ProblemData build_matrix(std::vector< LinOp* > constraints,
+                         std::map<int, int> id_to_col,
+                         std::vector<int> constr_offsets){
+	if(constraints.size() != constr_offsets.size()){
+		std::cout << "Error: Must specify offset for every constraint" << std::endl;
+		exit(-1);
+	}
+	ProblemData prob_data;
+	int num_rows = get_total_constraint_length(constraints);
+	prob_data.const_vec = std::vector<double> (num_rows, 0);
+	prob_data.id_to_col = id_to_col;
+	int horiz_offset  = 0;
+
+	/* Build matrix one constraint at a time */
+	for (unsigned i = 0; i < constraints.size(); i++){
+		int vert_offset = constr_offsets[i];
+		LinOp constr = *constraints[i];
+		process_constraint(constr, prob_data.V, prob_data.I, prob_data.J,
+		                   prob_data.const_vec, vert_offset,
+		                   prob_data.id_to_col, horiz_offset);
+		prob_data.const_to_row[i] = vert_offset;
+		// vert_offset += constr.size[0] * constr.size[1];
 	}
 	return prob_data;
 }

@@ -20,7 +20,7 @@ import scipy.sparse
 from collections import deque
 
 
-def get_problem_matrix(constrs, id_to_col=None):
+def get_problem_matrix(constrs, id_to_col=None, constr_offsets=None):
     '''
     Builds a sparse representation of the problem data by calling CVXCanon's
     C++ build_matrix function.
@@ -55,7 +55,15 @@ def get_problem_matrix(constrs, id_to_col=None):
         tmp.append(tree)
         lin_vec.push_back(tree)
 
-    problemData = CVXcanon.build_matrix(lin_vec, id_to_col_C)
+    if constr_offsets is None:
+        problemData = CVXcanon.build_matrix(lin_vec, id_to_col_C)
+    else:
+        # Load constraint offsets into a C++ vector
+        constr_offsets_C = CVXcanon.IntVector()
+        for offset in constr_offsets:
+            constr_offsets_C.push_back(offset)
+        problemData = CVXcanon.build_matrix(lin_vec, id_to_col_C,
+                                            constr_offsets_C)
 
     # Unpacking
     V = problemData.getV(len(problemData.V))
