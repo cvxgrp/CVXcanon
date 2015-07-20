@@ -143,12 +143,41 @@ void process_constraint(LinOp & lin, std::vector<double> &V,
 	}
 }
 
+/* Returns the number of rows in the matrix assuming vertical stacking
+	 of coefficient matrices */
 int get_total_constraint_length(std::vector< LinOp* > constraints){
 	int result = 0;
 	for (unsigned i = 0; i < constraints.size(); i++){
 		result += constraints[i]->size[0] * constraints[i]->size[1];
 	}
 	return result;
+}
+
+/* Returns the number of rows in the matrix using the user provided vertical
+	 offsets for each constraint. */
+int get_total_constraint_length(std::vector<LinOp*> &constraints, 
+									 							std::vector<int> &constr_offsets){
+	/* Must specify an offset for each constraint */
+	if(constraints.size() != constr_offsets.size()){
+		std::cout << "Error: Invalid constraint offsets: ";
+		std::cout	<< "CONSTR_OFFSET must be the same length as CONSTRAINTS" << std::endl;
+		exit(-1);
+	}
+
+	int offset_end = 0;
+	/* Offsets must be monotonically increasing */
+	for(unsigned i = 0; i < constr_offsets.size(); i++){
+		LinOp constr = *constraints[i];
+		int offset_start = constr_offsets[i];
+		offset_end = offset_start + constr.size[0] * constr.size[1];
+
+		if(i+1<constr_offsets.size() && constr_offsets[i+1]<offset_end){
+			std::cout << "Error: Invalid constraint offsets: ";
+			std::cout << "Offsets are not monotonically increasing" << std::endl;
+			exit(-1);
+		}
+	}
+	return offset_end;
 }
 
 /* function: build_matrix
@@ -165,7 +194,6 @@ int get_total_constraint_length(std::vector< LinOp* > constraints){
 * matrix to their corresponding constraint.
 *
 */
-
 ProblemData build_matrix(std::vector< LinOp* > constraints,
                          std::map<int, int> id_to_col) {
 	ProblemData prob_data;
@@ -187,28 +215,33 @@ ProblemData build_matrix(std::vector< LinOp* > constraints,
 	return prob_data;
 }
 
-ProblemData build_matrix(std::vector< LinOp* > constraints,
+/*  See comment above for build_matrix. Requires specification of a vertical
+		offset, VERT_OFFSET, for each constraint in the vector CONSTR_OFFSETS. 
+	
+		Valid CONSTR_OFFSETS assume that a vertical offset is provided for each 
+		constraint and that the offsets are not overlapping. In particular, 
+		the vertical offset for constraint i + the size of constraint i must be
+		less than the vertical offset for constraint i+1.
+		*/
+ProblemData build_matrix(std::vector<LinOp*> constraints,
                          std::map<int, int> id_to_col,
                          std::vector<int> constr_offsets){
-	if(constraints.size() != constr_offsets.size()){
-		std::cout << "Error: Must specify offset for every constraint" << std::endl;
-		exit(-1);
-	}
 	ProblemData prob_data;
-	int num_rows = get_total_constraint_length(constraints);
+
+	/* Function also verifies the offsets are valid */
+	int num_rows = get_total_constraint_length(constraints, constr_offsets);
 	prob_data.const_vec = std::vector<double> (num_rows, 0);
 	prob_data.id_to_col = id_to_col;
 	int horiz_offset  = 0;
 
 	/* Build matrix one constraint at a time */
 	for (unsigned i = 0; i < constraints.size(); i++){
-		int vert_offset = constr_offsets[i];
 		LinOp constr = *constraints[i];
+		int vert_offset = constr_offsets[i];
 		process_constraint(constr, prob_data.V, prob_data.I, prob_data.J,
 		                   prob_data.const_vec, vert_offset,
 		                   prob_data.id_to_col, horiz_offset);
 		prob_data.const_to_row[i] = vert_offset;
-		// vert_offset += constr.size[0] * constr.size[1];
 	}
 	return prob_data;
 }
