@@ -171,7 +171,7 @@ int get_total_constraint_length(std::vector<LinOp*> &constraints,
 		int offset_start = constr_offsets[i];
 		offset_end = offset_start + constr.size[0] * constr.size[1];
 
-		if(i+1<constr_offsets.size() && constr_offsets[i+1]<offset_end){
+		if(i + 1 < constr_offsets.size() && constr_offsets[i + 1] < offset_end){
 			std::cout << "Error: Invalid constraint offsets: ";
 			std::cout << "Offsets are not monotonically increasing" << std::endl;
 			exit(-1);
