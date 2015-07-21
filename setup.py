@@ -47,7 +47,7 @@ canon = Extension(
 
 setup(
     name='CVXcanon',
-    version='0.0.1.dev3',
+    version='0.0.11',
     author='Jack Zhu, John Miller, Paul Quigley',
     author_email='jackzhu@stanford.edu, millerjp@stanford.edu, piq93@stanford.edu',
     ext_modules=[canon],
