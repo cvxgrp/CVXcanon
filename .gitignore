@@ -19,3 +19,7 @@ src/python/dist
 
 # Ignore virtual env
 .env/*
+
+# Ignore packages
+*.egg
+*.eggs
