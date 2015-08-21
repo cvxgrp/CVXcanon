@@ -1,3 +1,4 @@
 graft src
 graft src/python
+graft include/Eigen
 include tests/python/test_linops.py
