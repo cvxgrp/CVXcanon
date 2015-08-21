@@ -117,7 +117,7 @@ std::vector<Matrix> get_func_coeffs(LinOp& lin) {
 		coeffs = get_kron_mat(lin);
 		break;
 	default:
-		std::cout << "Error: linOp type invalid." << std::endl;
+		std::cerr << "Error: linOp type invalid." << std::endl;
 		exit(-1);
 	}
 	return coeffs;
@@ -163,7 +163,7 @@ Matrix sparse_ones(int rows, int cols)
  * columnwise ordering. Equivalent to Matlab's (:) operation.
  *
  * Params: sparse Eigen matrix MAT of size ROWS by COLS.
- * Returns: sparse Eigen matrix OUT of size ROWS * Cols by 1
+ * Returns: sparse Eigen matrix OUT of size ROWS * COLS by 1
  */
 
 Matrix sparse_reshape_to_vec(Matrix &mat) {
@@ -733,7 +733,6 @@ std::vector<Matrix> get_mul_mat(LinOp &lin) {
 	Matrix block = get_constant_data(lin, false);
 	int block_rows = block.rows();
 	int block_cols = block.cols();
-	int num_blocks = lin.size[1];
 
 	Matrix coeffs (num_blocks * block_rows, num_blocks * block_cols);
 

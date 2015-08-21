@@ -35,7 +35,7 @@ std::map<int, std::vector<Matrix> > mul_by_const(Matrix &coeff_mat,
 				double scalar = coeff_mat.coeffRef(0, 0);
 				result[id].push_back(scalar * rh);
 			} else{
-				result[id].push_back( coeff_mat * rh );
+				result[id].push_back(coeff_mat * rh);
 			}
 		}
 	}
@@ -62,7 +62,7 @@ std::map<int, std::vector<Matrix> > get_coefficient(LinOp &lin){
 	else {
 		/* Multiply the arguments of the function coefficient in order */
 		std::vector<Matrix> coeff_mat = get_func_coeffs(lin); 
-		for (unsigned i = 0; i < lin.args.size(); i++){		
+		for (unsigned i = 0; i < lin.args.size(); i++){
 			Matrix coeff = coeff_mat[i];
 			std::map<int, std::vector<Matrix> > rh_coeffs = get_coefficient(*lin.args[i]);
 			std::map<int, std::vector< Matrix> > new_coeffs;
@@ -159,8 +159,8 @@ int get_total_constraint_length(std::vector<LinOp*> &constraints,
 									 							std::vector<int> &constr_offsets){
 	/* Must specify an offset for each constraint */
 	if(constraints.size() != constr_offsets.size()){
-		std::cout << "Error: Invalid constraint offsets: ";
-		std::cout	<< "CONSTR_OFFSET must be the same length as CONSTRAINTS" << std::endl;
+		std::cerr << "Error: Invalid constraint offsets: ";
+		std::cerr	<< "CONSTR_OFFSET must be the same length as CONSTRAINTS" << std::endl;
 		exit(-1);
 	}
 
@@ -172,8 +172,8 @@ int get_total_constraint_length(std::vector<LinOp*> &constraints,
 		offset_end = offset_start + constr.size[0] * constr.size[1];
 
 		if(i + 1 < constr_offsets.size() && constr_offsets[i + 1] < offset_end){
-			std::cout << "Error: Invalid constraint offsets: ";
-			std::cout << "Offsets are not monotonically increasing" << std::endl;
+			std::cerr << "Error: Invalid constraint offsets: ";
+			std::cerr << "Offsets are not monotonically increasing" << std::endl;
 			exit(-1);
 		}
 	}
