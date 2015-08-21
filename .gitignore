@@ -3,6 +3,8 @@ build/*
 lib/*
 dist/*
 
+.egg*
+
 # Ignore any executables
 bin/*
 src/python/CVXcanon.py
@@ -19,7 +21,3 @@ src/python/dist
 
 # Ignore virtual env
 .env/*
-
-# Ignore packages
-*.egg
-*.eggs
