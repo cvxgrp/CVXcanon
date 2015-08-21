@@ -734,6 +734,14 @@ std::vector<Matrix> get_mul_mat(LinOp &lin) {
 	int block_rows = block.rows();
 	int block_cols = block.cols();
 
+	// Don't replicate scalars
+	if(block_rows == 1 && block_cols == 1){
+		Matrix scalar(1, 1);
+		scalar.insert(0, 0) = 1;
+		return build_vector(scalar);
+	}
+
+	int num_blocks = lin.size[1];
 	Matrix coeffs (num_blocks * block_rows, num_blocks * block_cols);
 
 	std::vector<Triplet> tripletList;

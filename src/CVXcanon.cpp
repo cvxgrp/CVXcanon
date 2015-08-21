@@ -34,6 +34,9 @@ std::map<int, std::vector<Matrix> > mul_by_const(Matrix &coeff_mat,
 			if (coeff_mat.rows() == 1 && coeff_mat.cols() == 1){
 				double scalar = coeff_mat.coeffRef(0, 0);
 				result[id].push_back(scalar * rh);
+			} else if (rh.rows() == 1 && rh.cols() == 1) {
+				double scalar = rh.coeffRef(0, 0);
+				result[id].push_back(coeff_mat * scalar);
 			} else{
 				result[id].push_back(coeff_mat * rh);
 			}
