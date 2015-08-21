@@ -21,3 +21,4 @@ src/python/dist
 
 # Ignore virtual env
 .env/*
+*.ipynb
