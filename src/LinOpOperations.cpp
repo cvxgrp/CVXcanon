@@ -736,9 +736,7 @@ std::vector<Matrix> get_mul_mat(LinOp &lin) {
 
 	// Don't replicate scalars
 	if(block_rows == 1 && block_cols == 1){
-		Matrix scalar(1, 1);
-		scalar.insert(0, 0) = 1;
-		return build_vector(scalar);
+		return build_vector(block);
 	}
 
 	int num_blocks = lin.size[1];
