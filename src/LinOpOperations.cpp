@@ -636,12 +636,12 @@ std::vector<Matrix> get_index_mat(LinOp &lin) {
 			tripletList.push_back(Triplet(row_idx, col_idx, 1.0));
 			counter++;
 			row += row_step;
-			if ((row_step > 0 && row >= row_end) || (row_step < 0 && row <= row_end)) {
+			if ((row_step > 0 && row >= row_end) || (row_step < 0 && row < row_end)) {
 				break;
 			}
 		}
 		col += col_step;
-		if ((col_step > 0 && col >= col_end) || (col_step < 0 && col <= col_end)) {
+		if ((col_step > 0 && col >= col_end) || (col_step < 0 && col < col_end)) {
 			break;
 		}
 	}
