@@ -25,8 +25,9 @@ install:
   # TODO: MAKE THIS LINE UNECESSARY (modify setup.py to handle swig installation)
   - "sudo apt-get install swig"
 
-  # compiling library
-  - "python setup.py install"
+  # # compiling library
+  # - "python setup.py install"
+  - "pip install CVXcanon"
 
   # adding cvxpy 
   - "cd tests"
