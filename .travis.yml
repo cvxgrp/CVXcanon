@@ -29,9 +29,10 @@ install:
   - "python setup.py install"
 
   # adding cvxpy 
-  - "cd include"
-  - "git clone https://github.com/jacklzhu/cvxpy.git"
+  - "cd tests/python"
+  - "git clone https://github.com/cvxgrp/cvxpy.git"
   - "cd cvxpy"
+  - "git checkout develop"
   - "python setup.py install"
   - "pip install nose"
 
