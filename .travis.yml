@@ -29,7 +29,7 @@ install:
   - "python setup.py install"
 
   # adding cvxpy 
-  - "cd tests/python"
+  - "cd tests"
   - "git clone https://github.com/cvxgrp/cvxpy.git"
   - "cd cvxpy"
   - "git checkout develop"
