@@ -27,7 +27,8 @@ install:
  # - "sudo apt-get install swig"
 
   # # compiling library
-  - "python setup.py install"
+  # - "python setup.py install"
+  #- "pip install CVXcanon"
 
   # adding cvxpy 
   - "cd tests"
