@@ -3,15 +3,10 @@ build/*
 lib/*
 dist/*
 
-.egg*
+*.egg-info/*
 
 # Ignore any executables
 bin/*
-src/python/CVXcanon.py
-src/python/CVXcanon_wrap.cpp
-src/python/build
-src/python/CVXcanon.egg-info
-src/python/dist
 
 # Ignore Mac specific files
 .DS_Store
@@ -23,3 +18,7 @@ src/python/dist
 .env/*
 venv_3/*
 *.ipynb
+
+CVXcanon/_version.py
+CVXcanon/CVXcanon.py
+CVXcanon/CVXcanon_wrap.cpp
