@@ -9,9 +9,36 @@ Convex optimization modeling tools like CVX, CVXPY, and Convex.Jl translate high
 ## Usage with CVXPY
 If you're using CVXPY update to it 0.3.0 or higher.
 
-The use of CVXPY's Parameters is currently disabled in CVXcanon. One can expect a 2 - 10x  speed-up over the original CVXPY implementation on most other problems.
+One can expect a 3 - 10x  speed-up over the original CVXPY implementation on most other problems.
 
-Note: CVXcanon is not currently shipped with the default CVXPY, though there are plans to do this in the near future. We currently have a custom fork of CVXPY available at [https://github.com/jacklzhu/cvxpy](https://github.com/jacklzhu/cvxpy). To test CVXcanon before this happens, clone the repo and run the included setup.py script before installing CVXcanon.
+## Installation
+CVXcanon supports both Python 2 and Python 3.
+1. Install ``numpy`` with ``pip`` from the command-line.
+
+	```
+     pip install numpy
+     ```
+
+2. Install ``CVXcanon`` with ``pip`` from the command-line.
+
+  ```
+       pip install CVXcanon
+       ```
+
+Note: If you're installing CVXcanon on Windows, a nonstandard system, or wish to build CVXcanon directly from source, you need to install ```swig.``` We are currently working to remove this dependency.
+
+On Linux, 
+
+```
+sudo apt-get install swig
+```
+
+On Mac OSX, using homebrew, 
+
+```
+brew install swig
+```
+
 
 ## Integration with other CVX.* solvers
 To use CVXcanon with the CVX solver of your choice one must take the following steps:
