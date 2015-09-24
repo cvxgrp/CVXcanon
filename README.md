@@ -13,6 +13,7 @@ One can expect a 3 - 10x  speed-up over the original CVXPY implementation on mos
 
 ## Installation
 CVXcanon supports both Python 2 and Python 3.
+
 1. Install ``numpy`` with ``pip`` from the command-line.
 
 ```
