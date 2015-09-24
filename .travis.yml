@@ -23,18 +23,15 @@ before_install:
 
 # command to install dependencies
 install:
-  # TODO: MAKE THIS LINE UNECESSARY (modify setup.py to handle swig installation)
- # - "sudo apt-get install swig"
+ - "sudo apt-get install swig"
 
   # # compiling library
-  # - "python setup.py install"
-  #- "pip install CVXcanon"
+  - "python setup.py install"
 
   # adding cvxpy 
   - "cd tests"
   - "git clone https://github.com/cvxgrp/cvxpy.git"
   - "cd cvxpy"
-  - "git checkout develop"
   - "python setup.py install"
   - "pip install nose"
 
