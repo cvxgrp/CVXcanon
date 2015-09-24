@@ -23,9 +23,9 @@ before_install:
 
 # command to install dependencies
 install:
- - "sudo apt-get install swig"
+  - "sudo apt-get install swig"
 
-  # # compiling library
+  # compiling library
   - "python setup.py install"
 
   # adding cvxpy 
