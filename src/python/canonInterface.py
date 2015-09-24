@@ -78,7 +78,9 @@ def format_matrix(matrix, format='dense'):
     ''' Returns the matrix in the appropriate form,
         so that it can be efficiently loaded with our swig wrapper
     '''
-    if(format == 'dense'):
+    if (format == 'dense'):
+        # Ensure is 2D.
+        matrix = np.atleast_2d(matrix)
         return np.asfortranarray(matrix)
     elif(format == 'sparse'):
         return scipy.sparse.coo_matrix(matrix)
