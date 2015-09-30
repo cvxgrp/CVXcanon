@@ -62,7 +62,7 @@ def get_problem_matrix(constrs, id_to_col=None, constr_offsets=None):
         # Load constraint offsets into a C++ vector
         constr_offsets_C = CVXcanon.IntVector()
         for offset in constr_offsets:
-            constr_offsets_C.push_back(offset)
+            constr_offsets_C.push_back(int(offset))
         problemData = CVXcanon.build_matrix(lin_vec, id_to_col_C,
                                             constr_offsets_C)
 
