@@ -19,8 +19,6 @@ from cvxpy.lin_ops.lin_op import *
 import scipy.sparse
 from collections import deque
 
-from ._version import version as __version__
-
 def get_problem_matrix(constrs, id_to_col=None, constr_offsets=None):
     '''
     Builds a sparse representation of the problem data by calling CVXCanon's
