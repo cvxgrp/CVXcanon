@@ -18,7 +18,3 @@ bin/*
 .env/*
 venv_3/*
 *.ipynb
-
-CVXcanon/_version.py
-CVXcanon/CVXcanon.py
-CVXcanon/CVXcanon_wrap.cpp
