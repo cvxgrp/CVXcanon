@@ -29,11 +29,12 @@ class CustomInstall(install):
 
 setup(
     name='CVXcanon',
-    use_scm_version={
-        'version_scheme': 'guess-next-dev',
-        'local_scheme': 'dirty-tag',
-        'write_to': 'CVXcanon/_version.py'
-    },
+    version='0.0.19',
+    # use_scm_version={
+    #     'version_scheme': 'guess-next-dev',
+    #     'local_scheme': 'dirty-tag',
+    #     'write_to': 'CVXcanon/_version.py'
+    # },
 
     setup_requires=[
         'setuptools>=18.0',
@@ -50,7 +51,7 @@ setup(
     url='https://github.com/jacklzhu/CVXcanon',
     cmdclass={'build': CustomBuild, 'install': CustomInstall},
     install_requires=[
-        'numpy', 
+        'numpy',
         'scipy',
         #'cvxpy', CIRCULAR DEPENDENCY!
     ]
