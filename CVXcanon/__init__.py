@@ -93,16 +93,16 @@ def set_matrix_data(linC, linPy):
     '''  Calls the appropriate CVXCanon function to set the matrix data field of our C++ linOp.
     '''
     if isinstance(linPy.data, LinOp):
-        if linPy.data.type is 'sparse_const':
+        if linPy.data.type == 'sparse_const':
             coo = format_matrix(linPy.data.data, 'sparse')
             linC.set_sparse_data(coo.data, coo.row.astype(float),
                                  coo.col.astype(float), coo.shape[0], coo.shape[1])
-        elif linPy.data.type is 'dense_const':
+        elif linPy.data.type == 'dense_const':
             linC.set_dense_data(format_matrix(linPy.data.data))
         else:
             raise NotImplementedError()
     else:
-        if linPy.type is 'sparse_const':
+        if linPy.type == 'sparse_const':
             coo = format_matrix(linPy.data, 'sparse')
             linC.set_sparse_data(coo.data, coo.row.astype(float),
                                  coo.col.astype(float), coo.shape[0], coo.shape[1])
@@ -220,7 +220,7 @@ def build_lin_op_tree(root_linPy, tmp):
             set_slice_data(linC, linPy)
         elif isinstance(linPy.data, float) or isinstance(linPy.data, int):
             linC.set_dense_data(format_matrix(linPy.data, 'scalar'))
-        elif isinstance(linPy.data, LinOp) and linPy.data.type is 'scalar_const':
+        elif isinstance(linPy.data, LinOp) and linPy.data.type == 'scalar_const':
             linC.set_dense_data(format_matrix(linPy.data.data, 'scalar'))
         else:
             set_matrix_data(linC, linPy)
