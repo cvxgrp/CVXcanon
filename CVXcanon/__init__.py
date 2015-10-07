@@ -44,7 +44,7 @@ def get_problem_matrix(constrs, id_to_col=None, constr_offsets=None):
     # Loading the variable offsets from our
     # Python map into a C++ map
     for id, col in id_to_col.items():
-        id_to_col_C[id] = col
+        id_to_col_C[int(id)] = int(col)
 
     # This array keeps variables data in scope
     # after build_lin_op_tree returns
