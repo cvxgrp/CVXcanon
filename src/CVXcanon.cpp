@@ -20,38 +20,46 @@
 #include "LinOpOperations.hpp"
 #include "ProblemData.hpp"
 
-std::map<int, std::vector<Matrix> > mul_by_const(Matrix &coeff_mat,
-        std::map<int, std::vector<Matrix> > &rh_coeffs,
-        std::map<int, std::vector<Matrix> > &result){
+void mul_by_const(Matrix &coeff_mat,
+        std::map<int, Matrix > &rh_coeffs,
+        std::map<int, Matrix > &result){
 
-	typedef std::map<int, std::vector<Matrix> >::iterator it_type;
+	typedef std::map<int, Matrix >::iterator it_type;
 	for (it_type it = rh_coeffs.begin(); it != rh_coeffs.end(); ++it){
 		int id = it->first;
-		for (unsigned i = 0; i < it->second.size(); i++){
-			Matrix rh = it->second[i];
-
-			/* Convert scalars (1x1 matrices) to primitive types */
-			if (coeff_mat.rows() == 1 && coeff_mat.cols() == 1){
-				double scalar = coeff_mat.coeffRef(0, 0);
-				result[id].push_back(scalar * rh);
-			} else if (rh.rows() == 1 && rh.cols() == 1) {
-				double scalar = rh.coeffRef(0, 0);
-				result[id].push_back(coeff_mat * scalar);
-			} else{
-				result[id].push_back(coeff_mat * rh);
-			}
+		Matrix rh = it->second;
+		/* Convert scalars (1x1 matrices) to primitive types */
+		if (coeff_mat.rows() == 1 && coeff_mat.cols() == 1){
+			double scalar = coeff_mat.coeffRef(0, 0);
+			if(result.count(id) == 0)
+				result[id] = scalar * rh;
+			else
+				result[id] += scalar * rh;
+		} else if (rh.rows() == 1 && rh.cols() == 1) {
+			double scalar = rh.coeffRef(0, 0);
+			if(result.count(id) == 0)
+				result[id] = coeff_mat * scalar;
+			else
+				result[id] = coeff_mat * scalar;
+		} else{
+			if(result.count(id) == 0 )
+				result[id] = coeff_mat * rh;
+			else
+				result[id] += coeff_mat * rh;
 		}
 	}
-	return result;
 }
 
-std::map<int, std::vector<Matrix> > get_coefficient(LinOp &lin){
-	std::map<int, std::vector<Matrix> > coeffs;
+std::map<int, Matrix > get_coefficient(LinOp &lin){
+	std::map<int, Matrix > coeffs;
 	if (lin.type == VARIABLE){
 		std::map<int, Matrix> new_coeffs = get_variable_coeffs(lin);
 		typedef std::map<int, Matrix >::iterator it_type;
 		for(it_type it = new_coeffs.begin(); it != new_coeffs.end(); ++it){
-			coeffs[it->first].push_back(it->second);
+			if(coeffs.count(it->first) == 0)
+				coeffs[it->first] = it->second ;
+			else
+				coeffs[it->first] += it->second;
 		}
 	}
 	else if (lin.has_constant_type()){
@@ -59,7 +67,10 @@ std::map<int, std::vector<Matrix> > get_coefficient(LinOp &lin){
 		std::map<int, Matrix> new_coeffs = get_const_coeffs(lin);
 		typedef std::map<int, Matrix >::iterator it_type;
 		for(it_type it = new_coeffs.begin(); it != new_coeffs.end(); ++it){
-			coeffs[it->first].push_back(it->second);
+			if(coeffs.count(it->first) == 0)
+				coeffs[it->first] = it->second;
+			else
+				coeffs[it->first] += it->second;
 		}
 	}
 	else {
@@ -67,14 +78,16 @@ std::map<int, std::vector<Matrix> > get_coefficient(LinOp &lin){
 		std::vector<Matrix> coeff_mat = get_func_coeffs(lin); 
 		for (unsigned i = 0; i < lin.args.size(); i++){
 			Matrix coeff = coeff_mat[i];
-			std::map<int, std::vector<Matrix> > rh_coeffs = get_coefficient(*lin.args[i]);
-			std::map<int, std::vector< Matrix> > new_coeffs;
+			std::map<int, Matrix > rh_coeffs = get_coefficient(*lin.args[i]);
+			std::map<int,  Matrix > new_coeffs;
 			mul_by_const(coeff, rh_coeffs, new_coeffs);
 
-			typedef std::map<int, std::vector< Matrix> >::iterator it_type;
+			typedef std::map<int, Matrix>::iterator it_type;
 			for (it_type it = new_coeffs.begin(); it != new_coeffs.end(); ++it){
-				coeffs[it->first].insert(coeffs[it->first].end(), it->second.begin(), 
-																 it->second.end());
+				if(coeffs.count(it->first) == 0)
+					coeffs[it->first] = it->second;
+				else
+					coeffs[it->first] += it->second;		
 			}
 		}
 	}
@@ -127,21 +140,18 @@ void process_constraint(LinOp & lin, std::vector<double> &V,
                         std::vector<double> &constant_vec, int &vert_offset,
                         std::map<int, int> &id_to_col, int & horiz_offset){
 	/* Get the coefficient for the current constraint */
-	std::map<int, std::vector<Matrix> > coeffs = get_coefficient(lin);	
+	std::map<int, Matrix > coeffs = get_coefficient(lin);	
 
-	typedef std::map<int, std::vector<Matrix> >::iterator it_type;
+	typedef std::map<int, Matrix >::iterator it_type;
 	for(it_type it = coeffs.begin(); it != coeffs.end(); ++it){
 		int id = it->first;									// Horiz offset determined by the id
-		std::vector<Matrix> blocks = it->second;
-		for (unsigned i = 0; i < blocks.size(); i++){
-			Matrix block = blocks[i];
-			if (id == CONSTANT_ID) { // Add to CONSTANT_VEC if linop is constant
-				extend_constant_vec(constant_vec, vert_offset, block);	
-			}
-			else {
-				int offset = get_horiz_offset(id, id_to_col, horiz_offset, lin);
-				add_matrix_to_vectors(block, V, I, J, vert_offset, offset);
-			}
+		Matrix block = it->second;
+		if (id == CONSTANT_ID) { // Add to CONSTANT_VEC if linop is constant
+			extend_constant_vec(constant_vec, vert_offset, block);	
+		}
+		else {
+			int offset = get_horiz_offset(id, id_to_col, horiz_offset, lin);
+			add_matrix_to_vectors(block, V, I, J, vert_offset, offset);
 		}
 	}
 }
