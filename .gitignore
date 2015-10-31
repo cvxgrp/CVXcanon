@@ -3,7 +3,7 @@ build/*
 lib/*
 dist/*
 
-*.egg-info/*
+*.egg-info*
 
 # Ignore any executables
 bin/*
@@ -18,3 +18,6 @@ bin/*
 .env/*
 venv_3/*
 *.ipynb
+
+# shared object files
+*.so
