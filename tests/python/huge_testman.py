@@ -48,13 +48,13 @@ files = glob.glob("./364A_scripts/*.py")
 oldtime = {};
 newtime = {};
 fnames = [];
-iters = 30
+iters = 1
 
 for testfile in files:
 	oldtime[testfile] = []
 	newtime[testfile] = []
 	
-	for _ in range(30):
+	for _ in range(iters):
 		print "testing: ", testfile
 		try:
 			(o, n) = run_testfile(testfile);
