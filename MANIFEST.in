@@ -1,3 +1,4 @@
 graft src
 graft include/Eigen
 graft tests
+graft src/python
