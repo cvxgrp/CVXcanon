@@ -13,25 +13,37 @@
 //    You should have received a copy of the GNU General Public License
 //    along with CVXcanon.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "CVXcanon.hpp"
+#ifndef SOLUTION_H
+#define SOLUTION_H
+
 #include <map>
-#include <ecos.h>
-#include "BuildMatrix.hpp"
+#include "Utils.hpp"
+
+/* Standardized solver status codes */
+enum solverstatus {
+	OPTIMAL,
+	INFEASIBLE,
+	UNBOUNDED,
+	OPTIMAL_INACCURATE,
+	INFEASIBLE_INACCURATE,
+	UNBOUNDED_INACCURATE,
+	SOLVER_ERROR
+};
+typedef solverstatus solverStatus;
 
 
-Solution solve(Sense sense, LinOp* objective, std::vector< LinOp* > constraints,
-							 std::map<std::string, double> arguments){
-	/* Pre-process constraints */
-	// filter by type
-	// compute dimensions
-	// build variable_id, constraint_id maps
+class Solution{
+public: 
+	/* solver STATUS */
+	solverStatus status;
 
+	double optimal_value;
 
-	/* Instiantiate problem data (convert appropriate linOp trees to sparse matrix form) */
+	/* variable index to primal variable values */
+	std::map<int, Matrix> primal_values;
 
-	/* Call ECOS and solve the problem */
+	/* constraint index to dual variable value */
+	std::map<int, Matrix> dual_values;
+};
 
-	/* post-process ECOS call and build solution object */
-	
-	return Solution();
-}
+#endif

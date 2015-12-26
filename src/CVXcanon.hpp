@@ -19,9 +19,15 @@
 #include <vector>
 #include "LinOp.hpp"
 #include "Utils.hpp"
-#include "ProblemData.hpp"
+#include "Solution.hpp"
+
+enum objectivesense {
+	MINIMIZE,
+	MAXIMIZE
+};
+typedef objectivesense Sense;
 
 // Top Level Entry point
-ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col);
-ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col, std::vector<int> constr_offsets);
+Solution solve(Sense sense, LinOp* objective, std::vector< LinOp* > constraints,
+							 std::map<std::string, double> arguments);
 #endif

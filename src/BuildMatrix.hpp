@@ -13,25 +13,15 @@
 //    You should have received a copy of the GNU General Public License
 //    along with CVXcanon.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "CVXcanon.hpp"
-#include <map>
-#include <ecos.h>
-#include "BuildMatrix.hpp"
+#ifndef BUILDMATRIX_H
+#define BUILDMATRIX_H
 
+#include <vector>
+#include "LinOp.hpp"
+#include "Utils.hpp"
+#include "ProblemData.hpp"
 
-Solution solve(Sense sense, LinOp* objective, std::vector< LinOp* > constraints,
-							 std::map<std::string, double> arguments){
-	/* Pre-process constraints */
-	// filter by type
-	// compute dimensions
-	// build variable_id, constraint_id maps
+ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col);
+ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col, std::vector<int> constr_offsets);
 
-
-	/* Instiantiate problem data (convert appropriate linOp trees to sparse matrix form) */
-
-	/* Call ECOS and solve the problem */
-
-	/* post-process ECOS call and build solution object */
-	
-	return Solution();
-}
+#endif

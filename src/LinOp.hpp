@@ -49,7 +49,14 @@ enum operatortype {
 	DENSE_CONST,
 	SPARSE_CONST,
 	NO_OP,
-	KRON
+	KRON,
+
+	/* Used only to specify constraint type */
+	EQ, 		// equality constraint
+	LEQ, 		// non-negative orthant
+	SOC, 		// second-order cone
+	EXP, 		// exponential cone
+	SDP, 		// semi-definite cone
 };
 
 /* linOp TYPE */
@@ -62,6 +69,7 @@ class LinOp {
 public:
 	OperatorType type;
 	std::vector<int> size;
+
 	/* Children LinOps in the tree */
 	std::vector<LinOp*> args;
 
@@ -78,7 +86,7 @@ public:
 
 	/* Constructor */
 	LinOp(){
-		sparse = false; // sparse by default
+		sparse = false; // dense by default
 	}
 
 	/* Checks if LinOp is constant type */
