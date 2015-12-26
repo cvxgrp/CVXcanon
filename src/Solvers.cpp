@@ -3,7 +3,7 @@
 
 #import <ecos.h>
 #import <stdio.h>
-#import "CVXcanon.hpp"
+#import "ProblemData.hpp"
 
 
 // Just to show that ecos compiles with CVXcanon

@@ -21,3 +21,5 @@ venv_3/*
 
 # shared object files
 *.so
+
+upload_distribution.sh
