@@ -15,9 +15,11 @@
 
 #include "CVXcanon.hpp"
 #include <map>
+#include <set>
 #include <ecos.h>
 #include "BuildMatrix.hpp"
 #include "LinOp.hpp"
+#include "LinOpOperations.hpp"
 
 /**
  * Takes as list of contraints as input. Returns a map from constraint
@@ -84,15 +86,51 @@ std::map<OperatorType, std::vector<int> > compute_dimensions(std::map<OperatorTy
 	return dims;
 }
 
+struct Variable {
+	int id;
+	std::vector<int> size;
+	bool operator < (const Variable &other) const { return id < other.id; }
+};
+
 // returns a vector of all variable 
-std::vector<std::vector<int> > get_expr_vars(LinOp * expr){
-	// TODO!
-	return NULL;
+std::vector<Variable> get_expr_vars(LinOp &expr){
+	std::vector<Variable> vars; 
+	if(expr.type == VARIABLE){
+		vars.push_back(Variable());
+		vars[0].id = get_id_data(expr);
+		vars[0].size = expr.size;
+	} else {
+		for(int i = 0; i < expr.args.size(); i++){
+			std::vector<Variable> new_vars = get_expr_vars(expr.args[i]);
+			vars.insert(vars.end(), new_vars.begin(), new_vars.end());
+		}
+	}
+	return vars;
 }
 
-std::map<int, int> get_var_offsets(LinOp * objective, std::vector<LinOp*> constraints){
-	// TODO!
-	return NULL;
+// Potential ISSUE: Remove the root linop since it specifics constraints before
+// going to var offsets?
+int get_var_offsets(LinOp *objective, std::vector<LinOp*> constraints,
+										std::map<int, int> &var_offsets){
+	std::vector<Variable> vars = get_expr_vars(objective);
+	for(int i = 0; i < constraints.size(); i++){
+		std::vector<Variable> constr_vars = get_expr_vars(*constraints[i]);
+		vars.insert(vars.end(), constr_vars.begin(), constr_vars.end());
+	}
+
+	// remove duplicates and sort by ID to ensure variables always have same order
+	set<int> s(vars.begin(), vars.end());
+	vars.assign(s.begin(), s.end());
+	std::sort(vars.begin(), vars.begin();
+
+	int vert_offset = 0; // number of variables in the problem
+	for(int i = 0; i < vars.size(); i++){
+		Variable var = vars[i];
+		var_offsets[var.id] = vert_offset;
+		vert_offset += var.size[0] * var.size[1];
+	}
+
+	return vert_offset;
 }
 
 std::vector<LinOp *> concatenate(std::vector<LinOp *> A, std::vector<LinOp *> B, std::vector<LinOp *> C){
@@ -107,7 +145,8 @@ std::vector<LinOp *> concatenate(std::vector<LinOp *> A, std::vector<LinOp *> B,
 pwork* initialize_problem(Sense sense, LinOp * objective, 
 												 	std::map<OperatorType, std::vector<LinOp *> > constr_map,
 													std::map<OperatorType, std::vector<int> > dims_map,
-													std::map<int, int> var_offsets){
+													std::map<int, int> var_offsets,
+													int num_variables){
 	/* get problem data */
 	std::vector<LinOp *> objVec;
 	objVec.push_back(objective);
@@ -152,15 +191,17 @@ Solution solve(Sense sense, LinOp* objective, std::vector<LinOp *> constraints,
 	/* Pre-process constraints */
 	std::map<OperatorType, std::vector<LinOp *> > constr_map = filter_constraints(contraints);
 	std::map<OperatorType, std::vector<int> > dims_map = compute_dimensions(constr_map);
-	std::map<int, int> var_offsets = get_var_offsets(LinOp* objective, constraints);
+
+	std::map<int, int> var_offsets;
+	int num_variables = get_var_offsets(objective, constraints, &var_offsets);
 
 	/* Instiantiate problem data (convert appropriate linOp trees to sparse matrix form) */
-	pwork* problem = initialize_problem(sense, objective, constr_map, dims_map, var_offsets);
+	pwork* problem = initialize_problem(sense, objective, constr_map, dims_map, var_offsets, num_variables);
 
 	/* Call ECOS and solve the problem */
 	idxint status = ECOS_solve(problem);
 
 	/* post-process ECOS call and build solution object */
-	
+	// TODO!
 	return Solution();
 }
