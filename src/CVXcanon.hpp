@@ -29,5 +29,5 @@ typedef objectivesense Sense;
 
 // Top Level Entry point
 Solution solve(Sense sense, LinOp* objective, std::vector< LinOp* > constraints,
-							 std::map<std::string, double> arguments);
+							 std::map<std::string, double> solver_options);
 #endif
