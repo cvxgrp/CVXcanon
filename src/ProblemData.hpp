@@ -50,7 +50,9 @@ public:
 		vals.reserve(nnz);
 		row_idxs.reserve(nnz);
 		col_ptrs.reserve(num_variables + 1);
-		coo_tocsc(num_constraints, num_variables, nnz, I, J, V, col_ptrs, row_idxs, vals);
+		coo_tocsc(num_constraints, num_variables, nnz, 
+			&I[0], &J[0], &V[0], 
+			&col_ptrs[0], &row_idxs[0], &vals[0]);
 	}
 
 	/*******************************************
