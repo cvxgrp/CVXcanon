@@ -18,6 +18,7 @@
 
 #include <vector>
 #include <map>
+#include "Utils.hpp"
 
 /* Stores the result of calling BUILD_MATRIX on a collection of LinOp
  * trees. */
@@ -37,6 +38,20 @@ public:
 
 	/* Map of constant linOp's to row in the problemData matrix  */
 	std::map<int, int> const_to_row;
+
+	/* CSC representation */
+	std::vector<double> vals;
+	std::vector<int> row_idxs;
+	std::vector<int> col_ptrs;
+
+	/* convert COO representation to CSC */
+	void toCSC(int num_constraints, int num_variables){
+		int nnz = I.size();
+		vals.reserve(nnz);
+		row_idxs.reserve(nnz);
+		col_ptrs.reserve(num_variables + 1);
+		coo_tocsc(num_constraints, num_variables, nnz, I, J, V, col_ptrs, row_idxs, vals);
+	}
 
 	/*******************************************
 	 * The functions below return problemData vectors as contiguous 1d

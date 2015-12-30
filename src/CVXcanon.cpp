@@ -28,7 +28,7 @@
  * Constraint Types: 	EQ, 		// equality constraint
  *										LEQ, 		// non-negative orthant
  *										SOC, 		// second-order cone
- *										EXP, 		// exponential cone
+ *										EXP, 		// exponential cone *** TODO: Needs special formatting (elemwise) for ECOS! **
  *										SDP, 		// semi-definite cone **** NOT CURRENTLY SUPPORTED
  */
 std::map<OperatorType, std::vector<LinOp *> > filter_constraints(std::vector<LinOp *> constraints){
@@ -142,11 +142,38 @@ std::vector<LinOp *> concatenate(std::vector<LinOp *> A, std::vector<LinOp *> B,
 	return ABC;
 }
 
+void negate(std::vector<double> &vec){
+	std::vector<double> neg_vec;
+	for(int i = 0; i < vec.size(); i++){
+		neg_vec.push_back(-vec[i]);
+	}
+	return neg_vec;
+}
+
+std::vector<double> get_obj_vec(Sense sense, ProblemData objData, int n){
+	std::vector<double> c;
+	for(int i = 0; i < n; i++){
+		c.push_back(0.0);
+	}
+
+	int s = 1;
+	if(sense == MAXIMIZE){
+		s = -1;
+	} 
+
+	idxs = objData.J;
+	for(int i = 0; i < idxs.size(); i++){
+		int idx = idxs[i];
+		c[idx] = s * objData.V[idx];
+	}
+	return c;
+}
+
 pwork* initialize_problem(Sense sense, LinOp * objective, 
 												 	std::map<OperatorType, std::vector<LinOp *> > constr_map,
 													std::map<OperatorType, std::vector<int> > dims_map,
 													std::map<int, int> var_offsets,
-													int num_variables){
+													int num_variables, double offset){
 	/* get problem data */
 	std::vector<LinOp *> objVec;
 	objVec.push_back(objective);
@@ -157,33 +184,46 @@ pwork* initialize_problem(Sense sense, LinOp * objective,
 	ProblemData ineqData = build_matrix(ineqConstr, var_offsets);
 
 	/* Problem Dimensions */
-	// TODO!!! 
-	idxint n 	= 1; //Number of primal variables
-	idxint m 	= 2; //Number of constraints, i.e. dimension 1 of the matrix G and length of vector h
-	idxint p 	= 0; //Number of equality constraints, i.e. dimension 1 of matrix A and length of vector b
-	idxint l 	= 2; //Dimension of the positive orthant Rl+
-	idxint ncones = 0; //Number of second-order cones present in problem
-	idxint *q = NULL;	 //[1] = {3};		 //Array of length ncones; q[i] defines the dimension of the cone i
-	idxint e 	= 0; //Number of exponential cones present in problem
+	idxint n 	= num_variables;
+	idxint m 	= ineqData.num_constraints;
+	idxint p 	= dims[EQ];
+	idxint l 	= dims[LEQ];
+	idxint ncones = dims[SOC].size();
+	if(ncones > 0){
+		idxint *q = &dims[SOC][0]; // TODO: Verify this is portable
+	} else {
+		idxint *q = NULL;	 //Array of length ncones; q[i] defines the dimension of the cone i	
+	}
+	idxint e 	= dims[EXP];
 	
 	/* Extract G and A matrices in CCS */
-	// TODO!!!
-	pfloat Gpr[] = {-1.000000000000000000e+00, 1.000000000000000000e+00};
-	idxint Gjc[] = {0.0, 2}; //indptr
-	idxint Gir[] = {0.0, 1};   //indices
-	pfloat *Apr = NULL;//[0];
-	idxint *Ajc = NULL;//[0];
-	idxint *Air = NULL;//[0];
-	pfloat c[] = {-1}; //Array of length n
-	pfloat h[] = {-2.000000000000000000e+00, 1.000000000000000000e+00}; //Array of length m
-	pfloat *b = NULL;			//Array of length p. Can be NULL if no equality constraints are present
+	ineqData.toCSC();
+	pfloat *Gpr = &ineqData.vals[0]; 
+	idxint *Gjc = &ineqData.col_ptrs[0];
+	idxint *Gir = &ineqData.row_idxs[0];
+	pfloat *h = &negate(ineqData.const_vec)[0];
 
-	// TODO: CHANGE C depending on the sense!
+	eqData.toCSC();
+	if(dims[EQ] == 0) {
+		pfloat *Apr = NULL;
+		idxint *Ajc = NULL;
+		idxint *Air = NULL;
+		pfloat *b = NULL;
+	} else {
+		pfloat *Apr = &eqData.vals[0];
+		idxint *Ajc = &eqData.col_ptrs[0];
+		idxint *Air = &eqData.row_idxs[0];
+		pfloat *b = &negate(eqData.const_vec)[0];
+	}
+
+	double offset = objData.const_vec[0];
+	pfloat *c = &get_obj_vec(sense, objData, num_variables)[0];
+
 	pwork* problem = ECOS_setup(n, m, p, l, ncones, q, e,
 													 		Gpr, Gjc, Gir,
 													 		Apr, Ajc, Air,
 													 		c, h, b);
-	return problem;
+	return offset;
 }
 
 Solution solve(Sense sense, LinOp* objective, std::vector<LinOp *> constraints,
@@ -195,13 +235,17 @@ Solution solve(Sense sense, LinOp* objective, std::vector<LinOp *> constraints,
 	std::map<int, int> var_offsets;
 	int num_variables = get_var_offsets(objective, constraints, &var_offsets);
 
-	/* Instiantiate problem data (convert appropriate linOp trees to sparse matrix form) */
-	pwork* problem = initialize_problem(sense, objective, constr_map, dims_map, var_offsets, num_variables);
+	/* Instantiate problem data (convert appropriate linOp trees to sparse matrix form) */
+	double offset;
+	pwork* problem = initialize_problem(sense, objective, constr_map,
+																			dims_map, var_offsets, num_variables, &offset);
 
 	/* Call ECOS and solve the problem */
 	idxint status = ECOS_solve(problem);
 
+	cout << 'OPTIMAL VALUE: ' << problem->best_cx + offset << endl;
+
 	/* post-process ECOS call and build solution object */
-	// TODO!
+	// TODO. Need to add the offset to the primal value
 	return Solution();
 }
