@@ -46,8 +46,17 @@ void testInfeasible()
 
 /*
 
+Objective and Constraint Linop Trees for the CVXpy problem:
+
+x = Variable(1)
+objective = Minimize(x)
+constraints = [x >= 1]
+prob = Problem(objective, constraints)
+
+Objective:
 LinOp(type='variable', size=(1, 1), args=[], data=0)
 
+Constraint:
 [LinLeqConstr(expr=
 	LinOp(type='sum', size=(1, 1), args=[
 		LinOp(type='scalar_const', size=(1, 1), args=[], data=1), 
