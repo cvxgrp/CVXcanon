@@ -41,7 +41,7 @@ std::map<OperatorType, std::vector<LinOp *> > filter_constraints(std::vector<Lin
 	for (int i = 0; i < constraints.size(); i++){
 		LinOp constraint = *constraints[i];
 		// assuming node has exactly one argument, the root of the linOp Tree
-		LinOp *tree = constraint.args[0]
+		LinOp *tree = constraint.args[0];
 		constr_map[constraint.type].push_back(tree);
 	}
 
@@ -51,7 +51,7 @@ std::map<OperatorType, std::vector<LinOp *> > filter_constraints(std::vector<Lin
 int accumulate_size(std::vector<LinOp *> constraints){
 	int size = 0;
 	for (int i = 0; i < constraints.size(); i++){
-		LinOp constr = constraints[i]
+		LinOp constr = *constraints[i];
 		size += constr.size[0] * constr.size[1];
 	}
 	return size;
@@ -75,7 +75,7 @@ std::map<OperatorType, std::vector<int> > compute_dimensions(std::map<OperatorTy
 	// dims[SOC] defines the dimension of the i-th SOC 
 	std::vector<LinOp *> soc_constr = constr_map[SOC];
 	for (int i = 0; i < soc_constr.size(); i++){
-		LinOp constr = *soc_constr[i]
+		LinOp constr = *soc_constr[i];
 		dims[SOC].push_back(constr.size[0]);
 	}
 
@@ -101,7 +101,7 @@ std::vector<Variable> get_expr_vars(LinOp &expr){
 		vars[0].size = expr.size;
 	} else {
 		for(int i = 0; i < expr.args.size(); i++){
-			std::vector<Variable> new_vars = get_expr_vars(expr.args[i]);
+			std::vector<Variable> new_vars = get_expr_vars(*expr.args[i]);
 			vars.insert(vars.end(), new_vars.begin(), new_vars.end());
 		}
 	}
@@ -112,16 +112,16 @@ std::vector<Variable> get_expr_vars(LinOp &expr){
 // going to var offsets?
 int get_var_offsets(LinOp *objective, std::vector<LinOp*> constraints,
 										std::map<int, int> &var_offsets){
-	std::vector<Variable> vars = get_expr_vars(objective);
+	std::vector<Variable> vars = get_expr_vars(*objective);
 	for(int i = 0; i < constraints.size(); i++){
 		std::vector<Variable> constr_vars = get_expr_vars(*constraints[i]);
 		vars.insert(vars.end(), constr_vars.begin(), constr_vars.end());
 	}
 
 	// remove duplicates and sort by ID to ensure variables always have same order
-	set<int> s(vars.begin(), vars.end());
+	std::set<int> s(vars.begin(), vars.end());
 	vars.assign(s.begin(), s.end());
-	std::sort(vars.begin(), vars.begin();
+	std::sort(vars.begin(), vars.end());
 
 	int vert_offset = 0; // number of variables in the problem
 	for(int i = 0; i < vars.size(); i++){
@@ -142,7 +142,7 @@ std::vector<LinOp *> concatenate(std::vector<LinOp *> A, std::vector<LinOp *> B,
 	return ABC;
 }
 
-void negate(std::vector<double> &vec){
+std::vector<double> negate(std::vector<double> &vec){
 	std::vector<double> neg_vec;
 	for(int i = 0; i < vec.size(); i++){
 		neg_vec.push_back(-vec[i]);
@@ -161,7 +161,7 @@ std::vector<double> get_obj_vec(Sense sense, ProblemData objData, int n){
 		s = -1;
 	} 
 
-	idxs = objData.J;
+	std::vector<int> idxs = objData.J;
 	for(int i = 0; i < idxs.size(); i++){
 		int idx = idxs[i];
 		c[idx] = s * objData.V[idx];
