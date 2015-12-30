@@ -15,6 +15,9 @@
 
 // Some useful defines for Matricies/etc.
 
+#ifndef UTILS_H
+#define UTILS_H
+
 #include "../include/Eigen/Sparse"
 #include "../include/Eigen/Core"
 #include <algorithm>
@@ -114,3 +117,5 @@ void coo_tocsc(const I n_row,
       	             I Bi[],
       	             T Bx[])
 { coo_tocsr<I,T>(n_col, n_row, nnz, Aj, Ai, Ax, Bp, Bi, Bx); }
+
+#endif
