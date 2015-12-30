@@ -19,6 +19,7 @@
 #include <vector>
 #include <map>
 #include "Utils.hpp"
+#include <iostream>
 
 /* Stores the result of calling BUILD_MATRIX on a collection of LinOp
  * trees. */
@@ -50,9 +51,9 @@ public:
 	/* convert COO representation to CSC */
 	void toCSC(int num_variables){
 		int nnz = I.size();
-		vals.reserve(nnz);
-		row_idxs.reserve(nnz);
-		col_ptrs.reserve(num_variables + 1);
+		vals.assign(nnz, 0);
+		row_idxs.assign(nnz, 0);
+		col_ptrs.assign(num_variables + 1, 0);
 		coo_tocsc(num_constraints, num_variables, nnz, 
 			&I[0], &J[0], &V[0], 
 			&col_ptrs[0], &row_idxs[0], &vals[0]);
