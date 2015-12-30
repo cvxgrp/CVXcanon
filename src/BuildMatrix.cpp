@@ -225,6 +225,7 @@ ProblemData build_matrix(std::vector< LinOp* > constraints,
 		prob_data.const_to_row[i] = vert_offset;
 		vert_offset += constr.size[0] * constr.size[1];
 	}
+	prob_data.num_constraints = num_rows;
 	return prob_data;
 }
 
@@ -256,5 +257,6 @@ ProblemData build_matrix(std::vector<LinOp*> constraints,
 		                   prob_data.id_to_col, horiz_offset);
 		prob_data.const_to_row[i] = vert_offset;
 	}
+	prob_data.num_constraints = num_rows;
 	return prob_data;
 }

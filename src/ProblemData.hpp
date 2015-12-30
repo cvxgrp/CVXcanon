@@ -39,13 +39,16 @@ public:
 	/* Map of constant linOp's to row in the problemData matrix  */
 	std::map<int, int> const_to_row;
 
+	/* Number of constraints */
+	int num_constraints;
+
 	/* CSC representation */
 	std::vector<double> vals;
 	std::vector<int> row_idxs;
 	std::vector<int> col_ptrs;
 
 	/* convert COO representation to CSC */
-	void toCSC(int num_constraints, int num_variables){
+	void toCSC(int num_variables){
 		int nnz = I.size();
 		vals.reserve(nnz);
 		row_idxs.reserve(nnz);
