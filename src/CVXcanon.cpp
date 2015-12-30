@@ -120,7 +120,7 @@ int get_var_offsets(LinOp *objective, std::vector<LinOp*> constraints,
 	// sort by ID and remove duplicates to ensure variables always have same order
 	std::set<Variable> s(vars.begin(), vars.end());
 
-	// TODO: Is there a cleaner way to this this (can't get assign to compile...)
+	// TODO: Is there a cleaner way to this this (can't get vars.assign(s.begin(), s.end()) to compile)
 	vars.clear();
 	std::set<Variable>::iterator it;
 	for (it = s.begin(); it != s.end(); it++) {
@@ -153,5 +153,10 @@ Solution solve(Sense sense, LinOp* objective, std::vector<LinOp *> constraints,
 																		dims_map, var_offsets, num_variables);
 	
 	Solution solution = problem.solve(solver_options);
+
+	/* Temporary for debugging */
+	std::cout << "SOLVER STATUS: " << solution.status << std::endl;
+	std::cout << "OPTIMAL VALUE: " << solution.optimal_value << std::endl;
+
 	return solution;
 }
