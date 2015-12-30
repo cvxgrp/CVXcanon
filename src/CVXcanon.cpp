@@ -20,6 +20,7 @@
 #include "BuildMatrix.hpp"
 #include "LinOp.hpp"
 #include "LinOpOperations.hpp"
+#include "EcosProblem.hpp"
 
 /**
  * Takes as list of contraints as input. Returns a map from constraint
@@ -108,8 +109,6 @@ std::vector<Variable> get_expr_vars(LinOp &expr){
 	return vars;
 }
 
-// Potential ISSUE: Remove the root linop since it specifics constraints before
-// going to var offsets?
 int get_var_offsets(LinOp *objective, std::vector<LinOp*> constraints,
 										std::map<int, int> &var_offsets){
 	std::vector<Variable> vars = get_expr_vars(*objective);
@@ -140,103 +139,8 @@ int get_var_offsets(LinOp *objective, std::vector<LinOp*> constraints,
 	return vert_offset;
 }
 
-std::vector<LinOp *> concatenate(std::vector<LinOp *> A, std::vector<LinOp *> B, std::vector<LinOp *> C){
-	std::vector<LinOp *> ABC;
-	ABC.reserve(A.size() + B.size() + C.size());
-	ABC.insert(ABC.end(), A.begin(), A.end());
-	ABC.insert(ABC.end(), B.begin(), B.end());
-	ABC.insert(ABC.end(), C.begin(), C.end());
-	return ABC;
-}
-
-std::vector<double> negate(std::vector<double> &vec){
-	std::vector<double> neg_vec;
-	for(int i = 0; i < vec.size(); i++){
-		neg_vec.push_back(-vec[i]);
-	}
-	return neg_vec;
-}
-
-std::vector<double> get_obj_vec(Sense sense, ProblemData objData, int n){
-	std::vector<double> c;
-	for(int i = 0; i < n; i++){
-		c.push_back(0.0);
-	}
-
-	int s = 1;
-	if(sense == MAXIMIZE){
-		s = -1;
-	} 
-
-	std::vector<int> idxs = objData.J;
-	for(int i = 0; i < idxs.size(); i++){
-		int idx = idxs[i];
-		c[idx] = s * objData.V[idx];
-	}
-	return c;
-}
-
-std::vector<long> to_long(std::vector<int> vec){
-	return std::vector<long>(vec.begin(), vec.end());
-}
-
-pwork* initialize_problem(Sense sense, LinOp * objective, 
-												 	std::map<OperatorType, std::vector<LinOp *> > constr_map,
-													std::map<OperatorType, std::vector<int> > dims_map,
-													std::map<int, int> var_offsets,
-													int num_variables, double &offset){
-	/* get problem data */
-	std::vector<LinOp *> objVec;
-	objVec.push_back(objective);
-	std::vector<LinOp *> ineqConstr = concatenate(constr_map[LEQ], constr_map[SOC], constr_map[EXP]);
-
-	ProblemData objData = build_matrix(objVec, var_offsets);
-	ProblemData eqData = build_matrix(constr_map[EQ], var_offsets);
-	ProblemData ineqData = build_matrix(ineqConstr, var_offsets);
-
-	/* Problem Dimensions */
-	idxint n 	= num_variables;
-	idxint m 	= ineqData.num_constraints;
-	idxint p 	= dims_map[EQ][0];
-	idxint l 	= dims_map[LEQ][0];
-	idxint ncones = dims_map[SOC].size();
-	idxint *q = NULL;
-	if(ncones > 0){
-		q = &to_long(dims_map[SOC])[0]; // TODO: Verify this is portable
-	}
-	idxint e 	= dims_map[EXP][0];
-	
-	/* Extract G and A matrices in CCS */
-	ineqData.toCSC(num_variables);
-	pfloat *Gpr = &ineqData.vals[0]; 
-	idxint *Gjc = &to_long(ineqData.col_ptrs)[0];
-	idxint *Gir = &to_long(ineqData.row_idxs)[0];
-	pfloat *h = &negate(ineqData.const_vec)[0];
-
-	eqData.toCSC(num_variables);
-	pfloat *Apr = NULL;
-	idxint *Ajc = NULL;
-	idxint *Air = NULL;
-	pfloat *b = NULL;
-	if(p > 0){
-		Apr = &eqData.vals[0];
-		Ajc = &to_long(eqData.col_ptrs)[0];
-		Air = &to_long(eqData.row_idxs)[0];
-		b = &negate(eqData.const_vec)[0];
-	}
-
-	offset = objData.const_vec[0];
-	pfloat *c = &get_obj_vec(sense, objData, num_variables)[0];
-
-	pwork* problem = ECOS_setup(n, m, p, l, ncones, q, e,
-													 		Gpr, Gjc, Gir,
-													 		Apr, Ajc, Air,
-													 		c, h, b);
-	return problem;
-}
-
 Solution solve(Sense sense, LinOp* objective, std::vector<LinOp *> constraints,
-							 std::map<std::string, double> arguments){
+							 std::map<std::string, double> solver_options){
 	/* Pre-process constraints */
 	std::map<OperatorType, std::vector<LinOp *> > constr_map = filter_constraints(constraints);
 	std::map<OperatorType, std::vector<int> > dims_map = compute_dimensions(constr_map);
@@ -244,16 +148,10 @@ Solution solve(Sense sense, LinOp* objective, std::vector<LinOp *> constraints,
 	std::map<int, int> var_offsets;
 	int num_variables = get_var_offsets(objective, constraints, var_offsets);
 
-	/* Instantiate problem data (convert appropriate linOp trees to sparse matrix form) */
-	double offset;
-	pwork* problem = initialize_problem(sense, objective, constr_map,
-																			dims_map, var_offsets, num_variables, offset);
-	/* Call ECOS and solve the problem */
-	idxint status = ECOS_solve(problem);
-
-	std::cout << "OPTIMAL VALUE: " << problem->best_cx + offset << std::endl;
-
-	/* post-process ECOS call and build solution object */
-	// TODO. Need to add the offset to the primal value
-	return Solution();
+	/* Instantiate problem data */
+	EcosProblem problem = EcosProblem(sense, objective, constr_map,
+																		dims_map, var_offsets, num_variables);
+	
+	Solution solution = problem.solve(solver_options);
+	return solution;
 }
