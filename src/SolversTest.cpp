@@ -50,7 +50,7 @@ Objective and Constraint Linop Trees for the CVXpy problem:
 
 x = Variable(1)
 objective = Minimize(x)
-constraints = [x >= 1]
+constraints = [x >= 1]...
 prob = Problem(objective, constraints)
 
 Objective:
@@ -60,8 +60,7 @@ Constraint:
 [LinLeqConstr(expr=
 	LinOp(type='sum', size=(1, 1), args=[
 		LinOp(type='scalar_const', size=(1, 1), args=[], data=1), 
-		LinOp(type='neg', size=(1, 1), args=[
-			LinOp(type='variable', size=(1, 1), args=[], data=0)]
+		LinOp(type='neg', size=(1, 1), args=[LinOp(type='variable', size=(1, 1), args=[], data=0)]
 		, data=None)]
 	, data=None)
 , constr_id=2, size=(1, 1))]
@@ -89,10 +88,12 @@ void testCVXCanon()
 
 	// Constant (1)
 	LinOp constant;
-	constant.type = SUM;
+	constant.type = SCALAR_CONST;
 	constant.size.push_back(1);
 	constant.size.push_back(1);
 	constant.sparse = false;
+	constant.dense_data = Eigen::MatrixXd(1,1);
+	constant.dense_data(0,0) = 1;
 
 	// Variable (x)
 	LinOp x;
@@ -132,7 +133,7 @@ void testCVXCanon()
 
 int main()
 {
-	testInfeasible();
+	// testInfeasible();
 	testCVXCanon();
 }
 
