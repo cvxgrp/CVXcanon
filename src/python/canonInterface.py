@@ -15,9 +15,11 @@
 
 import CVXcanon
 import numpy as np
-from cvxpy.lin_ops.lin_op import *
 import scipy.sparse
 from collections import deque
+from cvxpy.lin_ops.lin_op import *
+from cvxpy.constraints import SOC, SDP, ExpCone
+
 
 def get_problem_matrix(constrs, id_to_col=None, constr_offsets=None):
     '''
@@ -168,7 +170,7 @@ type_map = {
     "DENSE_CONST": CVXcanon.DENSE_CONST,
     "SPARSE_CONST": CVXcanon.SPARSE_CONST,
     "NO_OP": CVXcanon.NO_OP,
-    "KRON": CVXcanon.KRON
+    "KRON": CVXcanon.KRON,
 }
 
 
@@ -177,7 +179,6 @@ def get_type(ty):
         return type_map[ty]
     else:
         raise NotImplementedError()
-
 
 def build_lin_op_tree(root_linPy, tmp):
     '''
@@ -226,3 +227,51 @@ def build_lin_op_tree(root_linPy, tmp):
             set_matrix_data(linC, linPy)
 
     return root_linC
+
+
+def get_constraint_type(c):
+    if isinstance(c, LinEqConstr):
+        return CVXcanon.EQ
+    elif isinstance(c, LinLeqConstr):
+        return CVXcanon.LEQ
+    elif isinstance(c, SOC):
+        return CVXcanon.SOC
+    elif isinstance(c, SDP):
+        return CVXcanon.SDP
+    elif isinstance(c, ExpCone):
+        return CVXcanon.EXP
+
+
+## new interface
+def solve(sense, objective, constraints, solver_options):
+    # This array keeps variables data in scope
+    # after build_lin_op_tree returns
+    tmp = []
+
+    C_objective = build_lin_op_tree(objective.expr, tmp)
+
+    C_constraints = CVXcanon.LinOpVector()
+    for constr in constraints:
+        expr_tree = build_lin_op_tree(constr.expr, tmp)
+
+        ## add constraint node as root
+        root = CVXcanon.LinOp()
+        root.type = get_constraint_type(constr)
+        root.size.push_back(1)
+        root.size.push_back(1)
+        root.args.push_back(expr_tree)
+
+        tmp.append(root)
+        C_constraints.push_back(root)
+
+    ## TODO: Wrap solver options!
+    opts = CVXcanon.StringDoubleMap()
+
+    if sense == 'minimize':
+        C_sense = CVXcanon.MINIMIZE
+    else:
+        C_sense = CVXcanon.MAXIMIZE
+
+    soln = CVXcanon.solve(C_sense, C_objective, C_constraints, opts)
+
+    print 'Optimal value: ', soln.optimal_value
