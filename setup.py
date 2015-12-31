@@ -6,8 +6,10 @@ import os
 
 canon = Extension(
     '_CVXcanon',
-    sources=['src/CVXcanon.cpp', 'src/LinOpOperations.cpp', 'src/python/CVXcanon_wrap.cpp'],
-    include_dirs=['src/', 'src/python/', 'include/Eigen', numpy.get_include()]
+    sources=['src/CVXcanon.cpp', 'src/BuildMatrix.cpp', 'src/LinOpOperations.cpp', 'src/python/CVXcanon.i'],
+    swig_opts=['-c++', '-outdir', 'src/python', '-I./src/', '-I./src/python/'],
+    include_dirs=['src/', 'src/python/', 'include/Eigen', 'include/ecos/include',
+                  'include/ecos/external/SuiteSparse_config/', 'include/ecos/', numpy.get_include()]
 )
 
 base_dir = os.path.dirname(__file__)
