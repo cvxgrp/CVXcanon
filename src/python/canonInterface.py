@@ -244,6 +244,46 @@ def get_constraint_type(c):
         return CVXcanon.EXP
 
 
+def get_constraint_node(c, tmp):
+    root = CVXcanon.LinOp()
+    root.size.push_back(c.size[0])
+    root.size.push_back(c.size[1])
+
+    if isinstance(c, LinEqConstr):
+        root.type = CVXcanon.EQ
+        expr = build_lin_op_tree(c.expr, tmp)
+        tmp.append(expr)
+        root.args.push_back(expr)
+
+    elif isinstance(c, LinLeqConstr):
+        root.type = CVXcanon.LEQ
+        expr = build_lin_op_tree(c.expr, tmp)
+        tmp.append(expr)
+        root.args.push_back(expr)
+
+    elif isinstance(c, SOC):
+        root.type = CVXcanon.SOC
+        t = build_lin_op_tree(c.t, tmp)
+        tmp.append(t)
+        root.args.push_back(t)
+        for elem in c.x_elems:
+            x_elem = build_lin_op_tree(elem, tmp)
+            tmp.append(x_elem)
+            root.args.push_back(x_elem)
+
+    elif isinstance(c, ExpCone):
+        root.type = CVXcanon.EXP
+        raise NotImplementedError("EXP")
+
+    elif isinstance(c, SDP):
+        raise NotImplementedError("SDP")
+
+    else:
+        raise TypeError("Undefined constraint type")
+
+    return root
+
+
 ## new interface
 def solve(sense, objective, constraints, solver_options):
     # This array keeps variables data in scope
@@ -254,15 +294,7 @@ def solve(sense, objective, constraints, solver_options):
 
     C_constraints = CVXcanon.LinOpVector()
     for constr in constraints:
-        expr_tree = build_lin_op_tree(constr.expr, tmp)
-
-        ## add constraint node as root
-        root = CVXcanon.LinOp()
-        root.type = get_constraint_type(constr)
-        root.size.push_back(constr.size[0])
-        root.size.push_back(constr.size[1])
-        root.args.push_back(expr_tree)
-
+        root = get_constraint_node(constr, tmp)
         tmp.append(root)
         C_constraints.push_back(root)
 
