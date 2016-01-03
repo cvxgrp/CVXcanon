@@ -18,6 +18,7 @@
 %{
 	#define SWIG_FILE_WITH_INIT
 	#include "CVXcanon.hpp"
+	#include "BuildMatrix.hpp"
 %}
 
 %include "numpy.i"
@@ -45,6 +46,7 @@
 %apply (double* ARGOUT_ARRAY1, int DIM1) {(double* values, int num_values)}
 
 %include "LinOp.hpp"
+%include "ProblemData.hpp"
 
 /* Useful wrappers for the LinOp class */
 namespace std {
@@ -56,6 +58,10 @@ namespace std {
    %template(LinOpVector) vector< LinOp * >;
    %template(StringDoubleMap) map<string, double>;
 }
+
+/* Old entry point */
+ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col);
+ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col, std::vector<int> constr_offsets);
 
 /* Wrapper for entry point into CVXCanon Library */
 Solution solve(Sense sense, LinOp* objective, std::vector< LinOp* > constraints, std::map<std::string, double> solver_options);
