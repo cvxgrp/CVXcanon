@@ -23,6 +23,9 @@
 %include "numpy.i"
 %include "std_vector.i"
 %include "std_map.i"
+%include "std_string.i"
+%include "CVXcanon.hpp"
+%include "Solution.hpp"
 
 /* Must call this before using NUMPY-C API */
 %init %{
@@ -37,12 +40,11 @@
 	(double *row_idxs, int rows_len),
 	(double *col_idxs, int cols_len)};
 
-%include "LinOp.hpp"
-
 /* Typemap for the getV, getI, getJ, and getConstVec C++ routines in 
 	 problemData.hpp */
 %apply (double* ARGOUT_ARRAY1, int DIM1) {(double* values, int num_values)}
-%include "ProblemData.hpp"
+
+%include "LinOp.hpp"
 
 /* Useful wrappers for the LinOp class */
 namespace std {
@@ -52,8 +54,8 @@ namespace std {
    %template(DoubleVector2D) vector< vector<double> >;
    %template(IntIntMap) map<int, int>;
    %template(LinOpVector) vector< LinOp * >;
+   %template(StringDoubleMap) map<string, double>;
 }
 
 /* Wrapper for entry point into CVXCanon Library */
-ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col);
-ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col, std::vector<int> constr_offsets);
+Solution solve(Sense sense, LinOp* objective, std::vector< LinOp* > constraints, std::map<std::string, double> solver_options);

@@ -18,7 +18,9 @@ import numpy as np
 import scipy.sparse
 from collections import deque
 from cvxpy.lin_ops.lin_op import *
+from cvxpy.lin_ops import LinEqConstr, LinLeqConstr
 from cvxpy.constraints import SOC, SDP, ExpCone
+from cvxpy.problems.objective import Minimize, Maximize
 
 
 def get_problem_matrix(constrs, id_to_col=None, constr_offsets=None):
@@ -248,7 +250,7 @@ def solve(sense, objective, constraints, solver_options):
     # after build_lin_op_tree returns
     tmp = []
 
-    C_objective = build_lin_op_tree(objective.expr, tmp)
+    C_objective = build_lin_op_tree(objective, tmp)
 
     C_constraints = CVXcanon.LinOpVector()
     for constr in constraints:
@@ -257,8 +259,8 @@ def solve(sense, objective, constraints, solver_options):
         ## add constraint node as root
         root = CVXcanon.LinOp()
         root.type = get_constraint_type(constr)
-        root.size.push_back(1)
-        root.size.push_back(1)
+        root.size.push_back(constr.size[0])
+        root.size.push_back(constr.size[1])
         root.args.push_back(expr_tree)
 
         tmp.append(root)
@@ -267,10 +269,12 @@ def solve(sense, objective, constraints, solver_options):
     ## TODO: Wrap solver options!
     opts = CVXcanon.StringDoubleMap()
 
-    if sense == 'minimize':
+    if sense == Minimize:
         C_sense = CVXcanon.MINIMIZE
-    else:
+    elif sense == Maximize:
         C_sense = CVXcanon.MAXIMIZE
+    else:
+        raise NotImplementedError()
 
     soln = CVXcanon.solve(C_sense, C_objective, C_constraints, opts)
 
