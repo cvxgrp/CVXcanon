@@ -37,7 +37,7 @@ std::vector<double> get_obj_vec(ProblemData objData, int n){
 	std::vector<double> c(n, 0);
 	std::vector<int> idxs = objData.J;
 	for(int i = 0; i < idxs.size(); i++){
-		c[idxs[i]] = objData.V[idxs[i]];
+		c[idxs[i]] = objData.V[i];
 	}
 	return c;
 }
@@ -193,7 +193,7 @@ Solution EcosProblem::solve(std::map<std::string, double> solver_options){
 	idxint status = ECOS_solve(problem); // TODO: Incorporate solver options!
 	Solution soln;
 	soln.status = canonicalize_status(status);
-	soln.optimal_value = problem->best_cx + offset;
+	soln.optimal_value = problem->info->pcost + offset;
 
 	/* TODO: Extract and reformat primal and dual variables */
 	return soln;
