@@ -6,6 +6,13 @@
 #include "LinOp.hpp"
 #include "LinOpOperations.hpp"
 
+template <typename T>
+void print(std::vector<T> v){
+	for(int i = 0; i < v.size(); i++){
+		std::cout << v[i] << std::endl;
+	}
+}
+
 /******************
  * HELPER FUNCTIONS
 ********************/
@@ -71,6 +78,41 @@ solverStatus canonicalize_status(idxint status){
 	return SOLVER_ERROR;
 }
 
+LinOp *negate_expression(LinOp *expr){
+	LinOp *lin = new LinOp;
+	lin->type = NEG;
+	lin->size.push_back(expr->size[0]);
+	lin->size.push_back(expr->size[1]);
+	lin->args.push_back(expr);
+	return lin;
+}
+
+std::vector<LinOp *> format_leq_constr(std::vector<LinOp *> &constrs){
+	std::vector<LinOp *> formatted_constraints;
+	for(int i = 0; i < constrs.size(); i++){
+		LinOp *constr = constrs[i];
+		formatted_constraints.push_back(constr->args[0]);
+	}
+	return formatted_constraints;
+}
+
+
+std::vector<LinOp *> format_soc_constrs(std::vector<LinOp *> &constrs){
+	std::vector<LinOp *> formatted_constraints;
+	for(int i = 0; i < constrs.size(); i++){
+		LinOp *constr = constrs[i];
+		for(int j = 0; j < constr->args.size(); j++){
+			formatted_constraints.push_back(negate_expression(constr->args[j]));
+		}
+	}
+	return formatted_constraints;
+}
+
+std::vector<LinOp *> format_exp_constrs(std::vector<LinOp *> &constrs){
+	// TODO!
+	return std::vector<LinOp *>();
+}
+
 /*********************
  * Public Functions
  *********************/
@@ -83,7 +125,14 @@ EcosProblem::EcosProblem(Sense sense, LinOp * objective,
 	/* get problem data */
 	std::vector<LinOp *> objVec;
 	objVec.push_back(objective);
-	std::vector<LinOp *> ineqConstr = concatenate(constr_map[LEQ], constr_map[SOC], constr_map[EXP]);
+
+	/* Format for ECOS solver */
+	std::vector<LinOp *> leq_constrs = format_leq_constr(constr_map[LEQ]);
+	std::vector<LinOp *> soc_constrs = format_soc_constrs(constr_map[SOC]);
+	std::vector<LinOp *> exp_constrs = format_exp_constrs(constr_map[SOC]);
+
+	std::vector<LinOp *> ineqConstr = concatenate(leq_constrs, soc_constrs, exp_constrs);
+
 
 	ProblemData objData = build_matrix(objVec, var_offsets);
 	ProblemData eqData = build_matrix(constr_map[EQ], var_offsets);
@@ -117,12 +166,25 @@ EcosProblem::EcosProblem(Sense sense, LinOp * objective,
 	if(sense == MAXIMIZE){
 		c = negate(c);
 	}
+
+	// std::cout << "DEBUG DIMENSIONS: " << std::endl;
+	// std::cout << "N: " << n << std::endl;
+	// std::cout << "M: " << m << std::endl;
+	// std::cout << "P: " << p << std::endl;
+	// std::cout << "L: " << l << std::endl;
+	// std::cout << "NCONES: " << ncones << std::endl;
+	// std::cout << "Q: " << std::endl;
+	// print(q);
+	// std::cout << "E: " << e << std::endl;
+	// std::cout << "OFFSET: " << offset << std::endl;
+
 	problem = ECOS_setup(n, m, p, l, ncones, &q[0], e,
 											 &Gpr[0], &Gjc[0], &Gir[0],
 											 &Apr[0], &Ajc[0], &Air[0],
 											 &c[0], &h[0], &b[0]);
 
 }
+
 EcosProblem::~EcosProblem(){
 	ECOS_cleanup(problem, 0); // TODO: Figure out what options for keepvars?
 }
