@@ -231,19 +231,6 @@ def build_lin_op_tree(root_linPy, tmp):
     return root_linC
 
 
-def get_constraint_type(c):
-    if isinstance(c, LinEqConstr):
-        return CVXcanon.EQ
-    elif isinstance(c, LinLeqConstr):
-        return CVXcanon.LEQ
-    elif isinstance(c, SOC):
-        return CVXcanon.SOC
-    elif isinstance(c, SDP):
-        return CVXcanon.SDP
-    elif isinstance(c, ExpCone):
-        return CVXcanon.EXP
-
-
 def get_constraint_node(c, tmp):
     root = CVXcanon.LinOp()
     root.size.push_back(c.size[0])
@@ -310,6 +297,6 @@ def solve(sense, objective, constraints, solver_options):
 
     solution = CVXcanon.solve(C_sense, C_objective, C_constraints, opts)
 
-    print 'CVXcanon optimal value: ', soln.optimal_value
+    print 'CVXcanon optimal value: ', solution.optimal_value
 
     return solution
