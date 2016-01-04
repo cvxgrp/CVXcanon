@@ -29,7 +29,7 @@
  * Constraint Types: 	EQ, 		// equality constraint
  *										LEQ, 		// non-negative orthant
  *										SOC, 		// second-order cone
- *										EXP, 		// exponential cone *** TODO: Needs special formatting (elemwise) for ECOS! **
+ *										EXP, 		// exponential cone *** TODO: NOT CURRENTLY SUPPORTED **
  *										SDP, 		// semi-definite cone **** NOT CURRENTLY SUPPORTED
  */
 std::map<OperatorType, std::vector<LinOp *> > filter_constraints(std::vector<LinOp *> constraints){
@@ -40,10 +40,7 @@ std::map<OperatorType, std::vector<LinOp *> > filter_constraints(std::vector<Lin
 	constr_map.insert(std::pair<OperatorType, std::vector<LinOp *> >(EXP, std::vector<LinOp *>()));
 
 	for (int i = 0; i < constraints.size(); i++){
-		LinOp constraint = *constraints[i];
-		// assuming node has exactly one argument, the root of the linOp Tree
-		LinOp *tree = constraint.args[0];
-		constr_map[constraint.type].push_back(tree);
+		constr_map[constraints[i]->type].push_back(constraints[i]);
 	}
 
 	return constr_map;
