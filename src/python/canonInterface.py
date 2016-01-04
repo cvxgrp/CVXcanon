@@ -308,6 +308,8 @@ def solve(sense, objective, constraints, solver_options):
     else:
         raise NotImplementedError()
 
-    soln = CVXcanon.solve(C_sense, C_objective, C_constraints, opts)
+    solution = CVXcanon.solve(C_sense, C_objective, C_constraints, opts)
 
-    print 'Optimal value: ', soln.optimal_value
+    print 'CVXcanon optimal value: ', soln.optimal_value
+
+    return solution
