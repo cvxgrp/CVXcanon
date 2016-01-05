@@ -18,10 +18,12 @@ public:
 
 	 ~EcosProblem();
 	Solution solve(std::map<std::string, double> solver_options);
+	LinOp *format_elementwise(std::vector<LinOp *> &vars);
 
 private:
 	/* ECOS problem */ 
 	pwork* problem; 
+	Sense prob_sense;
 
 	/* Dimensions */
 	long n;

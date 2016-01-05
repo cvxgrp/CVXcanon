@@ -260,7 +260,13 @@ def get_constraint_node(c, tmp):
 
     elif isinstance(c, ExpCone):
         root.type = CVXcanon.EXP
-        raise NotImplementedError("EXP")
+        x = build_lin_op_tree(c.x, tmp)
+        y = build_lin_op_tree(c.y, tmp)
+        z = build_lin_op_tree(c.z, tmp)
+        root.args.push_back(x)
+        root.args.push_back(y)
+        root.args.push_back(z)
+        tmp += [x, y, z]
 
     elif isinstance(c, SDP):
         raise NotImplementedError("SDP")

@@ -87,11 +87,71 @@ LinOp *negate_expression(LinOp *expr){
 	return lin;
 }
 
-std::vector<LinOp *> format_leq_constr(std::vector<LinOp *> &constrs){
+LinOp *mul_expression(Matrix lh_op, LinOp *rh_op, std::vector<int> size){
+	LinOp *lin = new LinOp;
+	lin->type = MUL;
+	lin->size = size;
+	lin->args.push_back(rh_op);
+
+	lin->sparse = true;
+	lin->sparse_data = lh_op;
+
+	return lin;
+}
+
+LinOp *sum_expression(std::vector<LinOp *> operators){
+	LinOp *lin = new LinOp;
+	lin->type = SUM;
+	lin->size = operators[0]->size;
+	lin->args = operators;
+	return lin;
+}
+
+// Returns a sparse matrix linOp that spaces out the expression.
+Matrix get_spacing_matrix(std::vector<int> size, int spacing, int offset){
+	/* Create matrix */
+	Matrix mat(size[0], size[1]);
+
+	std::vector<Triplet> tripletList;
+	for(int var_row = 0; var_row < size[1]; var_row++){
+		int row_idx = spacing * var_row + offset;
+		int col_idx = var_row;
+		tripletList.push_back(Triplet(row_idx, col_idx, 1.0));
+	}
+	mat.setFromTriplets(tripletList.begin(), tripletList.end());
+	mat.makeCompressed();
+	return mat;
+}
+
+/* Create matrices Ai such that 0 <= A0*x0 + ... + An*xn
+ * gives the format for the elementwise cone constraints.
+ */
+LinOp *format_elementwise(std::vector<LinOp *> &vars){
+	// Compute dimensions
+	std::vector<int> prod_size;
+	std::vector<int> mat_size;
+
+	int spacing = vars.size();
+	prod_size.push_back(spacing * vars[0]->size[0]);
+	prod_size.push_back(vars[0]->size[1]);
+	mat_size.push_back(spacing * vars[0]->size[0]);
+	mat_size.push_back(vars[0]->size[0]);
+
+	// Gather terms for each matrix
+	std::vector<LinOp *> terms;
+	for(int i = 0; i < vars.size(); i++){
+		LinOp *var = vars[i];
+		Matrix mat = get_spacing_matrix(mat_size, spacing, i);
+		LinOp *term = mul_expression(mat, var, prod_size);
+		terms.push_back(term);
+	}
+	return negate_expression(sum_expression(terms));
+}
+
+std::vector<LinOp *> format_affine_constr(std::vector<LinOp *> &constrs){
 	std::vector<LinOp *> formatted_constraints;
 	for(int i = 0; i < constrs.size(); i++){
-		LinOp *constr = constrs[i];
-		formatted_constraints.push_back(constr->args[0]);
+		formatted_constraints.push_back(constrs[i]->args[0]);
 	}
 	return formatted_constraints;
 }
@@ -109,8 +169,15 @@ std::vector<LinOp *> format_soc_constrs(std::vector<LinOp *> &constrs){
 }
 
 std::vector<LinOp *> format_exp_constrs(std::vector<LinOp *> &constrs){
-	// TODO!
-	return std::vector<LinOp *>();
+	std::vector<LinOp *> formatted_constraints;
+	for(int i = 0; i < constrs.size(); i++){
+		std::vector<LinOp *> vars(3); // x, z, y
+		vars[0] = constrs[i]->args[0];
+		vars[1] = constrs[i]->args[2];
+		vars[2] = constrs[i]->args[1];
+		formatted_constraints.push_back(format_elementwise(vars));
+	}
+	return formatted_constraints;
 }
 
 /*********************
@@ -122,20 +189,21 @@ EcosProblem::EcosProblem(Sense sense, LinOp * objective,
 													std::map<OperatorType, std::vector<int> > dims_map,
 													std::map<int, int> var_offsets,
 													int num_variables) {
+	prob_sense = sense;
 	/* get problem data */
 	std::vector<LinOp *> objVec;
 	objVec.push_back(objective);
 
 	/* Format for ECOS solver */
-	std::vector<LinOp *> leq_constrs = format_leq_constr(constr_map[LEQ]);
+	std::vector<LinOp *> eq_constr = format_affine_constr(constr_map[EQ]);
+	std::vector<LinOp *> leq_constrs = format_affine_constr(constr_map[LEQ]);
 	std::vector<LinOp *> soc_constrs = format_soc_constrs(constr_map[SOC]);
-	std::vector<LinOp *> exp_constrs = format_exp_constrs(constr_map[SOC]);
+	std::vector<LinOp *> exp_constrs = format_exp_constrs(constr_map[EXP]);
 
 	std::vector<LinOp *> ineqConstr = concatenate(leq_constrs, soc_constrs, exp_constrs);
 
-
 	ProblemData objData = build_matrix(objVec, var_offsets);
-	ProblemData eqData = build_matrix(constr_map[EQ], var_offsets);
+	ProblemData eqData = build_matrix(eq_constr, var_offsets);
 	ProblemData ineqData = build_matrix(ineqConstr, var_offsets);
 
 	/* Problem Dimensions */
@@ -182,7 +250,6 @@ EcosProblem::EcosProblem(Sense sense, LinOp * objective,
 											 &Gpr[0], &Gjc[0], &Gir[0],
 											 &Apr[0], &Ajc[0], &Air[0],
 											 &c[0], &h[0], &b[0]);
-
 }
 
 EcosProblem::~EcosProblem(){
@@ -194,6 +261,9 @@ Solution EcosProblem::solve(std::map<std::string, double> solver_options){
 	Solution soln;
 	soln.status = canonicalize_status(status);
 	soln.optimal_value = problem->info->pcost + offset;
+	if(prob_sense == MAXIMIZE){ // account for negating the objective
+		soln.optimal_value *= -1;
+	}
 
 	/* TODO: Extract and reformat primal and dual variables */
 	return soln;
