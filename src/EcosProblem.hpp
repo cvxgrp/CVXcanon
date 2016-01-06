@@ -24,7 +24,7 @@ private:
 	pwork* problem; 
 	Sense prob_sense;
 	std::vector<Variable> primal_vars;
-	std::map<int, int> var_offsets;
+	std::map<int, int> primal_offsets;
 	std::vector<Variable> eq_dual_vars;
 	std::vector<Variable> ineq_dual_vars;
 

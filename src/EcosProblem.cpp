@@ -208,19 +208,25 @@ void save_values(std::map<int, Eigen::MatrixXd> &map, std::vector<Variable> &var
 			int rows = var.size[0];
 			int cols = var.size[1];
 			int offset = var_offsets[var.id];
-			map[var.id] = Eigen::Map<Eigen::MatrixXd>(result_vec + offset * sizeof(double), rows, cols);
+
+			/* HACK */
+			std::vector<double> data;
+			for(int i = offset; i < offset + (rows * cols); i++){
+				data.push_back(result_vec[i]);
+			}
+			map[var.id] = Eigen::Map<Eigen::MatrixXd>(&data[0], rows, cols);
 		}
 }
 
 void save_dual_values(std::map<int, Eigen::MatrixXd> &dual_map, double *result_vec, std::vector<Variable> &dual_vars){
-	std::map<int, int> var_offsets;
+	std::map<int, int> constr_offset;
 	int offset = 0;
 	for(int i = 0; i < dual_vars.size(); i++){
 		Variable dual_var = dual_vars[i];
-		var_offsets[dual_var.id] = offset;
+		constr_offset[dual_var.id] = offset;
 		offset += dual_var.size[0] * dual_var.size[1];
 	}
-	save_values(dual_map, dual_vars, result_vec, var_offsets);
+	save_values(dual_map, dual_vars, result_vec, constr_offset);
 }
 
 /*********************
@@ -235,7 +241,7 @@ EcosProblem::EcosProblem(Sense sense, LinOp * objective,
 	/* Initialize metadata */
 	prob_sense = sense;
 	primal_vars = variables;
-	var_offsets = var_offsets;
+	primal_offsets = var_offsets;
 
 	/* Store dual variables to recover optimal dual values */
 	eq_dual_vars = get_dual_variables(constr_map[EQ]);
@@ -316,7 +322,7 @@ Solution EcosProblem::solve(std::map<std::string, double> solver_options){
 	if(prob_sense == MAXIMIZE){ // account for negating the objective
 		soln.optimal_value *= -1;
 	}
-	save_values(soln.primal_values, primal_vars, problem->x, var_offsets);
+	save_values(soln.primal_values, primal_vars, problem->x, primal_offsets);
 	save_dual_values(soln.dual_values, problem->y, eq_dual_vars);
 	save_dual_values(soln.dual_values, problem->z, ineq_dual_vars);
 	return soln;
