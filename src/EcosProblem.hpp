@@ -10,20 +10,23 @@
 
 class EcosProblem {
 public:
-	EcosProblem(Sense sense, LinOp * objective, 
+	EcosProblem(Sense sense, LinOp *objective, 
 							std::map<OperatorType, std::vector<LinOp *> > constr_map,
 							std::map<OperatorType, std::vector<int> > dims_map,
-							std::map<int, int> var_offsets,
-							int num_variables);
+							std::vector<Variable> variables,
+							std::map<int, int> var_offsets);
 
-	 ~EcosProblem();
+	~EcosProblem();
 	Solution solve(std::map<std::string, double> solver_options);
-	LinOp *format_elementwise(std::vector<LinOp *> &vars);
 
 private:
 	/* ECOS problem */ 
 	pwork* problem; 
 	Sense prob_sense;
+	std::vector<Variable> primal_vars;
+	std::map<int, int> var_offsets;
+	std::vector<Variable> eq_dual_vars;
+	std::vector<Variable> ineq_dual_vars;
 
 	/* Dimensions */
 	long n;
@@ -34,7 +37,7 @@ private:
 	std::vector<long> q;
 	long e;
 
-	/* Problem Matrics in CCS format */
+	/* Problem Matrices in CCS format */
 	/* Inequality Constraints */
 	std::vector<double> Gpr;
 	std::vector<long> Gir;

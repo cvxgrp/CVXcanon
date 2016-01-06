@@ -31,7 +31,7 @@ def get_problem_matrix(constrs, id_to_col=None, constr_offsets=None):
     Parameters
     ----------
         constrs: A list of python linOp trees
-        id_to_col: A map from variable id to offset withoun our matrix
+        id_to_col: A map from variable id to offset within our matrix
 
     Returns
     ----------
@@ -235,6 +235,9 @@ def get_constraint_node(c, tmp):
     root = CVXcanon.LinOp()
     root.size.push_back(c.size[0])
     root.size.push_back(c.size[1])
+
+    # add ID as dense_data
+    root.set_dense_data(format_matrix(c.constr_id, 'scalar'))
 
     if isinstance(c, LinEqConstr):
         root.type = CVXcanon.EQ

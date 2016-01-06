@@ -29,7 +29,7 @@
  * Constraint Types: 	EQ, 		// equality constraint
  *										LEQ, 		// non-negative orthant
  *										SOC, 		// second-order cone
- *										EXP, 		// exponential cone *** TODO: NOT CURRENTLY SUPPORTED **
+ *										EXP, 		// exponential cone
  *										SDP, 		// semi-definite cone **** NOT CURRENTLY SUPPORTED
  */
 std::map<OperatorType, std::vector<LinOp *> > filter_constraints(std::vector<LinOp *> constraints){
@@ -84,12 +84,6 @@ std::map<OperatorType, std::vector<int> > compute_dimensions(std::map<OperatorTy
 	return dims;
 }
 
-struct Variable {
-	int id;
-	std::vector<int> size;
-	bool operator < (const Variable &other) const { return id < other.id; }
-};
-
 // returns a vector of all variable 
 std::vector<Variable> get_expr_vars(LinOp &expr){
 	std::vector<Variable> vars; 
@@ -106,8 +100,8 @@ std::vector<Variable> get_expr_vars(LinOp &expr){
 	return vars;
 }
 
-int get_var_offsets(LinOp *objective, std::vector<LinOp*> constraints,
-										std::map<int, int> &var_offsets){
+std::vector<Variable> get_vars_and_offsets(LinOp *objective, std::vector<LinOp*> constraints,
+																					 std::map<int, int> &var_offsets){
 	std::vector<Variable> vars = get_expr_vars(*objective);
 	for(int i = 0; i < constraints.size(); i++){
 		std::vector<Variable> constr_vars = get_expr_vars(*constraints[i]);
@@ -126,14 +120,14 @@ int get_var_offsets(LinOp *objective, std::vector<LinOp*> constraints,
 
 	std::sort(vars.begin(), vars.end());
 
-	int vert_offset = 0; // number of variables in the problem
+	int vert_offset = 0;
 	for(int i = 0; i < vars.size(); i++){
 		Variable var = vars[i];
 		var_offsets[var.id] = vert_offset;
 		vert_offset += var.size[0] * var.size[1];
 	}
 
-	return vert_offset;
+	return vars;
 }
 
 Solution solve(Sense sense, LinOp* objective, std::vector<LinOp *> constraints,
@@ -143,17 +137,30 @@ Solution solve(Sense sense, LinOp* objective, std::vector<LinOp *> constraints,
 	std::map<OperatorType, std::vector<int> > dims_map = compute_dimensions(constr_map);
 
 	std::map<int, int> var_offsets;
-	int num_variables = get_var_offsets(objective, constraints, var_offsets);
+	std::vector<Variable> variables = get_vars_and_offsets(objective, constraints, var_offsets);
 
 	/* Instantiate problem data */
 	EcosProblem problem = EcosProblem(sense, objective, constr_map,
-																		dims_map, var_offsets, num_variables);
+																		dims_map, variables, var_offsets);
 	
 	Solution solution = problem.solve(solver_options);
 
 	/* Temporary for debugging */
 	std::cout << "SOLVER STATUS: " << solution.status << std::endl;
 	std::cout << "OPTIMAL VALUE: " << solution.optimal_value << std::endl;
+
+	std::cout<< "Primal variables " << std::endl;
+	std::map<int, Eigen::MatrixXd>::iterator it;
+	for(it = solution.primal_values.begin(); it != solution.primal_values.end(); it++){
+		std::cout<< "ID: " << it->first << std::endl;
+		std::cout<< it->second << std::endl;
+	}
+
+	std::cout<< "Dual variables " << std::endl;
+	for(it = solution.dual_values.begin(); it != solution.dual_values.end(); it++){
+		std::cout<< "ID: " << it->first << std::endl;
+		std::cout<< it->second << std::endl;
+	}
 
 	return solution;
 }

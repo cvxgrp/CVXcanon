@@ -40,10 +40,10 @@ public:
 	double optimal_value;
 
 	/* variable index to primal variable values */
-	std::map<int, Matrix> primal_values;
+	std::map<int, Eigen::MatrixXd> primal_values;
 
 	/* constraint index to dual variable value */
-	std::map<int, Matrix> dual_values;
+	std::map<int, Eigen::MatrixXd> dual_values;
 };
 
 #endif

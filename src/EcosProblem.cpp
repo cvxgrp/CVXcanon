@@ -5,6 +5,8 @@
 #include "BuildMatrix.hpp"
 #include "LinOp.hpp"
 #include "LinOpOperations.hpp"
+#include "CVXcanon.hpp"
+#include "Utils.hpp"
 
 template <typename T>
 void print(std::vector<T> v){
@@ -48,6 +50,14 @@ std::vector<long> to_long(std::vector<int> v_int){
 		v_long.push_back((long)v_int[i]);
 	}
 	return v_long;
+}
+
+int get_num_variables(std::vector<Variable> &vars){
+	int num_vars = 0;
+	for(int i = 0; i < vars.size(); i++){
+		num_vars += vars[i].size[0] * vars[i].size[1];
+	}
+	return num_vars;
 }
 
 solverStatus canonicalize_status(idxint status){
@@ -180,6 +190,39 @@ std::vector<LinOp *> format_exp_constrs(std::vector<LinOp *> &constrs){
 	return formatted_constraints;
 }
 
+std::vector<Variable> get_dual_variables(std::vector<LinOp *> constrs){
+	std::vector<Variable> vars;
+	for(int i = 0; i < constrs.size(); i++){
+		LinOp constr = *constrs[i];
+		vars.push_back(Variable());
+		vars[i].id = int(constr.dense_data(0, 0));
+		vars[i].size = constr.size;
+	}
+	return vars;
+}
+
+void save_values(std::map<int, Eigen::MatrixXd> &map, std::vector<Variable> &vars,
+								 double *result_vec, std::map<int, int> &var_offsets){
+		for(int i = 0; i < vars.size(); i++){
+			Variable var = vars[i];
+			int rows = var.size[0];
+			int cols = var.size[1];
+			int offset = var_offsets[var.id];
+			map[var.id] = Eigen::Map<Eigen::MatrixXd>(result_vec + offset * sizeof(double), rows, cols);
+		}
+}
+
+void save_dual_values(std::map<int, Eigen::MatrixXd> &dual_map, double *result_vec, std::vector<Variable> &dual_vars){
+	std::map<int, int> var_offsets;
+	int offset = 0;
+	for(int i = 0; i < dual_vars.size(); i++){
+		Variable dual_var = dual_vars[i];
+		var_offsets[dual_var.id] = offset;
+		offset += dual_var.size[0] * dual_var.size[1];
+	}
+	save_values(dual_map, dual_vars, result_vec, var_offsets);
+}
+
 /*********************
  * Public Functions
  *********************/
@@ -187,26 +230,35 @@ std::vector<LinOp *> format_exp_constrs(std::vector<LinOp *> &constrs){
 EcosProblem::EcosProblem(Sense sense, LinOp * objective, 
 												 	std::map<OperatorType, std::vector<LinOp *> > constr_map,
 													std::map<OperatorType, std::vector<int> > dims_map,
-													std::map<int, int> var_offsets,
-													int num_variables) {
+													std::vector<Variable> variables,
+													std::map<int, int> var_offsets) {
+	/* Initialize metadata */
 	prob_sense = sense;
+	primal_vars = variables;
+	var_offsets = var_offsets;
+
+	/* Store dual variables to recover optimal dual values */
+	eq_dual_vars = get_dual_variables(constr_map[EQ]);
+	ineq_dual_vars = get_dual_variables(concatenate(constr_map[LEQ], constr_map[SOC], constr_map[EXP]));
+
 	/* get problem data */
 	std::vector<LinOp *> objVec;
 	objVec.push_back(objective);
 
 	/* Format for ECOS solver */
-	std::vector<LinOp *> eq_constr = format_affine_constr(constr_map[EQ]);
+	std::vector<LinOp *> eq_constrs = format_affine_constr(constr_map[EQ]);
+
 	std::vector<LinOp *> leq_constrs = format_affine_constr(constr_map[LEQ]);
 	std::vector<LinOp *> soc_constrs = format_soc_constrs(constr_map[SOC]);
 	std::vector<LinOp *> exp_constrs = format_exp_constrs(constr_map[EXP]);
-
-	std::vector<LinOp *> ineqConstr = concatenate(leq_constrs, soc_constrs, exp_constrs);
+	std::vector<LinOp *> ineq_constrs = concatenate(leq_constrs, soc_constrs, exp_constrs);
 
 	ProblemData objData = build_matrix(objVec, var_offsets);
-	ProblemData eqData = build_matrix(eq_constr, var_offsets);
-	ProblemData ineqData = build_matrix(ineqConstr, var_offsets);
+	ProblemData eqData = build_matrix(eq_constrs, var_offsets);
+	ProblemData ineqData = build_matrix(ineq_constrs, var_offsets);
 
 	/* Problem Dimensions */
+	int num_variables = get_num_variables(variables);
 	n = num_variables;
 	m = ineqData.num_constraints;
 	p = dims_map[EQ][0];
@@ -264,7 +316,8 @@ Solution EcosProblem::solve(std::map<std::string, double> solver_options){
 	if(prob_sense == MAXIMIZE){ // account for negating the objective
 		soln.optimal_value *= -1;
 	}
-
-	/* TODO: Extract and reformat primal and dual variables */
+	save_values(soln.primal_values, primal_vars, problem->x, var_offsets);
+	save_dual_values(soln.dual_values, problem->y, eq_dual_vars);
+	save_dual_values(soln.dual_values, problem->z, ineq_dual_vars);
 	return soln;
 }

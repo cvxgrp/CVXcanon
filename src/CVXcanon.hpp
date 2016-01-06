@@ -27,6 +27,12 @@ enum objectivesense {
 };
 typedef objectivesense Sense;
 
+struct Variable {
+	int id;
+	std::vector<int> size;
+	bool operator < (const Variable &other) const { return id < other.id; }
+};
+
 // Top Level Entry point
 Solution solve(Sense sense, LinOp* objective, std::vector< LinOp* > constraints,
 							 std::map<std::string, double> solver_options);
