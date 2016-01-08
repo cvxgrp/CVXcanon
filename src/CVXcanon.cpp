@@ -146,21 +146,21 @@ Solution solve(Sense sense, LinOp* objective, std::vector<LinOp *> constraints,
 	Solution solution = problem.solve(solver_options);
 
 	/* Temporary for debugging */
-	std::cout << "SOLVER STATUS: " << solution.status << std::endl;
-	std::cout << "OPTIMAL VALUE: " << solution.optimal_value << std::endl;
+	// std::cout << "SOLVER STATUS: " << solution.status << std::endl;
+	// std::cout << "OPTIMAL VALUE: " << solution.optimal_value << std::endl;
 
-	std::cout<< "Primal variables " << std::endl;
-	std::map<int, Eigen::MatrixXd>::iterator it;
-	for(it = solution.primal_values.begin(); it != solution.primal_values.end(); it++){
-		std::cout<< "ID: " << it->first << std::endl;
-		std::cout<< it->second << std::endl;
-	}
+	// std::cout<< "PRIMAL VARIABLES " << std::endl;
+	// std::map<int, Eigen::MatrixXd>::iterator it;
+	// for(it = solution.primal_values.begin(); it != solution.primal_values.end(); it++){
+	// 	std::cout<< "ID: " << it->first << std::endl;
+	// 	std::cout<< it->second << std::endl;
+	// }
 
-	std::cout<< "Dual variables " << std::endl;
-	for(it = solution.dual_values.begin(); it != solution.dual_values.end(); it++){
-		std::cout<< "ID: " << it->first << std::endl;
-		std::cout<< it->second << std::endl;
-	}
+	// std::cout<< "DUAL VARIABLES " << std::endl;
+	// for(it = solution.dual_values.begin(); it != solution.dual_values.end(); it++){
+	// 	std::cout<< "ID: " << it->first << std::endl;
+	// 	std::cout<< it->second << std::endl;
+	// }
 
 	return solution;
 }

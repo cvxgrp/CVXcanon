@@ -42,7 +42,10 @@ public:
 	/* variable index to primal variable values */
 	std::map<int, Eigen::MatrixXd> primal_values;
 
-	/* constraint index to dual variable value */
+	/* constraint index to dual variable value. 
+		 Note: Following CVXPY, only dual variable values for EQ and LEQ constraints are provided since 
+		  		 cone constraints cannot be specified by the user 
+	 */
 	std::map<int, Eigen::MatrixXd> dual_values;
 };
 
