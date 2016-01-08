@@ -22,20 +22,12 @@
 #include "../include/Eigen/Core"
 #include <algorithm>
 #include <set>
-
 #define NULL_MATRIX Eigen::SparseMatrix<double>(0,0)
 
 typedef Eigen::Matrix<int, Eigen::Dynamic, 1> Vector;
 typedef Eigen::SparseMatrix<double> Matrix;
 typedef std::map<int, Matrix> CoeffMap;
 typedef Eigen::Triplet<double> Triplet;
-
-struct Variable {
-  int id;
-  std::vector<int> size;
-  bool operator < (const Variable &other) const { return id < other.id; }
-};
-
 
 // Taken from  
 // https://github.com/pv/scipy-work/blob/master/scipy/sparse/sparsetools/coo.h

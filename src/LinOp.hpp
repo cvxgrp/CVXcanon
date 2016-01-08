@@ -134,4 +134,11 @@ public:
 		sparse_data = sparse_coeffs;
 	}
 };
+
+struct Variable {
+  int id;
+  std::vector<int> size;
+  OperatorType type; // dual variables only
+  bool operator < (const Variable &other) const { return id < other.id; }
+};
 #endif
