@@ -61,34 +61,6 @@ int get_num_variables(std::vector<Variable> &vars){
 	return num_vars;
 }
 
-solverStatus canonicalize_status(idxint status){
-	switch(status){
-		case 0:
-			return OPTIMAL;
-		case 1:
-			return INFEASIBLE;
-		case 2:
-			return UNBOUNDED;
-		case 10:
-			return OPTIMAL_INACCURATE;
-		case 11:
-			return INFEASIBLE_INACCURATE;
-		case 12:
-			return UNBOUNDED_INACCURATE;
-		case -1:
-			return SOLVER_ERROR;
-		case -2:
-			return SOLVER_ERROR;
-		case -3:
-			return SOLVER_ERROR;
-		case -4:
-			return SOLVER_ERROR;
-		case -7:
-			return SOLVER_ERROR;
-	}
-	return SOLVER_ERROR;
-}
-
 LinOp *negate_expression(LinOp *expr){
 	LinOp *lin = new LinOp;
 	lin->type = NEG;
@@ -120,7 +92,6 @@ LinOp *sum_expression(std::vector<LinOp *> operators){
 
 // Returns a sparse matrix linOp that spaces out the expression.
 Matrix get_spacing_matrix(std::vector<int> size, int spacing, int offset){
-	/* Create matrix */
 	Matrix mat(size[0], size[1]);
 
 	std::vector<Triplet> tripletList;
@@ -191,6 +162,18 @@ std::vector<LinOp *> format_exp_constrs(std::vector<LinOp *> &constrs){
 	return formatted_constraints;
 }
 
+std::vector<Variable> get_dual_variables(std::vector<LinOp *> constrs){
+	std::vector<Variable> vars;
+	for(int i = 0; i < constrs.size(); i++){
+		LinOp constr = *constrs[i];
+		vars.push_back(Variable());
+		vars[i].id = int(constr.dense_data(0, 0));
+		vars[i].size = constr.size;
+		vars[i].type = constr.type;
+	}
+	return vars;
+}
+
 void set_solver_options(pwork* problem, std::map<std::string, double> opts){
 	std::map<std::string, double>::iterator it;
 	for(it = opts.begin(); it != opts.end(); it++){
@@ -219,15 +202,32 @@ void set_solver_options(pwork* problem, std::map<std::string, double> opts){
 	}
 }
 
-std::vector<Variable> get_dual_variables(std::vector<LinOp *> constrs){
-	std::vector<Variable> vars;
-	for(int i = 0; i < constrs.size(); i++){
-		LinOp constr = *constrs[i];
-		vars.push_back(Variable());
-		vars[i].id = int(constr.dense_data(0, 0));
-		vars[i].size = constr.size;
+solverStatus canonicalize_status(idxint status){
+	switch(status){
+		case 0:
+			return OPTIMAL;
+		case 1:
+			return INFEASIBLE;
+		case 2:
+			return UNBOUNDED;
+		case 10:
+			return OPTIMAL_INACCURATE;
+		case 11:
+			return INFEASIBLE_INACCURATE;
+		case 12:
+			return UNBOUNDED_INACCURATE;
+		case -1:
+			return SOLVER_ERROR;
+		case -2:
+			return SOLVER_ERROR;
+		case -3:
+			return SOLVER_ERROR;
+		case -4:
+			return SOLVER_ERROR;
+		case -7:
+			return SOLVER_ERROR;
 	}
-	return vars;
+	return SOLVER_ERROR;
 }
 
 void save_values(std::map<int, Eigen::MatrixXd> &map, std::vector<Variable> &vars,
@@ -248,15 +248,25 @@ void save_values(std::map<int, Eigen::MatrixXd> &map, std::vector<Variable> &var
 }
 
 void save_dual_values(std::map<int, Eigen::MatrixXd> &dual_map, double *result_vec,
-											std::vector<Variable> &dual_vars){
+											std::vector<Variable> &dual_vars, OperatorType active_type){
 	std::map<int, int> constr_offset;
 	int offset = 0;
 	for(int i = 0; i < dual_vars.size(); i++){
 		Variable dual_var = dual_vars[i];
 		constr_offset[dual_var.id] = offset;
-		offset += dual_var.size[0] * dual_var.size[1];
+		if(dual_var.type == EXP){
+			offset += 3 * dual_var.size[0] * dual_var.size[1];
+		} else {
+			offset += dual_var.size[0] * dual_var.size[1];
+		}
 	}
-	save_values(dual_map, dual_vars, result_vec, constr_offset);
+	std::vector<Variable> active_dual_vars;
+	for(int i = 0; i < dual_vars.size(); i++){
+		if(dual_vars[i].type == active_type){
+			active_dual_vars.push_back(dual_vars[i]);
+		}
+	}
+	save_values(dual_map, active_dual_vars, result_vec, constr_offset);
 }
 
 /*********************
@@ -353,8 +363,9 @@ Solution EcosProblem::solve(std::map<std::string, double> solver_options){
 	if(prob_sense == MAXIMIZE){ // account for negating the objective
 		soln.optimal_value *= -1;
 	}
+
 	save_values(soln.primal_values, primal_vars, problem->x, primal_offsets);
-	save_dual_values(soln.dual_values, problem->y, eq_dual_vars);
-	save_dual_values(soln.dual_values, problem->z, ineq_dual_vars);
+	save_dual_values(soln.dual_values, problem->y, eq_dual_vars, EQ);
+	save_dual_values(soln.dual_values, problem->z, ineq_dual_vars, LEQ);
 	return soln;
 }
