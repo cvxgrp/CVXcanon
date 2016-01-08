@@ -281,7 +281,7 @@ def get_constraint_node(c, tmp):
 
 
 ## new interface
-def solve(sense, objective, constraints, solver_options):
+def solve(sense, objective, constraints, verbose, solver_options):
     # This array keeps variables data in scope
     # after build_lin_op_tree returns
     tmp = []
@@ -294,9 +294,6 @@ def solve(sense, objective, constraints, solver_options):
         tmp.append(root)
         C_constraints.push_back(root)
 
-    ## TODO: Wrap solver options!
-    opts = CVXcanon.StringDoubleMap()
-
     if sense == Minimize:
         C_sense = CVXcanon.MINIMIZE
     elif sense == Maximize:
@@ -304,7 +301,10 @@ def solve(sense, objective, constraints, solver_options):
     else:
         raise NotImplementedError()
 
-    solution = CVXcanon.solve(C_sense, C_objective, C_constraints, opts)
+    C_opts = CVXcanon.StringDoubleMap(solver_options)
+    C_opts['verbose'] = float(verbose)
+
+    solution = CVXcanon.solve(C_sense, C_objective, C_constraints, C_opts)
 
     print 'CVXcanon optimal value: ', solution.optimal_value
 

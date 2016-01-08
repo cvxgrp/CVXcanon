@@ -27,13 +27,18 @@ enum objectivesense {
 };
 typedef objectivesense Sense;
 
-struct Variable {
-	int id;
-	std::vector<int> size;
-	bool operator < (const Variable &other) const { return id < other.id; }
-};
-
 // Top Level Entry point
+/**
+ * Solver options:
+ * 	feastol: the tolerance on the primal and dual residual
+ * 	abstol: the absolute tolerance on the duality gap
+ * 	reltol: the relative tolerance on the duality gap
+ * 	feastol_inacc: the tolerance on the primal and dual residual if reduced precisions
+ * 	abstol_inacc: the absolute tolerance on the duality gap if reduced precision
+ * 	reltol_inacc: the relative tolerance on the duality gap if reduced precision
+ * 	max_iters: the maximum numer of iterations
+ * 	verbose: signals to print on non zero value
+ */
 Solution solve(Sense sense, LinOp* objective, std::vector< LinOp* > constraints,
 							 std::map<std::string, double> solver_options);
 #endif

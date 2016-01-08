@@ -30,6 +30,12 @@ typedef Eigen::SparseMatrix<double> Matrix;
 typedef std::map<int, Matrix> CoeffMap;
 typedef Eigen::Triplet<double> Triplet;
 
+struct Variable {
+  int id;
+  std::vector<int> size;
+  bool operator < (const Variable &other) const { return id < other.id; }
+};
+
 
 // Taken from  
 // https://github.com/pv/scipy-work/blob/master/scipy/sparse/sparsetools/coo.h

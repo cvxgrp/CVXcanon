@@ -18,7 +18,8 @@ void print(std::vector<T> v){
 /******************
  * HELPER FUNCTIONS
 ********************/
-std::vector<LinOp *> concatenate(std::vector<LinOp *> A, std::vector<LinOp *> B, std::vector<LinOp *> C){
+std::vector<LinOp *> concatenate(std::vector<LinOp *> A, std::vector<LinOp *> B,
+																 std::vector<LinOp *> C){
 	std::vector<LinOp *> ABC;
 	ABC.reserve(A.size() + B.size() + C.size());
 	ABC.insert(ABC.end(), A.begin(), A.end());
@@ -190,6 +191,34 @@ std::vector<LinOp *> format_exp_constrs(std::vector<LinOp *> &constrs){
 	return formatted_constraints;
 }
 
+void set_solver_options(pwork* problem, std::map<std::string, double> opts){
+	std::map<std::string, double>::iterator it;
+	for(it = opts.begin(); it != opts.end(); it++){
+		std::string opt = it->first;
+		double val = it->second;
+		if(opt == "feastol"){
+			problem->stgs->feastol = val;
+		} else if (opt == "reltol"){
+			problem->stgs->reltol = val;
+		} else if (opt == "abstol"){
+			problem->stgs->abstol = val;
+		} else if (opt == "feastol_inacc"){
+			problem->stgs->feastol_inacc = val;
+		} else if (opt == "reltol_inacc"){
+			problem->stgs->reltol_inacc = val;
+		} else if (opt == "abstol_inacc"){
+			problem->stgs->abstol_inacc = val;
+		} else if (opt == "max_iters"){
+			problem->stgs->maxit = int(val);
+		} else if (opt == "verbose"){
+			problem->stgs->verbose = bool(val);
+		} else{
+			std::cerr << "Error: ECOS solver option invalid." << opt << std::endl;
+			exit(-1);
+		}	
+	}
+}
+
 std::vector<Variable> get_dual_variables(std::vector<LinOp *> constrs){
 	std::vector<Variable> vars;
 	for(int i = 0; i < constrs.size(); i++){
@@ -218,7 +247,8 @@ void save_values(std::map<int, Eigen::MatrixXd> &map, std::vector<Variable> &var
 		}
 }
 
-void save_dual_values(std::map<int, Eigen::MatrixXd> &dual_map, double *result_vec, std::vector<Variable> &dual_vars){
+void save_dual_values(std::map<int, Eigen::MatrixXd> &dual_map, double *result_vec,
+											std::vector<Variable> &dual_vars){
 	std::map<int, int> constr_offset;
 	int offset = 0;
 	for(int i = 0; i < dual_vars.size(); i++){
@@ -311,11 +341,12 @@ EcosProblem::EcosProblem(Sense sense, LinOp * objective,
 }
 
 EcosProblem::~EcosProblem(){
-	ECOS_cleanup(problem, 0); // TODO: Figure out what options for keepvars?
+	ECOS_cleanup(problem, 0); // TODO: keepvars for warmstart?
 }
 
 Solution EcosProblem::solve(std::map<std::string, double> solver_options){
-	idxint status = ECOS_solve(problem); // TODO: Incorporate solver options!
+	set_solver_options(problem, solver_options);
+	idxint status = ECOS_solve(problem);
 	Solution soln;
 	soln.status = canonicalize_status(status);
 	soln.optimal_value = problem->info->pcost + offset;
