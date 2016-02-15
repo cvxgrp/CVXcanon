@@ -21,32 +21,32 @@
 
 /* Standardized solver status codes */
 enum solverstatus {
-	OPTIMAL,
-	INFEASIBLE,
-	UNBOUNDED,
-	OPTIMAL_INACCURATE,
-	INFEASIBLE_INACCURATE,
-	UNBOUNDED_INACCURATE,
-	SOLVER_ERROR
+  OPTIMAL,
+  INFEASIBLE,
+  UNBOUNDED,
+  OPTIMAL_INACCURATE,
+  INFEASIBLE_INACCURATE,
+  UNBOUNDED_INACCURATE,
+  SOLVER_ERROR
 };
 typedef solverstatus solverStatus;
 
 
-class Solution{
-public: 
-	/* solver STATUS */
-	solverStatus status;
+class Solution {
+public:
+  /* solver STATUS */
+  solverStatus status;
 
-	double optimal_value;
+  double optimal_value;
 
-	/* variable index to primal variable values */
-	std::map<int, Eigen::MatrixXd> primal_values;
+  /* variable index to primal variable values */
+  std::map<int, Eigen::MatrixXd> primal_values;
 
-	/* constraint index to dual variable value. 
-		 Note: Following CVXPY, only dual variable values for EQ and LEQ constraints are provided since 
-		  		 cone constraints cannot be specified by the user 
-	 */
-	std::map<int, Eigen::MatrixXd> dual_values;
+  /* constraint index to dual variable value.
+     Note: Following CVXPY, only dual variable values for EQ and LEQ constraints are provided since
+           cone constraints cannot be specified by the user
+   */
+  std::map<int, Eigen::MatrixXd> dual_values;
 };
 
 #endif

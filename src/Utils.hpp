@@ -29,7 +29,7 @@ typedef Eigen::SparseMatrix<double> Matrix;
 typedef std::map<int, Matrix> CoeffMap;
 typedef Eigen::Triplet<double> Triplet;
 
-// Taken from  
+// Taken from
 // https://github.com/pv/scipy-work/blob/master/scipy/sparse/sparsetools/coo.h
 /*
  * Compute B = A for COO matrix A, CSR matrix B
@@ -50,13 +50,13 @@ typedef Eigen::Triplet<double> Triplet;
  * Note:
  *   Output arrays Bp, Bj, and Bx must be preallocated
  *
- * Note: 
+ * Note:
  *   Input:  row and column indices *are not* assumed to be ordered
- *           
+ *
  *   Note: duplicate entries are carried over to the CSR represention
  *
  *   Complexity: Linear.  Specifically O(nnz(A) + max(n_row,n_col))
- * 
+ *
  */
 template <class I, class T>
 void coo_tocsr(const I n_row,
@@ -65,55 +65,55 @@ void coo_tocsr(const I n_row,
                const I Ai[],
                const I Aj[],
                const T Ax[],
-                     I Bp[],
-                     I Bj[],
-                     T Bx[])
+               I Bp[],
+               I Bj[],
+               T Bx[])
 {
-    //compute number of non-zero entries per row of A 
-    std::fill(Bp, Bp + n_row, 0);
+  //compute number of non-zero entries per row of A
+  std::fill(Bp, Bp + n_row, 0);
 
-    for (I n = 0; n < nnz; n++){            
-        Bp[Ai[n]]++;
-    }
+  for (I n = 0; n < nnz; n++) {
+    Bp[Ai[n]]++;
+  }
 
-    //cumsum the nnz per row to get Bp[]
-    for(I i = 0, cumsum = 0; i < n_row; i++){     
-        I temp = Bp[i];
-        Bp[i] = cumsum;
-        cumsum += temp;
-    }
-    Bp[n_row] = nnz; 
+  //cumsum the nnz per row to get Bp[]
+  for (I i = 0, cumsum = 0; i < n_row; i++) {
+    I temp = Bp[i];
+    Bp[i] = cumsum;
+    cumsum += temp;
+  }
+  Bp[n_row] = nnz;
 
-    //write Aj,Ax into Bj,Bx
-    for(I n = 0; n < nnz; n++){
-        I row  = Ai[n];
-        I dest = Bp[row];
+  //write Aj,Ax into Bj,Bx
+  for (I n = 0; n < nnz; n++) {
+    I row  = Ai[n];
+    I dest = Bp[row];
 
-        Bj[dest] = Aj[n];
-        Bx[dest] = Ax[n];
+    Bj[dest] = Aj[n];
+    Bx[dest] = Ax[n];
 
-        Bp[row]++;
-    }
+    Bp[row]++;
+  }
 
-    for(I i = 0, last = 0; i <= n_row; i++){
-        I temp = Bp[i];
-        Bp[i]  = last;
-        last   = temp;
-    }
+  for (I i = 0, last = 0; i <= n_row; i++) {
+    I temp = Bp[i];
+    Bp[i]  = last;
+    last   = temp;
+  }
 
-    //now Bp,Bj,Bx form a CSR representation (with possible duplicates)
+  //now Bp,Bj,Bx form a CSR representation (with possible duplicates)
 }
 
 template<class I, class T>
 void coo_tocsc(const I n_row,
-      	       const I n_col,
-      	       const I nnz,
-      	       const I Ai[],
-      	       const I Aj[],
-      	       const T Ax[],
-      	             I Bp[],
-      	             I Bi[],
-      	             T Bx[])
-{ coo_tocsr<I,T>(n_col, n_row, nnz, Aj, Ai, Ax, Bp, Bi, Bx); }
+               const I n_col,
+               const I nnz,
+               const I Ai[],
+               const I Aj[],
+               const T Ax[],
+               I Bp[],
+               I Bi[],
+               T Bx[])
+{ coo_tocsr<I, T>(n_col, n_row, nnz, Aj, Ai, Ax, Bp, Bi, Bx); }
 
 #endif

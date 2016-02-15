@@ -22,55 +22,55 @@
 #include "Solution.hpp"
 
 enum objectivesense {
-	MINIMIZE,
-	MAXIMIZE
+  MINIMIZE,
+  MAXIMIZE
 };
 typedef objectivesense Sense;
 
 // Top Level Entry point
 /**
  * Arguments:
- *	Sense: MAXIMIZE or MINIMIZE
- *  
- * 	Objective: LinOp expression tree representing the OBJECTIVE
- * 
+ *  Sense: MAXIMIZE or MINIMIZE
+ *
+ *  Objective: LinOp expression tree representing the OBJECTIVE
+ *
  *  Constraints: List of LinOp expression tree for each constraint
- *		Constraint expression trees are represented as LinOp nodes.
+ *    Constraint expression trees are represented as LinOp nodes.
  *
- *		Constraint TYPE: 	EQ, 		// equality constraint
- *											LEQ, 		// non-negative orthant
- *											SOC, 		// second-order cone
- *											EXP, 		// exponential cone
- *											SDP, 		// semi-definite cone **** NOT CURRENTLY SUPPORTED
+ *    Constraint TYPE:  EQ,     // equality constraint
+ *                      LEQ,    // non-negative orthant
+ *                      SOC,    // second-order cone
+ *                      EXP,    // exponential cone
+ *                      SDP,    // semi-definite cone **** NOT CURRENTLY SUPPORTED
  *
- *   	SIZE: constraint SIZE
- * 
- * 	 	DENSE_DATA: constraint ID
+ *    SIZE: constraint SIZE
  *
- *		ARGUMENTS: type EQ, LEQ: ARGUMENTS[0] is the linOp expression tree
+ *    DENSE_DATA: constraint ID
  *
- * 							 type SOC:  	ARGUMENTS[0] is the expression tree for T
- *												  	ARGUMENTS[1:N] are expression trees for X_ELEMS
+ *    ARGUMENTS: type EQ, LEQ: ARGUMENTS[0] is the linOp expression tree
  *
- *							 type EXP: 		ARGUMENTS[0] expression tree for X
- *														ARGUMENTS[1] expression tree for Y
- *														ARGUMENTS[2] expression tree for Z
+ *               type SOC:    ARGUMENTS[0] is the expression tree for T
+ *                            ARGUMENTS[1:N] are expression trees for X_ELEMS
+ *
+ *               type EXP:    ARGUMENTS[0] expression tree for X
+ *                            ARGUMENTS[1] expression tree for Y
+ *                            ARGUMENTS[2] expression tree for Z
  *
  *
- * 	Solver options:
- * 		feastol: the tolerance on the primal and dual residual
- * 		abstol: the absolute tolerance on the duality gap
- * 		reltol: the relative tolerance on the duality gap
- * 		feastol_inacc: the tolerance on the primal and dual residual if reduced precisions
- * 		abstol_inacc: the absolute tolerance on the duality gap if reduced precision
- * 		reltol_inacc: the relative tolerance on the duality gap if reduced precision
- * 		max_iters: the maximum numer of iterations
- * 		verbose: signals to print on non zero value
+ *  Solver options:
+ *    feastol: the tolerance on the primal and dual residual
+ *    abstol: the absolute tolerance on the duality gap
+ *    reltol: the relative tolerance on the duality gap
+ *    feastol_inacc: the tolerance on the primal and dual residual if reduced precisions
+ *    abstol_inacc: the absolute tolerance on the duality gap if reduced precision
+ *    reltol_inacc: the relative tolerance on the duality gap if reduced precision
+ *    max_iters: the maximum numer of iterations
+ *    verbose: signals to print on non zero value
  *
  *
  * Returns:
- * 	SOLUTION objective for the solved problem (documented in Solution.hpp)
+ *  SOLUTION objective for the solved problem (documented in Solution.hpp)
  */
 Solution solve(Sense sense, LinOp* objective, std::vector< LinOp* > constraints,
-							 std::map<std::string, double> solver_options);
+               std::map<std::string, double> solver_options);
 #endif
