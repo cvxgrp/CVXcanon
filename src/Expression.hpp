@@ -5,6 +5,13 @@
 
 #include <vector>
 
+class Size {
+ public:
+  Size() {}
+  Size(std::vector<int> d) : dims(d) {}
+  std::vector<int> dims;
+};
+
 // Expression trees
 class Expression {
  public:
@@ -16,6 +23,7 @@ class Expression {
     NEG,
 
     // Non-linear functions
+    ABS,
     P_NORM,
     QUAD_OVER_LIN,
 
@@ -29,8 +37,11 @@ class Expression {
   };
   Type type;
 
-  std::vector<Expression*> args;
-  // TODO(mwytock): Other attributes
+  std::vector<Expression> args;
+  Size size;
+
+  // P_NORM
+  int p;
 };
 
 class Problem {
@@ -40,8 +51,8 @@ class Problem {
     MINIMIZE,
   };
   Sense sense;
-  Expression* objective;
-  std::vector<Expression*> constraints;
+  Expression objective;
+  std::vector<Expression> constraints;
 };
 
 #endif  // EXPRESSION_H

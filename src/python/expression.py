@@ -1,8 +1,4 @@
-"""Handles translating CVXPY expressions to CVXcanon expressions.
-
-NOTE(mwytock): SWIG wrapped C++ objects dont handle reference counting, hence
-the need for expr_refs lists.
-"""
+"""Handles translating CVXPY expressions to CVXcanon expressions."""
 
 import CVXcanon
 import cvxpy
@@ -32,18 +28,17 @@ EXPRESSION_TYPE_MAP = {
     cvxpy.expressions.variables.variable.Variable: CVXcanon.Expression.VAR,
 }
 
-def convert_expression(cvxpy_expr, tmp):
+def convert_expression(cvxpy_expr):
     expr = CVXcanon.Expression()
-    tmp.append(expr)
     expr.type = EXPRESSION_TYPE_MAP[type(cvxpy_expr)]
     for arg in cvxpy_expr.args:
-        expr.args.push_back(convert_expression(arg, tmp))
+        expr.args.push_back(convert_expression(arg))
     return expr
 
-def convert_problem(cvxpy_problem, tmp):
+def convert_problem(cvxpy_problem):
     problem = CVXcanon.Problem()
     problem.sense = SENSE_MAP[type(cvxpy_problem.objective)]
-    problem.objective = convert_expression(cvxpy_problem.objective.args[0], tmp)
+    problem.objective = convert_expression(cvxpy_problem.objective.args[0])
     for cvxpy_constr in cvxpy_problem.constraints:
-        problem.constraints.push_back(convert_expression(cvxpy_constr, tmp))
+        problem.constraints.push_back(convert_expression(cvxpy_constr))
     return problem

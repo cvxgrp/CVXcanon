@@ -230,7 +230,6 @@ def build_lin_op_tree(root_linPy, tmp):
     return root_linC
 
 def solve(cvxpy_problem, **kwargs):
-    tmp = []
-    problem = expression.convert_problem(cvxpy_problem, tmp)
+    problem = expression.convert_problem(cvxpy_problem)
     options = CVXcanon.SolverOptions()
     return CVXcanon.solve(problem, options)

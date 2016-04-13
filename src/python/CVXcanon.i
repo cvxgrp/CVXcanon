@@ -54,7 +54,7 @@ namespace std {
    %template(DoubleVector2D) vector< vector<double> >;
    %template(IntIntMap) map<int, int>;
    %template(LinOpVector) vector< LinOp * >;
-   %template(ExpressionVector) vector<Expression*>;
+   %template(ExpressionVector) vector<Expression>;
 }
 
 /* Wrapper for entry point into CVXCanon Library */

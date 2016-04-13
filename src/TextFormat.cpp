@@ -28,7 +28,7 @@ std::string format_expression(const Expression& expr) {
     retval += "(";
     for (int i = 0; i < expr.args.size(); i++) {
       if (i != 0) retval += ", ";
-      retval += format_expression(*expr.args[i]);
+      retval += format_expression(expr.args[i]);
     }
     retval += ")";
   }
@@ -39,12 +39,12 @@ std::string format_problem(const Problem& problem) {
   std::string retval;
   retval += kSenseNames[problem.sense];
   retval += "   ";
-  retval += format_expression(*problem.objective);
+  retval += format_expression(problem.objective);
   if (!problem.constraints.empty()) {
     retval += "\nsubject to ";
     for (int i = 0; i < problem.constraints.size(); i++) {
       if (i != 0) retval += "\n           ";
-      retval += format_expression(*problem.constraints[i]);
+      retval += format_expression(problem.constraints[i]);
     }
   }
   return retval;

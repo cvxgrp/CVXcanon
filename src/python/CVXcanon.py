@@ -154,6 +154,28 @@ class SwigPyIterator(_object):
 SwigPyIterator_swigregister = _CVXcanon.SwigPyIterator_swigregister
 SwigPyIterator_swigregister(SwigPyIterator)
 
+class Size(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Size, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, Size, name)
+    __repr__ = _swig_repr
+
+    def __init__(self, *args):
+        this = _CVXcanon.new_Size(*args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_setmethods__["dims"] = _CVXcanon.Size_dims_set
+    __swig_getmethods__["dims"] = _CVXcanon.Size_dims_get
+    if _newclass:
+        dims = _swig_property(_CVXcanon.Size_dims_get, _CVXcanon.Size_dims_set)
+    __swig_destroy__ = _CVXcanon.delete_Size
+    __del__ = lambda self: None
+Size_swigregister = _CVXcanon.Size_swigregister
+Size_swigregister(Size)
+
 class Expression(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Expression, name, value)
@@ -164,6 +186,7 @@ class Expression(_object):
     INDEX = _CVXcanon.Expression_INDEX
     MUL = _CVXcanon.Expression_MUL
     NEG = _CVXcanon.Expression_NEG
+    ABS = _CVXcanon.Expression_ABS
     P_NORM = _CVXcanon.Expression_P_NORM
     QUAD_OVER_LIN = _CVXcanon.Expression_QUAD_OVER_LIN
     EQ = _CVXcanon.Expression_EQ
@@ -178,6 +201,14 @@ class Expression(_object):
     __swig_getmethods__["args"] = _CVXcanon.Expression_args_get
     if _newclass:
         args = _swig_property(_CVXcanon.Expression_args_get, _CVXcanon.Expression_args_set)
+    __swig_setmethods__["size"] = _CVXcanon.Expression_size_set
+    __swig_getmethods__["size"] = _CVXcanon.Expression_size_get
+    if _newclass:
+        size = _swig_property(_CVXcanon.Expression_size_get, _CVXcanon.Expression_size_set)
+    __swig_setmethods__["p"] = _CVXcanon.Expression_p_set
+    __swig_getmethods__["p"] = _CVXcanon.Expression_p_get
+    if _newclass:
+        p = _swig_property(_CVXcanon.Expression_p_get, _CVXcanon.Expression_p_set)
 
     def __init__(self):
         this = _CVXcanon.new_Expression()

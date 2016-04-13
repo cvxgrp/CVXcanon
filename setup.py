@@ -5,12 +5,13 @@ import numpy
 import os
 
 canon = Extension(
-    '_CVXcanon',
-    language = "c++",
-    extra_compile_args = ["-std=c++14"],
+    name='_CVXcanon',
+    language="c++",
+    extra_compile_args=['-std=c++14'],
     sources=[
         'src/CVXcanon.cpp',
         'src/LinOpOperations.cpp',
+        'src/LinearConeTransform.cpp',
         'src/TextFormat.cpp',
         'src/python/CVXcanon_wrap.cpp'
     ],

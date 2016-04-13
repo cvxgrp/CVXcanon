@@ -3015,39 +3015,40 @@ SWIG_Python_NonDynamicSetAttr(PyObject *obj, PyObject *name, PyObject *value) {
 #define SWIGTYPE_p_Matrix swig_types[3]
 #define SWIGTYPE_p_Problem swig_types[4]
 #define SWIGTYPE_p_ProblemData swig_types[5]
-#define SWIGTYPE_p_Solution swig_types[6]
-#define SWIGTYPE_p_SolverOptions swig_types[7]
-#define SWIGTYPE_p_allocator_type swig_types[8]
-#define SWIGTYPE_p_char swig_types[9]
-#define SWIGTYPE_p_const_reference swig_types[10]
-#define SWIGTYPE_p_difference_type swig_types[11]
-#define SWIGTYPE_p_double swig_types[12]
-#define SWIGTYPE_p_key_type swig_types[13]
-#define SWIGTYPE_p_mapped_type swig_types[14]
-#define SWIGTYPE_p_operatortype swig_types[15]
-#define SWIGTYPE_p_p_PyObject swig_types[16]
-#define SWIGTYPE_p_reference swig_types[17]
-#define SWIGTYPE_p_size_type swig_types[18]
-#define SWIGTYPE_p_std__allocatorT_Expression_p_t swig_types[19]
-#define SWIGTYPE_p_std__allocatorT_LinOp_p_t swig_types[20]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[21]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[22]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_int_const_int_t_t swig_types[23]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[24]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[25]
-#define SWIGTYPE_p_std__invalid_argument swig_types[26]
-#define SWIGTYPE_p_std__lessT_int_t swig_types[27]
-#define SWIGTYPE_p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t swig_types[28]
-#define SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t swig_types[29]
-#define SWIGTYPE_p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t swig_types[30]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[31]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[32]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[33]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[34]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[35]
-#define SWIGTYPE_p_value_type swig_types[36]
-static swig_type_info *swig_types[38];
-static swig_module_info swig_module = {swig_types, 37, 0, 0, 0, 0};
+#define SWIGTYPE_p_Size swig_types[6]
+#define SWIGTYPE_p_Solution swig_types[7]
+#define SWIGTYPE_p_SolverOptions swig_types[8]
+#define SWIGTYPE_p_allocator_type swig_types[9]
+#define SWIGTYPE_p_char swig_types[10]
+#define SWIGTYPE_p_const_reference swig_types[11]
+#define SWIGTYPE_p_difference_type swig_types[12]
+#define SWIGTYPE_p_double swig_types[13]
+#define SWIGTYPE_p_key_type swig_types[14]
+#define SWIGTYPE_p_mapped_type swig_types[15]
+#define SWIGTYPE_p_operatortype swig_types[16]
+#define SWIGTYPE_p_p_PyObject swig_types[17]
+#define SWIGTYPE_p_reference swig_types[18]
+#define SWIGTYPE_p_size_type swig_types[19]
+#define SWIGTYPE_p_std__allocatorT_Expression_t swig_types[20]
+#define SWIGTYPE_p_std__allocatorT_LinOp_p_t swig_types[21]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[22]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[23]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_int_const_int_t_t swig_types[24]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[25]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[26]
+#define SWIGTYPE_p_std__invalid_argument swig_types[27]
+#define SWIGTYPE_p_std__lessT_int_t swig_types[28]
+#define SWIGTYPE_p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t swig_types[29]
+#define SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t swig_types[30]
+#define SWIGTYPE_p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t swig_types[31]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[32]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[33]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[34]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[35]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[36]
+#define SWIGTYPE_p_value_type swig_types[37]
+static swig_type_info *swig_types[39];
+static swig_module_info swig_module = {swig_types, 38, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -5689,105 +5690,105 @@ SWIGINTERN void std_vector_Sl_LinOp_Sm__Sg__insert__SWIG_1(std::vector< LinOp * 
 
 
       namespace swig {
-	template <>  struct traits<std::vector< Expression*, std::allocator< Expression * > > > {
-	  typedef value_category category;
+	template <>  struct traits<std::vector< Expression, std::allocator< Expression > > > {
+	  typedef pointer_category category;
 	  static const char* type_name() {
-	    return "std::vector<" "Expression" " *," "std::allocator< Expression * >" " >";
+	    return "std::vector<" "Expression" "," "std::allocator< Expression >" " >";
 	  }
 	};
       }
     
-SWIGINTERN swig::SwigPyIterator *std_vector_Sl_Expression_Sm__Sg__iterator(std::vector< Expression * > *self,PyObject **PYTHON_SELF){
+SWIGINTERN swig::SwigPyIterator *std_vector_Sl_Expression_Sg__iterator(std::vector< Expression > *self,PyObject **PYTHON_SELF){
       return swig::make_output_iterator(self->begin(), self->begin(), self->end(), *PYTHON_SELF);
     }
-SWIGINTERN bool std_vector_Sl_Expression_Sm__Sg____nonzero__(std::vector< Expression * > const *self){
+SWIGINTERN bool std_vector_Sl_Expression_Sg____nonzero__(std::vector< Expression > const *self){
       return !(self->empty());
     }
-SWIGINTERN bool std_vector_Sl_Expression_Sm__Sg____bool__(std::vector< Expression * > const *self){
+SWIGINTERN bool std_vector_Sl_Expression_Sg____bool__(std::vector< Expression > const *self){
       return !(self->empty());
     }
-SWIGINTERN std::vector< Expression * >::size_type std_vector_Sl_Expression_Sm__Sg____len__(std::vector< Expression * > const *self){
+SWIGINTERN std::vector< Expression >::size_type std_vector_Sl_Expression_Sg____len__(std::vector< Expression > const *self){
       return self->size();
     }
-SWIGINTERN std::vector< Expression *,std::allocator< Expression * > > *std_vector_Sl_Expression_Sm__Sg____getslice__(std::vector< Expression * > *self,std::vector< Expression * >::difference_type i,std::vector< Expression * >::difference_type j){
+SWIGINTERN std::vector< Expression,std::allocator< Expression > > *std_vector_Sl_Expression_Sg____getslice__(std::vector< Expression > *self,std::vector< Expression >::difference_type i,std::vector< Expression >::difference_type j){
       return swig::getslice(self, i, j, 1);
     }
-SWIGINTERN void std_vector_Sl_Expression_Sm__Sg____setslice____SWIG_0(std::vector< Expression * > *self,std::vector< Expression * >::difference_type i,std::vector< Expression * >::difference_type j){
-      swig::setslice(self, i, j, 1, std::vector< Expression*,std::allocator< Expression * > >());
+SWIGINTERN void std_vector_Sl_Expression_Sg____setslice____SWIG_0(std::vector< Expression > *self,std::vector< Expression >::difference_type i,std::vector< Expression >::difference_type j){
+      swig::setslice(self, i, j, 1, std::vector< Expression,std::allocator< Expression > >());
     }
-SWIGINTERN void std_vector_Sl_Expression_Sm__Sg____setslice____SWIG_1(std::vector< Expression * > *self,std::vector< Expression * >::difference_type i,std::vector< Expression * >::difference_type j,std::vector< Expression *,std::allocator< Expression * > > const &v){
+SWIGINTERN void std_vector_Sl_Expression_Sg____setslice____SWIG_1(std::vector< Expression > *self,std::vector< Expression >::difference_type i,std::vector< Expression >::difference_type j,std::vector< Expression,std::allocator< Expression > > const &v){
       swig::setslice(self, i, j, 1, v);
     }
-SWIGINTERN void std_vector_Sl_Expression_Sm__Sg____delslice__(std::vector< Expression * > *self,std::vector< Expression * >::difference_type i,std::vector< Expression * >::difference_type j){
+SWIGINTERN void std_vector_Sl_Expression_Sg____delslice__(std::vector< Expression > *self,std::vector< Expression >::difference_type i,std::vector< Expression >::difference_type j){
       swig::delslice(self, i, j, 1);
     }
-SWIGINTERN void std_vector_Sl_Expression_Sm__Sg____delitem____SWIG_0(std::vector< Expression * > *self,std::vector< Expression * >::difference_type i){
+SWIGINTERN void std_vector_Sl_Expression_Sg____delitem____SWIG_0(std::vector< Expression > *self,std::vector< Expression >::difference_type i){
       swig::erase(self, swig::getpos(self, i));
     }
-SWIGINTERN std::vector< Expression *,std::allocator< Expression * > > *std_vector_Sl_Expression_Sm__Sg____getitem____SWIG_0(std::vector< Expression * > *self,PySliceObject *slice){
+SWIGINTERN std::vector< Expression,std::allocator< Expression > > *std_vector_Sl_Expression_Sg____getitem____SWIG_0(std::vector< Expression > *self,PySliceObject *slice){
       Py_ssize_t i, j, step;
       if( !PySlice_Check(slice) ) {
         SWIG_Error(SWIG_TypeError, "Slice object expected.");
         return NULL;
       }
       PySlice_GetIndices(SWIGPY_SLICE_ARG(slice), (Py_ssize_t)self->size(), &i, &j, &step);
-      std::vector< Expression*,std::allocator< Expression * > >::difference_type id = i;
-      std::vector< Expression*,std::allocator< Expression * > >::difference_type jd = j;
+      std::vector< Expression,std::allocator< Expression > >::difference_type id = i;
+      std::vector< Expression,std::allocator< Expression > >::difference_type jd = j;
       return swig::getslice(self, id, jd, step);
     }
-SWIGINTERN void std_vector_Sl_Expression_Sm__Sg____setitem____SWIG_0(std::vector< Expression * > *self,PySliceObject *slice,std::vector< Expression *,std::allocator< Expression * > > const &v){
+SWIGINTERN void std_vector_Sl_Expression_Sg____setitem____SWIG_0(std::vector< Expression > *self,PySliceObject *slice,std::vector< Expression,std::allocator< Expression > > const &v){
       Py_ssize_t i, j, step;
       if( !PySlice_Check(slice) ) {
         SWIG_Error(SWIG_TypeError, "Slice object expected.");
         return;
       }
       PySlice_GetIndices(SWIGPY_SLICE_ARG(slice), (Py_ssize_t)self->size(), &i, &j, &step);
-      std::vector< Expression*,std::allocator< Expression * > >::difference_type id = i;
-      std::vector< Expression*,std::allocator< Expression * > >::difference_type jd = j;
+      std::vector< Expression,std::allocator< Expression > >::difference_type id = i;
+      std::vector< Expression,std::allocator< Expression > >::difference_type jd = j;
       swig::setslice(self, id, jd, step, v);
     }
-SWIGINTERN void std_vector_Sl_Expression_Sm__Sg____setitem____SWIG_1(std::vector< Expression * > *self,PySliceObject *slice){
+SWIGINTERN void std_vector_Sl_Expression_Sg____setitem____SWIG_1(std::vector< Expression > *self,PySliceObject *slice){
       Py_ssize_t i, j, step;
       if( !PySlice_Check(slice) ) {
         SWIG_Error(SWIG_TypeError, "Slice object expected.");
         return;
       }
       PySlice_GetIndices(SWIGPY_SLICE_ARG(slice), (Py_ssize_t)self->size(), &i, &j, &step);
-      std::vector< Expression*,std::allocator< Expression * > >::difference_type id = i;
-      std::vector< Expression*,std::allocator< Expression * > >::difference_type jd = j;
+      std::vector< Expression,std::allocator< Expression > >::difference_type id = i;
+      std::vector< Expression,std::allocator< Expression > >::difference_type jd = j;
       swig::delslice(self, id, jd, step);
     }
-SWIGINTERN void std_vector_Sl_Expression_Sm__Sg____delitem____SWIG_1(std::vector< Expression * > *self,PySliceObject *slice){
+SWIGINTERN void std_vector_Sl_Expression_Sg____delitem____SWIG_1(std::vector< Expression > *self,PySliceObject *slice){
       Py_ssize_t i, j, step;
       if( !PySlice_Check(slice) ) {
         SWIG_Error(SWIG_TypeError, "Slice object expected.");
         return;
       }
       PySlice_GetIndices(SWIGPY_SLICE_ARG(slice), (Py_ssize_t)self->size(), &i, &j, &step);
-      std::vector< Expression*,std::allocator< Expression * > >::difference_type id = i;
-      std::vector< Expression*,std::allocator< Expression * > >::difference_type jd = j;
+      std::vector< Expression,std::allocator< Expression > >::difference_type id = i;
+      std::vector< Expression,std::allocator< Expression > >::difference_type jd = j;
       swig::delslice(self, id, jd, step);
     }
-SWIGINTERN std::vector< Expression * >::value_type std_vector_Sl_Expression_Sm__Sg____getitem____SWIG_1(std::vector< Expression * > *self,std::vector< Expression * >::difference_type i){
+SWIGINTERN std::vector< Expression >::value_type const &std_vector_Sl_Expression_Sg____getitem____SWIG_1(std::vector< Expression > const *self,std::vector< Expression >::difference_type i){
       return *(swig::cgetpos(self, i));
     }
-SWIGINTERN void std_vector_Sl_Expression_Sm__Sg____setitem____SWIG_2(std::vector< Expression * > *self,std::vector< Expression * >::difference_type i,std::vector< Expression * >::value_type x){
+SWIGINTERN void std_vector_Sl_Expression_Sg____setitem____SWIG_2(std::vector< Expression > *self,std::vector< Expression >::difference_type i,std::vector< Expression >::value_type const &x){
       *(swig::getpos(self,i)) = x;
     }
-SWIGINTERN std::vector< Expression * >::value_type std_vector_Sl_Expression_Sm__Sg__pop(std::vector< Expression * > *self){
+SWIGINTERN std::vector< Expression >::value_type std_vector_Sl_Expression_Sg__pop(std::vector< Expression > *self){
       if (self->size() == 0)
 	throw std::out_of_range("pop from empty container");
-      std::vector< Expression*,std::allocator< Expression * > >::value_type x = self->back();
+      std::vector< Expression,std::allocator< Expression > >::value_type x = self->back();
       self->pop_back();
       return x;
     }
-SWIGINTERN void std_vector_Sl_Expression_Sm__Sg__append(std::vector< Expression * > *self,std::vector< Expression * >::value_type x){
+SWIGINTERN void std_vector_Sl_Expression_Sg__append(std::vector< Expression > *self,std::vector< Expression >::value_type const &x){
       self->push_back(x);
     }
-SWIGINTERN std::vector< Expression * >::iterator std_vector_Sl_Expression_Sm__Sg__erase__SWIG_0(std::vector< Expression * > *self,std::vector< Expression * >::iterator pos){ return self->erase(pos); }
-SWIGINTERN std::vector< Expression * >::iterator std_vector_Sl_Expression_Sm__Sg__erase__SWIG_1(std::vector< Expression * > *self,std::vector< Expression * >::iterator first,std::vector< Expression * >::iterator last){ return self->erase(first, last); }
-SWIGINTERN std::vector< Expression * >::iterator std_vector_Sl_Expression_Sm__Sg__insert__SWIG_0(std::vector< Expression * > *self,std::vector< Expression * >::iterator pos,std::vector< Expression * >::value_type x){ return self->insert(pos, x); }
-SWIGINTERN void std_vector_Sl_Expression_Sm__Sg__insert__SWIG_1(std::vector< Expression * > *self,std::vector< Expression * >::iterator pos,std::vector< Expression * >::size_type n,std::vector< Expression * >::value_type x){ self->insert(pos, n, x); }
+SWIGINTERN std::vector< Expression >::iterator std_vector_Sl_Expression_Sg__erase__SWIG_0(std::vector< Expression > *self,std::vector< Expression >::iterator pos){ return self->erase(pos); }
+SWIGINTERN std::vector< Expression >::iterator std_vector_Sl_Expression_Sg__erase__SWIG_1(std::vector< Expression > *self,std::vector< Expression >::iterator first,std::vector< Expression >::iterator last){ return self->erase(first, last); }
+SWIGINTERN std::vector< Expression >::iterator std_vector_Sl_Expression_Sg__insert__SWIG_0(std::vector< Expression > *self,std::vector< Expression >::iterator pos,std::vector< Expression >::value_type const &x){ return self->insert(pos, x); }
+SWIGINTERN void std_vector_Sl_Expression_Sg__insert__SWIG_1(std::vector< Expression > *self,std::vector< Expression >::iterator pos,std::vector< Expression >::size_type n,std::vector< Expression >::value_type const &x){ self->insert(pos, n, x); }
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -6641,6 +6642,162 @@ SWIGINTERN PyObject *SwigPyIterator_swigregister(PyObject *SWIGUNUSEDPARM(self),
   return SWIG_Py_Void();
 }
 
+SWIGINTERN PyObject *_wrap_new_Size__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Size *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_Size")) SWIG_fail;
+  result = (Size *)new Size();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Size, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_Size__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  std::vector< int,std::allocator< int > > arg1 ;
+  void *argp1 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  Size *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:new_Size",&obj0)) SWIG_fail;
+  {
+    res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t,  0  | 0);
+    if (!SWIG_IsOK(res1)) {
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_Size" "', argument " "1"" of type '" "std::vector< int,std::allocator< int > >""'"); 
+    }  
+    if (!argp1) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Size" "', argument " "1"" of type '" "std::vector< int,std::allocator< int > >""'");
+    } else {
+      std::vector< int,std::allocator< int > > * temp = reinterpret_cast< std::vector< int,std::allocator< int > > * >(argp1);
+      arg1 = *temp;
+      if (SWIG_IsNewObj(res1)) delete temp;
+    }
+  }
+  result = (Size *)new Size(arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Size, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_Size(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  Py_ssize_t ii;
+  
+  if (!PyTuple_Check(args)) SWIG_fail;
+  argc = args ? PyObject_Length(args) : 0;
+  for (ii = 0; (ii < 1) && (ii < argc); ii++) {
+    argv[ii] = PyTuple_GET_ITEM(args,ii);
+  }
+  if (argc == 0) {
+    return _wrap_new_Size__SWIG_0(self, args);
+  }
+  if (argc == 1) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_Size__SWIG_1(self, args);
+    }
+  }
+  
+fail:
+  SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'new_Size'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Size::Size()\n"
+    "    Size::Size(std::vector< int,std::allocator< int > >)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_Size_dims_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Size *arg1 = (Size *) 0 ;
+  std::vector< int,std::allocator< int > > *arg2 = (std::vector< int,std::allocator< int > > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Size_dims_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Size, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Size_dims_set" "', argument " "1"" of type '" "Size *""'"); 
+  }
+  arg1 = reinterpret_cast< Size * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Size_dims_set" "', argument " "2"" of type '" "std::vector< int,std::allocator< int > > *""'"); 
+  }
+  arg2 = reinterpret_cast< std::vector< int,std::allocator< int > > * >(argp2);
+  if (arg1) (arg1)->dims = *arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Size_dims_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Size *arg1 = (Size *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::vector< int,std::allocator< int > > *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Size_dims_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Size, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Size_dims_get" "', argument " "1"" of type '" "Size *""'"); 
+  }
+  arg1 = reinterpret_cast< Size * >(argp1);
+  result = (std::vector< int,std::allocator< int > > *)& ((arg1)->dims);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_Size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Size *arg1 = (Size *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_Size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Size, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Size" "', argument " "1"" of type '" "Size *""'"); 
+  }
+  arg1 = reinterpret_cast< Size * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *Size_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_Size, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
 SWIGINTERN PyObject *_wrap_Expression_type_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Expression *arg1 = (Expression *) 0 ;
@@ -6696,7 +6853,7 @@ fail:
 SWIGINTERN PyObject *_wrap_Expression_args_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Expression *arg1 = (Expression *) 0 ;
-  std::vector< Expression *,std::allocator< Expression * > > *arg2 = (std::vector< Expression *,std::allocator< Expression * > > *) 0 ;
+  std::vector< Expression,std::allocator< Expression > > *arg2 = (std::vector< Expression,std::allocator< Expression > > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -6710,11 +6867,11 @@ SWIGINTERN PyObject *_wrap_Expression_args_set(PyObject *SWIGUNUSEDPARM(self), P
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Expression_args_set" "', argument " "1"" of type '" "Expression *""'"); 
   }
   arg1 = reinterpret_cast< Expression * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Expression_args_set" "', argument " "2"" of type '" "std::vector< Expression *,std::allocator< Expression * > > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Expression_args_set" "', argument " "2"" of type '" "std::vector< Expression,std::allocator< Expression > > *""'"); 
   }
-  arg2 = reinterpret_cast< std::vector< Expression *,std::allocator< Expression * > > * >(argp2);
+  arg2 = reinterpret_cast< std::vector< Expression,std::allocator< Expression > > * >(argp2);
   if (arg1) (arg1)->args = *arg2;
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -6729,7 +6886,7 @@ SWIGINTERN PyObject *_wrap_Expression_args_get(PyObject *SWIGUNUSEDPARM(self), P
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  std::vector< Expression *,std::allocator< Expression * > > *result = 0 ;
+  std::vector< Expression,std::allocator< Expression > > *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:Expression_args_get",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Expression, 0 |  0 );
@@ -6737,8 +6894,112 @@ SWIGINTERN PyObject *_wrap_Expression_args_get(PyObject *SWIGUNUSEDPARM(self), P
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Expression_args_get" "', argument " "1"" of type '" "Expression *""'"); 
   }
   arg1 = reinterpret_cast< Expression * >(argp1);
-  result = (std::vector< Expression *,std::allocator< Expression * > > *)& ((arg1)->args);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  result = (std::vector< Expression,std::allocator< Expression > > *)& ((arg1)->args);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Expression_size_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Expression *arg1 = (Expression *) 0 ;
+  Size *arg2 = (Size *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Expression_size_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Expression, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Expression_size_set" "', argument " "1"" of type '" "Expression *""'"); 
+  }
+  arg1 = reinterpret_cast< Expression * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Size, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Expression_size_set" "', argument " "2"" of type '" "Size *""'"); 
+  }
+  arg2 = reinterpret_cast< Size * >(argp2);
+  if (arg1) (arg1)->size = *arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Expression_size_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Expression *arg1 = (Expression *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  Size *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Expression_size_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Expression, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Expression_size_get" "', argument " "1"" of type '" "Expression *""'"); 
+  }
+  arg1 = reinterpret_cast< Expression * >(argp1);
+  result = (Size *)& ((arg1)->size);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Size, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Expression_p_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Expression *arg1 = (Expression *) 0 ;
+  int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Expression_p_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Expression, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Expression_p_set" "', argument " "1"" of type '" "Expression *""'"); 
+  }
+  arg1 = reinterpret_cast< Expression * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Expression_p_set" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  if (arg1) (arg1)->p = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Expression_p_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Expression *arg1 = (Expression *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Expression_p_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Expression, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Expression_p_get" "', argument " "1"" of type '" "Expression *""'"); 
+  }
+  arg1 = reinterpret_cast< Expression * >(argp1);
+  result = (int) ((arg1)->p);
+  resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
   return NULL;
@@ -6855,12 +7116,12 @@ SWIGINTERN PyObject *_wrap_Problem_objective_set(PyObject *SWIGUNUSEDPARM(self),
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Problem_objective_set" "', argument " "1"" of type '" "Problem *""'"); 
   }
   arg1 = reinterpret_cast< Problem * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Expression, SWIG_POINTER_DISOWN |  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Expression, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
     SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Problem_objective_set" "', argument " "2"" of type '" "Expression *""'"); 
   }
   arg2 = reinterpret_cast< Expression * >(argp2);
-  if (arg1) (arg1)->objective = arg2;
+  if (arg1) (arg1)->objective = *arg2;
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -6882,7 +7143,7 @@ SWIGINTERN PyObject *_wrap_Problem_objective_get(PyObject *SWIGUNUSEDPARM(self),
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Problem_objective_get" "', argument " "1"" of type '" "Problem *""'"); 
   }
   arg1 = reinterpret_cast< Problem * >(argp1);
-  result = (Expression *) ((arg1)->objective);
+  result = (Expression *)& ((arg1)->objective);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Expression, 0 |  0 );
   return resultobj;
 fail:
@@ -6893,7 +7154,7 @@ fail:
 SWIGINTERN PyObject *_wrap_Problem_constraints_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Problem *arg1 = (Problem *) 0 ;
-  std::vector< Expression *,std::allocator< Expression * > > *arg2 = (std::vector< Expression *,std::allocator< Expression * > > *) 0 ;
+  std::vector< Expression,std::allocator< Expression > > *arg2 = (std::vector< Expression,std::allocator< Expression > > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -6907,11 +7168,11 @@ SWIGINTERN PyObject *_wrap_Problem_constraints_set(PyObject *SWIGUNUSEDPARM(self
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Problem_constraints_set" "', argument " "1"" of type '" "Problem *""'"); 
   }
   arg1 = reinterpret_cast< Problem * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Problem_constraints_set" "', argument " "2"" of type '" "std::vector< Expression *,std::allocator< Expression * > > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Problem_constraints_set" "', argument " "2"" of type '" "std::vector< Expression,std::allocator< Expression > > *""'"); 
   }
-  arg2 = reinterpret_cast< std::vector< Expression *,std::allocator< Expression * > > * >(argp2);
+  arg2 = reinterpret_cast< std::vector< Expression,std::allocator< Expression > > * >(argp2);
   if (arg1) (arg1)->constraints = *arg2;
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -6926,7 +7187,7 @@ SWIGINTERN PyObject *_wrap_Problem_constraints_get(PyObject *SWIGUNUSEDPARM(self
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  std::vector< Expression *,std::allocator< Expression * > > *result = 0 ;
+  std::vector< Expression,std::allocator< Expression > > *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:Problem_constraints_get",&obj0)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Problem, 0 |  0 );
@@ -6934,8 +7195,8 @@ SWIGINTERN PyObject *_wrap_Problem_constraints_get(PyObject *SWIGUNUSEDPARM(self
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Problem_constraints_get" "', argument " "1"" of type '" "Problem *""'"); 
   }
   arg1 = reinterpret_cast< Problem * >(argp1);
-  result = (std::vector< Expression *,std::allocator< Expression * > > *)& ((arg1)->constraints);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  result = (std::vector< Expression,std::allocator< Expression > > *)& ((arg1)->constraints);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -19245,7 +19506,7 @@ SWIGINTERN PyObject *LinOpVector_swigregister(PyObject *SWIGUNUSEDPARM(self), Py
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_iterator(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   PyObject **arg2 = (PyObject **) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -19254,12 +19515,12 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_iterator(PyObject *SWIGUNUSEDPARM(se
   
   arg2 = &obj0;
   if (!PyArg_ParseTuple(args,(char *)"O:ExpressionVector_iterator",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_iterator" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_iterator" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
-  result = (swig::SwigPyIterator *)std_vector_Sl_Expression_Sm__Sg__iterator(arg1,arg2);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
+  result = (swig::SwigPyIterator *)std_vector_Sl_Expression_Sg__iterator(arg1,arg2);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_swig__SwigPyIterator, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
@@ -19269,19 +19530,19 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector___nonzero__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   bool result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:ExpressionVector___nonzero__",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___nonzero__" "', argument " "1"" of type '" "std::vector< Expression * > const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___nonzero__" "', argument " "1"" of type '" "std::vector< Expression > const *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
-  result = (bool)std_vector_Sl_Expression_Sm__Sg____nonzero__((std::vector< Expression * > const *)arg1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
+  result = (bool)std_vector_Sl_Expression_Sg____nonzero__((std::vector< Expression > const *)arg1);
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -19291,19 +19552,19 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector___bool__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   bool result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:ExpressionVector___bool__",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___bool__" "', argument " "1"" of type '" "std::vector< Expression * > const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___bool__" "', argument " "1"" of type '" "std::vector< Expression > const *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
-  result = (bool)std_vector_Sl_Expression_Sm__Sg____bool__((std::vector< Expression * > const *)arg1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
+  result = (bool)std_vector_Sl_Expression_Sg____bool__((std::vector< Expression > const *)arg1);
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -19313,19 +19574,19 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector___len__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  std::vector< Expression * >::size_type result;
+  std::vector< Expression >::size_type result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:ExpressionVector___len__",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___len__" "', argument " "1"" of type '" "std::vector< Expression * > const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___len__" "', argument " "1"" of type '" "std::vector< Expression > const *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
-  result = std_vector_Sl_Expression_Sm__Sg____len__((std::vector< Expression * > const *)arg1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
+  result = std_vector_Sl_Expression_Sg____len__((std::vector< Expression > const *)arg1);
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -19335,9 +19596,9 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector___getslice__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
-  std::vector< Expression * >::difference_type arg2 ;
-  std::vector< Expression * >::difference_type arg3 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
+  std::vector< Expression >::difference_type arg2 ;
+  std::vector< Expression >::difference_type arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   ptrdiff_t val2 ;
@@ -19347,26 +19608,26 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___getslice__(PyObject *SWIGUNUSEDPAR
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
-  std::vector< Expression *,std::allocator< Expression * > > *result = 0 ;
+  std::vector< Expression,std::allocator< Expression > > *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:ExpressionVector___getslice__",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___getslice__" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___getslice__" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   ecode2 = SWIG_AsVal_ptrdiff_t(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector___getslice__" "', argument " "2"" of type '" "std::vector< Expression * >::difference_type""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector___getslice__" "', argument " "2"" of type '" "std::vector< Expression >::difference_type""'");
   } 
-  arg2 = static_cast< std::vector< Expression * >::difference_type >(val2);
+  arg2 = static_cast< std::vector< Expression >::difference_type >(val2);
   ecode3 = SWIG_AsVal_ptrdiff_t(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ExpressionVector___getslice__" "', argument " "3"" of type '" "std::vector< Expression * >::difference_type""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ExpressionVector___getslice__" "', argument " "3"" of type '" "std::vector< Expression >::difference_type""'");
   } 
-  arg3 = static_cast< std::vector< Expression * >::difference_type >(val3);
+  arg3 = static_cast< std::vector< Expression >::difference_type >(val3);
   try {
-    result = (std::vector< Expression *,std::allocator< Expression * > > *)std_vector_Sl_Expression_Sm__Sg____getslice__(arg1,arg2,arg3);
+    result = (std::vector< Expression,std::allocator< Expression > > *)std_vector_Sl_Expression_Sg____getslice__(arg1,arg2,arg3);
   }
   catch(std::out_of_range &_e) {
     SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
@@ -19375,7 +19636,7 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___getslice__(PyObject *SWIGUNUSEDPAR
     SWIG_exception_fail(SWIG_ValueError, (&_e)->what());
   }
   
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -19384,9 +19645,9 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector___setslice____SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
-  std::vector< Expression * >::difference_type arg2 ;
-  std::vector< Expression * >::difference_type arg3 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
+  std::vector< Expression >::difference_type arg2 ;
+  std::vector< Expression >::difference_type arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   ptrdiff_t val2 ;
@@ -19398,23 +19659,23 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___setslice____SWIG_0(PyObject *SWIGU
   PyObject * obj2 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:ExpressionVector___setslice__",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___setslice__" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___setslice__" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   ecode2 = SWIG_AsVal_ptrdiff_t(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector___setslice__" "', argument " "2"" of type '" "std::vector< Expression * >::difference_type""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector___setslice__" "', argument " "2"" of type '" "std::vector< Expression >::difference_type""'");
   } 
-  arg2 = static_cast< std::vector< Expression * >::difference_type >(val2);
+  arg2 = static_cast< std::vector< Expression >::difference_type >(val2);
   ecode3 = SWIG_AsVal_ptrdiff_t(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ExpressionVector___setslice__" "', argument " "3"" of type '" "std::vector< Expression * >::difference_type""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ExpressionVector___setslice__" "', argument " "3"" of type '" "std::vector< Expression >::difference_type""'");
   } 
-  arg3 = static_cast< std::vector< Expression * >::difference_type >(val3);
+  arg3 = static_cast< std::vector< Expression >::difference_type >(val3);
   try {
-    std_vector_Sl_Expression_Sm__Sg____setslice____SWIG_0(arg1,arg2,arg3);
+    std_vector_Sl_Expression_Sg____setslice____SWIG_0(arg1,arg2,arg3);
   }
   catch(std::out_of_range &_e) {
     SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
@@ -19432,10 +19693,10 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector___setslice____SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
-  std::vector< Expression * >::difference_type arg2 ;
-  std::vector< Expression * >::difference_type arg3 ;
-  std::vector< Expression *,std::allocator< Expression * > > *arg4 = 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
+  std::vector< Expression >::difference_type arg2 ;
+  std::vector< Expression >::difference_type arg3 ;
+  std::vector< Expression,std::allocator< Expression > > *arg4 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   ptrdiff_t val2 ;
@@ -19449,34 +19710,34 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___setslice____SWIG_1(PyObject *SWIGU
   PyObject * obj3 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OOOO:ExpressionVector___setslice__",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___setslice__" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___setslice__" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   ecode2 = SWIG_AsVal_ptrdiff_t(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector___setslice__" "', argument " "2"" of type '" "std::vector< Expression * >::difference_type""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector___setslice__" "', argument " "2"" of type '" "std::vector< Expression >::difference_type""'");
   } 
-  arg2 = static_cast< std::vector< Expression * >::difference_type >(val2);
+  arg2 = static_cast< std::vector< Expression >::difference_type >(val2);
   ecode3 = SWIG_AsVal_ptrdiff_t(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ExpressionVector___setslice__" "', argument " "3"" of type '" "std::vector< Expression * >::difference_type""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ExpressionVector___setslice__" "', argument " "3"" of type '" "std::vector< Expression >::difference_type""'");
   } 
-  arg3 = static_cast< std::vector< Expression * >::difference_type >(val3);
+  arg3 = static_cast< std::vector< Expression >::difference_type >(val3);
   {
-    std::vector< Expression*,std::allocator< Expression * > > *ptr = (std::vector< Expression*,std::allocator< Expression * > > *)0;
+    std::vector< Expression,std::allocator< Expression > > *ptr = (std::vector< Expression,std::allocator< Expression > > *)0;
     res4 = swig::asptr(obj3, &ptr);
     if (!SWIG_IsOK(res4)) {
-      SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "ExpressionVector___setslice__" "', argument " "4"" of type '" "std::vector< Expression *,std::allocator< Expression * > > const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "ExpressionVector___setslice__" "', argument " "4"" of type '" "std::vector< Expression,std::allocator< Expression > > const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExpressionVector___setslice__" "', argument " "4"" of type '" "std::vector< Expression *,std::allocator< Expression * > > const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExpressionVector___setslice__" "', argument " "4"" of type '" "std::vector< Expression,std::allocator< Expression > > const &""'"); 
     }
     arg4 = ptr;
   }
   try {
-    std_vector_Sl_Expression_Sm__Sg____setslice____SWIG_1(arg1,arg2,arg3,(std::vector< Expression *,std::allocator< Expression * > > const &)*arg4);
+    std_vector_Sl_Expression_Sg____setslice____SWIG_1(arg1,arg2,arg3,(std::vector< Expression,std::allocator< Expression > > const &)*arg4);
   }
   catch(std::out_of_range &_e) {
     SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
@@ -19508,7 +19769,7 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___setslice__(PyObject *self, PyObjec
   }
   if (argc == 3) {
     int _v;
-    int res = swig::asptr(argv[0], (std::vector< Expression*,std::allocator< Expression * > >**)(0));
+    int res = swig::asptr(argv[0], (std::vector< Expression,std::allocator< Expression > >**)(0));
     _v = SWIG_CheckState(res);
     if (_v) {
       {
@@ -19528,7 +19789,7 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___setslice__(PyObject *self, PyObjec
   }
   if (argc == 4) {
     int _v;
-    int res = swig::asptr(argv[0], (std::vector< Expression*,std::allocator< Expression * > >**)(0));
+    int res = swig::asptr(argv[0], (std::vector< Expression,std::allocator< Expression > >**)(0));
     _v = SWIG_CheckState(res);
     if (_v) {
       {
@@ -19541,7 +19802,7 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___setslice__(PyObject *self, PyObjec
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          int res = swig::asptr(argv[3], (std::vector< Expression*,std::allocator< Expression * > >**)(0));
+          int res = swig::asptr(argv[3], (std::vector< Expression,std::allocator< Expression > >**)(0));
           _v = SWIG_CheckState(res);
           if (_v) {
             return _wrap_ExpressionVector___setslice____SWIG_1(self, args);
@@ -19554,17 +19815,17 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___setslice__(PyObject *self, PyObjec
 fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'ExpressionVector___setslice__'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    std::vector< Expression * >::__setslice__(std::vector< Expression * >::difference_type,std::vector< Expression * >::difference_type)\n"
-    "    std::vector< Expression * >::__setslice__(std::vector< Expression * >::difference_type,std::vector< Expression * >::difference_type,std::vector< Expression *,std::allocator< Expression * > > const &)\n");
+    "    std::vector< Expression >::__setslice__(std::vector< Expression >::difference_type,std::vector< Expression >::difference_type)\n"
+    "    std::vector< Expression >::__setslice__(std::vector< Expression >::difference_type,std::vector< Expression >::difference_type,std::vector< Expression,std::allocator< Expression > > const &)\n");
   return 0;
 }
 
 
 SWIGINTERN PyObject *_wrap_ExpressionVector___delslice__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
-  std::vector< Expression * >::difference_type arg2 ;
-  std::vector< Expression * >::difference_type arg3 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
+  std::vector< Expression >::difference_type arg2 ;
+  std::vector< Expression >::difference_type arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   ptrdiff_t val2 ;
@@ -19576,23 +19837,23 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___delslice__(PyObject *SWIGUNUSEDPAR
   PyObject * obj2 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:ExpressionVector___delslice__",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___delslice__" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___delslice__" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   ecode2 = SWIG_AsVal_ptrdiff_t(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector___delslice__" "', argument " "2"" of type '" "std::vector< Expression * >::difference_type""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector___delslice__" "', argument " "2"" of type '" "std::vector< Expression >::difference_type""'");
   } 
-  arg2 = static_cast< std::vector< Expression * >::difference_type >(val2);
+  arg2 = static_cast< std::vector< Expression >::difference_type >(val2);
   ecode3 = SWIG_AsVal_ptrdiff_t(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ExpressionVector___delslice__" "', argument " "3"" of type '" "std::vector< Expression * >::difference_type""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ExpressionVector___delslice__" "', argument " "3"" of type '" "std::vector< Expression >::difference_type""'");
   } 
-  arg3 = static_cast< std::vector< Expression * >::difference_type >(val3);
+  arg3 = static_cast< std::vector< Expression >::difference_type >(val3);
   try {
-    std_vector_Sl_Expression_Sm__Sg____delslice__(arg1,arg2,arg3);
+    std_vector_Sl_Expression_Sg____delslice__(arg1,arg2,arg3);
   }
   catch(std::out_of_range &_e) {
     SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
@@ -19610,8 +19871,8 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector___delitem____SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
-  std::vector< Expression * >::difference_type arg2 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
+  std::vector< Expression >::difference_type arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   ptrdiff_t val2 ;
@@ -19620,18 +19881,18 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___delitem____SWIG_0(PyObject *SWIGUN
   PyObject * obj1 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:ExpressionVector___delitem__",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___delitem__" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___delitem__" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   ecode2 = SWIG_AsVal_ptrdiff_t(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector___delitem__" "', argument " "2"" of type '" "std::vector< Expression * >::difference_type""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector___delitem__" "', argument " "2"" of type '" "std::vector< Expression >::difference_type""'");
   } 
-  arg2 = static_cast< std::vector< Expression * >::difference_type >(val2);
+  arg2 = static_cast< std::vector< Expression >::difference_type >(val2);
   try {
-    std_vector_Sl_Expression_Sm__Sg____delitem____SWIG_0(arg1,arg2);
+    std_vector_Sl_Expression_Sg____delitem____SWIG_0(arg1,arg2);
   }
   catch(std::out_of_range &_e) {
     SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
@@ -19649,20 +19910,20 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector___getitem____SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   PySliceObject *arg2 = (PySliceObject *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  std::vector< Expression *,std::allocator< Expression * > > *result = 0 ;
+  std::vector< Expression,std::allocator< Expression > > *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:ExpressionVector___getitem__",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___getitem__" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___getitem__" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   {
     if (!PySlice_Check(obj1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector___getitem__" "', argument " "2"" of type '" "PySliceObject *""'");
@@ -19670,7 +19931,7 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___getitem____SWIG_0(PyObject *SWIGUN
     arg2 = (PySliceObject *) obj1;
   }
   try {
-    result = (std::vector< Expression *,std::allocator< Expression * > > *)std_vector_Sl_Expression_Sm__Sg____getitem____SWIG_0(arg1,arg2);
+    result = (std::vector< Expression,std::allocator< Expression > > *)std_vector_Sl_Expression_Sg____getitem____SWIG_0(arg1,arg2);
   }
   catch(std::out_of_range &_e) {
     SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
@@ -19679,7 +19940,7 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___getitem____SWIG_0(PyObject *SWIGUN
     SWIG_exception_fail(SWIG_ValueError, (&_e)->what());
   }
   
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -19688,9 +19949,9 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector___setitem____SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   PySliceObject *arg2 = (PySliceObject *) 0 ;
-  std::vector< Expression *,std::allocator< Expression * > > *arg3 = 0 ;
+  std::vector< Expression,std::allocator< Expression > > *arg3 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   int res3 = SWIG_OLDOBJ ;
@@ -19699,11 +19960,11 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___setitem____SWIG_0(PyObject *SWIGUN
   PyObject * obj2 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:ExpressionVector___setitem__",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___setitem__" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___setitem__" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   {
     if (!PySlice_Check(obj1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector___setitem__" "', argument " "2"" of type '" "PySliceObject *""'");
@@ -19711,18 +19972,18 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___setitem____SWIG_0(PyObject *SWIGUN
     arg2 = (PySliceObject *) obj1;
   }
   {
-    std::vector< Expression*,std::allocator< Expression * > > *ptr = (std::vector< Expression*,std::allocator< Expression * > > *)0;
+    std::vector< Expression,std::allocator< Expression > > *ptr = (std::vector< Expression,std::allocator< Expression > > *)0;
     res3 = swig::asptr(obj2, &ptr);
     if (!SWIG_IsOK(res3)) {
-      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ExpressionVector___setitem__" "', argument " "3"" of type '" "std::vector< Expression *,std::allocator< Expression * > > const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ExpressionVector___setitem__" "', argument " "3"" of type '" "std::vector< Expression,std::allocator< Expression > > const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExpressionVector___setitem__" "', argument " "3"" of type '" "std::vector< Expression *,std::allocator< Expression * > > const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExpressionVector___setitem__" "', argument " "3"" of type '" "std::vector< Expression,std::allocator< Expression > > const &""'"); 
     }
     arg3 = ptr;
   }
   try {
-    std_vector_Sl_Expression_Sm__Sg____setitem____SWIG_0(arg1,arg2,(std::vector< Expression *,std::allocator< Expression * > > const &)*arg3);
+    std_vector_Sl_Expression_Sg____setitem____SWIG_0(arg1,arg2,(std::vector< Expression,std::allocator< Expression > > const &)*arg3);
   }
   catch(std::out_of_range &_e) {
     SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
@@ -19742,7 +20003,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector___setitem____SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   PySliceObject *arg2 = (PySliceObject *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -19750,11 +20011,11 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___setitem____SWIG_1(PyObject *SWIGUN
   PyObject * obj1 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:ExpressionVector___setitem__",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___setitem__" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___setitem__" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   {
     if (!PySlice_Check(obj1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector___setitem__" "', argument " "2"" of type '" "PySliceObject *""'");
@@ -19762,7 +20023,7 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___setitem____SWIG_1(PyObject *SWIGUN
     arg2 = (PySliceObject *) obj1;
   }
   try {
-    std_vector_Sl_Expression_Sm__Sg____setitem____SWIG_1(arg1,arg2);
+    std_vector_Sl_Expression_Sg____setitem____SWIG_1(arg1,arg2);
   }
   catch(std::out_of_range &_e) {
     SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
@@ -19780,7 +20041,7 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector___delitem____SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   PySliceObject *arg2 = (PySliceObject *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
@@ -19788,11 +20049,11 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___delitem____SWIG_1(PyObject *SWIGUN
   PyObject * obj1 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:ExpressionVector___delitem__",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___delitem__" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___delitem__" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   {
     if (!PySlice_Check(obj1)) {
       SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector___delitem__" "', argument " "2"" of type '" "PySliceObject *""'");
@@ -19800,7 +20061,7 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___delitem____SWIG_1(PyObject *SWIGUN
     arg2 = (PySliceObject *) obj1;
   }
   try {
-    std_vector_Sl_Expression_Sm__Sg____delitem____SWIG_1(arg1,arg2);
+    std_vector_Sl_Expression_Sg____delitem____SWIG_1(arg1,arg2);
   }
   catch(std::out_of_range &_e) {
     SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
@@ -19830,7 +20091,7 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___delitem__(PyObject *self, PyObject
   }
   if (argc == 2) {
     int _v;
-    int res = swig::asptr(argv[0], (std::vector< Expression*,std::allocator< Expression * > >**)(0));
+    int res = swig::asptr(argv[0], (std::vector< Expression,std::allocator< Expression > >**)(0));
     _v = SWIG_CheckState(res);
     if (_v) {
       {
@@ -19843,7 +20104,7 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___delitem__(PyObject *self, PyObject
   }
   if (argc == 2) {
     int _v;
-    int res = swig::asptr(argv[0], (std::vector< Expression*,std::allocator< Expression * > >**)(0));
+    int res = swig::asptr(argv[0], (std::vector< Expression,std::allocator< Expression > >**)(0));
     _v = SWIG_CheckState(res);
     if (_v) {
       {
@@ -19859,37 +20120,37 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___delitem__(PyObject *self, PyObject
 fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'ExpressionVector___delitem__'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    std::vector< Expression * >::__delitem__(std::vector< Expression * >::difference_type)\n"
-    "    std::vector< Expression * >::__delitem__(PySliceObject *)\n");
+    "    std::vector< Expression >::__delitem__(std::vector< Expression >::difference_type)\n"
+    "    std::vector< Expression >::__delitem__(PySliceObject *)\n");
   return 0;
 }
 
 
 SWIGINTERN PyObject *_wrap_ExpressionVector___getitem____SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
-  std::vector< Expression * >::difference_type arg2 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
+  std::vector< Expression >::difference_type arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   ptrdiff_t val2 ;
   int ecode2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  std::vector< Expression * >::value_type result;
+  std::vector< Expression >::value_type *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:ExpressionVector___getitem__",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___getitem__" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___getitem__" "', argument " "1"" of type '" "std::vector< Expression > const *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   ecode2 = SWIG_AsVal_ptrdiff_t(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector___getitem__" "', argument " "2"" of type '" "std::vector< Expression * >::difference_type""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector___getitem__" "', argument " "2"" of type '" "std::vector< Expression >::difference_type""'");
   } 
-  arg2 = static_cast< std::vector< Expression * >::difference_type >(val2);
+  arg2 = static_cast< std::vector< Expression >::difference_type >(val2);
   try {
-    result = (std::vector< Expression * >::value_type)std_vector_Sl_Expression_Sm__Sg____getitem____SWIG_1(arg1,arg2);
+    result = (std::vector< Expression >::value_type *) &std_vector_Sl_Expression_Sg____getitem____SWIG_1((std::vector< Expression > const *)arg1,arg2);
   }
   catch(std::out_of_range &_e) {
     SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
@@ -19916,7 +20177,7 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___getitem__(PyObject *self, PyObject
   }
   if (argc == 2) {
     int _v;
-    int res = swig::asptr(argv[0], (std::vector< Expression*,std::allocator< Expression * > >**)(0));
+    int res = swig::asptr(argv[0], (std::vector< Expression,std::allocator< Expression > >**)(0));
     _v = SWIG_CheckState(res);
     if (_v) {
       {
@@ -19929,7 +20190,7 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___getitem__(PyObject *self, PyObject
   }
   if (argc == 2) {
     int _v;
-    int res = swig::asptr(argv[0], (std::vector< Expression*,std::allocator< Expression * > >**)(0));
+    int res = swig::asptr(argv[0], (std::vector< Expression,std::allocator< Expression > >**)(0));
     _v = SWIG_CheckState(res);
     if (_v) {
       {
@@ -19945,17 +20206,17 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___getitem__(PyObject *self, PyObject
 fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'ExpressionVector___getitem__'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    std::vector< Expression * >::__getitem__(PySliceObject *)\n"
-    "    std::vector< Expression * >::__getitem__(std::vector< Expression * >::difference_type)\n");
+    "    std::vector< Expression >::__getitem__(PySliceObject *)\n"
+    "    std::vector< Expression >::__getitem__(std::vector< Expression >::difference_type) const\n");
   return 0;
 }
 
 
 SWIGINTERN PyObject *_wrap_ExpressionVector___setitem____SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
-  std::vector< Expression * >::difference_type arg2 ;
-  std::vector< Expression * >::value_type arg3 = (std::vector< Expression * >::value_type) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
+  std::vector< Expression >::difference_type arg2 ;
+  std::vector< Expression >::value_type *arg3 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   ptrdiff_t val2 ;
@@ -19967,23 +20228,26 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___setitem____SWIG_2(PyObject *SWIGUN
   PyObject * obj2 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:ExpressionVector___setitem__",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___setitem__" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector___setitem__" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   ecode2 = SWIG_AsVal_ptrdiff_t(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector___setitem__" "', argument " "2"" of type '" "std::vector< Expression * >::difference_type""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector___setitem__" "', argument " "2"" of type '" "std::vector< Expression >::difference_type""'");
   } 
-  arg2 = static_cast< std::vector< Expression * >::difference_type >(val2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_Expression, 0 |  0 );
+  arg2 = static_cast< std::vector< Expression >::difference_type >(val2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_Expression,  0  | 0);
   if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ExpressionVector___setitem__" "', argument " "3"" of type '" "std::vector< Expression * >::value_type""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ExpressionVector___setitem__" "', argument " "3"" of type '" "std::vector< Expression >::value_type const &""'"); 
   }
-  arg3 = reinterpret_cast< std::vector< Expression * >::value_type >(argp3);
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExpressionVector___setitem__" "', argument " "3"" of type '" "std::vector< Expression >::value_type const &""'"); 
+  }
+  arg3 = reinterpret_cast< std::vector< Expression >::value_type * >(argp3);
   try {
-    std_vector_Sl_Expression_Sm__Sg____setitem____SWIG_2(arg1,arg2,arg3);
+    std_vector_Sl_Expression_Sg____setitem____SWIG_2(arg1,arg2,(Expression const &)*arg3);
   }
   catch(std::out_of_range &_e) {
     SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
@@ -20010,7 +20274,7 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___setitem__(PyObject *self, PyObject
   }
   if (argc == 2) {
     int _v;
-    int res = swig::asptr(argv[0], (std::vector< Expression*,std::allocator< Expression * > >**)(0));
+    int res = swig::asptr(argv[0], (std::vector< Expression,std::allocator< Expression > >**)(0));
     _v = SWIG_CheckState(res);
     if (_v) {
       {
@@ -20023,14 +20287,14 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___setitem__(PyObject *self, PyObject
   }
   if (argc == 3) {
     int _v;
-    int res = swig::asptr(argv[0], (std::vector< Expression*,std::allocator< Expression * > >**)(0));
+    int res = swig::asptr(argv[0], (std::vector< Expression,std::allocator< Expression > >**)(0));
     _v = SWIG_CheckState(res);
     if (_v) {
       {
         _v = PySlice_Check(argv[1]);
       }
       if (_v) {
-        int res = swig::asptr(argv[2], (std::vector< Expression*,std::allocator< Expression * > >**)(0));
+        int res = swig::asptr(argv[2], (std::vector< Expression,std::allocator< Expression > >**)(0));
         _v = SWIG_CheckState(res);
         if (_v) {
           return _wrap_ExpressionVector___setitem____SWIG_0(self, args);
@@ -20040,7 +20304,7 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___setitem__(PyObject *self, PyObject
   }
   if (argc == 3) {
     int _v;
-    int res = swig::asptr(argv[0], (std::vector< Expression*,std::allocator< Expression * > >**)(0));
+    int res = swig::asptr(argv[0], (std::vector< Expression,std::allocator< Expression > >**)(0));
     _v = SWIG_CheckState(res);
     if (_v) {
       {
@@ -20048,8 +20312,7 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___setitem__(PyObject *self, PyObject
         _v = SWIG_CheckState(res);
       }
       if (_v) {
-        void *vptr = 0;
-        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_Expression, 0);
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_Expression, 0);
         _v = SWIG_CheckState(res);
         if (_v) {
           return _wrap_ExpressionVector___setitem____SWIG_2(self, args);
@@ -20061,35 +20324,35 @@ SWIGINTERN PyObject *_wrap_ExpressionVector___setitem__(PyObject *self, PyObject
 fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'ExpressionVector___setitem__'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    std::vector< Expression * >::__setitem__(PySliceObject *,std::vector< Expression *,std::allocator< Expression * > > const &)\n"
-    "    std::vector< Expression * >::__setitem__(PySliceObject *)\n"
-    "    std::vector< Expression * >::__setitem__(std::vector< Expression * >::difference_type,std::vector< Expression * >::value_type)\n");
+    "    std::vector< Expression >::__setitem__(PySliceObject *,std::vector< Expression,std::allocator< Expression > > const &)\n"
+    "    std::vector< Expression >::__setitem__(PySliceObject *)\n"
+    "    std::vector< Expression >::__setitem__(std::vector< Expression >::difference_type,std::vector< Expression >::value_type const &)\n");
   return 0;
 }
 
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_pop(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  std::vector< Expression * >::value_type result;
+  std::vector< Expression >::value_type result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:ExpressionVector_pop",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_pop" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_pop" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   try {
-    result = (std::vector< Expression * >::value_type)std_vector_Sl_Expression_Sm__Sg__pop(arg1);
+    result = std_vector_Sl_Expression_Sg__pop(arg1);
   }
   catch(std::out_of_range &_e) {
     SWIG_exception_fail(SWIG_IndexError, (&_e)->what());
   }
   
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Expression, 0 |  0 );
+  resultobj = SWIG_NewPointerObj((new std::vector< Expression >::value_type(static_cast< const std::vector< Expression >::value_type& >(result))), SWIGTYPE_p_Expression, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -20098,8 +20361,8 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_append(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
-  std::vector< Expression * >::value_type arg2 = (std::vector< Expression * >::value_type) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
+  std::vector< Expression >::value_type *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -20108,17 +20371,20 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_append(PyObject *SWIGUNUSEDPARM(self
   PyObject * obj1 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:ExpressionVector_append",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_append" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_append" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Expression, 0 |  0 );
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Expression,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExpressionVector_append" "', argument " "2"" of type '" "std::vector< Expression * >::value_type""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExpressionVector_append" "', argument " "2"" of type '" "std::vector< Expression >::value_type const &""'"); 
   }
-  arg2 = reinterpret_cast< std::vector< Expression * >::value_type >(argp2);
-  std_vector_Sl_Expression_Sm__Sg__append(arg1,arg2);
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExpressionVector_append" "', argument " "2"" of type '" "std::vector< Expression >::value_type const &""'"); 
+  }
+  arg2 = reinterpret_cast< std::vector< Expression >::value_type * >(argp2);
+  std_vector_Sl_Expression_Sg__append(arg1,(Expression const &)*arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -20128,11 +20394,11 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_ExpressionVector__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *result = 0 ;
+  std::vector< Expression > *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)":new_ExpressionVector")) SWIG_fail;
-  result = (std::vector< Expression * > *)new std::vector< Expression * >();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, SWIG_POINTER_NEW |  0 );
+  result = (std::vector< Expression > *)new std::vector< Expression >();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -20141,25 +20407,25 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_ExpressionVector__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = 0 ;
+  std::vector< Expression > *arg1 = 0 ;
   int res1 = SWIG_OLDOBJ ;
   PyObject * obj0 = 0 ;
-  std::vector< Expression * > *result = 0 ;
+  std::vector< Expression > *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:new_ExpressionVector",&obj0)) SWIG_fail;
   {
-    std::vector< Expression*,std::allocator< Expression * > > *ptr = (std::vector< Expression*,std::allocator< Expression * > > *)0;
+    std::vector< Expression,std::allocator< Expression > > *ptr = (std::vector< Expression,std::allocator< Expression > > *)0;
     res1 = swig::asptr(obj0, &ptr);
     if (!SWIG_IsOK(res1)) {
-      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_ExpressionVector" "', argument " "1"" of type '" "std::vector< Expression * > const &""'"); 
+      SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_ExpressionVector" "', argument " "1"" of type '" "std::vector< Expression > const &""'"); 
     }
     if (!ptr) {
-      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ExpressionVector" "', argument " "1"" of type '" "std::vector< Expression * > const &""'"); 
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ExpressionVector" "', argument " "1"" of type '" "std::vector< Expression > const &""'"); 
     }
     arg1 = ptr;
   }
-  result = (std::vector< Expression * > *)new std::vector< Expression * >((std::vector< Expression * > const &)*arg1);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, SWIG_POINTER_NEW |  0 );
+  result = (std::vector< Expression > *)new std::vector< Expression >((std::vector< Expression > const &)*arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, SWIG_POINTER_NEW |  0 );
   if (SWIG_IsNewObj(res1)) delete arg1;
   return resultobj;
 fail:
@@ -20170,19 +20436,19 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_empty(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   bool result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:ExpressionVector_empty",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_empty" "', argument " "1"" of type '" "std::vector< Expression * > const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_empty" "', argument " "1"" of type '" "std::vector< Expression > const *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
-  result = (bool)((std::vector< Expression * > const *)arg1)->empty();
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
+  result = (bool)((std::vector< Expression > const *)arg1)->empty();
   resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
@@ -20192,19 +20458,19 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  std::vector< Expression * >::size_type result;
+  std::vector< Expression >::size_type result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:ExpressionVector_size",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_size" "', argument " "1"" of type '" "std::vector< Expression * > const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_size" "', argument " "1"" of type '" "std::vector< Expression > const *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
-  result = ((std::vector< Expression * > const *)arg1)->size();
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
+  result = ((std::vector< Expression > const *)arg1)->size();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -20214,8 +20480,8 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_swap(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
-  std::vector< Expression * > *arg2 = 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
+  std::vector< Expression > *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -20224,19 +20490,19 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_swap(PyObject *SWIGUNUSEDPARM(self),
   PyObject * obj1 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:ExpressionVector_swap",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_swap" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_swap" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t,  0 );
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t,  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExpressionVector_swap" "', argument " "2"" of type '" "std::vector< Expression * > &""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExpressionVector_swap" "', argument " "2"" of type '" "std::vector< Expression > &""'"); 
   }
   if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExpressionVector_swap" "', argument " "2"" of type '" "std::vector< Expression * > &""'"); 
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExpressionVector_swap" "', argument " "2"" of type '" "std::vector< Expression > &""'"); 
   }
-  arg2 = reinterpret_cast< std::vector< Expression * > * >(argp2);
+  arg2 = reinterpret_cast< std::vector< Expression > * >(argp2);
   (arg1)->swap(*arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -20247,20 +20513,20 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_begin(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  std::vector< Expression * >::iterator result;
+  std::vector< Expression >::iterator result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:ExpressionVector_begin",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_begin" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_begin" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   result = (arg1)->begin();
-  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< Expression * >::iterator & >(result)),
+  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< Expression >::iterator & >(result)),
     swig::SwigPyIterator::descriptor(),SWIG_POINTER_OWN);
   return resultobj;
 fail:
@@ -20270,20 +20536,20 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_end(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  std::vector< Expression * >::iterator result;
+  std::vector< Expression >::iterator result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:ExpressionVector_end",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_end" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_end" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   result = (arg1)->end();
-  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< Expression * >::iterator & >(result)),
+  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< Expression >::iterator & >(result)),
     swig::SwigPyIterator::descriptor(),SWIG_POINTER_OWN);
   return resultobj;
 fail:
@@ -20293,20 +20559,20 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_rbegin(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  std::vector< Expression * >::reverse_iterator result;
+  std::vector< Expression >::reverse_iterator result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:ExpressionVector_rbegin",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_rbegin" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_rbegin" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   result = (arg1)->rbegin();
-  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< Expression * >::reverse_iterator & >(result)),
+  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< Expression >::reverse_iterator & >(result)),
     swig::SwigPyIterator::descriptor(),SWIG_POINTER_OWN);
   return resultobj;
 fail:
@@ -20316,20 +20582,20 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_rend(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  std::vector< Expression * >::reverse_iterator result;
+  std::vector< Expression >::reverse_iterator result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:ExpressionVector_rend",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_rend" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_rend" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   result = (arg1)->rend();
-  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< Expression * >::reverse_iterator & >(result)),
+  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< Expression >::reverse_iterator & >(result)),
     swig::SwigPyIterator::descriptor(),SWIG_POINTER_OWN);
   return resultobj;
 fail:
@@ -20339,17 +20605,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_clear(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:ExpressionVector_clear",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_clear" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_clear" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   (arg1)->clear();
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -20360,20 +20626,20 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_get_allocator(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  SwigValueWrapper< std::allocator< Expression * > > result;
+  SwigValueWrapper< std::allocator< Expression > > result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:ExpressionVector_get_allocator",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_get_allocator" "', argument " "1"" of type '" "std::vector< Expression * > const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_get_allocator" "', argument " "1"" of type '" "std::vector< Expression > const *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
-  result = ((std::vector< Expression * > const *)arg1)->get_allocator();
-  resultobj = SWIG_NewPointerObj((new std::vector< Expression * >::allocator_type(static_cast< const std::vector< Expression * >::allocator_type& >(result))), SWIGTYPE_p_std__allocatorT_Expression_p_t, SWIG_POINTER_OWN |  0 );
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
+  result = ((std::vector< Expression > const *)arg1)->get_allocator();
+  resultobj = SWIG_NewPointerObj((new std::vector< Expression >::allocator_type(static_cast< const std::vector< Expression >::allocator_type& >(result))), SWIGTYPE_p_std__allocatorT_Expression_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -20382,20 +20648,20 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_ExpressionVector__SWIG_2(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * >::size_type arg1 ;
+  std::vector< Expression >::size_type arg1 ;
   size_t val1 ;
   int ecode1 = 0 ;
   PyObject * obj0 = 0 ;
-  std::vector< Expression * > *result = 0 ;
+  std::vector< Expression > *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:new_ExpressionVector",&obj0)) SWIG_fail;
   ecode1 = SWIG_AsVal_size_t(obj0, &val1);
   if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_ExpressionVector" "', argument " "1"" of type '" "std::vector< Expression * >::size_type""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_ExpressionVector" "', argument " "1"" of type '" "std::vector< Expression >::size_type""'");
   } 
-  arg1 = static_cast< std::vector< Expression * >::size_type >(val1);
-  result = (std::vector< Expression * > *)new std::vector< Expression * >(arg1);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, SWIG_POINTER_NEW |  0 );
+  arg1 = static_cast< std::vector< Expression >::size_type >(val1);
+  result = (std::vector< Expression > *)new std::vector< Expression >(arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -20404,17 +20670,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_pop_back(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:ExpressionVector_pop_back",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_pop_back" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_pop_back" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   (arg1)->pop_back();
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -20425,8 +20691,8 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_resize__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
-  std::vector< Expression * >::size_type arg2 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
+  std::vector< Expression >::size_type arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   size_t val2 ;
@@ -20435,16 +20701,16 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_resize__SWIG_0(PyObject *SWIGUNUSEDP
   PyObject * obj1 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:ExpressionVector_resize",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_resize" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_resize" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   ecode2 = SWIG_AsVal_size_t(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector_resize" "', argument " "2"" of type '" "std::vector< Expression * >::size_type""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector_resize" "', argument " "2"" of type '" "std::vector< Expression >::size_type""'");
   } 
-  arg2 = static_cast< std::vector< Expression * >::size_type >(val2);
+  arg2 = static_cast< std::vector< Expression >::size_type >(val2);
   (arg1)->resize(arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -20455,35 +20721,35 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_erase__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
-  std::vector< Expression * >::iterator arg2 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
+  std::vector< Expression >::iterator arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   swig::SwigPyIterator *iter2 = 0 ;
   int res2 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  std::vector< Expression * >::iterator result;
+  std::vector< Expression >::iterator result;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:ExpressionVector_erase",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_erase" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_erase" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   res2 = SWIG_ConvertPtr(obj1, SWIG_as_voidptrptr(&iter2), swig::SwigPyIterator::descriptor(), 0);
   if (!SWIG_IsOK(res2) || !iter2) {
-    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_erase" "', argument " "2"" of type '" "std::vector< Expression * >::iterator""'");
+    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_erase" "', argument " "2"" of type '" "std::vector< Expression >::iterator""'");
   } else {
-    swig::SwigPyIterator_T<std::vector< Expression * >::iterator > *iter_t = dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression * >::iterator > *>(iter2);
+    swig::SwigPyIterator_T<std::vector< Expression >::iterator > *iter_t = dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression >::iterator > *>(iter2);
     if (iter_t) {
       arg2 = iter_t->get_current();
     } else {
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_erase" "', argument " "2"" of type '" "std::vector< Expression * >::iterator""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_erase" "', argument " "2"" of type '" "std::vector< Expression >::iterator""'");
     }
   }
-  result = std_vector_Sl_Expression_Sm__Sg__erase__SWIG_0(arg1,arg2);
-  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< Expression * >::iterator & >(result)),
+  result = std_vector_Sl_Expression_Sg__erase__SWIG_0(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< Expression >::iterator & >(result)),
     swig::SwigPyIterator::descriptor(),SWIG_POINTER_OWN);
   return resultobj;
 fail:
@@ -20493,9 +20759,9 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_erase__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
-  std::vector< Expression * >::iterator arg2 ;
-  std::vector< Expression * >::iterator arg3 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
+  std::vector< Expression >::iterator arg2 ;
+  std::vector< Expression >::iterator arg3 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   swig::SwigPyIterator *iter2 = 0 ;
@@ -20505,38 +20771,38 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_erase__SWIG_1(PyObject *SWIGUNUSEDPA
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
-  std::vector< Expression * >::iterator result;
+  std::vector< Expression >::iterator result;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:ExpressionVector_erase",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_erase" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_erase" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   res2 = SWIG_ConvertPtr(obj1, SWIG_as_voidptrptr(&iter2), swig::SwigPyIterator::descriptor(), 0);
   if (!SWIG_IsOK(res2) || !iter2) {
-    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_erase" "', argument " "2"" of type '" "std::vector< Expression * >::iterator""'");
+    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_erase" "', argument " "2"" of type '" "std::vector< Expression >::iterator""'");
   } else {
-    swig::SwigPyIterator_T<std::vector< Expression * >::iterator > *iter_t = dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression * >::iterator > *>(iter2);
+    swig::SwigPyIterator_T<std::vector< Expression >::iterator > *iter_t = dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression >::iterator > *>(iter2);
     if (iter_t) {
       arg2 = iter_t->get_current();
     } else {
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_erase" "', argument " "2"" of type '" "std::vector< Expression * >::iterator""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_erase" "', argument " "2"" of type '" "std::vector< Expression >::iterator""'");
     }
   }
   res3 = SWIG_ConvertPtr(obj2, SWIG_as_voidptrptr(&iter3), swig::SwigPyIterator::descriptor(), 0);
   if (!SWIG_IsOK(res3) || !iter3) {
-    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_erase" "', argument " "3"" of type '" "std::vector< Expression * >::iterator""'");
+    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_erase" "', argument " "3"" of type '" "std::vector< Expression >::iterator""'");
   } else {
-    swig::SwigPyIterator_T<std::vector< Expression * >::iterator > *iter_t = dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression * >::iterator > *>(iter3);
+    swig::SwigPyIterator_T<std::vector< Expression >::iterator > *iter_t = dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression >::iterator > *>(iter3);
     if (iter_t) {
       arg3 = iter_t->get_current();
     } else {
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_erase" "', argument " "3"" of type '" "std::vector< Expression * >::iterator""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_erase" "', argument " "3"" of type '" "std::vector< Expression >::iterator""'");
     }
   }
-  result = std_vector_Sl_Expression_Sm__Sg__erase__SWIG_1(arg1,arg2,arg3);
-  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< Expression * >::iterator & >(result)),
+  result = std_vector_Sl_Expression_Sg__erase__SWIG_1(arg1,arg2,arg3);
+  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< Expression >::iterator & >(result)),
     swig::SwigPyIterator::descriptor(),SWIG_POINTER_OWN);
   return resultobj;
 fail:
@@ -20558,12 +20824,12 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_erase(PyObject *self, PyObject *args
   }
   if (argc == 2) {
     int _v;
-    int res = swig::asptr(argv[0], (std::vector< Expression*,std::allocator< Expression * > >**)(0));
+    int res = swig::asptr(argv[0], (std::vector< Expression,std::allocator< Expression > >**)(0));
     _v = SWIG_CheckState(res);
     if (_v) {
       swig::SwigPyIterator *iter = 0;
       int res = SWIG_ConvertPtr(argv[1], SWIG_as_voidptrptr(&iter), swig::SwigPyIterator::descriptor(), 0);
-      _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression * >::iterator > *>(iter) != 0));
+      _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression >::iterator > *>(iter) != 0));
       if (_v) {
         return _wrap_ExpressionVector_erase__SWIG_0(self, args);
       }
@@ -20571,16 +20837,16 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_erase(PyObject *self, PyObject *args
   }
   if (argc == 3) {
     int _v;
-    int res = swig::asptr(argv[0], (std::vector< Expression*,std::allocator< Expression * > >**)(0));
+    int res = swig::asptr(argv[0], (std::vector< Expression,std::allocator< Expression > >**)(0));
     _v = SWIG_CheckState(res);
     if (_v) {
       swig::SwigPyIterator *iter = 0;
       int res = SWIG_ConvertPtr(argv[1], SWIG_as_voidptrptr(&iter), swig::SwigPyIterator::descriptor(), 0);
-      _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression * >::iterator > *>(iter) != 0));
+      _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression >::iterator > *>(iter) != 0));
       if (_v) {
         swig::SwigPyIterator *iter = 0;
         int res = SWIG_ConvertPtr(argv[2], SWIG_as_voidptrptr(&iter), swig::SwigPyIterator::descriptor(), 0);
-        _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression * >::iterator > *>(iter) != 0));
+        _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression >::iterator > *>(iter) != 0));
         if (_v) {
           return _wrap_ExpressionVector_erase__SWIG_1(self, args);
         }
@@ -20591,37 +20857,40 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_erase(PyObject *self, PyObject *args
 fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'ExpressionVector_erase'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    std::vector< Expression * >::erase(std::vector< Expression * >::iterator)\n"
-    "    std::vector< Expression * >::erase(std::vector< Expression * >::iterator,std::vector< Expression * >::iterator)\n");
+    "    std::vector< Expression >::erase(std::vector< Expression >::iterator)\n"
+    "    std::vector< Expression >::erase(std::vector< Expression >::iterator,std::vector< Expression >::iterator)\n");
   return 0;
 }
 
 
 SWIGINTERN PyObject *_wrap_new_ExpressionVector__SWIG_3(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * >::size_type arg1 ;
-  std::vector< Expression * >::value_type arg2 = (std::vector< Expression * >::value_type) 0 ;
+  std::vector< Expression >::size_type arg1 ;
+  std::vector< Expression >::value_type *arg2 = 0 ;
   size_t val1 ;
   int ecode1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  std::vector< Expression * > *result = 0 ;
+  std::vector< Expression > *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:new_ExpressionVector",&obj0,&obj1)) SWIG_fail;
   ecode1 = SWIG_AsVal_size_t(obj0, &val1);
   if (!SWIG_IsOK(ecode1)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_ExpressionVector" "', argument " "1"" of type '" "std::vector< Expression * >::size_type""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "new_ExpressionVector" "', argument " "1"" of type '" "std::vector< Expression >::size_type""'");
   } 
-  arg1 = static_cast< std::vector< Expression * >::size_type >(val1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Expression, 0 |  0 );
+  arg1 = static_cast< std::vector< Expression >::size_type >(val1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Expression,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_ExpressionVector" "', argument " "2"" of type '" "std::vector< Expression * >::value_type""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "new_ExpressionVector" "', argument " "2"" of type '" "std::vector< Expression >::value_type const &""'"); 
   }
-  arg2 = reinterpret_cast< std::vector< Expression * >::value_type >(argp2);
-  result = (std::vector< Expression * > *)new std::vector< Expression * >(arg1,arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, SWIG_POINTER_NEW |  0 );
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_ExpressionVector" "', argument " "2"" of type '" "std::vector< Expression >::value_type const &""'"); 
+  }
+  arg2 = reinterpret_cast< std::vector< Expression >::value_type * >(argp2);
+  result = (std::vector< Expression > *)new std::vector< Expression >(arg1,(std::vector< Expression >::value_type const &)*arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -20655,7 +20924,7 @@ SWIGINTERN PyObject *_wrap_new_ExpressionVector(PyObject *self, PyObject *args) 
   }
   if (argc == 1) {
     int _v;
-    int res = swig::asptr(argv[0], (std::vector< Expression*,std::allocator< Expression * > >**)(0));
+    int res = swig::asptr(argv[0], (std::vector< Expression,std::allocator< Expression > >**)(0));
     _v = SWIG_CheckState(res);
     if (_v) {
       return _wrap_new_ExpressionVector__SWIG_1(self, args);
@@ -20668,8 +20937,7 @@ SWIGINTERN PyObject *_wrap_new_ExpressionVector(PyObject *self, PyObject *args) 
       _v = SWIG_CheckState(res);
     }
     if (_v) {
-      void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_Expression, 0);
+      int res = SWIG_ConvertPtr(argv[1], 0, SWIGTYPE_p_Expression, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_new_ExpressionVector__SWIG_3(self, args);
@@ -20680,18 +20948,18 @@ SWIGINTERN PyObject *_wrap_new_ExpressionVector(PyObject *self, PyObject *args) 
 fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'new_ExpressionVector'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    std::vector< Expression * >::vector()\n"
-    "    std::vector< Expression * >::vector(std::vector< Expression * > const &)\n"
-    "    std::vector< Expression * >::vector(std::vector< Expression * >::size_type)\n"
-    "    std::vector< Expression * >::vector(std::vector< Expression * >::size_type,std::vector< Expression * >::value_type)\n");
+    "    std::vector< Expression >::vector()\n"
+    "    std::vector< Expression >::vector(std::vector< Expression > const &)\n"
+    "    std::vector< Expression >::vector(std::vector< Expression >::size_type)\n"
+    "    std::vector< Expression >::vector(std::vector< Expression >::size_type,std::vector< Expression >::value_type const &)\n");
   return 0;
 }
 
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_push_back(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
-  std::vector< Expression * >::value_type arg2 = (std::vector< Expression * >::value_type) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
+  std::vector< Expression >::value_type *arg2 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -20700,17 +20968,20 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_push_back(PyObject *SWIGUNUSEDPARM(s
   PyObject * obj1 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:ExpressionVector_push_back",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_push_back" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_push_back" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_Expression, 0 |  0 );
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_Expression,  0  | 0);
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExpressionVector_push_back" "', argument " "2"" of type '" "std::vector< Expression * >::value_type""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ExpressionVector_push_back" "', argument " "2"" of type '" "std::vector< Expression >::value_type const &""'"); 
   }
-  arg2 = reinterpret_cast< std::vector< Expression * >::value_type >(argp2);
-  (arg1)->push_back(arg2);
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExpressionVector_push_back" "', argument " "2"" of type '" "std::vector< Expression >::value_type const &""'"); 
+  }
+  arg2 = reinterpret_cast< std::vector< Expression >::value_type * >(argp2);
+  (arg1)->push_back((std::vector< Expression >::value_type const &)*arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -20720,19 +20991,19 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_front(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  std::vector< Expression * >::value_type result;
+  std::vector< Expression >::value_type *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:ExpressionVector_front",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_front" "', argument " "1"" of type '" "std::vector< Expression * > const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_front" "', argument " "1"" of type '" "std::vector< Expression > const *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
-  result = (std::vector< Expression * >::value_type)((std::vector< Expression * > const *)arg1)->front();
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
+  result = (std::vector< Expression >::value_type *) &((std::vector< Expression > const *)arg1)->front();
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Expression, 0 |  0 );
   return resultobj;
 fail:
@@ -20742,19 +21013,19 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_back(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  std::vector< Expression * >::value_type result;
+  std::vector< Expression >::value_type *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:ExpressionVector_back",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_back" "', argument " "1"" of type '" "std::vector< Expression * > const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_back" "', argument " "1"" of type '" "std::vector< Expression > const *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
-  result = (std::vector< Expression * >::value_type)((std::vector< Expression * > const *)arg1)->back();
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
+  result = (std::vector< Expression >::value_type *) &((std::vector< Expression > const *)arg1)->back();
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Expression, 0 |  0 );
   return resultobj;
 fail:
@@ -20764,9 +21035,9 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_assign(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
-  std::vector< Expression * >::size_type arg2 ;
-  std::vector< Expression * >::value_type arg3 = (std::vector< Expression * >::value_type) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
+  std::vector< Expression >::size_type arg2 ;
+  std::vector< Expression >::value_type *arg3 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   size_t val2 ;
@@ -20778,22 +21049,25 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_assign(PyObject *SWIGUNUSEDPARM(self
   PyObject * obj2 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:ExpressionVector_assign",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_assign" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_assign" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   ecode2 = SWIG_AsVal_size_t(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector_assign" "', argument " "2"" of type '" "std::vector< Expression * >::size_type""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector_assign" "', argument " "2"" of type '" "std::vector< Expression >::size_type""'");
   } 
-  arg2 = static_cast< std::vector< Expression * >::size_type >(val2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_Expression, 0 |  0 );
+  arg2 = static_cast< std::vector< Expression >::size_type >(val2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_Expression,  0  | 0);
   if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ExpressionVector_assign" "', argument " "3"" of type '" "std::vector< Expression * >::value_type""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ExpressionVector_assign" "', argument " "3"" of type '" "std::vector< Expression >::value_type const &""'"); 
   }
-  arg3 = reinterpret_cast< std::vector< Expression * >::value_type >(argp3);
-  (arg1)->assign(arg2,arg3);
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExpressionVector_assign" "', argument " "3"" of type '" "std::vector< Expression >::value_type const &""'"); 
+  }
+  arg3 = reinterpret_cast< std::vector< Expression >::value_type * >(argp3);
+  (arg1)->assign(arg2,(std::vector< Expression >::value_type const &)*arg3);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -20803,9 +21077,9 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_resize__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
-  std::vector< Expression * >::size_type arg2 ;
-  std::vector< Expression * >::value_type arg3 = (std::vector< Expression * >::value_type) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
+  std::vector< Expression >::size_type arg2 ;
+  std::vector< Expression >::value_type *arg3 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   size_t val2 ;
@@ -20817,22 +21091,25 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_resize__SWIG_1(PyObject *SWIGUNUSEDP
   PyObject * obj2 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:ExpressionVector_resize",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_resize" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_resize" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   ecode2 = SWIG_AsVal_size_t(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector_resize" "', argument " "2"" of type '" "std::vector< Expression * >::size_type""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector_resize" "', argument " "2"" of type '" "std::vector< Expression >::size_type""'");
   } 
-  arg2 = static_cast< std::vector< Expression * >::size_type >(val2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_Expression, 0 |  0 );
+  arg2 = static_cast< std::vector< Expression >::size_type >(val2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_Expression,  0  | 0);
   if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ExpressionVector_resize" "', argument " "3"" of type '" "std::vector< Expression * >::value_type""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ExpressionVector_resize" "', argument " "3"" of type '" "std::vector< Expression >::value_type const &""'"); 
   }
-  arg3 = reinterpret_cast< std::vector< Expression * >::value_type >(argp3);
-  (arg1)->resize(arg2,arg3);
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExpressionVector_resize" "', argument " "3"" of type '" "std::vector< Expression >::value_type const &""'"); 
+  }
+  arg3 = reinterpret_cast< std::vector< Expression >::value_type * >(argp3);
+  (arg1)->resize(arg2,(std::vector< Expression >::value_type const &)*arg3);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -20854,7 +21131,7 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_resize(PyObject *self, PyObject *arg
   }
   if (argc == 2) {
     int _v;
-    int res = swig::asptr(argv[0], (std::vector< Expression*,std::allocator< Expression * > >**)(0));
+    int res = swig::asptr(argv[0], (std::vector< Expression,std::allocator< Expression > >**)(0));
     _v = SWIG_CheckState(res);
     if (_v) {
       {
@@ -20868,7 +21145,7 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_resize(PyObject *self, PyObject *arg
   }
   if (argc == 3) {
     int _v;
-    int res = swig::asptr(argv[0], (std::vector< Expression*,std::allocator< Expression * > >**)(0));
+    int res = swig::asptr(argv[0], (std::vector< Expression,std::allocator< Expression > >**)(0));
     _v = SWIG_CheckState(res);
     if (_v) {
       {
@@ -20876,8 +21153,7 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_resize(PyObject *self, PyObject *arg
         _v = SWIG_CheckState(res);
       }
       if (_v) {
-        void *vptr = 0;
-        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_Expression, 0);
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_Expression, 0);
         _v = SWIG_CheckState(res);
         if (_v) {
           return _wrap_ExpressionVector_resize__SWIG_1(self, args);
@@ -20889,17 +21165,17 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_resize(PyObject *self, PyObject *arg
 fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'ExpressionVector_resize'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    std::vector< Expression * >::resize(std::vector< Expression * >::size_type)\n"
-    "    std::vector< Expression * >::resize(std::vector< Expression * >::size_type,std::vector< Expression * >::value_type)\n");
+    "    std::vector< Expression >::resize(std::vector< Expression >::size_type)\n"
+    "    std::vector< Expression >::resize(std::vector< Expression >::size_type,std::vector< Expression >::value_type const &)\n");
   return 0;
 }
 
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_insert__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
-  std::vector< Expression * >::iterator arg2 ;
-  std::vector< Expression * >::value_type arg3 = (std::vector< Expression * >::value_type) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
+  std::vector< Expression >::iterator arg2 ;
+  std::vector< Expression >::value_type *arg3 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   swig::SwigPyIterator *iter2 = 0 ;
@@ -20909,32 +21185,35 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_insert__SWIG_0(PyObject *SWIGUNUSEDP
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
   PyObject * obj2 = 0 ;
-  std::vector< Expression * >::iterator result;
+  std::vector< Expression >::iterator result;
   
   if (!PyArg_ParseTuple(args,(char *)"OOO:ExpressionVector_insert",&obj0,&obj1,&obj2)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_insert" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_insert" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   res2 = SWIG_ConvertPtr(obj1, SWIG_as_voidptrptr(&iter2), swig::SwigPyIterator::descriptor(), 0);
   if (!SWIG_IsOK(res2) || !iter2) {
-    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_insert" "', argument " "2"" of type '" "std::vector< Expression * >::iterator""'");
+    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_insert" "', argument " "2"" of type '" "std::vector< Expression >::iterator""'");
   } else {
-    swig::SwigPyIterator_T<std::vector< Expression * >::iterator > *iter_t = dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression * >::iterator > *>(iter2);
+    swig::SwigPyIterator_T<std::vector< Expression >::iterator > *iter_t = dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression >::iterator > *>(iter2);
     if (iter_t) {
       arg2 = iter_t->get_current();
     } else {
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_insert" "', argument " "2"" of type '" "std::vector< Expression * >::iterator""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_insert" "', argument " "2"" of type '" "std::vector< Expression >::iterator""'");
     }
   }
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_Expression, 0 |  0 );
+  res3 = SWIG_ConvertPtr(obj2, &argp3, SWIGTYPE_p_Expression,  0  | 0);
   if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ExpressionVector_insert" "', argument " "3"" of type '" "std::vector< Expression * >::value_type""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "ExpressionVector_insert" "', argument " "3"" of type '" "std::vector< Expression >::value_type const &""'"); 
   }
-  arg3 = reinterpret_cast< std::vector< Expression * >::value_type >(argp3);
-  result = std_vector_Sl_Expression_Sm__Sg__insert__SWIG_0(arg1,arg2,arg3);
-  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< Expression * >::iterator & >(result)),
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExpressionVector_insert" "', argument " "3"" of type '" "std::vector< Expression >::value_type const &""'"); 
+  }
+  arg3 = reinterpret_cast< std::vector< Expression >::value_type * >(argp3);
+  result = std_vector_Sl_Expression_Sg__insert__SWIG_0(arg1,arg2,(Expression const &)*arg3);
+  resultobj = SWIG_NewPointerObj(swig::make_output_iterator(static_cast< const std::vector< Expression >::iterator & >(result)),
     swig::SwigPyIterator::descriptor(),SWIG_POINTER_OWN);
   return resultobj;
 fail:
@@ -20944,10 +21223,10 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_insert__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
-  std::vector< Expression * >::iterator arg2 ;
-  std::vector< Expression * >::size_type arg3 ;
-  std::vector< Expression * >::value_type arg4 = (std::vector< Expression * >::value_type) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
+  std::vector< Expression >::iterator arg2 ;
+  std::vector< Expression >::size_type arg3 ;
+  std::vector< Expression >::value_type *arg4 = 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   swig::SwigPyIterator *iter2 = 0 ;
@@ -20962,33 +21241,36 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_insert__SWIG_1(PyObject *SWIGUNUSEDP
   PyObject * obj3 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OOOO:ExpressionVector_insert",&obj0,&obj1,&obj2,&obj3)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_insert" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_insert" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   res2 = SWIG_ConvertPtr(obj1, SWIG_as_voidptrptr(&iter2), swig::SwigPyIterator::descriptor(), 0);
   if (!SWIG_IsOK(res2) || !iter2) {
-    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_insert" "', argument " "2"" of type '" "std::vector< Expression * >::iterator""'");
+    SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_insert" "', argument " "2"" of type '" "std::vector< Expression >::iterator""'");
   } else {
-    swig::SwigPyIterator_T<std::vector< Expression * >::iterator > *iter_t = dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression * >::iterator > *>(iter2);
+    swig::SwigPyIterator_T<std::vector< Expression >::iterator > *iter_t = dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression >::iterator > *>(iter2);
     if (iter_t) {
       arg2 = iter_t->get_current();
     } else {
-      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_insert" "', argument " "2"" of type '" "std::vector< Expression * >::iterator""'");
+      SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '" "ExpressionVector_insert" "', argument " "2"" of type '" "std::vector< Expression >::iterator""'");
     }
   }
   ecode3 = SWIG_AsVal_size_t(obj2, &val3);
   if (!SWIG_IsOK(ecode3)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ExpressionVector_insert" "', argument " "3"" of type '" "std::vector< Expression * >::size_type""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "ExpressionVector_insert" "', argument " "3"" of type '" "std::vector< Expression >::size_type""'");
   } 
-  arg3 = static_cast< std::vector< Expression * >::size_type >(val3);
-  res4 = SWIG_ConvertPtr(obj3, &argp4,SWIGTYPE_p_Expression, 0 |  0 );
+  arg3 = static_cast< std::vector< Expression >::size_type >(val3);
+  res4 = SWIG_ConvertPtr(obj3, &argp4, SWIGTYPE_p_Expression,  0  | 0);
   if (!SWIG_IsOK(res4)) {
-    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "ExpressionVector_insert" "', argument " "4"" of type '" "std::vector< Expression * >::value_type""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "ExpressionVector_insert" "', argument " "4"" of type '" "std::vector< Expression >::value_type const &""'"); 
   }
-  arg4 = reinterpret_cast< std::vector< Expression * >::value_type >(argp4);
-  std_vector_Sl_Expression_Sm__Sg__insert__SWIG_1(arg1,arg2,arg3,arg4);
+  if (!argp4) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ExpressionVector_insert" "', argument " "4"" of type '" "std::vector< Expression >::value_type const &""'"); 
+  }
+  arg4 = reinterpret_cast< std::vector< Expression >::value_type * >(argp4);
+  std_vector_Sl_Expression_Sg__insert__SWIG_1(arg1,arg2,arg3,(Expression const &)*arg4);
   resultobj = SWIG_Py_Void();
   return resultobj;
 fail:
@@ -21010,15 +21292,14 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_insert(PyObject *self, PyObject *arg
   }
   if (argc == 3) {
     int _v;
-    int res = swig::asptr(argv[0], (std::vector< Expression*,std::allocator< Expression * > >**)(0));
+    int res = swig::asptr(argv[0], (std::vector< Expression,std::allocator< Expression > >**)(0));
     _v = SWIG_CheckState(res);
     if (_v) {
       swig::SwigPyIterator *iter = 0;
       int res = SWIG_ConvertPtr(argv[1], SWIG_as_voidptrptr(&iter), swig::SwigPyIterator::descriptor(), 0);
-      _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression * >::iterator > *>(iter) != 0));
+      _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression >::iterator > *>(iter) != 0));
       if (_v) {
-        void *vptr = 0;
-        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_Expression, 0);
+        int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_Expression, 0);
         _v = SWIG_CheckState(res);
         if (_v) {
           return _wrap_ExpressionVector_insert__SWIG_0(self, args);
@@ -21028,20 +21309,19 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_insert(PyObject *self, PyObject *arg
   }
   if (argc == 4) {
     int _v;
-    int res = swig::asptr(argv[0], (std::vector< Expression*,std::allocator< Expression * > >**)(0));
+    int res = swig::asptr(argv[0], (std::vector< Expression,std::allocator< Expression > >**)(0));
     _v = SWIG_CheckState(res);
     if (_v) {
       swig::SwigPyIterator *iter = 0;
       int res = SWIG_ConvertPtr(argv[1], SWIG_as_voidptrptr(&iter), swig::SwigPyIterator::descriptor(), 0);
-      _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression * >::iterator > *>(iter) != 0));
+      _v = (SWIG_IsOK(res) && iter && (dynamic_cast<swig::SwigPyIterator_T<std::vector< Expression >::iterator > *>(iter) != 0));
       if (_v) {
         {
           int res = SWIG_AsVal_size_t(argv[2], NULL);
           _v = SWIG_CheckState(res);
         }
         if (_v) {
-          void *vptr = 0;
-          int res = SWIG_ConvertPtr(argv[3], &vptr, SWIGTYPE_p_Expression, 0);
+          int res = SWIG_ConvertPtr(argv[3], 0, SWIGTYPE_p_Expression, 0);
           _v = SWIG_CheckState(res);
           if (_v) {
             return _wrap_ExpressionVector_insert__SWIG_1(self, args);
@@ -21054,16 +21334,16 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_insert(PyObject *self, PyObject *arg
 fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'ExpressionVector_insert'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    std::vector< Expression * >::insert(std::vector< Expression * >::iterator,std::vector< Expression * >::value_type)\n"
-    "    std::vector< Expression * >::insert(std::vector< Expression * >::iterator,std::vector< Expression * >::size_type,std::vector< Expression * >::value_type)\n");
+    "    std::vector< Expression >::insert(std::vector< Expression >::iterator,std::vector< Expression >::value_type const &)\n"
+    "    std::vector< Expression >::insert(std::vector< Expression >::iterator,std::vector< Expression >::size_type,std::vector< Expression >::value_type const &)\n");
   return 0;
 }
 
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_reserve(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
-  std::vector< Expression * >::size_type arg2 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
+  std::vector< Expression >::size_type arg2 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   size_t val2 ;
@@ -21072,16 +21352,16 @@ SWIGINTERN PyObject *_wrap_ExpressionVector_reserve(PyObject *SWIGUNUSEDPARM(sel
   PyObject * obj1 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:ExpressionVector_reserve",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_reserve" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_reserve" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   ecode2 = SWIG_AsVal_size_t(obj1, &val2);
   if (!SWIG_IsOK(ecode2)) {
-    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector_reserve" "', argument " "2"" of type '" "std::vector< Expression * >::size_type""'");
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ExpressionVector_reserve" "', argument " "2"" of type '" "std::vector< Expression >::size_type""'");
   } 
-  arg2 = static_cast< std::vector< Expression * >::size_type >(val2);
+  arg2 = static_cast< std::vector< Expression >::size_type >(val2);
   (arg1)->reserve(arg2);
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -21092,19 +21372,19 @@ fail:
 
 SWIGINTERN PyObject *_wrap_ExpressionVector_capacity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
-  std::vector< Expression * >::size_type result;
+  std::vector< Expression >::size_type result;
   
   if (!PyArg_ParseTuple(args,(char *)"O:ExpressionVector_capacity",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0 |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0 |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_capacity" "', argument " "1"" of type '" "std::vector< Expression * > const *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ExpressionVector_capacity" "', argument " "1"" of type '" "std::vector< Expression > const *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
-  result = ((std::vector< Expression * > const *)arg1)->capacity();
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
+  result = ((std::vector< Expression > const *)arg1)->capacity();
   resultobj = SWIG_From_size_t(static_cast< size_t >(result));
   return resultobj;
 fail:
@@ -21114,17 +21394,17 @@ fail:
 
 SWIGINTERN PyObject *_wrap_delete_ExpressionVector(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  std::vector< Expression * > *arg1 = (std::vector< Expression * > *) 0 ;
+  std::vector< Expression > *arg1 = (std::vector< Expression > *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   PyObject * obj0 = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"O:delete_ExpressionVector",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, SWIG_POINTER_DISOWN |  0 );
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, SWIG_POINTER_DISOWN |  0 );
   if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ExpressionVector" "', argument " "1"" of type '" "std::vector< Expression * > *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_ExpressionVector" "', argument " "1"" of type '" "std::vector< Expression > *""'"); 
   }
-  arg1 = reinterpret_cast< std::vector< Expression * > * >(argp1);
+  arg1 = reinterpret_cast< std::vector< Expression > * >(argp1);
   delete arg1;
   resultobj = SWIG_Py_Void();
   return resultobj;
@@ -21136,7 +21416,7 @@ fail:
 SWIGINTERN PyObject *ExpressionVector_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *obj;
   if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, SWIG_NewClientData(obj));
+  SWIG_TypeNewClientData(SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
@@ -21328,10 +21608,19 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"SwigPyIterator___add__", _wrap_SwigPyIterator___add__, METH_VARARGS, NULL},
 	 { (char *)"SwigPyIterator___sub__", _wrap_SwigPyIterator___sub__, METH_VARARGS, NULL},
 	 { (char *)"SwigPyIterator_swigregister", SwigPyIterator_swigregister, METH_VARARGS, NULL},
+	 { (char *)"new_Size", _wrap_new_Size, METH_VARARGS, NULL},
+	 { (char *)"Size_dims_set", _wrap_Size_dims_set, METH_VARARGS, NULL},
+	 { (char *)"Size_dims_get", _wrap_Size_dims_get, METH_VARARGS, NULL},
+	 { (char *)"delete_Size", _wrap_delete_Size, METH_VARARGS, NULL},
+	 { (char *)"Size_swigregister", Size_swigregister, METH_VARARGS, NULL},
 	 { (char *)"Expression_type_set", _wrap_Expression_type_set, METH_VARARGS, NULL},
 	 { (char *)"Expression_type_get", _wrap_Expression_type_get, METH_VARARGS, NULL},
 	 { (char *)"Expression_args_set", _wrap_Expression_args_set, METH_VARARGS, NULL},
 	 { (char *)"Expression_args_get", _wrap_Expression_args_get, METH_VARARGS, NULL},
+	 { (char *)"Expression_size_set", _wrap_Expression_size_set, METH_VARARGS, NULL},
+	 { (char *)"Expression_size_get", _wrap_Expression_size_get, METH_VARARGS, NULL},
+	 { (char *)"Expression_p_set", _wrap_Expression_p_set, METH_VARARGS, NULL},
+	 { (char *)"Expression_p_get", _wrap_Expression_p_get, METH_VARARGS, NULL},
 	 { (char *)"new_Expression", _wrap_new_Expression, METH_VARARGS, NULL},
 	 { (char *)"delete_Expression", _wrap_delete_Expression, METH_VARARGS, NULL},
 	 { (char *)"Expression_swigregister", Expression_swigregister, METH_VARARGS, NULL},
@@ -21658,11 +21947,12 @@ static PyMethodDef SwigMethods[] = {
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
 static swig_type_info _swigt__p_Eigen__MatrixXd = {"_p_Eigen__MatrixXd", "Eigen::MatrixXd *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_Expression = {"_p_Expression", "Expression *|std::vector< Expression * >::value_type", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Expression = {"_p_Expression", "Expression *|std::vector< Expression >::value_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_LinOp = {"_p_LinOp", "LinOp *|std::vector< LinOp * >::value_type", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Matrix = {"_p_Matrix", "Matrix *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Problem = {"_p_Problem", "Problem *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ProblemData = {"_p_ProblemData", "ProblemData *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Size = {"_p_Size", "Size *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Solution = {"_p_Solution", "Solution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SolverOptions = {"_p_SolverOptions", "SolverOptions *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
@@ -21676,7 +21966,7 @@ static swig_type_info _swigt__p_operatortype = {"_p_operatortype", "OperatorType
 static swig_type_info _swigt__p_p_PyObject = {"_p_p_PyObject", "PyObject **", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_reference = {"_p_reference", "reference *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_size_type = {"_p_size_type", "size_type *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__allocatorT_Expression_p_t = {"_p_std__allocatorT_Expression_p_t", "std::vector< Expression * >::allocator_type *|std::allocator< Expression * > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__allocatorT_Expression_t = {"_p_std__allocatorT_Expression_t", "std::vector< Expression >::allocator_type *|std::allocator< Expression > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_LinOp_p_t = {"_p_std__allocatorT_LinOp_p_t", "std::vector< LinOp * >::allocator_type *|std::allocator< LinOp * > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_double_t = {"_p_std__allocatorT_double_t", "std::vector< double >::allocator_type *|std::allocator< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_int_t = {"_p_std__allocatorT_int_t", "std::vector< int >::allocator_type *|std::allocator< int > *", 0, 0, (void*)0, 0};
@@ -21686,7 +21976,7 @@ static swig_type_info _swigt__p_std__allocatorT_std__vectorT_int_std__allocatorT
 static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argument", "std::invalid_argument *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__lessT_int_t = {"_p_std__lessT_int_t", "std::less< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t = {"_p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t", "std::map< int,int,std::less< int >,std::allocator< std::pair< int const,int > > > *|std::map< int,int > *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t = {"_p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t", "std::vector< Expression * > *|std::vector< Expression *,std::allocator< Expression * > > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__vectorT_Expression_std__allocatorT_Expression_t_t = {"_p_std__vectorT_Expression_std__allocatorT_Expression_t_t", "std::vector< Expression > *|std::vector< Expression,std::allocator< Expression > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t = {"_p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t", "std::vector< LinOp *,std::allocator< LinOp * > > *|std::vector< LinOp * > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_double_std__allocatorT_double_t_t = {"_p_std__vectorT_double_std__allocatorT_double_t_t", "std::vector< double,std::allocator< double > > *|std::vector< double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_int_std__allocatorT_int_t_t = {"_p_std__vectorT_int_std__allocatorT_int_t_t", "std::vector< int,std::allocator< int > > *|std::vector< int > *", 0, 0, (void*)0, 0};
@@ -21702,6 +21992,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Matrix,
   &_swigt__p_Problem,
   &_swigt__p_ProblemData,
+  &_swigt__p_Size,
   &_swigt__p_Solution,
   &_swigt__p_SolverOptions,
   &_swigt__p_allocator_type,
@@ -21715,7 +22006,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_p_PyObject,
   &_swigt__p_reference,
   &_swigt__p_size_type,
-  &_swigt__p_std__allocatorT_Expression_p_t,
+  &_swigt__p_std__allocatorT_Expression_t,
   &_swigt__p_std__allocatorT_LinOp_p_t,
   &_swigt__p_std__allocatorT_double_t,
   &_swigt__p_std__allocatorT_int_t,
@@ -21725,7 +22016,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__invalid_argument,
   &_swigt__p_std__lessT_int_t,
   &_swigt__p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t,
-  &_swigt__p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t,
+  &_swigt__p_std__vectorT_Expression_std__allocatorT_Expression_t_t,
   &_swigt__p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t,
   &_swigt__p_std__vectorT_double_std__allocatorT_double_t_t,
   &_swigt__p_std__vectorT_int_std__allocatorT_int_t_t,
@@ -21741,6 +22032,7 @@ static swig_cast_info _swigc__p_LinOp[] = {  {&_swigt__p_LinOp, 0, 0, 0},{0, 0, 
 static swig_cast_info _swigc__p_Matrix[] = {  {&_swigt__p_Matrix, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Problem[] = {  {&_swigt__p_Problem, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ProblemData[] = {  {&_swigt__p_ProblemData, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Size[] = {  {&_swigt__p_Size, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Solution[] = {  {&_swigt__p_Solution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SolverOptions[] = {  {&_swigt__p_SolverOptions, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
@@ -21754,7 +22046,7 @@ static swig_cast_info _swigc__p_operatortype[] = {  {&_swigt__p_operatortype, 0,
 static swig_cast_info _swigc__p_p_PyObject[] = {  {&_swigt__p_p_PyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_reference[] = {  {&_swigt__p_reference, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_size_type[] = {  {&_swigt__p_size_type, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__allocatorT_Expression_p_t[] = {  {&_swigt__p_std__allocatorT_Expression_p_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__allocatorT_Expression_t[] = {  {&_swigt__p_std__allocatorT_Expression_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_LinOp_p_t[] = {  {&_swigt__p_std__allocatorT_LinOp_p_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_double_t[] = {  {&_swigt__p_std__allocatorT_double_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_int_t[] = {  {&_swigt__p_std__allocatorT_int_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -21764,7 +22056,7 @@ static swig_cast_info _swigc__p_std__allocatorT_std__vectorT_int_std__allocatorT
 static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__invalid_argument, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__lessT_int_t[] = {  {&_swigt__p_std__lessT_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t[] = {  {&_swigt__p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t[] = {  {&_swigt__p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__vectorT_Expression_std__allocatorT_Expression_t_t[] = {  {&_swigt__p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t[] = {  {&_swigt__p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_double_std__allocatorT_double_t_t[] = {  {&_swigt__p_std__vectorT_double_std__allocatorT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_int_std__allocatorT_int_t_t[] = {  {&_swigt__p_std__vectorT_int_std__allocatorT_int_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -21780,6 +22072,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Matrix,
   _swigc__p_Problem,
   _swigc__p_ProblemData,
+  _swigc__p_Size,
   _swigc__p_Solution,
   _swigc__p_SolverOptions,
   _swigc__p_allocator_type,
@@ -21793,7 +22086,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_p_PyObject,
   _swigc__p_reference,
   _swigc__p_size_type,
-  _swigc__p_std__allocatorT_Expression_p_t,
+  _swigc__p_std__allocatorT_Expression_t,
   _swigc__p_std__allocatorT_LinOp_p_t,
   _swigc__p_std__allocatorT_double_t,
   _swigc__p_std__allocatorT_int_t,
@@ -21803,7 +22096,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__invalid_argument,
   _swigc__p_std__lessT_int_t,
   _swigc__p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t,
-  _swigc__p_std__vectorT_Expression_p_std__allocatorT_Expression_p_t_t,
+  _swigc__p_std__vectorT_Expression_std__allocatorT_Expression_t_t,
   _swigc__p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t,
   _swigc__p_std__vectorT_double_std__allocatorT_double_t_t,
   _swigc__p_std__vectorT_int_std__allocatorT_int_t_t,
@@ -22509,6 +22802,7 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, "Expression_INDEX",SWIG_From_int(static_cast< int >(Expression::INDEX)));
   SWIG_Python_SetConstant(d, "Expression_MUL",SWIG_From_int(static_cast< int >(Expression::MUL)));
   SWIG_Python_SetConstant(d, "Expression_NEG",SWIG_From_int(static_cast< int >(Expression::NEG)));
+  SWIG_Python_SetConstant(d, "Expression_ABS",SWIG_From_int(static_cast< int >(Expression::ABS)));
   SWIG_Python_SetConstant(d, "Expression_P_NORM",SWIG_From_int(static_cast< int >(Expression::P_NORM)));
   SWIG_Python_SetConstant(d, "Expression_QUAD_OVER_LIN",SWIG_From_int(static_cast< int >(Expression::QUAD_OVER_LIN)));
   SWIG_Python_SetConstant(d, "Expression_EQ",SWIG_From_int(static_cast< int >(Expression::EQ)));
