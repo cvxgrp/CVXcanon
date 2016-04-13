@@ -13,11 +13,13 @@
 #    You should have received a copy of the GNU General Public License
 #    along with CVXcanon.  If not, see <http:#www.gnu.org/licenses/>.
 
-import CVXcanon
-import numpy as np
-from cvxpy.lin_ops.lin_op import *
-import scipy.sparse
 from collections import deque
+from cvxpy.lin_ops.lin_op import *
+import numpy as np
+import scipy.sparse
+
+import CVXcanon
+import expression
 
 def get_problem_matrix(constrs, id_to_col=None, constr_offsets=None):
     '''
@@ -226,3 +228,9 @@ def build_lin_op_tree(root_linPy, tmp):
             set_matrix_data(linC, linPy)
 
     return root_linC
+
+def solve(cvxpy_problem, **kwargs):
+    tmp = []
+    problem = expression.convert_problem(cvxpy_problem, tmp)
+    options = CVXcanon.SolverOptions()
+    return CVXcanon.solve(problem, options)

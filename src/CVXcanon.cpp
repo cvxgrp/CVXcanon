@@ -16,9 +16,11 @@
 #include "CVXcanon.hpp"
 #include <iostream>
 #include <map>
+
 #include "LinOp.hpp"
 #include "LinOpOperations.hpp"
 #include "ProblemData.hpp"
+#include "TextFormat.hpp"
 
 void mul_by_const(Matrix &coeff_mat,
         std::map<int, Matrix > &rh_coeffs,
@@ -75,7 +77,7 @@ std::map<int, Matrix > get_coefficient(LinOp &lin){
 	}
 	else {
 		/* Multiply the arguments of the function coefficient in order */
-		std::vector<Matrix> coeff_mat = get_func_coeffs(lin); 
+		std::vector<Matrix> coeff_mat = get_func_coeffs(lin);
 		for (unsigned i = 0; i < lin.args.size(); i++){
 			Matrix coeff = coeff_mat[i];
 			std::map<int, Matrix > rh_coeffs = get_coefficient(*lin.args[i]);
@@ -87,7 +89,7 @@ std::map<int, Matrix > get_coefficient(LinOp &lin){
 				if(coeffs.count(it->first) == 0)
 					coeffs[it->first] = it->second;
 				else
-					coeffs[it->first] += it->second;		
+					coeffs[it->first] += it->second;
 			}
 		}
 	}
@@ -118,7 +120,7 @@ void add_matrix_to_vectors(Matrix &block, std::vector<double> &V,
 			V.push_back(it.value());
 
 			/* Push back current row and column indices */
-			I.push_back(it.row() + vert_offset);   	
+			I.push_back(it.row() + vert_offset);
 			J.push_back(it.col() + horiz_offset);
 		}
 	}
@@ -140,14 +142,14 @@ void process_constraint(LinOp & lin, std::vector<double> &V,
                         std::vector<double> &constant_vec, int &vert_offset,
                         std::map<int, int> &id_to_col, int & horiz_offset){
 	/* Get the coefficient for the current constraint */
-	std::map<int, Matrix > coeffs = get_coefficient(lin);	
+	std::map<int, Matrix > coeffs = get_coefficient(lin);
 
 	typedef std::map<int, Matrix >::iterator it_type;
 	for(it_type it = coeffs.begin(); it != coeffs.end(); ++it){
 		int id = it->first;									// Horiz offset determined by the id
 		Matrix block = it->second;
 		if (id == CONSTANT_ID) { // Add to CONSTANT_VEC if linop is constant
-			extend_constant_vec(constant_vec, vert_offset, block);	
+			extend_constant_vec(constant_vec, vert_offset, block);
 		}
 		else {
 			int offset = get_horiz_offset(id, id_to_col, horiz_offset, lin);
@@ -168,7 +170,7 @@ int get_total_constraint_length(std::vector< LinOp* > constraints){
 
 /* Returns the number of rows in the matrix using the user provided vertical
 	 offsets for each constraint. */
-int get_total_constraint_length(std::vector<LinOp*> &constraints, 
+int get_total_constraint_length(std::vector<LinOp*> &constraints,
 									 							std::vector<int> &constr_offsets){
 	/* Must specify an offset for each constraint */
 	if(constraints.size() != constr_offsets.size()){
@@ -229,10 +231,10 @@ ProblemData build_matrix(std::vector< LinOp* > constraints,
 }
 
 /*  See comment above for build_matrix. Requires specification of a vertical
-		offset, VERT_OFFSET, for each constraint in the vector CONSTR_OFFSETS. 
-	
-		Valid CONSTR_OFFSETS assume that a vertical offset is provided for each 
-		constraint and that the offsets are not overlapping. In particular, 
+		offset, VERT_OFFSET, for each constraint in the vector CONSTR_OFFSETS.
+
+		Valid CONSTR_OFFSETS assume that a vertical offset is provided for each
+		constraint and that the offsets are not overlapping. In particular,
 		the vertical offset for constraint i + the size of constraint i must be
 		less than the vertical offset for constraint i+1.
 		*/
@@ -257,4 +259,10 @@ ProblemData build_matrix(std::vector<LinOp*> constraints,
 		prob_data.const_to_row[i] = vert_offset;
 	}
 	return prob_data;
+}
+
+Solution solve(const Problem& problem, const SolverOptions& solver_options) {
+  printf("%s\n", format_problem(problem).c_str());
+  Solution solution;
+  return solution;
 }

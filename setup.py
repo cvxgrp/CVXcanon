@@ -6,7 +6,14 @@ import os
 
 canon = Extension(
     '_CVXcanon',
-    sources=['src/CVXcanon.cpp', 'src/LinOpOperations.cpp', 'src/python/CVXcanon_wrap.cpp'],
+    language = "c++",
+    extra_compile_args = ["-std=c++14"],
+    sources=[
+        'src/CVXcanon.cpp',
+        'src/LinOpOperations.cpp',
+        'src/TextFormat.cpp',
+        'src/python/CVXcanon_wrap.cpp'
+    ],
     include_dirs=['src/', 'src/python/', 'include/Eigen', numpy.get_include()]
 )
 
