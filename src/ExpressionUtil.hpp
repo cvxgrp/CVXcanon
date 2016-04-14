@@ -7,14 +7,17 @@
 
 #include "Expression.hpp"
 
-// Expressions
 Expression add(Expression x, Expression y);
+Expression constant(int m, int n);
 Expression constant(double value);
-Expression hstack(std::vector<Expression> x);
+Expression hstack(std::vector<Expression> args);
 Expression mul(Expression x, Expression y);
 Expression neg(Expression x);
+Expression p_norm(Expression x, double p);
+Expression quad_over_lin(Expression x, Expression y);
+Expression reshape(Expression x, int m, int n);
 Expression sum(Expression x);
-Expression reshape(Expression x, Size size);
+Expression var(int m, int n);
 
 // Constraints
 Expression leq(Expression x, Expression y);  // x <= y
@@ -23,7 +26,9 @@ Expression soc(Expression x, Expression y);  // ||x||_2 <= y
 // Utililties
 Expression epi_var(const Expression& x, const std::string& name);
 Expression scalar_epi_var(const Expression& x, const std::string& name);
-Expression shallow_copy(const Expression& x);
+Size size(const Expression& x);
 int dim(const Expression& x);
+int count_nodes(const Expression& x);
+int count_nodes(const Problem& prob);
 
 #endif // EXPRESSION_UTIL_H

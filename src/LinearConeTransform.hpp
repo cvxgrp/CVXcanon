@@ -6,7 +6,7 @@
 
 class LinearConeTransform : public ProblemTransform {
  public:
-  virtual Problem transform(const Problem& problem);
+  Problem transform(const Problem& problem) override;
 };
 
 #endif  // LINEAR_CONE_TRANSFORM_H
