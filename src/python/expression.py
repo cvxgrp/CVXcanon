@@ -16,7 +16,7 @@ SENSE_MAP = {
     cvxpy.problems.objective.Minimize: CVXcanon.Problem.MINIMIZE,
 }
 
-EXPRESSION_TYPE_MAP = {
+TYPE_MAP = {
     cvxpy.atoms.affine.add_expr.AddExpression: CVXcanon.Expression.ADD,
     cvxpy.atoms.affine.binary_operators.MulExpression: CVXcanon.Expression.MUL,
     cvxpy.atoms.affine.unary_operators.NegExpression: CVXcanon.Expression.NEG,
@@ -29,11 +29,10 @@ EXPRESSION_TYPE_MAP = {
 }
 
 def convert_expression(cvxpy_expr):
-    expr = CVXcanon.Expression()
-    expr.type = EXPRESSION_TYPE_MAP[type(cvxpy_expr)]
+    args = CVXcanon.ExpressionVector()
     for arg in cvxpy_expr.args:
-        expr.args.push_back(convert_expression(arg))
-    return expr
+        args.push_back(convert_expression(arg))
+    return CVXcanon.Expression(TYPE_MAP[type(cvxpy_expr)], args)
 
 def convert_problem(cvxpy_problem):
     problem = CVXcanon.Problem()

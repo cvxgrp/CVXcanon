@@ -10,6 +10,8 @@ canon = Extension(
     extra_compile_args=['-std=c++14'],
     sources=[
         'src/CVXcanon.cpp',
+        'src/Expression.cpp',
+        'src/ExpressionUtil.cpp',
         'src/LinOpOperations.cpp',
         'src/LinearConeTransform.cpp',
         'src/TextFormat.cpp',

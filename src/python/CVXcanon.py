@@ -154,28 +154,6 @@ class SwigPyIterator(_object):
 SwigPyIterator_swigregister = _CVXcanon.SwigPyIterator_swigregister
 SwigPyIterator_swigregister(SwigPyIterator)
 
-class Size(_object):
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, Size, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, Size, name)
-    __repr__ = _swig_repr
-
-    def __init__(self, *args):
-        this = _CVXcanon.new_Size(*args)
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-    __swig_setmethods__["dims"] = _CVXcanon.Size_dims_set
-    __swig_getmethods__["dims"] = _CVXcanon.Size_dims_get
-    if _newclass:
-        dims = _swig_property(_CVXcanon.Size_dims_get, _CVXcanon.Size_dims_set)
-    __swig_destroy__ = _CVXcanon.delete_Size
-    __del__ = lambda self: None
-Size_swigregister = _CVXcanon.Size_swigregister
-Size_swigregister(Size)
-
 class Expression(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Expression, name, value)
@@ -183,35 +161,33 @@ class Expression(_object):
     __getattr__ = lambda self, name: _swig_getattr(self, Expression, name)
     __repr__ = _swig_repr
     ADD = _CVXcanon.Expression_ADD
+    HSTACK = _CVXcanon.Expression_HSTACK
     INDEX = _CVXcanon.Expression_INDEX
     MUL = _CVXcanon.Expression_MUL
     NEG = _CVXcanon.Expression_NEG
+    RESHAPE = _CVXcanon.Expression_RESHAPE
+    SUM = _CVXcanon.Expression_SUM
+    VSTACK = _CVXcanon.Expression_VSTACK
     ABS = _CVXcanon.Expression_ABS
     P_NORM = _CVXcanon.Expression_P_NORM
     QUAD_OVER_LIN = _CVXcanon.Expression_QUAD_OVER_LIN
     EQ = _CVXcanon.Expression_EQ
     LEQ = _CVXcanon.Expression_LEQ
+    SOC = _CVXcanon.Expression_SOC
     CONST = _CVXcanon.Expression_CONST
     VAR = _CVXcanon.Expression_VAR
-    __swig_setmethods__["type"] = _CVXcanon.Expression_type_set
-    __swig_getmethods__["type"] = _CVXcanon.Expression_type_get
-    if _newclass:
-        type = _swig_property(_CVXcanon.Expression_type_get, _CVXcanon.Expression_type_set)
-    __swig_setmethods__["args"] = _CVXcanon.Expression_args_set
-    __swig_getmethods__["args"] = _CVXcanon.Expression_args_get
-    if _newclass:
-        args = _swig_property(_CVXcanon.Expression_args_get, _CVXcanon.Expression_args_set)
-    __swig_setmethods__["size"] = _CVXcanon.Expression_size_set
-    __swig_getmethods__["size"] = _CVXcanon.Expression_size_get
-    if _newclass:
-        size = _swig_property(_CVXcanon.Expression_size_get, _CVXcanon.Expression_size_set)
-    __swig_setmethods__["p"] = _CVXcanon.Expression_p_set
-    __swig_getmethods__["p"] = _CVXcanon.Expression_p_get
-    if _newclass:
-        p = _swig_property(_CVXcanon.Expression_p_get, _CVXcanon.Expression_p_set)
 
-    def __init__(self):
-        this = _CVXcanon.new_Expression()
+    def type(self):
+        return _CVXcanon.Expression_type(self)
+
+    def args(self):
+        return _CVXcanon.Expression_args(self)
+
+    def arg(self, i):
+        return _CVXcanon.Expression_arg(self, i)
+
+    def __init__(self, *args):
+        this = _CVXcanon.new_Expression(*args)
         try:
             self.this.append(this)
         except Exception:
@@ -221,6 +197,28 @@ class Expression(_object):
 Expression_swigregister = _CVXcanon.Expression_swigregister
 Expression_swigregister(Expression)
 
+class Size(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Size, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, Size, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["dims"] = _CVXcanon.Size_dims_set
+    __swig_getmethods__["dims"] = _CVXcanon.Size_dims_get
+    if _newclass:
+        dims = _swig_property(_CVXcanon.Size_dims_get, _CVXcanon.Size_dims_set)
+
+    def __init__(self):
+        this = _CVXcanon.new_Size()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _CVXcanon.delete_Size
+    __del__ = lambda self: None
+Size_swigregister = _CVXcanon.Size_swigregister
+Size_swigregister(Size)
+
 class Problem(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Problem, name, value)
@@ -229,6 +227,13 @@ class Problem(_object):
     __repr__ = _swig_repr
     MAXIMIZE = _CVXcanon.Problem_MAXIMIZE
     MINIMIZE = _CVXcanon.Problem_MINIMIZE
+
+    def __init__(self, *args):
+        this = _CVXcanon.new_Problem(*args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
     __swig_setmethods__["sense"] = _CVXcanon.Problem_sense_set
     __swig_getmethods__["sense"] = _CVXcanon.Problem_sense_get
     if _newclass:
@@ -241,13 +246,6 @@ class Problem(_object):
     __swig_getmethods__["constraints"] = _CVXcanon.Problem_constraints_get
     if _newclass:
         constraints = _swig_property(_CVXcanon.Problem_constraints_get, _CVXcanon.Problem_constraints_set)
-
-    def __init__(self):
-        this = _CVXcanon.new_Problem()
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
     __swig_destroy__ = _CVXcanon.delete_Problem
     __del__ = lambda self: None
 Problem_swigregister = _CVXcanon.Problem_swigregister

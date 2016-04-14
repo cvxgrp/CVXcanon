@@ -38,6 +38,7 @@ class Expression {
   const std::vector<Expression>& args() const { return data_->args; }
   const Expression& arg(int i) const { return data_->args[i]; }
 
+  Expression() {}
   Expression(Type type, std::vector<Expression> args);
 
  private:
@@ -62,6 +63,16 @@ class Problem {
     MAXIMIZE,
     MINIMIZE,
   };
+
+  Problem() {}
+  Problem(
+      Sense sense,
+      Expression objective,
+      std::vector<Expression> constraints)
+      : sense(sense),
+        objective(objective),
+        constraints(constraints) {}
+
   Sense sense;
   Expression objective;
   std::vector<Expression> constraints;
