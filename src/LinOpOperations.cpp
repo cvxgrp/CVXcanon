@@ -364,8 +364,8 @@ int get_id_data(LinOp &lin) {
  * Return the coefficients for KRON.
  *
  * Parameters: linOp LIN with type KRON
- * Returns: vector containing the coefficient matrix for the Kronecker 
- 						product. 
+ * Returns: vector containing the coefficient matrix for the Kronecker
+ 						product.
  */
 std::vector<Matrix> get_kron_mat(LinOp &lin) {
 	assert(lin.type == KRON);
@@ -386,7 +386,7 @@ std::vector<Matrix> get_kron_mat(LinOp &lin) {
 			int row = (rh_rows * rh_cols * (lh_rows * it.col())) + (it.row() * rh_rows);
 			int col = 0;
 			for(int j = 0; j < rh_cols; j++){
-				for(int i = 0; i < rh_rows; i++) {					
+				for(int i = 0; i < rh_rows; i++) {
 					tripletList.push_back(Triplet(row + i, col, it.value()));
 					col++;
 				}
@@ -474,7 +474,7 @@ std::vector<Matrix> get_upper_tri_mat(LinOp &lin) {
 	Matrix coeffs(entries, rows * cols);
 
 	std::vector<Triplet> tripletList;
-	tripletList.reserve((rows * cols) / float(2));
+	tripletList.reserve(entries);
 	int count = 0;
 	for (int i = 0; i < rows; i++) {
 		for (int j = 0; j < cols; j++) {
@@ -601,7 +601,7 @@ std::vector<Matrix> get_index_mat(LinOp &lin) {
 	Matrix coeffs (lin.size[0] * lin.size[1], rows * cols);
 
 	/* If slice is empty, return empty matrix */
-	if (coeffs.rows () * coeffs.cols() == 0) {
+	if (coeffs.rows () == 0 ||  coeffs.cols() == 0) {
 		return build_vector(coeffs);
 	}
 
