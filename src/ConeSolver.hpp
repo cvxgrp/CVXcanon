@@ -3,6 +3,9 @@
 #ifndef CONE_SOLVER_H
 #define CONE_SOLVER_H
 
+#include <Eigen/Core>
+#include <Eigen/Sparse>
+
 enum Cone {
   ZERO,
   NON_NEGATIVE,

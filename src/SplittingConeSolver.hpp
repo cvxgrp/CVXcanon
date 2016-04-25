@@ -7,7 +7,12 @@
 
 #include "ConeSolver.hpp"
 
+namespace scs {
+typedef double scs_float;
+typedef int scs_int;
+#include <linsys/amatrix.h>
 #include <scs.h>
+}  // scs
 
 class SplittingConeSolver : public ConeSolver {
  public:
@@ -15,14 +20,14 @@ class SplittingConeSolver : public ConeSolver {
 
  private:
   void build_scs_problem(const ConeProblem& problem);
-  ConeSolution build_solution();
+  ConeSolution build_cone_solution();
 
   // SCS data structures
-  SCS_PROBLEM_DATA data_;
-  SCS_CONE cone_;
-  SCS_INFO info_;
-  SCS_SOL_VARS_ sol_;
-  A_DATA_MATRIX A_matrix_;
+  scs::Data data_;
+  scs::Cone cone_;
+  scs::Info info_;
+  scs::Sol sol_;
+  scs::AMatrix A_matrix_;
 
   // Constraints ordered the way SCS needs them
   Eigen::SparseMatrix<double> A_;

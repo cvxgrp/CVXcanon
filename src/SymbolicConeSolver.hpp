@@ -3,6 +3,7 @@
 #ifndef SYMBOLIC_CONE_SOLVER_H
 #define SYMBOLIC_CONE_SOLVER_H
 
+#include "ConeSolver.hpp"
 #include "Solver.hpp"
 
 class SymbolicConeSolver : public Solver {

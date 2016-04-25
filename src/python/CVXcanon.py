@@ -458,6 +458,10 @@ class Solution(_object):
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, Solution, name)
     __repr__ = _swig_repr
+    __swig_setmethods__["values"] = _CVXcanon.Solution_values_set
+    __swig_getmethods__["values"] = _CVXcanon.Solution_values_get
+    if _newclass:
+        values = _swig_property(_CVXcanon.Solution_values_get, _CVXcanon.Solution_values_set)
 
     def __init__(self):
         this = _CVXcanon.new_Solution()

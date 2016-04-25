@@ -5,10 +5,15 @@
 
 #include <unordered_map>
 
+#include <Eigen/Core>
+
+#include "Expression.hpp"
+
 class SolverOptions {
 };
 
 class Solution {
+ public:
   std::unordered_map<int, Eigen::VectorXd> values;
 };
 

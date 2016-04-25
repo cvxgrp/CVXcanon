@@ -3040,16 +3040,17 @@ SWIG_Python_NonDynamicSetAttr(PyObject *obj, PyObject *name, PyObject *value) {
 #define SWIGTYPE_p_std__invalid_argument swig_types[28]
 #define SWIGTYPE_p_std__lessT_int_t swig_types[29]
 #define SWIGTYPE_p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t swig_types[30]
-#define SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t swig_types[31]
-#define SWIGTYPE_p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t swig_types[32]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[33]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[34]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[35]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[36]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[37]
-#define SWIGTYPE_p_value_type swig_types[38]
-static swig_type_info *swig_types[40];
-static swig_module_info swig_module = {swig_types, 39, 0, 0, 0, 0};
+#define SWIGTYPE_p_std__unordered_mapT_int_Eigen__VectorXd_t swig_types[31]
+#define SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t swig_types[32]
+#define SWIGTYPE_p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t swig_types[33]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[34]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[35]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[36]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[37]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[38]
+#define SWIGTYPE_p_value_type swig_types[39]
+static swig_type_info *swig_types[41];
+static swig_module_info swig_module = {swig_types, 40, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -8637,6 +8638,66 @@ SWIGINTERN PyObject *SolverOptions_swigregister(PyObject *SWIGUNUSEDPARM(self), 
   SWIG_TypeNewClientData(SWIGTYPE_p_SolverOptions, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
+
+SWIGINTERN PyObject *_wrap_Solution_values_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Solution *arg1 = (Solution *) 0 ;
+  std::unordered_map< int,Eigen::VectorXd > arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Solution_values_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Solution, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Solution_values_set" "', argument " "1"" of type '" "Solution *""'"); 
+  }
+  arg1 = reinterpret_cast< Solution * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_std__unordered_mapT_int_Eigen__VectorXd_t,  0  | 0);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Solution_values_set" "', argument " "2"" of type '" "std::unordered_map< int,Eigen::VectorXd >""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Solution_values_set" "', argument " "2"" of type '" "std::unordered_map< int,Eigen::VectorXd >""'");
+    } else {
+      std::unordered_map< int,Eigen::VectorXd > * temp = reinterpret_cast< std::unordered_map< int,Eigen::VectorXd > * >(argp2);
+      arg2 = *temp;
+      if (SWIG_IsNewObj(res2)) delete temp;
+    }
+  }
+  if (arg1) (arg1)->values = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Solution_values_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Solution *arg1 = (Solution *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::unordered_map< int,Eigen::VectorXd > result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Solution_values_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Solution, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Solution_values_get" "', argument " "1"" of type '" "Solution *""'"); 
+  }
+  arg1 = reinterpret_cast< Solution * >(argp1);
+  result =  ((arg1)->values);
+  resultobj = SWIG_NewPointerObj((new std::unordered_map< int,Eigen::VectorXd >(static_cast< const std::unordered_map< int,Eigen::VectorXd >& >(result))), SWIGTYPE_p_std__unordered_mapT_int_Eigen__VectorXd_t, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
 
 SWIGINTERN PyObject *_wrap_new_Solution(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
@@ -21738,6 +21799,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"new_SolverOptions", _wrap_new_SolverOptions, METH_VARARGS, NULL},
 	 { (char *)"delete_SolverOptions", _wrap_delete_SolverOptions, METH_VARARGS, NULL},
 	 { (char *)"SolverOptions_swigregister", SolverOptions_swigregister, METH_VARARGS, NULL},
+	 { (char *)"Solution_values_set", _wrap_Solution_values_set, METH_VARARGS, NULL},
+	 { (char *)"Solution_values_get", _wrap_Solution_values_get, METH_VARARGS, NULL},
 	 { (char *)"new_Solution", _wrap_new_Solution, METH_VARARGS, NULL},
 	 { (char *)"delete_Solution", _wrap_delete_Solution, METH_VARARGS, NULL},
 	 { (char *)"Solution_swigregister", Solution_swigregister, METH_VARARGS, NULL},
@@ -22019,6 +22082,7 @@ static swig_type_info _swigt__p_std__allocatorT_std__vectorT_int_std__allocatorT
 static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argument", "std::invalid_argument *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__lessT_int_t = {"_p_std__lessT_int_t", "std::less< int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t = {"_p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t", "std::map< int,int,std::less< int >,std::allocator< std::pair< int const,int > > > *|std::map< int,int > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__unordered_mapT_int_Eigen__VectorXd_t = {"_p_std__unordered_mapT_int_Eigen__VectorXd_t", "std::unordered_map< int,Eigen::VectorXd > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_Expression_std__allocatorT_Expression_t_t = {"_p_std__vectorT_Expression_std__allocatorT_Expression_t_t", "std::vector< Expression > *|std::vector< Expression,std::allocator< Expression > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t = {"_p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t", "std::vector< LinOp *,std::allocator< LinOp * > > *|std::vector< LinOp * > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_double_std__allocatorT_double_t_t = {"_p_std__vectorT_double_std__allocatorT_double_t_t", "std::vector< double,std::allocator< double > > *|std::vector< double > *", 0, 0, (void*)0, 0};
@@ -22060,6 +22124,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__invalid_argument,
   &_swigt__p_std__lessT_int_t,
   &_swigt__p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t,
+  &_swigt__p_std__unordered_mapT_int_Eigen__VectorXd_t,
   &_swigt__p_std__vectorT_Expression_std__allocatorT_Expression_t_t,
   &_swigt__p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t,
   &_swigt__p_std__vectorT_double_std__allocatorT_double_t_t,
@@ -22101,6 +22166,7 @@ static swig_cast_info _swigc__p_std__allocatorT_std__vectorT_int_std__allocatorT
 static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__invalid_argument, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__lessT_int_t[] = {  {&_swigt__p_std__lessT_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t[] = {  {&_swigt__p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__unordered_mapT_int_Eigen__VectorXd_t[] = {  {&_swigt__p_std__unordered_mapT_int_Eigen__VectorXd_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_Expression_std__allocatorT_Expression_t_t[] = {  {&_swigt__p_std__vectorT_Expression_std__allocatorT_Expression_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t[] = {  {&_swigt__p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_double_std__allocatorT_double_t_t[] = {  {&_swigt__p_std__vectorT_double_std__allocatorT_double_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -22142,6 +22208,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__invalid_argument,
   _swigc__p_std__lessT_int_t,
   _swigc__p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t,
+  _swigc__p_std__unordered_mapT_int_Eigen__VectorXd_t,
   _swigc__p_std__vectorT_Expression_std__allocatorT_Expression_t_t,
   _swigc__p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t,
   _swigc__p_std__vectorT_double_std__allocatorT_double_t_t,
