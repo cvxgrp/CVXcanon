@@ -21,6 +21,7 @@
 #define NULL_MATRIX Eigen::SparseMatrix<double>(0,0)
 
 typedef Eigen::Matrix<int, Eigen::Dynamic, 1> Vector;
+typedef Eigen::Matrix<double, Eigen::Dynamic, 1> VectorFloat;
 typedef Eigen::SparseMatrix<double> Matrix;
 typedef std::map<int, Matrix> CoeffMap;
 typedef Eigen::Triplet<double> Triplet;

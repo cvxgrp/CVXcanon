@@ -6,28 +6,30 @@
 #include <Eigen/Core>
 #include <Eigen/Sparse>
 
-enum Cone {
-  ZERO,
-  NON_NEGATIVE,
-  SECOND_ORDER,
-};
+#include "Utils.hpp"
 
-class ConeIndices {
+class ConeConstraint {
  public:
+  enum Cone {
+    ZERO,
+    NON_NEGATIVE,
+    SECOND_ORDER,
+  };
+
   Cone cone;
   int offset, size;
 };
 
 class ConeProblem {
  public:
-  Eigen::SparseMatrix<double> A;
-  Eigen::VectorXd b, c;
-  std::vector<ConeIndices> cones;
+  Matrix A;
+  VectorFloat b, c;
+  std::vector<ConeConstraint> constraints;
 };
 
 class ConeSolution {
  public:
-  Eigen::VectorXd x, y;
+  VectorFloat x, y;
 };
 
 class ConeSolver {

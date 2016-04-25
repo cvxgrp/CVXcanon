@@ -19,19 +19,36 @@ class SplittingConeSolver : public ConeSolver {
   ConeSolution solve(const ConeProblem& problem) override;
 
  private:
-  void build_scs_problem(const ConeProblem& problem);
-  ConeSolution build_cone_solution();
+  void build_scs_problem(
+      const ConeProblem& problem,
+      ConeSolution* solution);
+
+  void build_scs_constraint(
+    const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
+    const VectorFloat& b,
+    const std::vector<ConeConstraint>& constraints,
+    int* total_size,
+    int* sizes);
 
   // SCS data structures
   scs::Data data_;
   scs::Cone cone_;
   scs::Info info_;
   scs::Sol sol_;
+
+  // SCS supporting data structures
   scs::AMatrix A_matrix_;
+  std::unique_ptr<int[]> q_;
+  VectorFloat s_;
 
   // Constraints ordered the way SCS needs them
-  Eigen::SparseMatrix<double> A_;
-  Eigen::VectorXd b_;
+  Matrix A_;
+  VectorFloat b_;
+
+  // Used for building constraints
+  int num_constrs_;
+  std::vector<Triplet> A_coeffs_;
+
 };
 
 #endif  // SPLITTING_CONIC_SOLVER_H

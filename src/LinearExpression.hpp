@@ -8,7 +8,6 @@ class VariableOffsetMap {
   std::unordered_set<int> variable_ids() const;
   int offset(int var_id) const;
   int size(int var_id) const;
-
   void insert(int var_id, int size);
 };
 
