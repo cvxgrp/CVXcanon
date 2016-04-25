@@ -22,7 +22,7 @@
 #include "LinOpOperations.hpp"
 #include "LinearConeTransform.hpp"
 #include "ProblemData.hpp"
-#include "SplittingConicSolver.hpp"
+#include "SplittingConeSolver.hpp"
 #include "SymbolicConeSolver.hpp"
 
 void mul_by_const(Matrix &coeff_mat,
@@ -267,6 +267,6 @@ ProblemData build_matrix(std::vector<LinOp*> constraints,
 Solution solve(const Problem& problem, const SolverOptions& solver_options) {
   // TODO(mwytock): Allow for different transforms/solvers as per SolveOptions
   LinearConeTransform transform;
-  SymbolicConeSolver solver(std::make_unique<SplittingConicSolver>());
+  SymbolicConeSolver solver(std::make_unique<SplittingConeSolver>());
   return solver.solve(transform.transform(problem));
 }

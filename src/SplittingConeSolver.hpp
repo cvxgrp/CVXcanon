@@ -7,7 +7,7 @@
 
 #include "ConeSolver.hpp"
 
-class SplittingConicSolver : public ConeSolver {
+class SplittingConeSolver : public ConeSolver {
  public:
   ConeSolution solve(const ConeProblem& problem) override;
 };
