@@ -14,8 +14,10 @@ canon = Extension(
         'src/ExpressionUtil.cpp',
         'src/LinOpOperations.cpp',
         'src/LinearConeTransform.cpp',
+        'src/SplittingConeSolver.cpp',
+        'src/SymbolicConeSolver.cpp',
         'src/TextFormat.cpp',
-        'src/python/CVXcanon_wrap.cpp'
+        'src/python/CVXcanon_wrap.cpp',
     ],
     include_dirs=['src/', 'src/python/', 'include/Eigen', numpy.get_include()]
 )

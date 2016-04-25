@@ -3,12 +3,28 @@
 #ifndef CONE_SOLVER_H
 #define CONE_SOLVER_H
 
+enum Cone {
+  ZERO,
+  NON_NEGATIVE,
+  SECOND_ORDER,
+};
+
+class ConeIndices {
+ public:
+  Cone cone;
+  int offset, size;
+};
+
 class ConeProblem {
-  // A, b, c
+ public:
+  Eigen::SparseMatrix<double> A;
+  Eigen::VectorXd b, c;
+  std::vector<ConeIndices> cones;
 };
 
 class ConeSolution {
-  // x
+ public:
+  Eigen::VectorXd x, y;
 };
 
 class ConeSolver {

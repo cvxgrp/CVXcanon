@@ -3,10 +3,13 @@
 #ifndef SOLVER_H
 #define SOLVER_H
 
+#include <unordered_map>
+
 class SolverOptions {
 };
 
 class Solution {
+  std::unordered_map<int, Eigen::VectorXd> values;
 };
 
 class Solver {
