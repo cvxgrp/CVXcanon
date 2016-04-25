@@ -19,7 +19,7 @@ class Expression {
     SUM,
     VSTACK,
 
-    // Non-linear functions
+    // Nonlinear functions
     ABS,
     P_NORM,
     QUAD_OVER_LIN,

@@ -470,6 +470,23 @@ class Solution(_object):
 Solution_swigregister = _CVXcanon.Solution_swigregister
 Solution_swigregister(Solution)
 
+class Solver(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Solver, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, Solver, name)
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined - class is abstract")
+    __repr__ = _swig_repr
+    __swig_destroy__ = _CVXcanon.delete_Solver
+    __del__ = lambda self: None
+
+    def solve(self, problem):
+        return _CVXcanon.Solver_solve(self, problem)
+Solver_swigregister = _CVXcanon.Solver_swigregister
+Solver_swigregister(Solver)
+
 class IntVector(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, IntVector, name, value)

@@ -17,10 +17,13 @@
 #include <iostream>
 #include <map>
 
+#include "Expression.hpp"
 #include "LinOp.hpp"
 #include "LinOpOperations.hpp"
+#include "LinearConeTransform.hpp"
 #include "ProblemData.hpp"
-#include "TextFormat.hpp"
+#include "SplittingConicSolver.hpp"
+#include "SymbolicConeSolver.hpp"
 
 void mul_by_const(Matrix &coeff_mat,
         std::map<int, Matrix > &rh_coeffs,
@@ -262,7 +265,8 @@ ProblemData build_matrix(std::vector<LinOp*> constraints,
 }
 
 Solution solve(const Problem& problem, const SolverOptions& solver_options) {
-  printf("%s\n", format_problem(problem).c_str());
-  Solution solution;
-  return solution;
+  // TODO(mwytock): Allow for different transforms/solvers as per SolveOptions
+  LinearConeTransform transform;
+  SymbolicConeSolver solver(std::make_unique<SplittingConicSolver>());
+  return solver.solve(transform.transform(problem));
 }
