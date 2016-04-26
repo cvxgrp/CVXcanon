@@ -22,14 +22,14 @@ class ConeConstraint {
 
 class ConeProblem {
  public:
-  Matrix A;
-  VectorFloat b, c;
+  SparseMatrix A;
+  DenseVector b, c;
   std::vector<ConeConstraint> constraints;
 };
 
 class ConeSolution {
  public:
-  VectorFloat x, y;
+  DenseVector x, y;
 };
 
 class ConeSolver {

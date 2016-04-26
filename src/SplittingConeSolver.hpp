@@ -25,7 +25,7 @@ class SplittingConeSolver : public ConeSolver {
 
   void build_scs_constraint(
     const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
-    const VectorFloat& b,
+    const DenseVector& b,
     const std::vector<ConeConstraint>& constraints,
     int* total_size,
     int* sizes);
@@ -39,11 +39,11 @@ class SplittingConeSolver : public ConeSolver {
   // SCS supporting data structures
   scs::AMatrix A_matrix_;
   std::unique_ptr<int[]> q_;
-  VectorFloat s_;
+  DenseVector s_;
 
   // Constraints ordered the way SCS needs them
-  Matrix A_;
-  VectorFloat b_;
+  SparseMatrix A_;
+  DenseVector b_;
 
   // Used for building constraints
   int num_constrs_;

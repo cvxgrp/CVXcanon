@@ -1,24 +1,9 @@
+#ifndef LINEAR_EXPRESSION_H
+#define LINEAR_EXPRESSION_H
 
-#include <unordered_set>
+#include <map>
 
-typedef std::unordered_map<int, int> VariableMap;
+const int kConstCoefficientId = -1;
+std::map<int, SparseMatrix> get_coefficients(const Expression& expr);
 
-class VariableOffsetMap {
- public:
-  std::unordered_set<int> variable_ids() const;
-  int offset(int var_id) const;
-  int size(int var_id) const;
-  void insert(int var_id, int size);
-};
-
-// Coefficients of an affine function Ax + b
-class AffineCoefficients {
- public:
-  Eigen::SparseMatrix<double> A;
-  Eigen::VectorXd b;
-};
-
-VariableOffsetMap build_variable_offset_map(const Problem& problem);
-AffineCoefficients build_coefficients(
-    const Expression& expr,
-    const VariableOffsetMap& var_offsets);
+#endif  // LINEAR_EXPRESSION_H

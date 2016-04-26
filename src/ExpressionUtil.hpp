@@ -31,4 +31,7 @@ int dim(const Expression& x);
 int count_nodes(const Expression& x);
 int count_nodes(const Problem& prob);
 
+// Curvature
+bool is_constant(const Expression& expr);
+
 #endif // EXPRESSION_UTIL_H

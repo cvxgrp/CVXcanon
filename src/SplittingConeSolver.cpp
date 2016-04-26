@@ -7,7 +7,7 @@
 
 void SplittingConeSolver::build_scs_constraint(
     const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
-    const VectorFloat& b,
+    const DenseVector& b,
     const std::vector<ConeConstraint>& constraints,
     int* total_size,
     int* sizes) {
@@ -26,7 +26,7 @@ void SplittingConeSolver::build_scs_problem(
     const ConeProblem& problem,
     ConeSolution* solution) {
   Eigen::SparseMatrix<double, Eigen::RowMajor> A = problem.A;
-  const VectorFloat& b = problem.b;
+  const DenseVector& b = problem.b;
 
   std::unordered_map<int, std::vector<ConeConstraint>> constr_map;
   for (const ConeConstraint& constr : problem.constraints) {
@@ -65,9 +65,9 @@ void SplittingConeSolver::build_scs_problem(
   data_.b = const_cast<double*>(b_.data());
   data_.c = const_cast<double*>(problem.c.data());
 
-  s_ = VectorFloat(A_.rows());
-  solution->x = VectorFloat(A_.cols());
-  solution->y = VectorFloat(A_.rows());
+  s_ = DenseVector(A_.rows());
+  solution->x = DenseVector(A_.cols());
+  solution->y = DenseVector(A_.rows());
   sol_.x = const_cast<double*>(solution->x.data());
   sol_.y = const_cast<double*>(solution->y.data());
   sol_.s = const_cast<double*>(s_.data());

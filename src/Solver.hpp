@@ -3,7 +3,7 @@
 #ifndef SOLVER_H
 #define SOLVER_H
 
-#include <unordered_map>
+#include <map>
 
 #include <Eigen/Core>
 
@@ -14,7 +14,7 @@ class SolverOptions {
 
 class Solution {
  public:
-  std::unordered_map<int, Eigen::VectorXd> values;
+  std::map<int, DenseVector> values;
 };
 
 class Solver {
