@@ -9,7 +9,7 @@ void append_block_triplets(
     std::vector<Triplet>* coeffs);
 
 SparseMatrix sparse_matrix(int m, int n, const std::vector<Triplet>& coeffs);
-SparseMatrix scalar_matrix(double alpha);
+SparseMatrix scalar_matrix(double alpha, int n);
 SparseMatrix ones_matrix(int m, int n);
 SparseMatrix identity(int n);
 SparseMatrix reshape(const SparseMatrix& A, int m, int n);

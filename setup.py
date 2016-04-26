@@ -17,6 +17,7 @@ canon = Extension(
         "src/LinOpOperations.cpp",
         "src/LinearConeTransform.cpp",
         "src/LinearExpression.cpp",
+        "src/MatrixUtil.cpp",
         "src/SplittingConeSolver.cpp",
         "src/SymbolicConeSolver.cpp",
         "src/TextFormat.cpp",

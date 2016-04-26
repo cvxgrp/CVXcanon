@@ -14,12 +14,12 @@ bool is_constant(const CoeffMap& coeffs) {
 std::vector<SparseMatrix> get_add_coefficients(const Expression& expr) {
   std::vector<SparseMatrix> coeffs;
   for (int i = 0; i < expr.args().size(); i++)
-    coeffs.push_back(scalar_matrix(1));
+    coeffs.push_back(scalar_matrix(1, dim(expr)));
   return coeffs;
 }
 
 std::vector<SparseMatrix> get_neg_coefficients(const Expression& expr) {
-  return {scalar_matrix(-1)};
+  return {scalar_matrix(-1, dim(expr))};
 }
 
 std::vector<SparseMatrix> get_sum_coefficients(const Expression& expr) {
