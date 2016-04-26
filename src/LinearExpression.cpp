@@ -1,10 +1,10 @@
 
 #include "LinearExpression.hpp"
 
-#include "ExpressionUtil.hpp"
-#include "MatruxUtil.hpp"
+#include <unordered_map>
 
-const int kConstCoefficientId = -1;
+#include "ExpressionUtil.hpp"
+#include "MatrixUtil.hpp"
 
 bool is_constant(const CoeffMap& coeffs) {
   return (coeffs.find(kConstCoefficientId) != coeffs.end() &&
@@ -26,6 +26,9 @@ std::vector<SparseMatrix> get_sum_coefficients(const Expression& expr) {
   return {ones_matrix(1, dim(expr.arg(0)))};
 }
 
+typedef std::vector<SparseMatrix>(*CoefficientFunction)(
+    const Expression& expr);
+
 std::unordered_map<int, CoefficientFunction> kCoefficientFunctions = {
   {Expression::ADD, &get_add_coefficients},
   {Expression::NEG, &get_neg_coefficients},
@@ -39,8 +42,8 @@ void multiply_by_constant(
     const std::map<int, Matrix>& rhs,
     std::map<int, Matrix>* result) {
   for (const auto& iter : rhs) {
-    Matrix value = lhs*iter->second;
-    auto retval = result->insert(std::make_pair(iter->first, value));
+    Matrix value = lhs*iter.second;
+    auto retval = result->insert(std::make_pair(iter.first, value));
     if (retval.second)
       retval.first->second += value;
   }
@@ -51,9 +54,9 @@ std::map<int, SparseMatrix> get_coefficients(const Expression& expr) {
 
   if (expr.type() == Expression::CONST) {
     coeffs[kConstCoefficientId] = to_vector(
-        expr.attr<ConstAttributes>().constant_matrix());
+        expr.attr<ConstAttributes>().data).sparseView();
   } else if (expr.type() == Expression::VAR) {
-    coeffs[expr.attr<VarAttributes>().var_id()] = sparse_identity(dim(expr));
+    coeffs[expr.attr<VarAttributes>().id] = identity(dim(expr));
   } else if (expr.type() == Expression::MUL) {
     // Special case for binary mul operator which is guaranteed to have one
     // constant argument by DCP rules.
@@ -62,9 +65,10 @@ std::map<int, SparseMatrix> get_coefficients(const Expression& expr) {
     CoeffMap rhs_coeffs = get_coefficients(expr.arg(1));
     std::vector<SparseMatrix> f_coeffs;
     if (is_constant(lhs_coeffs)) {
-      assert(size(expr).dims[1] == 1);  // matrix multiply not yet supported
+      // TODO(mwytock): matrix-matrix multiply not yet supported
+      assert(size(expr).dims[1] == 1);
       multiply_by_constant(
-          reshape(const_coeffs[kConstCoefficientId],
+          reshape(lhs_coeffs[kConstCoefficientId],
                   size(expr).dims[0],
                   size(expr.arg(1)).dims[0]),
           rhs_coeffs,
@@ -80,7 +84,7 @@ std::map<int, SparseMatrix> get_coefficients(const Expression& expr) {
     std::vector<Matrix> f_coeffs = iter->second(expr);
     for (int i = 0; i < expr.args().size(); i++) {
       multiply_by_constant(
-          f_coeffs[i], get_coefficients_impl(expr.arg(i)), &coeffs);
+          f_coeffs[i], get_coefficients(expr.arg(i)), &coeffs);
     }
   }
 

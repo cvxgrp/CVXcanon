@@ -154,6 +154,50 @@ class SwigPyIterator(_object):
 SwigPyIterator_swigregister = _CVXcanon.SwigPyIterator_swigregister
 SwigPyIterator_swigregister(SwigPyIterator)
 
+class ConstAttributes(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ConstAttributes, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, ConstAttributes, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["data"] = _CVXcanon.ConstAttributes_data_set
+    __swig_getmethods__["data"] = _CVXcanon.ConstAttributes_data_get
+    if _newclass:
+        data = _swig_property(_CVXcanon.ConstAttributes_data_get, _CVXcanon.ConstAttributes_data_set)
+
+    def __init__(self):
+        this = _CVXcanon.new_ConstAttributes()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _CVXcanon.delete_ConstAttributes
+    __del__ = lambda self: None
+ConstAttributes_swigregister = _CVXcanon.ConstAttributes_swigregister
+ConstAttributes_swigregister(ConstAttributes)
+
+class VarAttributes(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, VarAttributes, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, VarAttributes, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["id"] = _CVXcanon.VarAttributes_id_set
+    __swig_getmethods__["id"] = _CVXcanon.VarAttributes_id_get
+    if _newclass:
+        id = _swig_property(_CVXcanon.VarAttributes_id_get, _CVXcanon.VarAttributes_id_set)
+
+    def __init__(self):
+        this = _CVXcanon.new_VarAttributes()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _CVXcanon.delete_VarAttributes
+    __del__ = lambda self: None
+VarAttributes_swigregister = _CVXcanon.VarAttributes_swigregister
+VarAttributes_swigregister(VarAttributes)
+
 class Expression(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Expression, name, value)

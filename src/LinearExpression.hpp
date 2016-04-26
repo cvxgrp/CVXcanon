@@ -3,6 +3,9 @@
 
 #include <map>
 
+#include "Utils.hpp"
+#include "Expression.hpp"
+
 const int kConstCoefficientId = -1;
 std::map<int, SparseMatrix> get_coefficients(const Expression& expr);
 

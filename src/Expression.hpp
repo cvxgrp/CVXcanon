@@ -5,6 +5,18 @@
 
 #include <vector>
 
+#include "Utils.hpp"
+
+class ConstAttributes {
+ public:
+  DenseMatrix data;
+};
+
+class VarAttributes {
+ public:
+  int id;
+};
+
 // Expression trees
 class Expression {
  public:
@@ -37,6 +49,9 @@ class Expression {
   Type type() const { return data_->type; }
   const std::vector<Expression>& args() const { return data_->args; }
   const Expression& arg(int i) const { return data_->args[i]; }
+
+  template<typename T>
+  const T& attr() const;
 
   Expression() {}
   Expression(Type type, std::vector<Expression> args);
