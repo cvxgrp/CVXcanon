@@ -4,24 +4,17 @@
 #include <memory>
 #include <unordered_map>
 
+#include "ExpressionShape.hpp"
 #include "ExpressionUtil.hpp"
 #include "LinearExpression.hpp"
 #include "MatrixUtil.hpp"
+#include "Utils.hpp"
 
-const std::unordered_map<int, ConeConstraint::Cone> kConeMap = {
+const std::unordered_map<Expression::Type, ConeConstraint::Cone> kConeMap = {
   {Expression::EQ,  ConeConstraint::ZERO},
   {Expression::LEQ, ConeConstraint::NON_NEGATIVE},
   {Expression::SOC, ConeConstraint::SECOND_ORDER},
 };
-
-// TODO(mwytock): Make this templated and put it in a util
-ConeConstraint::Cone get(
-    const std::unordered_map<int, ConeConstraint::Cone>& map,
-    int key) {
-  auto iter = map.find(key);
-  assert(iter != map.end());
-  return iter->second;
-}
 
 SymbolicConeSolver::SymbolicConeSolver(
     std::unique_ptr<ConeSolver> cone_solver)
@@ -30,6 +23,13 @@ SymbolicConeSolver::SymbolicConeSolver(
 
 int SymbolicConeSolver::add_constraint_coefficients(const Expression& expr) {
   CoeffMap coeff_map = get_coefficients(expr);
+
+  if (is_constant(coeff_map)) {
+    // Drop constant constraints
+    // TODO(mwytock): Correct way to deal with this case?
+    return 0;
+  }
+
   const int m = dim(expr);
 
   for (const auto& iter : coeff_map) {
@@ -43,10 +43,12 @@ int SymbolicConeSolver::add_constraint_coefficients(const Expression& expr) {
     }
   }
 
+  num_constrs_ += m;
   return m;
 }
 
 void SymbolicConeSolver::add_cone_constraint(const Expression& expr) {
+  int offset = num_constrs_;
   int size = 0;
   if (expr.type() == Expression::EQ ||
       expr.type() == Expression::LEQ) {
@@ -63,9 +65,10 @@ void SymbolicConeSolver::add_cone_constraint(const Expression& expr) {
     assert(false);
   }
 
-  ConeConstraint constr = {get(kConeMap, expr.type()), num_constrs_, size};
-  cone_problem_.constraints.push_back(constr);
-  num_constrs_ += size;
+  if (size != 0) {
+    ConeConstraint constr = {find_or_die(kConeMap, expr.type()), offset, size};
+    cone_problem_.constraints.push_back(constr);
+  }
 }
 
 void SymbolicConeSolver::add_cone_objective(const Expression& expr) {
@@ -76,7 +79,7 @@ void SymbolicConeSolver::add_cone_objective(const Expression& expr) {
 
     if (var_id != kConstCoefficientId) {
       const int j = var_offsets_.insert(var_id, cT.cols());
-      append_block_triplets(cT.transpose(), 0, j, &c_coeffs_);
+      append_block_triplets(cT.transpose(), j, 0, &c_coeffs_);
     }
   }
 }
@@ -100,8 +103,15 @@ Solution SymbolicConeSolver::solve(const Problem& problem) {
 
   const int m = num_constrs_;
   const int n = var_offsets_.n();
-  cone_problem_.A = sparse_matrix(m, n, A_coeffs_);
+  cone_problem_.A = -sparse_matrix(m, n, A_coeffs_);  // negative by convention
   cone_problem_.b = sparse_matrix(m, 1, b_coeffs_);
   cone_problem_.c = sparse_matrix(n, 1, c_coeffs_);
+
+  printf("created cone problem matrices (m=%d, n=%d)\n", m, n);
+  printf("A:\n%s", matrix_debug_string(cone_problem_.A).c_str());
+  printf("b: %s\n", vector_debug_string(cone_problem_.b).c_str());
+  printf("c: %s\n", vector_debug_string(cone_problem_.c).c_str());
+  printf("\n");
+
   return get_solution(cone_solver_->solve(cone_problem_));
 }

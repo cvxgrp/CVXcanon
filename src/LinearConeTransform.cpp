@@ -5,6 +5,7 @@
 
 #include "Expression.hpp"
 #include "ExpressionUtil.hpp"
+#include "ExpressionShape.hpp"
 #include "Logging.hpp"
 #include "TextFormat.hpp"
 
@@ -25,7 +26,7 @@ Expression transform_abs(
 Expression transform_p_norm(
     const Expression& expr,
     std::vector<Expression>* constraints) {
-  //CHECK_EQ(expr.p, 1);
+  assert(expr.attr<PNormAttributes>().p == 1);
   return sum(transform_abs(expr, constraints));
 }
 
@@ -37,9 +38,7 @@ Expression transform_quad_over_lin(
   Expression t = scalar_epi_var(expr, "qol");
 
   constraints->push_back(
-      soc(hstack(
-          {add(y, neg(t)), reshape(mul(constant(2), x), 1, dim(x))}),
-          add(y, t)));
+      soc(vstack({add(y, neg(t)), mul(constant(2), x)}), add(y, t)));
   constraints->push_back(leq(constant(0), y));
   return t;
 }
@@ -61,7 +60,7 @@ Expression transform_expression(
     linear_args.push_back(transform_expression(arg, constraints));
 
   // New expression, with linear args
-  Expression output = Expression(expr.type(), linear_args);
+  Expression output = Expression(expr.type(), linear_args, expr.attr_ptr());
 
   // Now transform non-linear functions, if necessary
   //printf("transform_func: %s\n", format_expression(expr).c_str());

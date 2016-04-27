@@ -22,7 +22,6 @@
 #include "LinOp.hpp"
 #include "ProblemData.hpp"
 #include "Solver.hpp"
-#include "Utils.hpp"
 
 // Top Level Entry point
 ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col);

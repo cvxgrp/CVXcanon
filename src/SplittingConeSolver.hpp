@@ -10,8 +10,8 @@
 namespace scs {
 typedef double scs_float;
 typedef int scs_int;
-#include <linsys/amatrix.h>
-#include <scs.h>
+#include <scs/linsys/amatrix.h>
+#include <scs/include/scs.h>
 }  // scs
 
 class SplittingConeSolver : public ConeSolver {
@@ -35,6 +35,7 @@ class SplittingConeSolver : public ConeSolver {
   scs::Cone cone_;
   scs::Info info_;
   scs::Sol sol_;
+  scs::Settings settings_;
 
   // SCS supporting data structures
   scs::AMatrix A_matrix_;

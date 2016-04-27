@@ -1,4 +1,4 @@
-// Build matrices and call a ConeSolver
+// Builds matrices for the canonical cone form and passes to ConeSolver
 
 #ifndef SYMBOLIC_CONE_SOLVER_H
 #define SYMBOLIC_CONE_SOLVER_H
@@ -12,10 +12,10 @@ class VariableOffsetMap {
 
   // returns offset, inserting if necssary
   int insert(int var_id, int size) {
-    auto retval = map_.insert(std::make_pair(var_id, std::make_pair(n_, size)));
-    if (retval.second)
+    auto ret = map_.insert(std::make_pair(var_id, std::make_pair(n_, size)));
+    if (ret.second)
       n_ += size;
-    return retval.first->second.first;
+    return ret.first->second.first;
   }
 
   int n() const { return n_; }

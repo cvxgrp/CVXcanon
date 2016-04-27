@@ -13,6 +13,7 @@ canon = Extension(
     sources=[
         "src/CVXcanon.cpp",
         "src/Expression.cpp",
+        "src/ExpressionShape.cpp",
         "src/ExpressionUtil.cpp",
         "src/LinOpOperations.cpp",
         "src/LinearConeTransform.cpp",
@@ -21,16 +22,20 @@ canon = Extension(
         "src/SplittingConeSolver.cpp",
         "src/SymbolicConeSolver.cpp",
         "src/TextFormat.cpp",
+        "src/Utils.cpp",
         "src/python/CVXcanon_wrap.cpp",
     ],
     include_dirs=[
-        "src/",
-        "src/python/",
+        "src",
+        "src/python",
         "include",
         numpy.get_include(),
-        "third_party/scs/include",
-        "third_party/scs",
+        "third_party",
     ],
+    extra_link_args=[
+        "third_party/scs/out/libscsdir.a",
+    ],
+    undef_macros = ["NDEBUG"],
 )
 
 base_dir = os.path.dirname(__file__)

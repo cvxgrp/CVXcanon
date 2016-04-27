@@ -20,6 +20,9 @@ class ConeConstraint {
   int offset, size;
 };
 
+// A cone problem of the form
+// minimize    c'x
+// subject to  b - Ax in K
 class ConeProblem {
  public:
   SparseMatrix A;

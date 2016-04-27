@@ -1,5 +1,7 @@
 """Handles translating CVXPY expressions to CVXcanon expressions."""
 
+import numpy as np
+
 import CVXcanon
 import cvxpy
 import cvxpy.atoms.affine.add_expr
@@ -28,11 +30,39 @@ TYPE_MAP = {
     cvxpy.expressions.variables.variable.Variable: CVXcanon.Expression.VAR,
 }
 
+def get_var_attributes(variable):
+    attr = CVXcanon.VarAttributes()
+    attr.id = variable.id
+    attr.size.dims.push_back(variable.size[0])
+    attr.size.dims.push_back(variable.size[1])
+    return attr
+
+def get_const_attributes(constant):
+    attr = CVXcanon.ConstAttributes()
+    attr.set_dense_data(np.asfortranarray(np.atleast_2d(constant.value)))
+    return attr
+
+def get_pnorm_attributes(pnorm):
+    attr = CVXcanon.PNormAttributes()
+    attr.p = pnorm.p
+    return attr
+
+ATTRIBUTE_MAP = {
+    cvxpy.expressions.constants.constant.Constant: get_const_attributes,
+    cvxpy.expressions.variables.variable.Variable: get_var_attributes,
+    cvxpy.atoms.pnorm: get_pnorm_attributes,
+}
+
 def convert_expression(cvxpy_expr):
     args = CVXcanon.ExpressionVector()
     for arg in cvxpy_expr.args:
         args.push_back(convert_expression(arg))
-    return CVXcanon.Expression(TYPE_MAP[type(cvxpy_expr)], args)
+    t = type(cvxpy_expr)
+    expr = CVXcanon.Expression(
+        TYPE_MAP[t],
+        args,
+        ATTRIBUTE_MAP.get(t, lambda x: None)(cvxpy_expr))
+    return expr
 
 def convert_problem(cvxpy_problem):
     problem = CVXcanon.Problem()

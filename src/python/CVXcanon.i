@@ -24,11 +24,6 @@
 %include "std_vector.i"
 %include "std_map.i"
 
-%include "Expression.hpp"
-%include "LinOp.hpp"
-%include "ProblemData.hpp"
-%include "Solver.hpp"
-
 /* Must call this before using NUMPY-C API */
 %init %{
 	import_array();
@@ -57,8 +52,18 @@ namespace std {
    %template(ExpressionVector) vector<Expression>;
 }
 
-/* Wrapper for entry point into CVXCanon Library */
-ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col);
-ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col, std::vector<int> constr_offsets);
+/* Modify typemaps for for expression attributes so they aren't gc'd */
+%typemap(out) ExpressionAttributes* {
+  $result = SWIG_NewPointerObj(SWIG_as_voidptr(result), $1_descriptor, 0 );
+}
+%apply ExpressionAttributes* {
+  ConstAttributes*,
+  ReshapeAttributes*,
+  PNormAttributes*,
+  VarAttributes* };
 
-Solution solve(const Problem& problem, const SolverOptions& solver_options);
+%include "CVXcanon.hpp"
+%include "Expression.hpp"
+%include "LinOp.hpp"
+%include "ProblemData.hpp"
+%include "Solver.hpp"

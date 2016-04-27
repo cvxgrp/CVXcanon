@@ -1,5 +1,6 @@
 
 #include "ExpressionUtil.hpp"
+#include "ExpressionShape.hpp"
 
 Expression add(Expression x, Expression y) {
   return {Expression::ADD, {x,y}};
@@ -13,16 +14,17 @@ Expression neg(Expression x) {
   return {Expression::NEG, {x}};
 }
 
-Expression var(int m, int n) {
-  return {Expression::VAR, {}};
-}
-
-Expression constant(int m, int n) {
-  return {Expression::CONST, {}};
+Expression var(int m, int n, int var_id) {
+  auto attr = std::make_shared<VarAttributes>();
+  attr->id = var_id;
+  attr->size = {{m, n}};
+  return {Expression::VAR, {}, attr};
 }
 
 Expression constant(double value) {
-  return {Expression::CONST, {}};
+  auto attr = std::make_shared<ConstAttributes>();
+  attr->dense_data = DenseMatrix::Constant(1, 1, value);
+  return {Expression::CONST, {}, attr};
 }
 
 Expression quad_over_lin(Expression x, Expression y) {
@@ -37,8 +39,14 @@ Expression hstack(std::vector<Expression> args) {
   return {Expression::HSTACK, args};
 }
 
+Expression vstack(std::vector<Expression> args) {
+  return {Expression::VSTACK, args};
+}
+
 Expression reshape(Expression x, int m, int n) {
-  return {Expression::RESHAPE, {x}};
+  auto attr = std::make_shared<ReshapeAttributes>();
+  attr->size = {{m, n}};
+  return {Expression::RESHAPE, {x}, attr};
 }
 
 Expression sum(Expression x) {
@@ -56,20 +64,12 @@ Expression soc(Expression x, Expression y) {
 }
 
 Expression epi_var(const Expression& x, const std::string& name) {
-  return {Expression::VAR, {}};
+  Size size_x = size(x);
+  return var(size_x.dims[0], size_x.dims[1], rand());
 }
 
 Expression scalar_epi_var(const Expression& x, const std::string& name) {
-  return {Expression::VAR, {}};
-}
-
-int dim(const Expression& x) {
-  return 1;
-  // int dim = 1;
-  // for (int x : x.size.dims) {
-  //   dim *= x;
-  // }
-  // return dim;
+  return var(1, 1, rand());
 }
 
 int count_nodes(const Expression& x) {
@@ -86,4 +86,8 @@ int count_nodes(const Problem& problem) {
     retval += count_nodes(constr);
   }
   return retval;
+}
+
+bool is_scalar(const Size& size) {
+  return size.dims[0] == 1 && size.dims[1] == 1;
 }

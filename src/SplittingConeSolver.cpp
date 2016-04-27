@@ -5,6 +5,10 @@
 
 #include "MatrixUtil.hpp"
 
+namespace scs {
+#include <scs/include/util.h>
+}
+
 void SplittingConeSolver::build_scs_constraint(
     const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
     const DenseVector& b,
@@ -19,51 +23,68 @@ void SplittingConeSolver::build_scs_constraint(
         b.segment(constr.offset, constr.size);
     if (total_size != nullptr) *total_size += constr.size;
     if (sizes != nullptr) sizes[j++] = constr.size;
+    num_constrs_ += constr.size;
   }
 }
 
 void SplittingConeSolver::build_scs_problem(
     const ConeProblem& problem,
     ConeSolution* solution) {
-  Eigen::SparseMatrix<double, Eigen::RowMajor> A = problem.A;
-  const DenseVector& b = problem.b;
+  const int m = problem.A.rows();
+  const int n = problem.A.cols();
 
-  std::unordered_map<int, std::vector<ConeConstraint>> constr_map;
-  for (const ConeConstraint& constr : problem.constraints) {
-    constr_map[constr.cone].push_back(constr);
-  }
+  // Inputs: problem.A, problem.b -  original constraints
+  // Outputs: A_, b_ - with shuffled rows, will build incrementally
+  {
+    Eigen::SparseMatrix<double, Eigen::RowMajor> A = problem.A;
+    const DenseVector& b = problem.b;
 
-  build_scs_constraint(
-      A, b, constr_map[ConeConstraint::ZERO], &cone_.f, nullptr);
-  build_scs_constraint(
-      A, b, constr_map[ConeConstraint::NON_NEGATIVE], &cone_.l, nullptr);
+    A_coeffs_.clear();
+    b_ = DenseVector(m);
+    num_constrs_ = 0;
 
-  cone_.qsize = constr_map[ConeConstraint::SECOND_ORDER].size();
-  if (cone_.qsize != 0) {
-    q_.reset(new int[cone_.qsize]);
+    std::unordered_map<int, std::vector<ConeConstraint>> constr_map;
+    for (const ConeConstraint& constr : problem.constraints) {
+      constr_map[constr.cone].push_back(constr);
+    }
+
     build_scs_constraint(
-        A, b, constr_map[ConeConstraint::SECOND_ORDER], nullptr, q_.get());
+        A, b, constr_map[ConeConstraint::ZERO], &cone_.f, nullptr);
+    build_scs_constraint(
+        A, b, constr_map[ConeConstraint::NON_NEGATIVE], &cone_.l, nullptr);
+    cone_.qsize = constr_map[ConeConstraint::SECOND_ORDER].size();
+    if (cone_.qsize != 0) {
+      q_.reset(new int[cone_.qsize]);
+      build_scs_constraint(
+          A, b, constr_map[ConeConstraint::SECOND_ORDER], nullptr, q_.get());
+      cone_.q = q_.get();
+    }
+    cone_.ssize = 0;
+    cone_.ep = 0;
+    cone_.ed = 0;
+    cone_.psize = 0;
+
+    A_ = sparse_matrix(m, n, A_coeffs_);
   }
-  cone_.ssize = 0;
-  cone_.ep = 0;
-  cone_.ed = 0;
-  cone_.psize = 0;
 
-  // Construct A matrix
-  A_ = Matrix(problem.A.rows(), problem.A.cols());
-  A_.setFromTriplets(A_coeffs_.begin(), A_coeffs_.end());
+  // printf("SCS constraints:\n");
+  // printf("A:\n%s", matrix_debug_string(A_).c_str());
+  // printf("b: %s\n", vector_debug_string(b_).c_str());
 
-  A_matrix_.m = A_.rows();
-  A_matrix_.n = A_.cols();
-  A_matrix_.x = A_.valuePtr();
+  // Build SCS data structures
+  A_matrix_.m = m;
+  A_matrix_.n = n;
   A_matrix_.p = A_.outerIndexPtr();
   A_matrix_.i = A_.innerIndexPtr();
+  A_matrix_.x = A_.valuePtr();
 
-  data_.m = A_.rows();
-  data_.n = A_.cols();
+  data_.m = m;
+  data_.n = n;
   data_.A = &A_matrix_;
   data_.b = const_cast<double*>(b_.data());
   data_.c = const_cast<double*>(problem.c.data());
+  data_.stgs = &settings_;
+  scs::setDefaultSettings(&data_);
 
   s_ = DenseVector(A_.rows());
   solution->x = DenseVector(A_.cols());
