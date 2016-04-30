@@ -30,11 +30,13 @@
  * Takes as list of contraints as input. Returns a map from constraint
  * type to list of linOp trees for each type.
  *
- * Constraint Types:  EQ,     // equality constraint
- *                    LEQ,    // non-negative orthant
- *                    SOC,    // second-order cone
- *                    EXP,    // exponential cone
- *                    SDP,    // semi-definite cone **** NOT CURRENTLY SUPPORTED
+ * Constraint Types:  EQ,       // equality constraint
+ *                    LEQ,      // non-negative orthant
+ *                    SOC,      // second-order cone
+ *                    SOC_ELEM, // elementwise second-order cone
+ *                    EXP,      // exponential cone
+ *                    SDP,      // semi-definite cone **** NOT CURRENTLY SUPPORTED
+ * 
  */
 std::map<OperatorType, std::vector<LinOp *> >
 filter_constraints(std::vector<LinOp *> constraints) {
@@ -45,6 +47,8 @@ filter_constraints(std::vector<LinOp *> constraints) {
                     std::vector<LinOp *> >(LEQ, std::vector<LinOp *>()));
   constr_map.insert(std::pair<OperatorType,
                     std::vector<LinOp *> >(SOC, std::vector<LinOp *>()));
+  constr_map.insert(std::pair<OperatorType,
+                    std::vector<LinOp *> >(SOC_ELEMWISE, std::vector<LinOp *>()));
   constr_map.insert(std::pair<OperatorType,
                     std::vector<LinOp *> >(EXP, std::vector<LinOp *>()));
 
@@ -95,6 +99,17 @@ compute_dimensions(std::map<OperatorType, std::vector<LinOp *> > constr_map) {
   int num_exp_cones = accumulate_size(constr_map[EXP]);
   dims[EXP].push_back(num_exp_cones);
 
+  // SOC_ELEMWISE
+  std::vector<LinOp *> soc_elem_constr = constr_map[SOC_ELEMWISE];
+  for (int i = 0; i < soc_elem_constr.size(); i++){
+    LinOp constr = *soc_elem_constr[i];
+    LinOp t = *constr.args[0];
+    int num_cones = t.size[0] * t.size[1];
+    int cone_size = constr.args.size();  // (1 + len(x.elems))
+    for (int i = 0; i < num_cones; i++){
+      dims[SOC].push_back(cone_size);
+    }
+  }
   return dims;
 }
 

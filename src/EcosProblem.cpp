@@ -21,13 +21,14 @@ void print(std::vector<T> v) {
  * HELPER FUNCTIONS
 ********************/
 std::vector<LinOp *> concatenate(std::vector<LinOp *> A, std::vector<LinOp *> B,
-                                 std::vector<LinOp *> C) {
-  std::vector<LinOp *> ABC;
-  ABC.reserve(A.size() + B.size() + C.size());
-  ABC.insert(ABC.end(), A.begin(), A.end());
-  ABC.insert(ABC.end(), B.begin(), B.end());
-  ABC.insert(ABC.end(), C.begin(), C.end());
-  return ABC;
+                                 std::vector<LinOp *> C,std::vector<LinOp *> D) {
+  std::vector<LinOp *> ABCD;
+  ABCD.reserve(A.size() + B.size() + C.size() + D.size());
+  ABCD.insert(ABCD.end(), A.begin(), A.end());
+  ABCD.insert(ABCD.end(), B.begin(), B.end());
+  ABCD.insert(ABCD.end(), C.begin(), C.end());
+  ABCD.insert(ABCD.end(), D.begin(), D.end());
+  return ABCD;
 }
 
 std::vector<double> negate(std::vector<double> &vec) {
@@ -148,6 +149,15 @@ std::vector<LinOp *> format_soc_constrs(std::vector<LinOp *> &constrs) {
     for (int j = 0; j < constr->args.size(); j++) {
       formatted_constraints.push_back(negate_expression(constr->args[j]));
     }
+  }
+  return formatted_constraints;
+}
+
+std::vector<LinOp *> format_soc_elmewise_constrs(std::vector<LinOp *> &constrs){
+  std::vector<LinOp *> formatted_constraints;
+  for (int i = 0; i < constrs.size(); i++) {
+    LinOp constr = *constrs[i];
+    formatted_constraints.push_back(format_elementwise(constr.args));
   }
   return formatted_constraints;
 }
@@ -290,7 +300,9 @@ EcosProblem::EcosProblem(Sense sense, LinOp * objective, std::map<OperatorType,
   /* Store dual variables to recover optimal dual values */
   eq_dual_vars = get_dual_variables(constr_map[EQ]);
   ineq_dual_vars = get_dual_variables(concatenate(constr_map[LEQ],
-                                      constr_map[SOC], constr_map[EXP]));
+                                                  constr_map[SOC],
+                                                  constr_map[SOC_ELEMWISE],
+                                                  constr_map[EXP]));
 
   /* get problem data */
   std::vector<LinOp *> objVec;
@@ -298,11 +310,13 @@ EcosProblem::EcosProblem(Sense sense, LinOp * objective, std::map<OperatorType,
 
   /* Format for ECOS solver */
   std::vector<LinOp *> eq_constrs = format_affine_constr(constr_map[EQ]);
-
   std::vector<LinOp *> leq_constrs = format_affine_constr(constr_map[LEQ]);
   std::vector<LinOp *> soc_constrs = format_soc_constrs(constr_map[SOC]);
+  std::vector<LinOp *> soc_elemwise_constrs = format_soc_elmewise_constrs(constr_map[SOC_ELEMWISE]);
+
   std::vector<LinOp *> exp_constrs = format_exp_constrs(constr_map[EXP]);
   std::vector<LinOp *> ineq_constrs = concatenate(leq_constrs, soc_constrs,
+                                                  soc_elemwise_constrs,
                                                   exp_constrs);
 
   ProblemData objData = build_matrix(objVec, var_offsets);

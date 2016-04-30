@@ -19,7 +19,7 @@ import scipy.sparse
 from collections import deque
 from cvxpy.lin_ops.lin_op import *
 from cvxpy.lin_ops import LinEqConstr, LinLeqConstr
-from cvxpy.constraints import SOC, SDP, ExpCone
+from cvxpy.constraints import SOC, SDP, ExpCone, SOC_Elemwise
 from cvxpy.problems.objective import Minimize, Maximize
 
 
@@ -233,8 +233,15 @@ def build_lin_op_tree(root_linPy, tmp):
 
 def get_constraint_node(c, tmp):
     root = CVXcanon.LinOp()
-    root.size.push_back(c.size[0])
-    root.size.push_back(c.size[1])
+
+    if isinstance(c, SOC_Elemwise):
+        # dimension of a single cone.
+        cone_size = c.cone_size()
+        root.size.push_back(cone_size[0])
+        root.size.push_back(cone_size[1])
+    else:
+        root.size.push_back(c.size[0])
+        root.size.push_back(c.size[1])
 
     # add ID as dense_data
     root.set_dense_data(format_matrix(c.constr_id, 'scalar'))
@@ -253,6 +260,16 @@ def get_constraint_node(c, tmp):
 
     elif isinstance(c, SOC):
         root.type = CVXcanon.SOC
+        t = build_lin_op_tree(c.t, tmp)
+        tmp.append(t)
+        root.args.push_back(t)
+        for elem in c.x_elems:
+            x_elem = build_lin_op_tree(elem, tmp)
+            tmp.append(x_elem)
+            root.args.push_back(x_elem)
+
+    elif isinstance(c, SOC_Elemwise):
+        root.type = CVXcanon.SOC_ELEMWISE
         t = build_lin_op_tree(c.t, tmp)
         tmp.append(t)
         root.args.push_back(t)
@@ -287,6 +304,8 @@ def solve(sense, objective, constraints, verbose, solver_options):
     tmp = []
 
     C_objective = build_lin_op_tree(objective, tmp)
+
+    # print constraints[0].canonical_form
 
     C_constraints = CVXcanon.LinOpVector()
     for constr in constraints:
