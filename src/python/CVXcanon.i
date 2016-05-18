@@ -18,6 +18,7 @@
 %{
 	#define SWIG_FILE_WITH_INIT
 	#include "CVXcanon.hpp"
+        #include "Solver.hpp"
 %}
 
 %include "numpy.i"

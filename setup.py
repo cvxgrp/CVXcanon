@@ -33,6 +33,7 @@ canon = Extension(
         "src/LinearConeTransform.cpp",
         "src/LinearExpression.cpp",
         "src/MatrixUtil.cpp",
+        "src/Solver.cpp",
         "src/SplittingConeSolver.cpp",
         "src/SymbolicConeSolver.cpp",
         "src/TextFormat.cpp",
@@ -49,7 +50,6 @@ canon = Extension(
     extra_link_args=[
         "third_party/scs/out/libscsdir.a",
     ],
-    undef_macros = ["NDEBUG"],
 )
 
 base_dir = os.path.dirname(__file__)

@@ -17,16 +17,11 @@
 #define CVXCANON_H
 
 #include <vector>
-
-#include "Expression.hpp"
 #include "LinOp.hpp"
+#include "Utils.hpp"
 #include "ProblemData.hpp"
-#include "Solver.hpp"
 
 // Top Level Entry point
 ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col);
 ProblemData build_matrix(std::vector< LinOp* > constraints, std::map<int, int> id_to_col, std::vector<int> constr_offsets);
-
-Solution solve(const Problem& problem, const SolverOptions& solver_options);
-
 #endif

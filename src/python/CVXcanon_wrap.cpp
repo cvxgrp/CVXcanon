@@ -3164,6 +3164,7 @@ namespace swig {
 
 	#define SWIG_FILE_WITH_INIT
 	#include "CVXcanon.hpp"
+        #include "Solver.hpp"
 
 
 #ifndef SWIG_FILE_WITH_INIT
@@ -19881,43 +19882,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_solve(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Problem *arg1 = 0 ;
-  SolverOptions *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  Solution result;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:solve",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_Problem,  0  | 0);
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "solve" "', argument " "1"" of type '" "Problem const &""'"); 
-  }
-  if (!argp1) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "solve" "', argument " "1"" of type '" "Problem const &""'"); 
-  }
-  arg1 = reinterpret_cast< Problem * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_SolverOptions,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "solve" "', argument " "2"" of type '" "SolverOptions const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "solve" "', argument " "2"" of type '" "SolverOptions const &""'"); 
-  }
-  arg2 = reinterpret_cast< SolverOptions * >(argp2);
-  result = solve((Problem const &)*arg1,(SolverOptions const &)*arg2);
-  resultobj = SWIG_NewPointerObj((new Solution(static_cast< const Solution& >(result))), SWIGTYPE_p_Solution, SWIG_POINTER_OWN |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_delete_ExpressionAttributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   ExpressionAttributes *arg1 = (ExpressionAttributes *) 0 ;
@@ -22825,6 +22789,43 @@ SWIGINTERN PyObject *Solver_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObjec
   return SWIG_Py_Void();
 }
 
+SWIGINTERN PyObject *_wrap_solve(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Problem *arg1 = 0 ;
+  SolverOptions *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  Solution result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:solve",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_Problem,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "solve" "', argument " "1"" of type '" "Problem const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "solve" "', argument " "1"" of type '" "Problem const &""'"); 
+  }
+  arg1 = reinterpret_cast< Problem * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_SolverOptions,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "solve" "', argument " "2"" of type '" "SolverOptions const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "solve" "', argument " "2"" of type '" "SolverOptions const &""'"); 
+  }
+  arg2 = reinterpret_cast< SolverOptions * >(argp2);
+  result = solve((Problem const &)*arg1,(SolverOptions const &)*arg2);
+  resultobj = SWIG_NewPointerObj((new Solution(static_cast< const Solution& >(result))), SWIGTYPE_p_Solution, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 static PyMethodDef SwigMethods[] = {
 	 { (char *)"SWIG_PyInstanceMethod_New", (PyCFunction)SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { (char *)"delete_SwigPyIterator", _wrap_delete_SwigPyIterator, METH_VARARGS, NULL},
@@ -23082,7 +23083,6 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"delete_ExpressionVector", _wrap_delete_ExpressionVector, METH_VARARGS, NULL},
 	 { (char *)"ExpressionVector_swigregister", ExpressionVector_swigregister, METH_VARARGS, NULL},
 	 { (char *)"build_matrix", _wrap_build_matrix, METH_VARARGS, NULL},
-	 { (char *)"solve", _wrap_solve, METH_VARARGS, NULL},
 	 { (char *)"delete_ExpressionAttributes", _wrap_delete_ExpressionAttributes, METH_VARARGS, NULL},
 	 { (char *)"new_ExpressionAttributes", _wrap_new_ExpressionAttributes, METH_VARARGS, NULL},
 	 { (char *)"ExpressionAttributes_swigregister", ExpressionAttributes_swigregister, METH_VARARGS, NULL},
@@ -23207,6 +23207,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"delete_Solver", _wrap_delete_Solver, METH_VARARGS, NULL},
 	 { (char *)"Solver_solve", _wrap_Solver_solve, METH_VARARGS, NULL},
 	 { (char *)"Solver_swigregister", Solver_swigregister, METH_VARARGS, NULL},
+	 { (char *)"solve", _wrap_solve, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 

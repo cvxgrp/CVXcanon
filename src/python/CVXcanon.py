@@ -951,10 +951,6 @@ ExpressionVector_swigregister(ExpressionVector)
 def build_matrix(*args):
     return _CVXcanon.build_matrix(*args)
 build_matrix = _CVXcanon.build_matrix
-
-def solve(problem, solver_options):
-    return _CVXcanon.solve(problem, solver_options)
-solve = _CVXcanon.solve
 class ExpressionAttributes(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, ExpressionAttributes, name, value)
@@ -1431,6 +1427,10 @@ class Solver(_object):
 Solver_swigregister = _CVXcanon.Solver_swigregister
 Solver_swigregister(Solver)
 
+
+def solve(problem, solver_options):
+    return _CVXcanon.solve(problem, solver_options)
+solve = _CVXcanon.solve
 # This file is compatible with both classic and new-style classes.
 
 

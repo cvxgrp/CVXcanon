@@ -24,4 +24,6 @@ class Solver {
   virtual Solution solve(const Problem& problem) = 0;
 };
 
+Solution solve(const Problem& problem, const SolverOptions& solver_options);
+
 #endif  // SOLVER_H
