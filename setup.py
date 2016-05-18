@@ -1,3 +1,17 @@
+"""CVXcanon module.
+
+Convenient development to recompile everything and run tests:
+  cd ~/CVXcanon/src &&
+  swig -python -c++ python/CVXcanon.i &&
+  mv python/CVXcanon_wrap.cxx python/CVXcanon_wrap.cpp &&
+  cd ~/CVXcanon &&
+  CC="ccache clang" CXX="ccache clang++" python setup.py build &&
+  python setup.py -q develop --user &&
+  nosetests cvxcanon
+
+TODO(mwytock): Encapsulate swig/C++ compilation steps in Makefile?
+"""
+
 from setuptools import setup, Extension, find_packages
 from setuptools.command.install import install
 from distutils.command.build import build

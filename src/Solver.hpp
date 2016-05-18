@@ -15,6 +15,7 @@ class SolverOptions {
 class Solution {
  public:
   std::map<int, DenseVector> values;
+  double objective_value;
 };
 
 class Solver {

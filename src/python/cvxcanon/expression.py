@@ -3,6 +3,7 @@
 import numpy as np
 
 import CVXcanon
+
 import cvxpy
 import cvxpy.atoms.affine.add_expr
 import cvxpy.atoms.affine.binary_operators

@@ -1,4 +1,7 @@
 // Interface for cone solvers
+//
+// TODO(mwytock): This should likely be a pure C interface to ease
+// implementation for existing cone solvers (ECOS, SCS)
 
 #ifndef CONE_SOLVER_H
 #define CONE_SOLVER_H
@@ -33,6 +36,7 @@ class ConeProblem {
 class ConeSolution {
  public:
   DenseVector x, y;
+  double objective_value;
 };
 
 class ConeSolver {

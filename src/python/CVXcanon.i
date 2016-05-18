@@ -41,6 +41,10 @@
 	 problemData.hpp */
 %apply (double* ARGOUT_ARRAY1, int DIM1) {(double* values, int num_values)}
 
+/* Typemap for Solver::get_value */
+%apply (int variable_id, int DIM1, int DIM2, double* ARGOUT_ARRAY1) {
+  (int variable_id, int rows, int cols, double* value)};
+
 /* Useful wrappers for the LinOp class */
 namespace std {
    %template(IntVector) vector<int>;

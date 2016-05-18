@@ -98,5 +98,6 @@ ConeSolution SplittingConeSolver::solve(const ConeProblem& problem) {
   ConeSolution solution;
   build_scs_problem(problem, &solution);
   scs::scs(&data_, &cone_, &sol_, &info_);
+  solution.objective_value = info_.pobj;
   return solution;
 }

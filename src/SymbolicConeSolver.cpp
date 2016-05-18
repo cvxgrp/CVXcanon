@@ -93,6 +93,7 @@ Solution SymbolicConeSolver::get_solution(
     const int n = iter.second.second;
     solution.values[var_id] = cone_solution.x.segment(j, n);
   }
+  solution.objective_value = cone_solution.objective_value;
   return solution;
 }
 

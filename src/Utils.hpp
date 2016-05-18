@@ -29,8 +29,10 @@ typedef Eigen::SparseMatrix<double> SparseMatrix;
 typedef Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> DenseMatrix;
 typedef Eigen::Matrix<double, Eigen::Dynamic, 1> DenseVector;
 
+// TODO(mwytock): Replace these types with DenseVector/SparseMatrix above
 typedef Eigen::Matrix<int, Eigen::Dynamic, 1> Vector;
 typedef Eigen::SparseMatrix<double> Matrix;
+
 typedef std::map<int, Matrix> CoeffMap;
 typedef Eigen::Triplet<double> Triplet;
 
