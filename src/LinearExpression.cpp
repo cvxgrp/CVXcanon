@@ -1,4 +1,3 @@
-
 #include "LinearExpression.hpp"
 
 #include <unordered_map>

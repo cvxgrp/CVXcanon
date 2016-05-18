@@ -1,3 +1,8 @@
+// Methods for converting linear expressions to sparse matrices
+//
+// TODO(mwytock): Merge all functionality from LinOpOperations and replace LinOp
+// with Expression everywhere.
+
 #ifndef LINEAR_EXPRESSION_H
 #define LINEAR_EXPRESSION_H
 
