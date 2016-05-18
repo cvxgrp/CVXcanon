@@ -6,7 +6,6 @@
 #include "Expression.hpp"
 #include "ExpressionUtil.hpp"
 #include "ExpressionShape.hpp"
-#include "Logging.hpp"
 #include "TextFormat.hpp"
 
 typedef Expression(*TransformFunction)(
