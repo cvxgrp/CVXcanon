@@ -1,16 +1,4 @@
-"""CVXcanon module.
-
-Convenient development to recompile everything and run tests:
-  cd ~/CVXcanon/src &&
-  swig -python -c++ python/CVXcanon.i &&
-  mv python/CVXcanon_wrap.cxx python/CVXcanon_wrap.cpp &&
-  cd ~/CVXcanon &&
-  CC="ccache clang" CXX="ccache clang++" python setup.py build &&
-  python setup.py -q develop --user &&
-  nosetests cvxcanon
-
-TODO(mwytock): Encapsulate swig/C++ compilation steps in Makefile?
-"""
+"""CVXcanon module."""
 
 from setuptools import setup, Extension, find_packages
 from setuptools.command.install import install
@@ -18,38 +6,39 @@ from distutils.command.build import build
 import numpy
 import os
 
-SCS_DIR = "third_party/scs/"
+CVXCANON_SOURCES = [
+    "src/cpp/cvxcanon/CVXcanon.cpp",
+    "src/cpp/cvxcanon/expression/Expression.cpp",
+    "src/cpp/cvxcanon/expression/ExpressionShape.cpp",
+    "src/cpp/cvxcanon/expression/ExpressionUtil.cpp",
+    "src/cpp/cvxcanon/expression/LinearExpression.cpp",
+    "src/cpp/cvxcanon/expression/TextFormat.cpp",
+    "src/cpp/cvxcanon/linop/LinOpOperations.cpp",
+    "src/cpp/cvxcanon/solver/Solver.cpp",
+    "src/cpp/cvxcanon/solver/SplittingConeSolver.cpp",
+    "src/cpp/cvxcanon/solver/SymbolicConeSolver.cpp",
+    "src/cpp/cvxcanon/transform/LinearConeTransform.cpp",
+    "src/cpp/cvxcanon/util/MatrixUtil.cpp",
+    "src/cpp/cvxcanon/util/Utils.cpp",
+    "src/python/CVXcanon_wrap.cpp",
+]
 
-canon = Extension(
+SOLVER_LIBRARIES = [
+    "third_party/scs/out/libscsdir.a",
+]
+
+cvxcanon = Extension(
     name="_CVXcanon",
     language="c++",
+    sources=CVXCANON_SOURCES,
     extra_compile_args=["-std=c++14"],
-    sources=[
-        "src/CVXcanon.cpp",
-        "src/Expression.cpp",
-        "src/ExpressionShape.cpp",
-        "src/ExpressionUtil.cpp",
-        "src/LinOpOperations.cpp",
-        "src/LinearConeTransform.cpp",
-        "src/LinearExpression.cpp",
-        "src/MatrixUtil.cpp",
-        "src/Solver.cpp",
-        "src/SplittingConeSolver.cpp",
-        "src/SymbolicConeSolver.cpp",
-        "src/TextFormat.cpp",
-        "src/Utils.cpp",
-        "src/python/CVXcanon_wrap.cpp",
-    ],
     include_dirs=[
-        "src",
+        "src/cpp",
         "src/python",
-        "include",
         numpy.get_include(),
         "third_party",
     ],
-    extra_link_args=[
-        "third_party/scs/out/libscsdir.a",
-    ],
+    extra_link_args=SOLVER_LIBRARIES,
 )
 
 base_dir = os.path.dirname(__file__)
@@ -63,12 +52,12 @@ setup(
     setup_requires=["numpy"],
     author="Jack Zhu, John Miller, Paul Quigley",
     author_email="jackzhu@stanford.edu, millerjp@stanford.edu, piq93@stanford.edu",
-    ext_modules=[canon],
+    ext_modules=[cvxcanon],
     package_dir={"": "src/python"},
     py_modules=["canonInterface", "CVXcanon", "_version__"],
     description="A low-level library to perform the matrix building step in cvxpy, a convex optimization modeling software.",
     license="GPLv3",
-    url="https://github.com/jacklzhu/CVXcanon",
+    url="https://github.com/cvxgrp/CVXcanon",
     install_requires=[
         "numpy",
         "scipy",

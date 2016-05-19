@@ -3163,8 +3163,8 @@ namespace swig {
 
 
 	#define SWIG_FILE_WITH_INIT
-	#include "CVXcanon.hpp"
-        #include "Solver.hpp"
+	#include "cvxcanon/CVXcanon.hpp"
+        #include "cvxcanon/solver/Solver.hpp"
 
 
 #ifndef SWIG_FILE_WITH_INIT

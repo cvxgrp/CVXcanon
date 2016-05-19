@@ -17,8 +17,8 @@
 
 %{
 	#define SWIG_FILE_WITH_INIT
-	#include "CVXcanon.hpp"
-        #include "Solver.hpp"
+	#include "cvxcanon/CVXcanon.hpp"
+        #include "cvxcanon/solver/Solver.hpp"
 %}
 
 %include "numpy.i"
@@ -67,8 +67,8 @@ namespace std {
   PNormAttributes*,
   VarAttributes* };
 
-%include "CVXcanon.hpp"
-%include "Expression.hpp"
-%include "LinOp.hpp"
-%include "ProblemData.hpp"
-%include "Solver.hpp"
+%include "cvxcanon/CVXcanon.hpp"
+%include "cvxcanon/expression/Expression.hpp"
+%include "cvxcanon/linop/LinOp.hpp"
+%include "cvxcanon/linop/ProblemData.hpp"
+%include "cvxcanon/solver/Solver.hpp"

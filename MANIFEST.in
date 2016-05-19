@@ -1,4 +1,4 @@
-graft src
-graft include/Eigen
+graft src/cpp
+graft third_party/Eigen
 graft tests
 graft src/python
