@@ -1,1 +1,1 @@
-from _version__ import __version__
+from cvxcanon._version__ import __version__
