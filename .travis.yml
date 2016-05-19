@@ -5,13 +5,20 @@ python:
 os:
   - linux
 
-# for a modern gcc
+# install fortran compiler and modern gcc
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.9
+      - gfortran
+      - libatlas-base-dev
+
+env:
+  global:
+    - ATLAS=/usr/lib/atlas-base/libatlas.so
+    - COMPILER=gcc-4.9
 
 before_install:
   # conda-based environment instead
@@ -27,10 +34,6 @@ before_install:
   - deps="nomkl pip numpy scipy nose"
   - conda create -p $HOME/py --yes $deps "python=$TRAVIS_PYTHON_VERSION"
   - export PATH=$HOME/py/bin:$PATH
-
-  # cvxpy dependency
-  - sudo apt-get install -qq libatlas-base-dev gfortran
-  - export ATLAS="/usr/lib/atlas-base/libatlas.so"
 
 # command to install dependencies
 install:
