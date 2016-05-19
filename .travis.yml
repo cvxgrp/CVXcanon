@@ -11,14 +11,11 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.9
-      - gfortran
-      - libatlas-bas-dev
 
 env:
   global:
     - CC=gcc-4.9
     - CXX=g++-4.9
-    - ATLAS=/usr/lib/atlas-base/libatlas.so
 
 before_install:
   # conda-based environment instead
@@ -32,8 +29,12 @@ before_install:
 
   # install deps
   - deps="nomkl pip nose numpy scipy"
-  - conda create -n testenv --yes $deps "python=$TRAVIS_PYTHON_VERSION"
-  - source activate testenv
+  - conda create -p $HOME/py --yes $deps "python=$TRAVIS_PYTHON_VERSION"
+  - export PATH=$HOME/py/bin:$PATH
+
+  # for cvxpy dependencies
+  - sudo apt-get install -qq libatlas-base-dev gfortran
+  - export ATLAS="/usr/lib/atlas-base/libatlas.so"
 
   # build solvers in third_party
   - tools/build_solvers.sh
