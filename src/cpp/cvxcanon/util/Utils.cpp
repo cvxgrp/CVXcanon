@@ -1,6 +1,8 @@
 
 #include "cvxcanon/util/Utils.hpp"
 
+#include <stdarg.h>
+#include <stdio.h>
 #include <string.h>
 
 #include <cstdlib>
