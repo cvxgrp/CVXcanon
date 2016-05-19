@@ -58,6 +58,7 @@ setup(
     ext_modules=[cvxcanon_swig],
     package_dir={"": PYTHON_DIR},
     packages=find_packages(PYTHON_DIR),
+    py_modules=["canonInterface"],
     description="A low-level library to perform the matrix building step in cvxpy, a convex optimization modeling software.",
     license="GPLv3",
     url="https://github.com/cvxgrp/CVXcanon",

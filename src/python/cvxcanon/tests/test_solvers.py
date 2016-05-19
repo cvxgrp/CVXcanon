@@ -5,7 +5,8 @@ TODO(mwytock): Add comprehensive tests, all solvers, etc.
 
 import cvxpy as cp
 import numpy as np
-import cvxcanon
+
+from cvxcanon import cvxpy_solver
 
 def test_lasso():
     np.random.seed(0)
@@ -21,7 +22,7 @@ def test_lasso():
     prob = cp.Problem(cp.Minimize(f))
 
     result0 = prob.solve()
-    result1 = cvxcanon.solve(prob)
+    result1 = cvxpy_solver.solve(prob)
 
     tol = 1e-2
     assert -tol <= (result1 - result0)/(1+np.abs(result0)) <= tol
