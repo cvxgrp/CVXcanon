@@ -3070,16 +3070,16 @@ static swig_module_info swig_module = {swig_types, 47, 0, 0, 0, 0};
 #endif
 
 /*-----------------------------------------------
-              @(target):= _CVXcanon.so
+              @(target):= _cvxcanon_swig.so
   ------------------------------------------------*/
 #if PY_VERSION_HEX >= 0x03000000
-#  define SWIG_init    PyInit__CVXcanon
+#  define SWIG_init    PyInit__cvxcanon_swig
 
 #else
-#  define SWIG_init    init_CVXcanon
+#  define SWIG_init    init_cvxcanon_swig
 
 #endif
-#define SWIG_name    "_CVXcanon"
+#define SWIG_name    "_cvxcanon_swig"
 
 #define SWIGVERSION 0x030008 
 #define SWIG_VERSION SWIGVERSION

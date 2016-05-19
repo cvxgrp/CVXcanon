@@ -22,7 +22,7 @@ CVXCANON_SOURCES = [
     "src/cpp/cvxcanon/transform/LinearConeTransform.cpp",
     "src/cpp/cvxcanon/util/MatrixUtil.cpp",
     "src/cpp/cvxcanon/util/Utils.cpp",
-    "src/python/CVXcanon_wrap.cpp",
+    "src/python/cvxcanon/cvxcanon_swig_wrap.cpp",
 ]
 
 SOLVER_LIBRARIES = [
@@ -35,8 +35,8 @@ about = {}
 with open(os.path.join(base_dir,  PYTHON_DIR, "cvxcanon", "_version__.py")) as f:
     exec(f.read(), about)
 
-cvxcanon = Extension(
-    name="_CVXcanon",
+cvxcanon_swig = Extension(
+    name="cvxcanon._cvxcanon_swig",
     language="c++",
     sources=CVXCANON_SOURCES,
     extra_compile_args=["-std=c++14"],
@@ -55,7 +55,7 @@ setup(
     setup_requires=["numpy"],
     author="Jack Zhu, John Miller, Paul Quigley",
     author_email="jackzhu@stanford.edu, millerjp@stanford.edu, piq93@stanford.edu",
-    ext_modules=[cvxcanon],
+    ext_modules=[cvxcanon_swig],
     package_dir={"": PYTHON_DIR},
     packages=find_packages(PYTHON_DIR),
     description="A low-level library to perform the matrix building step in cvxpy, a convex optimization modeling software.",

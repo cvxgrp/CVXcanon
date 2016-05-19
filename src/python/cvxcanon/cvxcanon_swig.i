@@ -13,7 +13,7 @@
 //    You should have received a copy of the GNU General Public License
 //    along with CVXcanon.  If not, see <http://www.gnu.org/licenses/>.
 
-%module CVXcanon
+%module cvxcanon_swig
 
 %{
 	#define SWIG_FILE_WITH_INIT
