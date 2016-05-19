@@ -30,8 +30,8 @@ before_install:
 
   # install deps
   - deps="nomkl pip numpy scipy nose"
-  - conda create -p $HOME/py --yes $deps "python=$TRAVIS_PYTHON_VERSION"
-  - export PATH=$HOME/py/bin:$PATH
+  - conda create -n testenv --yes $deps "python=$TRAVIS_PYTHON_VERSION"
+  - source activate testenv
 
   # build solvers in third_party
   - tools/build_solvers.sh
