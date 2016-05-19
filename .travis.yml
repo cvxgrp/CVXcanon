@@ -5,6 +5,14 @@ python:
 os:
   - linux
 
+# for a modern gcc
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.9
+
 before_install:
   # conda-based environment instead
   - deactivate
