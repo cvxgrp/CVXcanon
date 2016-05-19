@@ -5,6 +5,8 @@
 #ifndef SPLITTING_CONIC_SOLVER_H
 #define SPLITTING_CONIC_SOLVER_H
 
+#include <memory>
+
 #include "cvxcanon/solver/ConeSolver.hpp"
 
 namespace scs {
