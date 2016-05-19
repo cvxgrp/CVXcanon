@@ -4,6 +4,7 @@
 #define EXPRESSION_H
 
 #include <vector>
+#include <memory>
 
 #include "cvxcanon/util/Utils.hpp"
 

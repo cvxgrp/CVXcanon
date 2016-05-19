@@ -15,7 +15,6 @@ addons:
 
 env:
   global:
-    - ATLAS=/usr/lib/atlas-base/libatlas.so
     - CC=gcc-4.9
     - CXX=g++-4.9
 
