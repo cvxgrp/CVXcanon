@@ -11,12 +11,14 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.9
-      - libopenblas-dev
+      - gfortran
+      - libatlas-bas-dev
 
 env:
   global:
     - CC=gcc-4.9
     - CXX=g++-4.9
+    - ATLAS=/usr/lib/atlas-base/libatlas.so
 
 before_install:
   # conda-based environment instead
