@@ -49,8 +49,8 @@ Expression reshape(Expression x, int m, int n) {
   return {Expression::RESHAPE, {x}, attr};
 }
 
-Expression sum(Expression x) {
-  return {Expression::SUM, {x}};
+Expression sum_entries(Expression x) {
+  return {Expression::SUM_ENTRIES, {x}};
 }
 
 // x <= y

@@ -26,7 +26,7 @@ Expression transform_p_norm(
     const Expression& expr,
     std::vector<Expression>* constraints) {
   assert(expr.attr<PNormAttributes>().p == 1);
-  return sum(transform_abs(expr, constraints));
+  return sum_entries(transform_abs(expr, constraints));
 }
 
 Expression transform_quad_over_lin(

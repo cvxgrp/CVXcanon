@@ -23,7 +23,7 @@ std::vector<SparseMatrix> get_neg_coefficients(const Expression& expr) {
   return {scalar_matrix(-1, dim(expr))};
 }
 
-std::vector<SparseMatrix> get_sum_coefficients(const Expression& expr) {
+std::vector<SparseMatrix> get_sum_entries_coefficients(const Expression& expr) {
   return {ones_matrix(1, dim(expr.arg(0)))};
 }
 
@@ -79,10 +79,10 @@ typedef std::vector<SparseMatrix>(*CoefficientFunction)(
 
 std::unordered_map<int, CoefficientFunction> kCoefficientFunctions = {
   {Expression::ADD, &get_add_coefficients},
-  {Expression::NEG, &get_neg_coefficients},
-  {Expression::SUM, &get_sum_coefficients},
   {Expression::HSTACK, &get_hstack_coefficients},
+  {Expression::NEG, &get_neg_coefficients},
   {Expression::RESHAPE, &get_reshape_coefficients},
+  {Expression::SUM_ENTRIES, &get_sum_entries_coefficients},
   {Expression::VSTACK, &get_vstack_coefficients},
 };
 

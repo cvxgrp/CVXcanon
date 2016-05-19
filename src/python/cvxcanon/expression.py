@@ -2,7 +2,9 @@
 
 import numpy as np
 
-import cvxpy
+from cvxcanon import cvxcanon_swig
+from cvxcanon.cvxcanon_swig import Expression, Problem
+
 import cvxpy.atoms.affine.add_expr
 import cvxpy.atoms.affine.binary_operators
 import cvxpy.atoms.affine.unary_operators
@@ -11,39 +13,65 @@ import cvxpy.atoms.quad_over_lin
 import cvxpy.expressions.constants.constant
 import cvxpy.expressions.variables.variable
 
-from cvxcanon import cvxcanon_swig as cvxcanon
 
 SENSE_MAP = {
-    cvxpy.problems.objective.Maximize: cvxcanon.Problem.MAXIMIZE,
-    cvxpy.problems.objective.Minimize: cvxcanon.Problem.MINIMIZE,
+    cvxpy.problems.objective.Maximize: Problem.MAXIMIZE,
+    cvxpy.problems.objective.Minimize: Problem.MINIMIZE,
 }
 
 TYPE_MAP = {
-    cvxpy.atoms.affine.add_expr.AddExpression: cvxcanon.Expression.ADD,
-    cvxpy.atoms.affine.binary_operators.MulExpression: cvxcanon.Expression.MUL,
-    cvxpy.atoms.affine.unary_operators.NegExpression: cvxcanon.Expression.NEG,
-    cvxpy.atoms.pnorm: cvxcanon.Expression.P_NORM,
-    cvxpy.atoms.quad_over_lin: cvxcanon.Expression.QUAD_OVER_LIN,
-    cvxpy.constraints.eq_constraint.EqConstraint: cvxcanon.Expression.EQ,
-    cvxpy.constraints.leq_constraint.LeqConstraint: cvxcanon.Expression.LEQ,
-    cvxpy.expressions.constants.constant.Constant: cvxcanon.Expression.CONST,
-    cvxpy.expressions.variables.variable.Variable: cvxcanon.Expression.VAR,
+    cvxpy.atoms.affine.add_expr.AddExpression: Expression.ADD,
+    cvxpy.atoms.affine.binary_operators.MulExpression: Expression.MUL,
+    cvxpy.atoms.affine.diag.diag_mat: Expression.DIAG_MAT,
+    cvxpy.atoms.affine.diag.diag_vec: Expression.DIAG_VEC,
+    cvxpy.atoms.affine.index.index: Expression.INDEX,
+    cvxpy.atoms.affine.kron.kron: Expression.KRON,
+    cvxpy.atoms.affine.sum_entries.sum_entries: Expression.SUM_ENTRIES,
+    cvxpy.atoms.affine.trace.trace: Expression.TRACE,
+    cvxpy.atoms.affine.unary_operators.NegExpression: Expression.NEG,
+    cvxpy.atoms.affine.upper_tri.upper_tri: Expression.UPPER_TRI,
+    cvxpy.atoms.elementwise.abs.abs: Expression.ABS,
+    cvxpy.atoms.elementwise.entr.entr: Expression.ENTR,
+    cvxpy.atoms.elementwise.exp.exp: Expression.EXP,
+    cvxpy.atoms.elementwise.huber.huber: Expression.HUBER,
+    cvxpy.atoms.elementwise.kl_div.kl_div: Expression.KL_DIV,
+    cvxpy.atoms.elementwise.log.log: Expression.LOG,
+    cvxpy.atoms.elementwise.log1p.log1p: Expression.LOG1P,
+    cvxpy.atoms.elementwise.logistic.logistic: Expression.LOGISTIC,
+    cvxpy.atoms.elementwise.max_elemwise.max_elemwise: Expression.MAX_ELEMWISE,
+    cvxpy.atoms.elementwise.power.power: Expression.POWER,
+    cvxpy.atoms.geo_mean: Expression.GEO_MEAN,
+    cvxpy.atoms.lambda_max: Expression.LAMBDA_MAX,
+    cvxpy.atoms.log_det: Expression.LOG_DET,
+    cvxpy.atoms.log_sum_exp: Expression.LOG_SUM_EXP,
+    cvxpy.atoms.matrix_frac: Expression.MATRIX_FRAC,
+    cvxpy.atoms.max_entries: Expression.MAX_ENTRIES,
+    cvxpy.atoms.norm_nuc.normNuc: Expression.NORM_NUC,
+    cvxpy.atoms.pnorm: Expression.P_NORM,
+    cvxpy.atoms.quad_over_lin: Expression.QUAD_OVER_LIN,
+    cvxpy.atoms.sigma_max: Expression.SIGMA_MAX,
+    cvxpy.atoms.sum_largest: Expression.SUM_LARGEST,
+    cvxpy.constraints.eq_constraint.EqConstraint: Expression.EQ,
+    cvxpy.constraints.leq_constraint.LeqConstraint: Expression.LEQ,
+    cvxpy.expressions.constants.constant.Constant: Expression.CONST,
+    cvxpy.expressions.constants.parameter.Parameter: Expression.PARAM,
+    cvxpy.expressions.variables.variable.Variable: Expression.VAR,
 }
 
 def get_var_attributes(variable):
-    attr = cvxcanon.VarAttributes()
+    attr = cvxcanon_swig.VarAttributes()
     attr.id = variable.id
     attr.size.dims.push_back(variable.size[0])
     attr.size.dims.push_back(variable.size[1])
     return attr
 
 def get_const_attributes(constant):
-    attr = cvxcanon.ConstAttributes()
+    attr = cvxcanon_swig.ConstAttributes()
     attr.set_dense_data(np.asfortranarray(np.atleast_2d(constant.value)))
     return attr
 
 def get_pnorm_attributes(pnorm):
-    attr = cvxcanon.PNormAttributes()
+    attr = cvxcanon_swig.PNormAttributes()
     attr.p = pnorm.p
     return attr
 
@@ -54,18 +82,18 @@ ATTRIBUTE_MAP = {
 }
 
 def convert_expression(cvxpy_expr):
-    args = cvxcanon.ExpressionVector()
+    args = cvxcanon_swig.ExpressionVector()
     for arg in cvxpy_expr.args:
         args.push_back(convert_expression(arg))
     t = type(cvxpy_expr)
-    expr = cvxcanon.Expression(
+    expr = cvxcanon_swig.Expression(
         TYPE_MAP[t],
         args,
         ATTRIBUTE_MAP.get(t, lambda x: None)(cvxpy_expr))
     return expr
 
 def convert_problem(cvxpy_problem):
-    problem = cvxcanon.Problem()
+    problem = cvxcanon_swig.Problem()
     problem.sense = SENSE_MAP[type(cvxpy_problem.objective)]
     problem.objective = convert_expression(cvxpy_problem.objective.args[0])
     for cvxpy_constr in cvxpy_problem.constraints:

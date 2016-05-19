@@ -22,7 +22,7 @@ std::unordered_map<int, std::string> kExpressionNames = {
   {Expression::P_NORM, "p_norm"},
   {Expression::QUAD_OVER_LIN, "quad_over_lin"},
   {Expression::RESHAPE, "reshape"},
-  {Expression::SUM, "sum"},
+  {Expression::SUM_ENTRIES, "sum_entries"},
   {Expression::VAR, "var"},
   {Expression::VSTACK, "vstack"},
   {Expression::SOC, "soc"},

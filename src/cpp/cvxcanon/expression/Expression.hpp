@@ -19,18 +19,43 @@ class Expression {
   enum Type {
     // Linear functions
     ADD,
+    DIAG_MAT,
+    DIAG_VEC,
     HSTACK,
     INDEX,
+    KRON,
     MUL,
     NEG,
     RESHAPE,
-    SUM,
+    SUM_ENTRIES,
+    TRACE,
+    UPPER_TRI,
     VSTACK,
 
-    // Nonlinear functions
+    // Elementwise functions
     ABS,
+    ENTR,
+    EXP,
+    HUBER,
+    KL_DIV,
+    LOG,
+    LOG1P,
+    LOGISTIC,
+    MAX_ELEMWISE,
+    POWER,
+
+    // General nonlinear functions
+    GEO_MEAN,
+    LAMBDA_MAX,
+    LOG_DET,
+    LOG_SUM_EXP,
+    MATRIX_FRAC,
+    MAX_ENTRIES,
+    NORM_NUC,
     P_NORM,
     QUAD_OVER_LIN,
+    SIGMA_MAX,
+    SUM_LARGEST,
 
     // Constraints
     EQ,
@@ -39,6 +64,7 @@ class Expression {
 
     // Leaf nodes
     CONST,
+    PARAM,
     VAR,
   };
 

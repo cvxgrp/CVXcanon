@@ -16,7 +16,7 @@ Expression neg(Expression x);
 Expression p_norm(Expression x, double p);
 Expression quad_over_lin(Expression x, Expression y);
 Expression reshape(Expression x, int m, int n);
-Expression sum(Expression x);
+Expression sum_entries(Expression x);
 Expression var(int m, int n);
 
 // Constraints
