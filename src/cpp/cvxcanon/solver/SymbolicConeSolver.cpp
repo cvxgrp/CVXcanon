@@ -10,7 +10,7 @@
 #include "cvxcanon/util/MatrixUtil.hpp"
 #include "cvxcanon/util/Utils.hpp"
 
-const std::unordered_map<Expression::Type, ConeConstraint::Cone> kConeMap = {
+const std::unordered_map<int, ConeConstraint::Cone> kConeMap = {
   {Expression::EQ,  ConeConstraint::ZERO},
   {Expression::LEQ, ConeConstraint::NON_NEGATIVE},
   {Expression::SOC, ConeConstraint::SECOND_ORDER},
@@ -66,7 +66,8 @@ void SymbolicConeSolver::add_cone_constraint(const Expression& expr) {
   }
 
   if (size != 0) {
-    ConeConstraint constr = {find_or_die(kConeMap, expr.type()), offset, size};
+    ConeConstraint constr = {find_or_die(
+        kConeMap, static_cast<int>(expr.type())), offset, size};
     cone_problem_.constraints.push_back(constr);
   }
 }

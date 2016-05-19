@@ -33,6 +33,9 @@ before_install:
   - conda create -p $HOME/py --yes $deps "python=$TRAVIS_PYTHON_VERSION"
   - export PATH=$HOME/py/bin:$PATH
 
+  # build solvers in third_party
+  - tools/build_solvers.sh
+
 # command to install dependencies
 install:
   # install cvxcanon
