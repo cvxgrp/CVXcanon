@@ -1,14 +1,16 @@
 """CVXcanon module."""
 
+from distutils.command.build import build
 from setuptools import setup, Extension, find_packages
 from setuptools.command.install import install
-from distutils.command.build import build
-import numpy
 import os
+import sys
+
+import numpy
 
 PYTHON_DIR = "src/python"
 
-CVXCANON_SOURCES = [
+SOURCES = [
     "src/cpp/cvxcanon/CVXcanon.cpp",
     "src/cpp/cvxcanon/expression/Expression.cpp",
     "src/cpp/cvxcanon/expression/ExpressionShape.cpp",
@@ -25,7 +27,11 @@ CVXCANON_SOURCES = [
     "src/python/cvxcanon/cvxcanon_swig_wrap.cpp",
 ]
 
-SOLVER_LIBRARIES = [
+LIBRARIES = []
+if "linux" in sys.platform:
+    LIBRARIES += ["rt"]
+
+STATIC_LIBRARIES = [
     "third_party/scs/out/libscsdir.a",
 ]
 
@@ -38,7 +44,8 @@ with open(os.path.join(base_dir,  PYTHON_DIR, "cvxcanon", "_version__.py")) as f
 cvxcanon_swig = Extension(
     name="cvxcanon._cvxcanon_swig",
     language="c++",
-    sources=CVXCANON_SOURCES,
+    sources=SOURCES,
+    libraries=LIBRARIES,
     extra_compile_args=["-std=c++14"],
     include_dirs=[
         "src/cpp",
@@ -46,7 +53,7 @@ cvxcanon_swig = Extension(
         numpy.get_include(),
         "third_party",
     ],
-    extra_link_args=SOLVER_LIBRARIES,
+    extra_link_args=STATIC_LIBRARIES,
 )
 
 setup(
