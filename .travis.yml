@@ -29,7 +29,7 @@ before_install:
   - conda update --yes conda
 
   # install deps
-  - deps="nomkl pip numpy scipy nose"
+  - deps="pip nose numpy scipy cvxopt"
   - conda create -n testenv --yes $deps "python=$TRAVIS_PYTHON_VERSION"
   - source activate testenv
 
