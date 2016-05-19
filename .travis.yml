@@ -16,7 +16,7 @@ before_install:
   - conda update --yes conda
 
   # install deps
-  - deps="nomkl pip numpy scipy"
+  - deps="nomkl pip numpy scipy nose"
   - conda create -p $HOME/py --yes $deps "python=$TRAVIS_PYTHON_VERSION"
   - export PATH=$HOME/py/bin:$PATH
 
@@ -26,18 +26,19 @@ before_install:
 
 # command to install dependencies
 install:
-  # compiling library
+  # install cvxcanon
   - python setup.py install
 
-  # adding cvxpy
+  # install cvxpy
   - cd tests
   - git clone https://github.com/cvxgrp/cvxpy.git
   - cd cvxpy
   - python setup.py install
-  - pip install nose
 
 # command to run tests
-script:  nosetests cvxpy
+script:
+  - nosetests cvxcanon
+  - nosetests cvxpy
 
 notifications:
   email: false
