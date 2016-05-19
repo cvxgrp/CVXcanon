@@ -16,7 +16,7 @@ before_install:
   - conda update --yes conda
 
   # install deps
-  - deps="pip numpy scipy"
+  - deps="nomkl pip numpy scipy"
   - conda create -p $HOME/py --yes $deps "python=$TRAVIS_PYTHON_VERSION"
   - export PATH=$HOME/py/bin:$PATH
 
