@@ -6,6 +6,8 @@ from distutils.command.build import build
 import numpy
 import os
 
+PYTHON_DIR = "src/python"
+
 CVXCANON_SOURCES = [
     "src/cpp/cvxcanon/CVXcanon.cpp",
     "src/cpp/cvxcanon/expression/Expression.cpp",
@@ -27,6 +29,12 @@ SOLVER_LIBRARIES = [
     "third_party/scs/out/libscsdir.a",
 ]
 
+# Read version from file
+base_dir = os.path.dirname(__file__)
+about = {}
+with open(os.path.join(base_dir,  PYTHON_DIR, "cvxcanon", "_version__.py")) as f:
+    exec(f.read(), about)
+
 cvxcanon = Extension(
     name="_CVXcanon",
     language="c++",
@@ -41,11 +49,6 @@ cvxcanon = Extension(
     extra_link_args=SOLVER_LIBRARIES,
 )
 
-base_dir = os.path.dirname(__file__)
-about = {}
-with open(os.path.join(base_dir, "src", "python", "_version__.py")) as f:
-    exec(f.read(), about)
-
 setup(
     name="CVXcanon",
     version=about["__version__"],
@@ -53,8 +56,8 @@ setup(
     author="Jack Zhu, John Miller, Paul Quigley",
     author_email="jackzhu@stanford.edu, millerjp@stanford.edu, piq93@stanford.edu",
     ext_modules=[cvxcanon],
-    package_dir={"": "src/python"},
-    py_modules=["canonInterface", "CVXcanon", "_version__"],
+    package_dir={"": PYTHON_DIR},
+    packages=find_packages(PYTHON_DIR),
     description="A low-level library to perform the matrix building step in cvxpy, a convex optimization modeling software.",
     license="GPLv3",
     url="https://github.com/cvxgrp/CVXcanon",
