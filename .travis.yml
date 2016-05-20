@@ -36,8 +36,8 @@ before_install:
   - sudo apt-get install -qq libatlas-base-dev gfortran
   - export ATLAS="/usr/lib/atlas-base/libatlas.so"
 
-  # build solvers in third_party
-  - tools/build_solvers.sh
+  # build third_party dependencies
+  - tools/build_third_party.sh
 
 # command to install dependencies
 install:
