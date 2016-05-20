@@ -10,6 +10,9 @@ before_install:
   - docker pull mwytock/epsilon
 
 script:
+  - echo $HOME
+  - ls $HOME
+  - docker run -v $HOME/CVXcanon:/root/CVXcanon -v $HOME/cvxpy:/root/cvxpy mwytock/epsilon ls -lR /root
   - docker run -v $HOME/CVXcanon:/root/CVXcanon -v $HOME/cvxpy:/root/cvxpy mwytock/epsilon /root/CVXcanon/tools/run_ci.sh
 
 notifications:
