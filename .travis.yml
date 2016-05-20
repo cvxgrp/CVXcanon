@@ -1,59 +1,16 @@
+sudo: required
+
 language: python
-python:
-  - "2.7"
-  - "3.4"
-os:
-  - linux
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.9
-
-env:
-  global:
-    - CC=gcc-4.9
-    - CXX=g++-4.9
+services:
+  - docker
 
 before_install:
-  # conda-based environment instead
-  - deactivate
-
-  # use miniconda installer
-  - wget http://repo.continuum.io/miniconda/Miniconda-3.9.1-Linux-x86_64.sh -O miniconda.sh
-  - chmod +x miniconda.sh && ./miniconda.sh -b
-  - export PATH=/home/travis/miniconda/bin:$PATH
-  - conda update --yes conda
-
-  # install deps
-  - deps="nomkl pip nose numpy scipy"
-  - conda create -p $HOME/py --yes $deps "python=$TRAVIS_PYTHON_VERSION"
-  - export PATH=$HOME/py/bin:$PATH
-
-  # for cvxpy dependencies
-  - sudo apt-get install -qq libatlas-base-dev gfortran
-  - export ATLAS="/usr/lib/atlas-base/libatlas.so"
-
-  # build third_party dependencies
-  - tools/build_third_party.sh
-
-# command to install dependencies
-install:
-  # install cvxcanon
-  - python setup.py install
-
-  # install cvxpy
-  - cd tests
   - git clone https://github.com/cvxgrp/cvxpy.git
-  - cd cvxpy
-  - python setup.py install
+  - docker pull mwytock/epsilon
 
-# command to run tests
 script:
-  - nosetests cvxcanon
-  - nosetests cvxpy
+  - docker run mwytock/epsilon -v $HOME/CVXcanon:/root/CVXcanon -v $HOME/cvxpy:/root/cvxpy /root/CVXcanon/tools/run_ci.sh
 
 notifications:
   email: false
