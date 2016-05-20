@@ -16,8 +16,11 @@ bool is_constant(const CoeffMap& coeffs) {
 
 std::vector<SparseMatrix> get_add_coefficients(const Expression& expr) {
   std::vector<SparseMatrix> coeffs;
-  for (int i = 0; i < expr.args().size(); i++)
-    coeffs.push_back(scalar_matrix(1, dim(expr)));
+  for (const Expression& arg : expr.args()) {
+    // Handle promotion
+    coeffs.push_back(
+        dim(arg) == 1 ? ones_matrix(dim(expr), 1) : identity(dim(expr)));
+  }
   return coeffs;
 }
 
@@ -133,11 +136,50 @@ std::vector<SparseMatrix> get_index_coefficients(const Expression& expr) {
   return {coeffs};
 }
 
+std::vector<SparseMatrix> get_diag_mat_coefficients(const Expression& expr) {
+  const int rows = size(expr).dims[0];
+
+  SparseMatrix coeffs(rows, rows * rows);
+  std::vector<Triplet> tripletList;
+  tripletList.reserve(rows);
+  for (int i = 0; i < rows; i++) {
+    // index in the extracted vector
+    int row_idx = i;
+    // index in the original matrix
+    int col_idx = i * rows + i;
+    tripletList.push_back(Triplet(row_idx, col_idx, 1.0));
+  }
+
+  coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
+  coeffs.makeCompressed();
+  return {coeffs};
+}
+
+std::vector<SparseMatrix> get_diag_vec_coefficients(const Expression& expr) {
+  const int rows = size(expr).dims[0];
+
+  SparseMatrix coeffs(rows * rows, rows);
+  std::vector<Triplet> tripletList;
+  tripletList.reserve(rows);
+  for (int i = 0; i < rows; i++) {
+    // index in the diagonal matrix
+    int row_idx = i * rows + i;
+    //index in the original vector
+    int col_idx = i;
+    tripletList.push_back(Triplet(row_idx, col_idx, 1.0));
+  }
+  coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
+  coeffs.makeCompressed();
+  return {coeffs};
+}
+
 typedef std::vector<SparseMatrix>(*CoefficientFunction)(
     const Expression& expr);
 
 std::unordered_map<int, CoefficientFunction> kCoefficientFunctions = {
   {Expression::ADD, &get_add_coefficients},
+  {Expression::DIAG_MAT, &get_diag_mat_coefficients},
+  {Expression::DIAG_VEC, &get_diag_vec_coefficients},
   {Expression::HSTACK, &get_hstack_coefficients},
   {Expression::INDEX, &get_index_coefficients},
   {Expression::NEG, &get_neg_coefficients},
@@ -152,6 +194,9 @@ void multiply_by_constant(
     const std::map<int, Matrix>& rhs,
     std::map<int, SparseMatrix>* result) {
   for (const auto& iter : rhs) {
+    VLOG(3) << "multiplying\n"
+            << "lhs:\n" << matrix_debug_string(lhs)
+            << "rhs:\n" << matrix_debug_string(iter.second);
     SparseMatrix value = lhs*iter.second;
     auto ret = result->insert(std::make_pair(iter.first, value));
     if (!ret.second)
@@ -161,7 +206,7 @@ void multiply_by_constant(
 
 SparseMatrix promote_multiply(const SparseMatrix& A, int m, int n) {
   if (A.rows() == 1 && A.cols() == 1) {
-    assert(m == n);
+    CHECK_EQ(m, n);
     return scalar_matrix(A.coeff(0,0), n);
   }
 
@@ -199,21 +244,21 @@ std::map<int, SparseMatrix> get_coefficients(const Expression& expr) {
   } else {
     auto iter = kCoefficientFunctions.find(expr.type());
     CHECK(iter != kCoefficientFunctions.end())
-        << "no linear coefficients: " << format_expression(expr);
-    std::vector<Matrix> f_coeffs = iter->second(expr);
+        << "no linear coefficients for " << format_expression(expr);
+    std::vector<SparseMatrix> f_coeffs = iter->second(expr);
     for (int i = 0; i < expr.args().size(); i++) {
-      multiply_by_constant(
-          f_coeffs[i], get_coefficients(expr.arg(i)), &coeffs);
+      std::map<int, SparseMatrix> arg_coeffs = get_coefficients(expr.arg(i));
+      VLOG(2) << "multiply_by_constant " << format_expression(expr) << " " << i;
+      multiply_by_constant(f_coeffs[i], arg_coeffs, &coeffs);
     }
   }
 
   if (VLOG_IS_ON(2)) {
-    VLOG(2) << "get_coefficients:" << format_expression(expr);
+    VLOG(2) << "get_coefficients " << format_expression(expr);
     for (const auto& iter : coeffs) {
       VLOG(2) <<  "id: " << iter.first << "\n"
               << matrix_debug_string(iter.second);
     }
-    VLOG(2) << "";
   }
 
   return coeffs;

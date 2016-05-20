@@ -17,6 +17,3 @@ mv $python_dir/${swig_base}_wrap.cxx $python_dir/${swig_base}_wrap.cpp
 # Build
 python setup.py build
 python setup.py -q develop --user
-
-# Test
-nosetests cvxcanon

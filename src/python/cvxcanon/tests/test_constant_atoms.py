@@ -36,7 +36,7 @@ def run_atom(atom, problem, obj_val, solver):
 
 def test_atom():
     for atom_list, objective_type in atoms[:1]:
-        for atom, size, args, obj_val in atom_list[:1]:
+        for atom, size, args, obj_val in atom_list[:3]:
             for row in range(size[0]):
                 for col in range(size[1]):
                     for solver in SOLVERS_TO_TRY:

@@ -112,7 +112,7 @@ Solution SymbolicConeSolver::solve(const Problem& problem) {
   cone_problem_.b = sparse_matrix(m, 1, b_coeffs_);
   cone_problem_.c = sparse_matrix(n, 1, c_coeffs_);
 
-  VLOG(2) << "created cone problem matrices (m=" << m << "n=" << n << ")\n"
+  VLOG(1) << "created cone problem matrices (m=" << m << ", n=" << n << ")\n"
           << "A:\n" << matrix_debug_string(cone_problem_.A)
           << "b: " << vector_debug_string(cone_problem_.b) << "\n"
           << "c: " << vector_debug_string(cone_problem_.c);

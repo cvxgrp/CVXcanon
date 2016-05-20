@@ -57,6 +57,9 @@ cvxcanon_swig = Extension(
         numpy.get_include(),
     ],
     extra_link_args=STATIC_LIBRARIES,
+    # Enable debug checks
+    # TODO(mwytock): Better way to do debug builds?
+    undef_macros=["NDEBUG"]
 )
 
 setup(

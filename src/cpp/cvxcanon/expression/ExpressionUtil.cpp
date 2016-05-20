@@ -14,6 +14,10 @@ Expression neg(Expression x) {
   return {Expression::NEG, {x}};
 }
 
+Expression abs(Expression x) {
+  return {Expression::ABS, {x}};
+}
+
 Expression var(int m, int n, int var_id) {
   auto attr = std::make_shared<VarAttributes>();
   attr->id = var_id;
@@ -65,7 +69,10 @@ Expression soc(Expression x, Expression y) {
 
 Expression epi_var(const Expression& x, const std::string& name) {
   Size size_x = size(x);
-  return var(size_x.dims[0], size_x.dims[1], rand());
+  int var_id = rand();
+  VLOG(2) << "epi_var " << var_id << ", "
+          << size_x.dims[0] << " x " << size_x.dims[1];
+  return var(size_x.dims[0], size_x.dims[1], var_id);
 }
 
 Expression scalar_epi_var(const Expression& x, const std::string& name) {
