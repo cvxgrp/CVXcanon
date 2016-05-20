@@ -1,3 +1,6 @@
 [submodule "third_party/scs"]
 	path = third_party/scs
 	url = https://github.com/cvxgrp/scs
+[submodule "third_party/glog"]
+	path = third_party/glog
+	url = https://github.com/google/glog

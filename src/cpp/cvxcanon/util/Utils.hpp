@@ -22,6 +22,7 @@
 
 #include <Eigen/Core>
 #include <Eigen/Sparse>
+#include <glog/logging.h>
 
 #define NULL_MATRIX Eigen::SparseMatrix<double>(0,0)
 
@@ -39,11 +40,10 @@ typedef Eigen::Triplet<double> Triplet;
 template<typename K, typename V>
 V find_or_die(const std::unordered_map<K, V>& map, K key) {
   auto iter = map.find(key);
-  assert(iter != map.end());
+  CHECK(iter != map.end()) << "map missing " << key;
   return iter->second;
 }
 
 std::string string_printf(const std::string fmt_str, ...);
-
 
 #endif  // UTILS_H

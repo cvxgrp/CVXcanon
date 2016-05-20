@@ -1,12 +1,13 @@
 # Ignore the build and lib dirs
-build/*
-lib/*
-dist/*
+build
+build-deps
+lib
+dist
 
 *.egg-info*
 
 # Ignore any executables
-bin/*
+bin
 
 # Ignore Mac specific files
 .DS_Store

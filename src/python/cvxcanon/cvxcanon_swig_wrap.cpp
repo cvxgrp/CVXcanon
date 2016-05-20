@@ -3162,9 +3162,10 @@ namespace swig {
 }
 
 
-	#define SWIG_FILE_WITH_INIT
-	#include "cvxcanon/CVXcanon.hpp"
-        #include "cvxcanon/solver/Solver.hpp"
+#define SWIG_FILE_WITH_INIT
+#include "cvxcanon/CVXcanon.hpp"
+#include "cvxcanon/solver/Solver.hpp"
+#include "cvxcanon/util/Init.hpp"
 
 
 #ifndef SWIG_FILE_WITH_INIT
@@ -24116,6 +24117,7 @@ SWIG_init(void) {
   
   
   import_array();
+  init();
   
   SWIG_Python_SetConstant(d, "Expression_ADD",SWIG_From_int(static_cast< int >(Expression::ADD)));
   SWIG_Python_SetConstant(d, "Expression_DIAG_MAT",SWIG_From_int(static_cast< int >(Expression::DIAG_MAT)));

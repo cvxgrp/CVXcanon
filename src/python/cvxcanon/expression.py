@@ -66,6 +66,7 @@ def get_var_attributes(variable):
     return attr
 
 def get_const_attributes(constant):
+    # TODO(mwytock): Handle sparse data as well
     attr = cvxcanon_swig.ConstAttributes()
     attr.set_dense_data(np.asfortranarray(np.atleast_2d(constant.value)))
     return attr

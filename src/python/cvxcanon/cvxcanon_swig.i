@@ -16,9 +16,10 @@
 %module cvxcanon_swig
 
 %{
-	#define SWIG_FILE_WITH_INIT
-	#include "cvxcanon/CVXcanon.hpp"
-        #include "cvxcanon/solver/Solver.hpp"
+#define SWIG_FILE_WITH_INIT
+#include "cvxcanon/CVXcanon.hpp"
+#include "cvxcanon/solver/Solver.hpp"
+#include "cvxcanon/util/Init.hpp"
 %}
 
 %include "numpy.i"
@@ -27,7 +28,8 @@
 
 /* Must call this before using NUMPY-C API */
 %init %{
-	import_array();
+  import_array();
+  init();
 %}
 
 /* Typemap for the addDenseData C++ routine in LinOp.hpp */

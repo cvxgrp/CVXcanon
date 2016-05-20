@@ -22,6 +22,7 @@ SOURCES = [
     "src/cpp/cvxcanon/solver/SplittingConeSolver.cpp",
     "src/cpp/cvxcanon/solver/SymbolicConeSolver.cpp",
     "src/cpp/cvxcanon/transform/LinearConeTransform.cpp",
+    "src/cpp/cvxcanon/util/Init.cpp",
     "src/cpp/cvxcanon/util/MatrixUtil.cpp",
     "src/cpp/cvxcanon/util/Utils.cpp",
     "src/python/cvxcanon/cvxcanon_swig_wrap.cpp",
@@ -32,7 +33,8 @@ if "linux" in sys.platform:
     LIBRARIES += ["rt"]
 
 STATIC_LIBRARIES = [
-    "third_party/scs/out/libscsdir.a",
+    "build-deps/lib/libglog.a",
+    "build-deps/lib/libscsdir.a",
 ]
 
 # Read version from file
@@ -48,10 +50,11 @@ cvxcanon_swig = Extension(
     libraries=LIBRARIES,
     extra_compile_args=["-std=c++14"],
     include_dirs=[
+        "build-deps/include",
         "src/cpp",
         "src/python",
-        numpy.get_include(),
         "third_party",
+        numpy.get_include(),
     ],
     extra_link_args=STATIC_LIBRARIES,
 )
