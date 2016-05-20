@@ -22,7 +22,8 @@ def test_lasso():
     prob = cp.Problem(cp.Minimize(f))
 
     result0 = prob.solve()
-    result1 = cvxpy_solver.solve(prob)
+    status, result1 = cvxpy_solver.solve(prob)
 
     tol = 1e-2
+    assert status == cp.OPTIMAL
     assert -tol <= (result1 - result0)/(1+np.abs(result0)) <= tol

@@ -32,6 +32,8 @@ class SplittingConeSolver : public ConeSolver {
     int* total_size,
     int* sizes);
 
+  SolverStatus get_scs_status();
+
   // SCS data structures
   scs::Data data_;
   scs::Cone cone_;

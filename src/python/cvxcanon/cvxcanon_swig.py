@@ -947,6 +947,119 @@ class ExpressionVector(_object):
 ExpressionVector_swigregister = _cvxcanon_swig.ExpressionVector_swigregister
 ExpressionVector_swigregister(ExpressionVector)
 
+class SliceVector(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SliceVector, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, SliceVector, name)
+    __repr__ = _swig_repr
+
+    def iterator(self):
+        return _cvxcanon_swig.SliceVector_iterator(self)
+    def __iter__(self):
+        return self.iterator()
+
+    def __nonzero__(self):
+        return _cvxcanon_swig.SliceVector___nonzero__(self)
+
+    def __bool__(self):
+        return _cvxcanon_swig.SliceVector___bool__(self)
+
+    def __len__(self):
+        return _cvxcanon_swig.SliceVector___len__(self)
+
+    def __getslice__(self, i, j):
+        return _cvxcanon_swig.SliceVector___getslice__(self, i, j)
+
+    def __setslice__(self, *args):
+        return _cvxcanon_swig.SliceVector___setslice__(self, *args)
+
+    def __delslice__(self, i, j):
+        return _cvxcanon_swig.SliceVector___delslice__(self, i, j)
+
+    def __delitem__(self, *args):
+        return _cvxcanon_swig.SliceVector___delitem__(self, *args)
+
+    def __getitem__(self, *args):
+        return _cvxcanon_swig.SliceVector___getitem__(self, *args)
+
+    def __setitem__(self, *args):
+        return _cvxcanon_swig.SliceVector___setitem__(self, *args)
+
+    def pop(self):
+        return _cvxcanon_swig.SliceVector_pop(self)
+
+    def append(self, x):
+        return _cvxcanon_swig.SliceVector_append(self, x)
+
+    def empty(self):
+        return _cvxcanon_swig.SliceVector_empty(self)
+
+    def size(self):
+        return _cvxcanon_swig.SliceVector_size(self)
+
+    def swap(self, v):
+        return _cvxcanon_swig.SliceVector_swap(self, v)
+
+    def begin(self):
+        return _cvxcanon_swig.SliceVector_begin(self)
+
+    def end(self):
+        return _cvxcanon_swig.SliceVector_end(self)
+
+    def rbegin(self):
+        return _cvxcanon_swig.SliceVector_rbegin(self)
+
+    def rend(self):
+        return _cvxcanon_swig.SliceVector_rend(self)
+
+    def clear(self):
+        return _cvxcanon_swig.SliceVector_clear(self)
+
+    def get_allocator(self):
+        return _cvxcanon_swig.SliceVector_get_allocator(self)
+
+    def pop_back(self):
+        return _cvxcanon_swig.SliceVector_pop_back(self)
+
+    def erase(self, *args):
+        return _cvxcanon_swig.SliceVector_erase(self, *args)
+
+    def __init__(self, *args):
+        this = _cvxcanon_swig.new_SliceVector(*args)
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+
+    def push_back(self, x):
+        return _cvxcanon_swig.SliceVector_push_back(self, x)
+
+    def front(self):
+        return _cvxcanon_swig.SliceVector_front(self)
+
+    def back(self):
+        return _cvxcanon_swig.SliceVector_back(self)
+
+    def assign(self, n, x):
+        return _cvxcanon_swig.SliceVector_assign(self, n, x)
+
+    def resize(self, *args):
+        return _cvxcanon_swig.SliceVector_resize(self, *args)
+
+    def insert(self, *args):
+        return _cvxcanon_swig.SliceVector_insert(self, *args)
+
+    def reserve(self, n):
+        return _cvxcanon_swig.SliceVector_reserve(self, n)
+
+    def capacity(self):
+        return _cvxcanon_swig.SliceVector_capacity(self)
+    __swig_destroy__ = _cvxcanon_swig.delete_SliceVector
+    __del__ = lambda self: None
+SliceVector_swigregister = _cvxcanon_swig.SliceVector_swigregister
+SliceVector_swigregister(SliceVector)
+
 
 def build_matrix(*args):
     return _cvxcanon_swig.build_matrix(*args)
@@ -1207,6 +1320,62 @@ class ReshapeAttributes(ExpressionAttributes):
 ReshapeAttributes_swigregister = _cvxcanon_swig.ReshapeAttributes_swigregister
 ReshapeAttributes_swigregister(ReshapeAttributes)
 
+class Slice(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Slice, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, Slice, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["start"] = _cvxcanon_swig.Slice_start_set
+    __swig_getmethods__["start"] = _cvxcanon_swig.Slice_start_get
+    if _newclass:
+        start = _swig_property(_cvxcanon_swig.Slice_start_get, _cvxcanon_swig.Slice_start_set)
+    __swig_setmethods__["stop"] = _cvxcanon_swig.Slice_stop_set
+    __swig_getmethods__["stop"] = _cvxcanon_swig.Slice_stop_get
+    if _newclass:
+        stop = _swig_property(_cvxcanon_swig.Slice_stop_get, _cvxcanon_swig.Slice_stop_set)
+    __swig_setmethods__["step"] = _cvxcanon_swig.Slice_step_set
+    __swig_getmethods__["step"] = _cvxcanon_swig.Slice_step_get
+    if _newclass:
+        step = _swig_property(_cvxcanon_swig.Slice_step_get, _cvxcanon_swig.Slice_step_set)
+
+    def __init__(self):
+        this = _cvxcanon_swig.new_Slice()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _cvxcanon_swig.delete_Slice
+    __del__ = lambda self: None
+Slice_swigregister = _cvxcanon_swig.Slice_swigregister
+Slice_swigregister(Slice)
+
+class IndexAttributes(ExpressionAttributes):
+    __swig_setmethods__ = {}
+    for _s in [ExpressionAttributes]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, IndexAttributes, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ExpressionAttributes]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, IndexAttributes, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["keys"] = _cvxcanon_swig.IndexAttributes_keys_set
+    __swig_getmethods__["keys"] = _cvxcanon_swig.IndexAttributes_keys_get
+    if _newclass:
+        keys = _swig_property(_cvxcanon_swig.IndexAttributes_keys_get, _cvxcanon_swig.IndexAttributes_keys_set)
+
+    def __init__(self):
+        this = _cvxcanon_swig.new_IndexAttributes()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _cvxcanon_swig.delete_IndexAttributes
+    __del__ = lambda self: None
+IndexAttributes_swigregister = _cvxcanon_swig.IndexAttributes_swigregister
+IndexAttributes_swigregister(IndexAttributes)
+
 
 _cvxcanon_swig.VARIABLE_swigconstant(_cvxcanon_swig)
 VARIABLE = _cvxcanon_swig.VARIABLE
@@ -1414,10 +1583,14 @@ class Solution(_object):
     __swig_getmethods__ = {}
     __getattr__ = lambda self, name: _swig_getattr(self, Solution, name)
     __repr__ = _swig_repr
-    __swig_setmethods__["values"] = _cvxcanon_swig.Solution_values_set
-    __swig_getmethods__["values"] = _cvxcanon_swig.Solution_values_get
+    __swig_setmethods__["status"] = _cvxcanon_swig.Solution_status_set
+    __swig_getmethods__["status"] = _cvxcanon_swig.Solution_status_get
     if _newclass:
-        values = _swig_property(_cvxcanon_swig.Solution_values_get, _cvxcanon_swig.Solution_values_set)
+        status = _swig_property(_cvxcanon_swig.Solution_status_get, _cvxcanon_swig.Solution_status_set)
+    __swig_setmethods__["variable_values"] = _cvxcanon_swig.Solution_variable_values_set
+    __swig_getmethods__["variable_values"] = _cvxcanon_swig.Solution_variable_values_get
+    if _newclass:
+        variable_values = _swig_property(_cvxcanon_swig.Solution_variable_values_get, _cvxcanon_swig.Solution_variable_values_set)
     __swig_setmethods__["objective_value"] = _cvxcanon_swig.Solution_objective_value_set
     __swig_getmethods__["objective_value"] = _cvxcanon_swig.Solution_objective_value_get
     if _newclass:
@@ -1455,6 +1628,21 @@ Solver_swigregister(Solver)
 def solve(problem, solver_options):
     return _cvxcanon_swig.solve(problem, solver_options)
 solve = _cvxcanon_swig.solve
+
+_cvxcanon_swig.OPTIMAL_swigconstant(_cvxcanon_swig)
+OPTIMAL = _cvxcanon_swig.OPTIMAL
+
+_cvxcanon_swig.INFEASIBLE_swigconstant(_cvxcanon_swig)
+INFEASIBLE = _cvxcanon_swig.INFEASIBLE
+
+_cvxcanon_swig.UNBOUNDED_swigconstant(_cvxcanon_swig)
+UNBOUNDED = _cvxcanon_swig.UNBOUNDED
+
+_cvxcanon_swig.USER_LIMIT_swigconstant(_cvxcanon_swig)
+USER_LIMIT = _cvxcanon_swig.USER_LIMIT
+
+_cvxcanon_swig.ERROR_swigconstant(_cvxcanon_swig)
+ERROR = _cvxcanon_swig.ERROR
 # This file is compatible with both classic and new-style classes.
 
 

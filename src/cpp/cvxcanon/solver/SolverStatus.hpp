@@ -1,0 +1,13 @@
+
+#ifndef SOLVER_STATUS_H
+#define SOLVER_STATUS_H
+
+enum SolverStatus {
+  OPTIMAL,
+  INFEASIBLE,
+  UNBOUNDED,
+  USER_LIMIT,
+  ERROR
+};
+
+#endif // SOLVER_STATUS_H

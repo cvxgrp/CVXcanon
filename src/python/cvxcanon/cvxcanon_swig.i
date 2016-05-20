@@ -50,13 +50,14 @@
 
 /* Useful wrappers for the LinOp class */
 namespace std {
-   %template(IntVector) vector<int>;
-   %template(DoubleVector) vector<double>;
-   %template(IntVector2D) vector< vector<int> >;
-   %template(DoubleVector2D) vector< vector<double> >;
-   %template(IntIntMap) map<int, int>;
-   %template(LinOpVector) vector< LinOp * >;
-   %template(ExpressionVector) vector<Expression>;
+  %template(IntVector) vector<int>;
+  %template(DoubleVector) vector<double>;
+  %template(IntVector2D) vector< vector<int> >;
+  %template(DoubleVector2D) vector< vector<double> >;
+  %template(IntIntMap) map<int, int>;
+  %template(LinOpVector) vector< LinOp * >;
+  %template(ExpressionVector) vector<Expression>;
+  %template(SliceVector) vector<Slice>;
 }
 
 /* Modify typemaps for for expression attributes so they aren't gc'd */
@@ -65,12 +66,14 @@ namespace std {
 }
 %apply ExpressionAttributes* {
   ConstAttributes*,
-  ReshapeAttributes*,
+  IndexAttributes*,
   PNormAttributes*,
-  VarAttributes* };
+  ReshapeAttributes*,
+  VarAttributes*};
 
 %include "cvxcanon/CVXcanon.hpp"
 %include "cvxcanon/expression/Expression.hpp"
 %include "cvxcanon/linop/LinOp.hpp"
 %include "cvxcanon/linop/ProblemData.hpp"
 %include "cvxcanon/solver/Solver.hpp"
+%include "cvxcanon/solver/SolverStatus.hpp"

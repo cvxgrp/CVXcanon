@@ -76,10 +76,21 @@ def get_pnorm_attributes(pnorm):
     attr.p = pnorm.p
     return attr
 
+def get_index_attributes(index):
+    attr = cvxcanon_swig.IndexAttributes()
+    for key in index.key:
+        slice_swig = cvxcanon_swig.Slice()
+        slice_swig.start = key.start
+        slice_swig.stop = key.stop
+        slice_swig.step = key.step
+        attr.keys.push_back(slice_swig)
+    return attr
+
 ATTRIBUTE_MAP = {
+    cvxpy.atoms.affine.index.index: get_index_attributes,
+    cvxpy.atoms.pnorm: get_pnorm_attributes,
     cvxpy.expressions.constants.constant.Constant: get_const_attributes,
     cvxpy.expressions.variables.variable.Variable: get_var_attributes,
-    cvxpy.atoms.pnorm: get_pnorm_attributes,
 }
 
 def convert_expression(cvxpy_expr):

@@ -8,14 +8,17 @@
 #include <Eigen/Core>
 
 #include "cvxcanon/expression/Expression.hpp"
+#include "cvxcanon/solver/SolverStatus.hpp"
 
 class SolverOptions {
 };
 
 class Solution {
  public:
-  std::map<int, DenseVector> values;
+  SolverStatus status;
+  std::map<int, DenseVector> variable_values;
   double objective_value;
+
 };
 
 class Solver {

@@ -4,6 +4,8 @@
 #include <memory>
 #include <unordered_map>
 
+#include <glog/logging.h>
+
 #include "cvxcanon/expression/ExpressionShape.hpp"
 #include "cvxcanon/expression/ExpressionUtil.hpp"
 #include "cvxcanon/expression/LinearExpression.hpp"
@@ -92,9 +94,10 @@ Solution SymbolicConeSolver::get_solution(
     const int var_id = iter.first;
     const int j = iter.second.first;
     const int n = iter.second.second;
-    solution.values[var_id] = cone_solution.x.segment(j, n);
+    solution.variable_values[var_id] = cone_solution.x.segment(j, n);
   }
   solution.objective_value = cone_solution.objective_value;
+  solution.status = cone_solution.status;
   return solution;
 }
 
@@ -109,11 +112,10 @@ Solution SymbolicConeSolver::solve(const Problem& problem) {
   cone_problem_.b = sparse_matrix(m, 1, b_coeffs_);
   cone_problem_.c = sparse_matrix(n, 1, c_coeffs_);
 
-  printf("created cone problem matrices (m=%d, n=%d)\n", m, n);
-  printf("A:\n%s", matrix_debug_string(cone_problem_.A).c_str());
-  printf("b: %s\n", vector_debug_string(cone_problem_.b).c_str());
-  printf("c: %s\n", vector_debug_string(cone_problem_.c).c_str());
-  printf("\n");
+  VLOG(2) << "created cone problem matrices (m=" << m << "n=" << n << ")\n"
+          << "A:\n" << matrix_debug_string(cone_problem_.A)
+          << "b: " << vector_debug_string(cone_problem_.b) << "\n"
+          << "c: " << vector_debug_string(cone_problem_.c);
 
   return get_solution(cone_solver_->solve(cone_problem_));
 }

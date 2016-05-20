@@ -9,6 +9,7 @@
 #include <Eigen/Core>
 #include <Eigen/Sparse>
 
+#include "cvxcanon/solver/SolverStatus.hpp"
 #include "cvxcanon/util/Utils.hpp"
 
 class ConeConstraint {
@@ -35,6 +36,7 @@ class ConeProblem {
 
 class ConeSolution {
  public:
+  SolverStatus status;
   DenseVector x, y;
   double objective_value;
 };

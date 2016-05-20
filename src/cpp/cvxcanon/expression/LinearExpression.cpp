@@ -2,6 +2,8 @@
 
 #include <unordered_map>
 
+#include <glog/logging.h>
+
 #include "cvxcanon/expression/ExpressionShape.hpp"
 #include "cvxcanon/expression/ExpressionUtil.hpp"
 #include "cvxcanon/expression/TextFormat.hpp"
@@ -74,12 +76,70 @@ std::vector<SparseMatrix> get_reshape_coefficients(const Expression& expr) {
   return {identity(dim(expr))};
 }
 
+std::vector<SparseMatrix> get_index_coefficients(const Expression& expr) {
+  const int rows = size(expr.arg(0)).dims[0];
+  const int cols = size(expr.arg(0)).dims[1];
+  SparseMatrix coeffs(dim(expr), rows * cols);
+
+  /* If slice is empty, return empty matrix */
+  if (coeffs.rows() == 0 ||  coeffs.cols() == 0) {
+    return {coeffs};
+  }
+
+  /* Row Slice Data */
+  const Slice& rs = expr.attr<IndexAttributes>().keys[0];
+  int row_start = rs.start < 0 ? rows + rs.start : rs.start;
+  int row_stop = rs.stop < 0 ? rows + rs.stop : rs.stop;
+  int row_step = rs.step;
+
+  /* Column Slice Data */
+  const Slice& cs = expr.attr<IndexAttributes>().keys[1];
+  int col_start = cs.start < 0 ? cols + cs.start : cs.start;
+  int col_stop = cs.stop < 0 ? cols + cs.stop : cs.stop;
+  int col_step = cs.step;
+
+  /* Set the index coefficients by looping over the column selection
+   * first to remain consistent with CVXPY. */
+  std::vector<Triplet> tripletList;
+  int col = col_start;
+  int counter = 0;
+  while (true) {
+    if (col < 0 || col >= cols) {
+      break;
+    }
+    int row = row_start;
+    while (true) {
+      if (row < 0 || row >= rows) {
+        break;
+      }
+      int row_idx = counter;
+      int col_idx = col * rows + row;
+      tripletList.push_back(Triplet(row_idx, col_idx, 1.0));
+      counter++;
+      row += row_step;
+      if ((row_step > 0 && row >= row_stop) ||
+          (row_step < 0 && row < row_stop)) {
+        break;
+      }
+    }
+    col += col_step;
+    if ((col_step > 0 && col >= col_stop) ||
+        (col_step < 0 && col < col_stop)) {
+      break;
+    }
+  }
+  coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
+  coeffs.makeCompressed();
+  return {coeffs};
+}
+
 typedef std::vector<SparseMatrix>(*CoefficientFunction)(
     const Expression& expr);
 
 std::unordered_map<int, CoefficientFunction> kCoefficientFunctions = {
   {Expression::ADD, &get_add_coefficients},
   {Expression::HSTACK, &get_hstack_coefficients},
+  {Expression::INDEX, &get_index_coefficients},
   {Expression::NEG, &get_neg_coefficients},
   {Expression::RESHAPE, &get_reshape_coefficients},
   {Expression::SUM_ENTRIES, &get_sum_entries_coefficients},
@@ -132,13 +192,14 @@ std::map<int, SparseMatrix> get_coefficients(const Expression& expr) {
           size(expr.arg(1)).dims[0]);
       multiply_by_constant(f_coeffs, rhs_coeffs, &coeffs);
     } else if (is_constant(rhs_coeffs)) {
-      assert(false);
+      LOG(FATAL) << "RHS constant not implemented";
     } else {
-      assert(false);
+      LOG(FATAL) << "multiplying two non constants";
     }
   } else {
     auto iter = kCoefficientFunctions.find(expr.type());
-    assert(iter != kCoefficientFunctions.end());
+    CHECK(iter != kCoefficientFunctions.end())
+        << "no linear coefficients: " << format_expression(expr);
     std::vector<Matrix> f_coeffs = iter->second(expr);
     for (int i = 0; i < expr.args().size(); i++) {
       multiply_by_constant(
@@ -146,11 +207,14 @@ std::map<int, SparseMatrix> get_coefficients(const Expression& expr) {
     }
   }
 
-  // debugging
-  // printf("get_coefficients: %s\n", format_expression(expr).c_str());
-  // for (const auto& iter : coeffs)
-  //   printf("id: %d\n%s", iter.first, matrix_debug_string(iter.second).c_str());
-  // printf("\n");
+  if (VLOG_IS_ON(2)) {
+    VLOG(2) << "get_coefficients:" << format_expression(expr);
+    for (const auto& iter : coeffs) {
+      VLOG(2) <<  "id: " << iter.first << "\n"
+              << matrix_debug_string(iter.second);
+    }
+    VLOG(2) << "";
+  }
 
   return coeffs;
 }

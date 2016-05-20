@@ -3,6 +3,8 @@
 
 #include <unordered_map>
 
+#include <glog/logging.h>
+
 #include "cvxcanon/expression/Expression.hpp"
 #include "cvxcanon/expression/ExpressionShape.hpp"
 #include "cvxcanon/expression/ExpressionUtil.hpp"
@@ -25,7 +27,7 @@ Expression transform_abs(
 Expression transform_p_norm(
     const Expression& expr,
     std::vector<Expression>* constraints) {
-  assert(expr.attr<PNormAttributes>().p == 1);
+  CHECK_EQ(expr.attr<PNormAttributes>().p, 1);
   return sum_entries(transform_abs(expr, constraints));
 }
 
@@ -51,8 +53,6 @@ std::unordered_map<int, TransformFunction> kTransforms = {
 Expression transform_expression(
     const Expression& expr,
     std::vector<Expression>* constraints) {
-  //printf("transform_expression\n");
-
   // First transform children
   std::vector<Expression> linear_args;
   for (const Expression& arg : expr.args())
@@ -62,7 +62,7 @@ Expression transform_expression(
   Expression output = Expression(expr.type(), linear_args, expr.attr_ptr());
 
   // Now transform non-linear functions, if necessary
-  //printf("transform_func: %s\n", format_expression(expr).c_str());
+  VLOG(2) << "transform_func: " << format_expression(expr);
   auto iter = kTransforms.find(expr.type());
   if (iter != kTransforms.end())
     output = iter->second(output, constraints);

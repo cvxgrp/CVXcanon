@@ -8,8 +8,7 @@
 
 #include "cvxcanon/util/Utils.hpp"
 
-class ExpressionAttributes {
- public:
+struct ExpressionAttributes {
   virtual ~ExpressionAttributes() {}
 };
 
@@ -141,20 +140,25 @@ class ConstAttributes : public ExpressionAttributes {
   DenseMatrix dense_data;
 };
 
-class VarAttributes : public ExpressionAttributes {
- public:
+struct VarAttributes : public ExpressionAttributes {
   int id;
   Size size;
 };
 
-class PNormAttributes : public ExpressionAttributes {
- public:
+struct PNormAttributes : public ExpressionAttributes {
   double p;
 };
 
-class ReshapeAttributes : public ExpressionAttributes {
- public:
+struct ReshapeAttributes : public ExpressionAttributes {
   Size size;
+};
+
+struct Slice {
+  int start, stop, step;
+};
+
+struct IndexAttributes : public ExpressionAttributes {
+  std::vector<Slice> keys;
 };
 
 #endif  // EXPRESSION_H

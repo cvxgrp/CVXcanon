@@ -1,6 +1,8 @@
 
 #include "Solver.hpp"
 
+#include <glog/logging.h>
+
 #include "cvxcanon/expression/TextFormat.hpp"
 #include "cvxcanon/solver/SplittingConeSolver.hpp"
 #include "cvxcanon/solver/SymbolicConeSolver.hpp"
@@ -9,11 +11,11 @@
 Solution solve(const Problem& problem, const SolverOptions& solver_options) {
   // TODO(mwytock): Allow for different transforms/solvers as per SolveOptions
 
-  printf("input problem:\n%s\n\n", format_problem(problem).c_str());
+  VLOG(1) << "input problem:\n" << format_problem(problem);
   LinearConeTransform transform;
   Problem cone_problem = transform.transform(problem);
 
-  printf("cone problem:\n%s\n\n", format_problem(cone_problem).c_str());
+  VLOG(1) << "cone problem:\n" << format_problem(cone_problem);
   SymbolicConeSolver solver(std::make_unique<SplittingConeSolver>());
   return solver.solve(cone_problem);
 }

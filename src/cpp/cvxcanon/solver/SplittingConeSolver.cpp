@@ -85,6 +85,7 @@ void SplittingConeSolver::build_scs_problem(
   data_.c = const_cast<double*>(problem.c.data());
   data_.stgs = &settings_;
   scs::setDefaultSettings(&data_);
+  settings_.verbose = 0;
 
   s_ = DenseVector(A_.rows());
   solution->x = DenseVector(A_.cols());
@@ -94,10 +95,19 @@ void SplittingConeSolver::build_scs_problem(
   sol_.s = const_cast<double*>(s_.data());
 }
 
+SolverStatus SplittingConeSolver::get_scs_status() {
+  if (strcmp(info_.status, "Solved") == 0) {
+    return OPTIMAL;
+  } else {
+    return ERROR;
+  }
+}
+
 ConeSolution SplittingConeSolver::solve(const ConeProblem& problem) {
   ConeSolution solution;
   build_scs_problem(problem, &solution);
   scs::scs(&data_, &cone_, &sol_, &info_);
   solution.objective_value = info_.pobj;
+  solution.status = get_scs_status();
   return solution;
 }
