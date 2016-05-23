@@ -12,8 +12,9 @@ before_install:
 script:
   - echo $HOME
   - ls $HOME
-  - docker run -v $HOME/CVXcanon:/root/CVXcanon -v $HOME/cvxpy:/root/cvxpy mwytock/epsilon ls -lR /root
-  - docker run -v $HOME/CVXcanon:/root/CVXcanon -v $HOME/cvxpy:/root/cvxpy mwytock/epsilon /root/CVXcanon/tools/run_ci.sh
+  - pwd
+  - ls -l
+  - docker run -v CVXcanon:/root/CVXcanon -v cvxpy:/root/cvxpy mwytock/epsilon /root/CVXcanon/tools/run_ci.sh
 
 notifications:
   email: false
