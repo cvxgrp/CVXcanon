@@ -80,25 +80,29 @@ void ConeProblemBuilder::add_objective(const Expression& expr) {
 
 void ConeProblemBuilder::add_eq_constraint(const Expression& expr) {
   // x == y becomes y - x in K_0
-  const int mi = add_constraint_coefficients(add(neg(expr.arg(0)), expr.arg(1)));
-  cone_problem_.constraints.push_back({ConeConstraint::ZERO, m_, mi});
-  m_ += mi;
+  const int offset = m_;
+  const int size = add_constraint_coefficients(
+      add(neg(expr.arg(0)), expr.arg(1)));
+  cone_problem_.constraints.push_back({ConeConstraint::ZERO, offset, size});
 }
 
 void ConeProblemBuilder::add_leq_constraint(const Expression& expr) {
   // x <= y becomes y - x in K_+
-  const int mi = add_constraint_coefficients(add(neg(expr.arg(0)), expr.arg(1)));
-  cone_problem_.constraints.push_back({ConeConstraint::NON_NEGATIVE, m_, mi});
-  m_ += mi;
+  const int offset = m_;
+  const int size = add_constraint_coefficients(
+      add(neg(expr.arg(0)), expr.arg(1)));
+  cone_problem_.constraints.push_back(
+      {ConeConstraint::NON_NEGATIVE, offset, size});
 }
 
 void ConeProblemBuilder::add_soc_constraint(const Expression& expr) {
   // ||x||_2 <= y becomes (y,x) in K_soc
-  int mi = 0;
-  mi += add_constraint_coefficients(expr.arg(1));
-  mi += add_constraint_coefficients(expr.arg(0));
-  cone_problem_.constraints.push_back({ConeConstraint::SECOND_ORDER, m_, mi});
-  m_ += mi;
+  const int offset = m_;
+  int size = 0;
+  size += add_constraint_coefficients(expr.arg(1));
+  size += add_constraint_coefficients(expr.arg(0));
+  cone_problem_.constraints.push_back(
+      {ConeConstraint::SECOND_ORDER, offset, size});
 }
 
 void ConeProblemBuilder::add_exp_cone_constraint(const Expression& expr) {
@@ -155,6 +159,7 @@ int ConeProblemBuilder::add_constraint_coefficients(const Expression& expr) {
     }
   }
 
+  m_ += m;
   return m;
 }
 

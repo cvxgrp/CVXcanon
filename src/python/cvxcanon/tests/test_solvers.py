@@ -21,6 +21,14 @@ def test_lasso():
     f = cp.sum_squares(A*x - b) + lam*cp.norm1(x)
     prob = cp.Problem(cp.Minimize(f))
 
+    problem_data = prob.get_problem_data(cp.SCS)
+    print problem_data["dims"]
+    print "A:"
+    print problem_data["A"].todense()
+    print "b:", problem_data["b"]
+    print "c:", problem_data["c"]
+
+
     result0 = prob.solve()
     status, result1 = cvxpy_solver.solve(prob)
 
