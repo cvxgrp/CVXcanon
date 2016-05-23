@@ -2,13 +2,15 @@
 #
 # Script for running continuous integration tests
 
+build=/build
+
 # build/install cvxcanon
-cd $HOME/CVXcanon
+cd $build/CVXcanon
 tools/build_third_party.sh
 python setup.py install
 
 # install cvxpy
-cd $HOME/cvxpy
+cd $build/cvxpy
 python setup.py install
 
 # run tests

@@ -6,15 +6,11 @@ services:
   - docker
 
 before_install:
-  - git clone https://github.com/cvxgrp/cvxpy.git
+  - git clone https://github.com/cvxgrp/cvxpy.git $HOME/cvxpy
   - docker pull mwytock/epsilon
 
 script:
-  - echo $HOME
-  - ls $HOME
-  - pwd
-  - ls -l
-  - docker run -v CVXcanon:/root/CVXcanon -v cvxpy:/root/cvxpy mwytock/epsilon /root/CVXcanon/tools/run_ci.sh
+  - docker run -v $TRAVIS_BUILD_DIR:/build/CVXcanon -v $HOME/cvxpy:/build/cvxpy mwytock/epsilon /build/CVXcanon/tools/run_ci.sh
 
 notifications:
   email: false
