@@ -14,6 +14,7 @@ script:
   - ls $HOME
   - pwd
   - ls -l
+  - pwd
   - docker run -v CVXcanon:/root/CVXcanon -v cvxpy:/root/cvxpy mwytock/epsilon /root/CVXcanon/tools/run_ci.sh
 
 notifications:
