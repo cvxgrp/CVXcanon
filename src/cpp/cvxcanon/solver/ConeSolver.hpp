@@ -18,6 +18,7 @@ class ConeConstraint {
     ZERO,
     NON_NEGATIVE,
     SECOND_ORDER,
+    EXPONENTIAL,
   };
 
   Cone cone;

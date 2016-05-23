@@ -34,18 +34,7 @@ class SymbolicConeSolver : public Solver {
   Solution solve(const Problem& problem) override;
 
  private:
-  void add_cone_objective(const Expression& expr);
-  void add_cone_constraint(const Expression& expr);
-  int add_constraint_coefficients(const Expression& expr);
-  Solution get_solution(const ConeSolution& cone_solution);
-
   std::unique_ptr<ConeSolver> cone_solver_;
-
-  // For building ConeProblem data
-  VariableOffsetMap var_offsets_;
-  ConeProblem cone_problem_;
-  std::vector<Triplet> A_coeffs_, b_coeffs_, c_coeffs_;
-  int num_constrs_;
 };
 
 #endif  // SYMBOLIC_CONE_SOLVER_H

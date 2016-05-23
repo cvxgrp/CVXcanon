@@ -1125,6 +1125,7 @@ class Expression(_object):
     EQ = _cvxcanon_swig.Expression_EQ
     LEQ = _cvxcanon_swig.Expression_LEQ
     SOC = _cvxcanon_swig.Expression_SOC
+    EXP_CONE = _cvxcanon_swig.Expression_EXP_CONE
     CONST = _cvxcanon_swig.Expression_CONST
     PARAM = _cvxcanon_swig.Expression_PARAM
     VAR = _cvxcanon_swig.Expression_VAR
@@ -1293,6 +1294,32 @@ class PNormAttributes(ExpressionAttributes):
     __del__ = lambda self: None
 PNormAttributes_swigregister = _cvxcanon_swig.PNormAttributes_swigregister
 PNormAttributes_swigregister(PNormAttributes)
+
+class PowerAttributes(ExpressionAttributes):
+    __swig_setmethods__ = {}
+    for _s in [ExpressionAttributes]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, PowerAttributes, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ExpressionAttributes]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, PowerAttributes, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["p"] = _cvxcanon_swig.PowerAttributes_p_set
+    __swig_getmethods__["p"] = _cvxcanon_swig.PowerAttributes_p_get
+    if _newclass:
+        p = _swig_property(_cvxcanon_swig.PowerAttributes_p_get, _cvxcanon_swig.PowerAttributes_p_set)
+
+    def __init__(self):
+        this = _cvxcanon_swig.new_PowerAttributes()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _cvxcanon_swig.delete_PowerAttributes
+    __del__ = lambda self: None
+PowerAttributes_swigregister = _cvxcanon_swig.PowerAttributes_swigregister
+PowerAttributes_swigregister(PowerAttributes)
 
 class ReshapeAttributes(ExpressionAttributes):
     __swig_setmethods__ = {}

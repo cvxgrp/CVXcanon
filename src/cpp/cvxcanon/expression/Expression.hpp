@@ -60,6 +60,7 @@ class Expression {
     EQ,
     LEQ,
     SOC,
+    EXP_CONE,
 
     // Leaf nodes
     CONST,
@@ -146,6 +147,10 @@ struct VarAttributes : public ExpressionAttributes {
 };
 
 struct PNormAttributes : public ExpressionAttributes {
+  double p;
+};
+
+struct PowerAttributes : public ExpressionAttributes {
   double p;
 };
 

@@ -24,6 +24,13 @@ def run_atom(atom, problem, obj_val, solver):
         print("solver", solver)
         tolerance = SOLVER_TO_TOL[solver]
 
+        problem_data = problem.get_problem_data(SCS)
+        print problem_data["dims"]
+        print "A:"
+        print problem_data["A"].todense()
+        print "b:", problem_data["b"]
+        print "c:", problem_data["c"]
+
         try:
             status, result = cvxpy_solver.solve(problem, solver=solver)
         except SolverError as e:
@@ -36,7 +43,7 @@ def run_atom(atom, problem, obj_val, solver):
 
 def test_atom():
     for atom_list, objective_type in atoms[:1]:
-        for atom, size, args, obj_val in atom_list[:3]:
+        for atom, size, args, obj_val in atom_list[3:4]:
             for row in range(size[0]):
                 for col in range(size[1]):
                     for solver in SOLVERS_TO_TRY:

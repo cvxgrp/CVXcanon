@@ -26,8 +26,12 @@ Expression var(int m, int n, int var_id) {
 }
 
 Expression constant(double value) {
+  return constant(DenseMatrix::Constant(1, 1, value));
+}
+
+Expression constant(DenseMatrix value) {
   auto attr = std::make_shared<ConstAttributes>();
-  attr->dense_data = DenseMatrix::Constant(1, 1, value);
+  attr->dense_data = value;
   return {Expression::CONST, {}, attr};
 }
 
@@ -36,7 +40,15 @@ Expression quad_over_lin(Expression x, Expression y) {
 }
 
 Expression p_norm(Expression x, double p) {
-  return {Expression::P_NORM, {x}};
+  auto attr = std::make_shared<PNormAttributes>();
+  attr->p = p;
+  return {Expression::P_NORM, {x}, attr};
+}
+
+Expression power(Expression x, double p) {
+  auto attr = std::make_shared<PowerAttributes>();
+  attr->p = p;
+  return {Expression::POWER, {x}, attr};
 }
 
 Expression hstack(std::vector<Expression> args) {
@@ -57,14 +69,20 @@ Expression sum_entries(Expression x) {
   return {Expression::SUM_ENTRIES, {x}};
 }
 
-// x <= y
+Expression eq(Expression x, Expression y) {
+  return {Expression::EQ, {x,y}};
+}
+
 Expression leq(Expression x, Expression y) {
   return {Expression::LEQ, {x,y}};
 }
 
-// ||x||_2 <= y
 Expression soc(Expression x, Expression y) {
   return {Expression::SOC, {x,y}};
+}
+
+Expression exp_cone(Expression x, Expression y, Expression z) {
+  return {Expression::EXP_CONE, {x,y,z}};
 }
 
 Expression epi_var(const Expression& x, const std::string& name) {

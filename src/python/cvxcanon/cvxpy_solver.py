@@ -6,7 +6,8 @@ from cvxcanon import expression
 STATUS_MAP = {
     cvxcanon_swig.OPTIMAL: cvxpy.OPTIMAL,
     cvxcanon_swig.INFEASIBLE: cvxpy.INFEASIBLE,
-    cvxcanon_swig.UNBOUNDED: cvxpy.UNBOUNDED
+    cvxcanon_swig.UNBOUNDED: cvxpy.UNBOUNDED,
+    cvxcanon_swig.ERROR: cvxpy.SOLVER_ERROR,
 }
 
 def solve(cvxpy_problem, **kwargs):

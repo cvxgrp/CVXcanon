@@ -3018,50 +3018,51 @@ SWIG_Python_NonDynamicSetAttr(PyObject *obj, PyObject *name, PyObject *value) {
 #define SWIGTYPE_p_LinOp swig_types[6]
 #define SWIGTYPE_p_Matrix swig_types[7]
 #define SWIGTYPE_p_PNormAttributes swig_types[8]
-#define SWIGTYPE_p_Problem swig_types[9]
-#define SWIGTYPE_p_ProblemData swig_types[10]
-#define SWIGTYPE_p_ReshapeAttributes swig_types[11]
-#define SWIGTYPE_p_Size swig_types[12]
-#define SWIGTYPE_p_Slice swig_types[13]
-#define SWIGTYPE_p_Solution swig_types[14]
-#define SWIGTYPE_p_Solver swig_types[15]
-#define SWIGTYPE_p_SolverOptions swig_types[16]
-#define SWIGTYPE_p_VarAttributes swig_types[17]
-#define SWIGTYPE_p_allocator_type swig_types[18]
-#define SWIGTYPE_p_char swig_types[19]
-#define SWIGTYPE_p_const_reference swig_types[20]
-#define SWIGTYPE_p_difference_type swig_types[21]
-#define SWIGTYPE_p_double swig_types[22]
-#define SWIGTYPE_p_key_type swig_types[23]
-#define SWIGTYPE_p_mapped_type swig_types[24]
-#define SWIGTYPE_p_operatortype swig_types[25]
-#define SWIGTYPE_p_p_PyObject swig_types[26]
-#define SWIGTYPE_p_reference swig_types[27]
-#define SWIGTYPE_p_size_type swig_types[28]
-#define SWIGTYPE_p_std__allocatorT_Expression_t swig_types[29]
-#define SWIGTYPE_p_std__allocatorT_LinOp_p_t swig_types[30]
-#define SWIGTYPE_p_std__allocatorT_Slice_t swig_types[31]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[32]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[33]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_int_const_int_t_t swig_types[34]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[35]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[36]
-#define SWIGTYPE_p_std__invalid_argument swig_types[37]
-#define SWIGTYPE_p_std__lessT_int_t swig_types[38]
-#define SWIGTYPE_p_std__mapT_int_DenseVector_std__lessT_int_t_std__allocatorT_std__pairT_int_const_DenseVector_t_t_t swig_types[39]
-#define SWIGTYPE_p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t swig_types[40]
-#define SWIGTYPE_p_std__shared_ptrT_ExpressionAttributes_const_t swig_types[41]
-#define SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t swig_types[42]
-#define SWIGTYPE_p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t swig_types[43]
-#define SWIGTYPE_p_std__vectorT_Slice_std__allocatorT_Slice_t_t swig_types[44]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[45]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[46]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[47]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[48]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[49]
-#define SWIGTYPE_p_value_type swig_types[50]
-static swig_type_info *swig_types[52];
-static swig_module_info swig_module = {swig_types, 51, 0, 0, 0, 0};
+#define SWIGTYPE_p_PowerAttributes swig_types[9]
+#define SWIGTYPE_p_Problem swig_types[10]
+#define SWIGTYPE_p_ProblemData swig_types[11]
+#define SWIGTYPE_p_ReshapeAttributes swig_types[12]
+#define SWIGTYPE_p_Size swig_types[13]
+#define SWIGTYPE_p_Slice swig_types[14]
+#define SWIGTYPE_p_Solution swig_types[15]
+#define SWIGTYPE_p_Solver swig_types[16]
+#define SWIGTYPE_p_SolverOptions swig_types[17]
+#define SWIGTYPE_p_VarAttributes swig_types[18]
+#define SWIGTYPE_p_allocator_type swig_types[19]
+#define SWIGTYPE_p_char swig_types[20]
+#define SWIGTYPE_p_const_reference swig_types[21]
+#define SWIGTYPE_p_difference_type swig_types[22]
+#define SWIGTYPE_p_double swig_types[23]
+#define SWIGTYPE_p_key_type swig_types[24]
+#define SWIGTYPE_p_mapped_type swig_types[25]
+#define SWIGTYPE_p_operatortype swig_types[26]
+#define SWIGTYPE_p_p_PyObject swig_types[27]
+#define SWIGTYPE_p_reference swig_types[28]
+#define SWIGTYPE_p_size_type swig_types[29]
+#define SWIGTYPE_p_std__allocatorT_Expression_t swig_types[30]
+#define SWIGTYPE_p_std__allocatorT_LinOp_p_t swig_types[31]
+#define SWIGTYPE_p_std__allocatorT_Slice_t swig_types[32]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[33]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[34]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_int_const_int_t_t swig_types[35]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[36]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[37]
+#define SWIGTYPE_p_std__invalid_argument swig_types[38]
+#define SWIGTYPE_p_std__lessT_int_t swig_types[39]
+#define SWIGTYPE_p_std__mapT_int_DenseVector_std__lessT_int_t_std__allocatorT_std__pairT_int_const_DenseVector_t_t_t swig_types[40]
+#define SWIGTYPE_p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t swig_types[41]
+#define SWIGTYPE_p_std__shared_ptrT_ExpressionAttributes_const_t swig_types[42]
+#define SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t swig_types[43]
+#define SWIGTYPE_p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t swig_types[44]
+#define SWIGTYPE_p_std__vectorT_Slice_std__allocatorT_Slice_t_t swig_types[45]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[46]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[47]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[48]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[49]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[50]
+#define SWIGTYPE_p_value_type swig_types[51]
+static swig_type_info *swig_types[53];
+static swig_module_info swig_module = {swig_types, 52, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -23097,6 +23098,99 @@ SWIGINTERN PyObject *PNormAttributes_swigregister(PyObject *SWIGUNUSEDPARM(self)
   return SWIG_Py_Void();
 }
 
+SWIGINTERN PyObject *_wrap_PowerAttributes_p_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PowerAttributes *arg1 = (PowerAttributes *) 0 ;
+  double arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:PowerAttributes_p_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_PowerAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PowerAttributes_p_set" "', argument " "1"" of type '" "PowerAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< PowerAttributes * >(argp1);
+  ecode2 = SWIG_AsVal_double(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "PowerAttributes_p_set" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  if (arg1) (arg1)->p = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_PowerAttributes_p_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PowerAttributes *arg1 = (PowerAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  double result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:PowerAttributes_p_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_PowerAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PowerAttributes_p_get" "', argument " "1"" of type '" "PowerAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< PowerAttributes * >(argp1);
+  result = (double) ((arg1)->p);
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_PowerAttributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PowerAttributes *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_PowerAttributes")) SWIG_fail;
+  result = (PowerAttributes *)new PowerAttributes();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_PowerAttributes, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_PowerAttributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PowerAttributes *arg1 = (PowerAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_PowerAttributes",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_PowerAttributes, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_PowerAttributes" "', argument " "1"" of type '" "PowerAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< PowerAttributes * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *PowerAttributes_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_PowerAttributes, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
 SWIGINTERN PyObject *_wrap_ReshapeAttributes_size_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   ReshapeAttributes *arg1 = (ReshapeAttributes *) 0 ;
@@ -25589,6 +25683,11 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"new_PNormAttributes", _wrap_new_PNormAttributes, METH_VARARGS, NULL},
 	 { (char *)"delete_PNormAttributes", _wrap_delete_PNormAttributes, METH_VARARGS, NULL},
 	 { (char *)"PNormAttributes_swigregister", PNormAttributes_swigregister, METH_VARARGS, NULL},
+	 { (char *)"PowerAttributes_p_set", _wrap_PowerAttributes_p_set, METH_VARARGS, NULL},
+	 { (char *)"PowerAttributes_p_get", _wrap_PowerAttributes_p_get, METH_VARARGS, NULL},
+	 { (char *)"new_PowerAttributes", _wrap_new_PowerAttributes, METH_VARARGS, NULL},
+	 { (char *)"delete_PowerAttributes", _wrap_delete_PowerAttributes, METH_VARARGS, NULL},
+	 { (char *)"PowerAttributes_swigregister", PowerAttributes_swigregister, METH_VARARGS, NULL},
 	 { (char *)"ReshapeAttributes_size_set", _wrap_ReshapeAttributes_size_set, METH_VARARGS, NULL},
 	 { (char *)"ReshapeAttributes_size_get", _wrap_ReshapeAttributes_size_get, METH_VARARGS, NULL},
 	 { (char *)"new_ReshapeAttributes", _wrap_new_ReshapeAttributes, METH_VARARGS, NULL},
@@ -25707,6 +25806,9 @@ static void *_p_VarAttributesTo_p_ExpressionAttributes(void *x, int *SWIGUNUSEDP
 static void *_p_PNormAttributesTo_p_ExpressionAttributes(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ExpressionAttributes *)  ((PNormAttributes *) x));
 }
+static void *_p_PowerAttributesTo_p_ExpressionAttributes(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ExpressionAttributes *)  ((PowerAttributes *) x));
+}
 static void *_p_ReshapeAttributesTo_p_ExpressionAttributes(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ExpressionAttributes *)  ((ReshapeAttributes *) x));
 }
@@ -25722,6 +25824,7 @@ static swig_type_info _swigt__p_IndexAttributes = {"_p_IndexAttributes", "IndexA
 static swig_type_info _swigt__p_LinOp = {"_p_LinOp", "LinOp *|std::vector< LinOp * >::value_type", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Matrix = {"_p_Matrix", "Matrix *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_PNormAttributes = {"_p_PNormAttributes", "PNormAttributes *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_PowerAttributes = {"_p_PowerAttributes", "PowerAttributes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Problem = {"_p_Problem", "Problem *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ProblemData = {"_p_ProblemData", "ProblemData *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_ReshapeAttributes = {"_p_ReshapeAttributes", "ReshapeAttributes *", 0, 0, (void*)0, 0};
@@ -25775,6 +25878,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_LinOp,
   &_swigt__p_Matrix,
   &_swigt__p_PNormAttributes,
+  &_swigt__p_PowerAttributes,
   &_swigt__p_Problem,
   &_swigt__p_ProblemData,
   &_swigt__p_ReshapeAttributes,
@@ -25823,11 +25927,12 @@ static swig_cast_info _swigc__p_ConstAttributes[] = {  {&_swigt__p_ConstAttribut
 static swig_cast_info _swigc__p_DenseMatrix[] = {  {&_swigt__p_DenseMatrix, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Eigen__MatrixXd[] = {  {&_swigt__p_Eigen__MatrixXd, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Expression[] = {  {&_swigt__p_Expression, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ExpressionAttributes[] = {  {&_swigt__p_ExpressionAttributes, 0, 0, 0},  {&_swigt__p_ConstAttributes, _p_ConstAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_VarAttributes, _p_VarAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_PNormAttributes, _p_PNormAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_ReshapeAttributes, _p_ReshapeAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_IndexAttributes, _p_IndexAttributesTo_p_ExpressionAttributes, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ExpressionAttributes[] = {  {&_swigt__p_ExpressionAttributes, 0, 0, 0},  {&_swigt__p_ConstAttributes, _p_ConstAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_VarAttributes, _p_VarAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_PNormAttributes, _p_PNormAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_PowerAttributes, _p_PowerAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_ReshapeAttributes, _p_ReshapeAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_IndexAttributes, _p_IndexAttributesTo_p_ExpressionAttributes, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IndexAttributes[] = {  {&_swigt__p_IndexAttributes, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_LinOp[] = {  {&_swigt__p_LinOp, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Matrix[] = {  {&_swigt__p_Matrix, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_PNormAttributes[] = {  {&_swigt__p_PNormAttributes, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_PowerAttributes[] = {  {&_swigt__p_PowerAttributes, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Problem[] = {  {&_swigt__p_Problem, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ProblemData[] = {  {&_swigt__p_ProblemData, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_ReshapeAttributes[] = {  {&_swigt__p_ReshapeAttributes, 0, 0, 0},{0, 0, 0, 0}};
@@ -25881,6 +25986,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_LinOp,
   _swigc__p_Matrix,
   _swigc__p_PNormAttributes,
+  _swigc__p_PowerAttributes,
   _swigc__p_Problem,
   _swigc__p_ProblemData,
   _swigc__p_ReshapeAttributes,
@@ -26658,6 +26764,7 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, "Expression_EQ",SWIG_From_int(static_cast< int >(Expression::EQ)));
   SWIG_Python_SetConstant(d, "Expression_LEQ",SWIG_From_int(static_cast< int >(Expression::LEQ)));
   SWIG_Python_SetConstant(d, "Expression_SOC",SWIG_From_int(static_cast< int >(Expression::SOC)));
+  SWIG_Python_SetConstant(d, "Expression_EXP_CONE",SWIG_From_int(static_cast< int >(Expression::EXP_CONE)));
   SWIG_Python_SetConstant(d, "Expression_CONST",SWIG_From_int(static_cast< int >(Expression::CONST)));
   SWIG_Python_SetConstant(d, "Expression_PARAM",SWIG_From_int(static_cast< int >(Expression::PARAM)));
   SWIG_Python_SetConstant(d, "Expression_VAR",SWIG_From_int(static_cast< int >(Expression::VAR)));

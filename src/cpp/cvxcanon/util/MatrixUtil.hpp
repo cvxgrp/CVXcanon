@@ -22,7 +22,7 @@ template<typename MatrixType>
 std::string matrix_debug_string(const MatrixType& A) {
   std::string retval;
 
-  const int max_rows = 10;
+  const int max_rows = 20;
   if (A.rows() > max_rows) {
     for (int i = 0; i < max_rows/2; i++) {
       retval += vector_debug_string(A.row(i)) + "\n";

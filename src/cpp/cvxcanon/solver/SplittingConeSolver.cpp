@@ -59,17 +59,22 @@ void SplittingConeSolver::build_scs_problem(
           A, b, constr_map[ConeConstraint::SECOND_ORDER], nullptr, q_.get());
       cone_.q = q_.get();
     }
+    build_scs_constraint(
+        A, b, constr_map[ConeConstraint::EXPONENTIAL], &cone_.ep, nullptr);
+    CHECK_EQ(cone_.ep % 3, 0);
+    cone_.ep /= 3;
+
     cone_.ssize = 0;
-    cone_.ep = 0;
     cone_.ed = 0;
+    cone_.ep = 0;
     cone_.psize = 0;
 
     A_ = sparse_matrix(m, n, A_coeffs_);
   }
 
-  // printf("SCS constraints:\n");
-  // printf("A:\n%s", matrix_debug_string(A_).c_str());
-  // printf("b: %s\n", vector_debug_string(b_).c_str());
+  VLOG(2) << "SCS constraints:\n"
+          << "A:\n" << matrix_debug_string(A_)
+          << "b: " << vector_debug_string(b_);
 
   // Build SCS data structures
   A_matrix_.m = m;
@@ -85,7 +90,7 @@ void SplittingConeSolver::build_scs_problem(
   data_.c = const_cast<double*>(problem.c.data());
   data_.stgs = &settings_;
   scs::setDefaultSettings(&data_);
-  settings_.verbose = 0;
+  //settings_.verbose = 0;
 
   s_ = DenseVector(A_.rows());
   solution->x = DenseVector(A_.cols());
@@ -98,6 +103,10 @@ void SplittingConeSolver::build_scs_problem(
 SolverStatus SplittingConeSolver::get_scs_status() {
   if (strcmp(info_.status, "Solved") == 0) {
     return OPTIMAL;
+  } else if (strcmp(info_.status, "Infeasible") == 0) {
+    return INFEASIBLE;
+  } else if (strcmp(info_.status, "Unbounded") == 0) {
+    return UNBOUNDED;
   } else {
     return ERROR;
   }
