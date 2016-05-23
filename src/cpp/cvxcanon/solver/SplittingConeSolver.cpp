@@ -66,7 +66,6 @@ void SplittingConeSolver::build_scs_problem(
 
     cone_.ssize = 0;
     cone_.ed = 0;
-    cone_.ep = 0;
     cone_.psize = 0;
 
     A_ = sparse_matrix(m, n, A_coeffs_);
@@ -90,7 +89,7 @@ void SplittingConeSolver::build_scs_problem(
   data_.c = const_cast<double*>(problem.c.data());
   data_.stgs = &settings_;
   scs::setDefaultSettings(&data_);
-  //settings_.verbose = 0;
+  settings_.verbose = 0;
 
   s_ = DenseVector(A_.rows());
   solution->x = DenseVector(A_.cols());

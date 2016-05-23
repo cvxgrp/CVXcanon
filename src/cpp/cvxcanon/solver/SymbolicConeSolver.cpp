@@ -109,6 +109,7 @@ void ConeProblemBuilder::add_exp_cone_constraint(const Expression& expr) {
     coeff_maps.push_back(get_coefficients(arg));
 
   for (int i = 0; i < dim(expr.arg(0)); i++) {
+    cone_problem_.constraints.push_back({ConeConstraint::EXPONENTIAL, m_, 3});
     for (const CoeffMap& coeff_map : coeff_maps) {
       for (const auto& iter : coeff_map) {
         const int var_id = iter.first;
@@ -120,8 +121,7 @@ void ConeProblemBuilder::add_exp_cone_constraint(const Expression& expr) {
           append_block_triplets(A.row(i), m_, j, &A_coeffs_);
         }
       }
-      cone_problem_.constraints.push_back({ConeConstraint::EXPONENTIAL, m_, 3});
-      m_ += 3;
+      m_++;
     }
   }
 }
