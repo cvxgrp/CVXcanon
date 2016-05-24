@@ -8,7 +8,7 @@
 #include <memory>
 #include <vector>
 
-#include "cvxcanon/solver/ConeSolver.hpp"
+#include "cvxcanon/solver/cone/ConeSolver.hpp"
 
 namespace scs {
 typedef double scs_float;

@@ -4,8 +4,8 @@
 #include <glog/logging.h>
 
 #include "cvxcanon/expression/TextFormat.hpp"
-#include "cvxcanon/solver/SplittingConeSolver.hpp"
 #include "cvxcanon/solver/SymbolicConeSolver.hpp"
+#include "cvxcanon/solver/cone/SplittingConeSolver.hpp"
 #include "cvxcanon/transform/LinearConeTransform.hpp"
 
 Solution solve(const Problem& problem, const SolverOptions& solver_options) {

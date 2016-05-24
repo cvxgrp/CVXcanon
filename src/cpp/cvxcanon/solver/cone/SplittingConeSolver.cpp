@@ -1,5 +1,5 @@
 
-#include "SplittingConeSolver.hpp"
+#include "cvxcanon/solver/cone/SplittingConeSolver.hpp"
 
 #include <unordered_map>
 #include <vector>
