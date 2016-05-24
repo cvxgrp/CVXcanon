@@ -16,3 +16,6 @@ python setup.py install
 # run tests
 nosetests cvxcanon
 nosetests cvxpy
+
+# run c++ linter
+cpplint.py --extensions cpp,hpp $(find $build/CVXcanon -type f)

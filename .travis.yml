@@ -7,7 +7,7 @@ services:
 
 before_install:
   - git clone https://github.com/cvxgrp/cvxpy.git $HOME/cvxpy
-  - docker pull mwytock/epsilon
+  - docker pull cvxgrp/cvxcanon
 
 script:
   - docker run -v $TRAVIS_BUILD_DIR:/build/CVXcanon -v $HOME/cvxpy:/build/cvxpy mwytock/epsilon /build/CVXcanon/tools/run_ci.sh
