@@ -7,4 +7,4 @@
 Size size(const Expression& x);
 int dim(const Expression& x);
 
-#endif // EXPRESSION_SHAPE_H
+#endif  // EXPRESSION_SHAPE_H

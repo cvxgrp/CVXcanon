@@ -4,6 +4,7 @@
 #define EXPRESSION_UTIL_H
 
 #include <string>
+#include <vector>
 
 #include "cvxcanon/expression/Expression.hpp"
 
@@ -37,4 +38,4 @@ int count_nodes(const Expression& x);
 int count_nodes(const Problem& prob);
 bool is_scalar(const Size& size);
 
-#endif // EXPRESSION_UTIL_H
+#endif  // EXPRESSION_UTIL_H

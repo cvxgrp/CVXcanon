@@ -2,6 +2,7 @@
 #include "TextFormat.hpp"
 
 #include <unordered_map>
+#include <string>
 
 #include "cvxcanon/expression/Expression.hpp"
 #include "cvxcanon/util/Utils.hpp"

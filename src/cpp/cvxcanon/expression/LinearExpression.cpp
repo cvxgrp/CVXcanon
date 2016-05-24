@@ -1,13 +1,14 @@
 #include "LinearExpression.hpp"
 
 #include <unordered_map>
-
-#include <glog/logging.h>
+#include <map>
+#include <vector>
 
 #include "cvxcanon/expression/ExpressionShape.hpp"
 #include "cvxcanon/expression/ExpressionUtil.hpp"
 #include "cvxcanon/expression/TextFormat.hpp"
 #include "cvxcanon/util/MatrixUtil.hpp"
+#include "glog/logging.h"
 
 bool is_constant(const CoeffMap& coeffs) {
   return (coeffs.find(kConstCoefficientId) != coeffs.end() &&
@@ -32,7 +33,8 @@ std::vector<SparseMatrix> get_sum_entries_coefficients(const Expression& expr) {
   return {ones_matrix(1, dim(expr.arg(0)))};
 }
 
-std::vector<SparseMatrix> get_stack_coefficients(const Expression& expr, bool vertical) {
+std::vector<SparseMatrix> get_stack_coefficients(
+    const Expression& expr, bool vertical) {
   std::vector<SparseMatrix> coeffs;
   int offset = 0;
   Size expr_size = size(expr);
@@ -164,7 +166,7 @@ std::vector<SparseMatrix> get_diag_vec_coefficients(const Expression& expr) {
   for (int i = 0; i < rows; i++) {
     // index in the diagonal matrix
     int row_idx = i * rows + i;
-    //index in the original vector
+    // index in the original vector
     int col_idx = i;
     tripletList.push_back(Triplet(row_idx, col_idx, 1.0));
   }
@@ -207,7 +209,7 @@ void multiply_by_constant(
 SparseMatrix promote_multiply(const SparseMatrix& A, int m, int n) {
   if (A.rows() == 1 && A.cols() == 1) {
     CHECK_EQ(m, n);
-    return scalar_matrix(A.coeff(0,0), n);
+    return scalar_matrix(A.coeff(0, 0), n);
   }
 
   return reshape(A, m, n);

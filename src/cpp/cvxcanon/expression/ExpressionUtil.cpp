@@ -1,13 +1,16 @@
 
+#include <string>
+#include <vector>
+
 #include "cvxcanon/expression/ExpressionUtil.hpp"
 #include "cvxcanon/expression/ExpressionShape.hpp"
 
 Expression add(Expression x, Expression y) {
-  return {Expression::ADD, {x,y}};
+  return {Expression::ADD, {x, y}};
 }
 
 Expression mul(Expression x, Expression y) {
-  return {Expression::MUL, {x,y}};
+  return {Expression::MUL, {x, y}};
 }
 
 Expression neg(Expression x) {
@@ -36,7 +39,7 @@ Expression constant(DenseMatrix value) {
 }
 
 Expression quad_over_lin(Expression x, Expression y) {
-  return {Expression::QUAD_OVER_LIN, {x,y}};
+  return {Expression::QUAD_OVER_LIN, {x, y}};
 }
 
 Expression p_norm(Expression x, double p) {
@@ -70,24 +73,24 @@ Expression sum_entries(Expression x) {
 }
 
 Expression eq(Expression x, Expression y) {
-  return {Expression::EQ, {x,y}};
+  return {Expression::EQ, {x, y}};
 }
 
 Expression leq(Expression x, Expression y) {
-  return {Expression::LEQ, {x,y}};
+  return {Expression::LEQ, {x, y}};
 }
 
 Expression soc(Expression x, Expression y) {
-  return {Expression::SOC, {x,y}};
+  return {Expression::SOC, {x, y}};
 }
 
 Expression exp_cone(Expression x, Expression y, Expression z) {
-  return {Expression::EXP_CONE, {x,y,z}};
+  return {Expression::EXP_CONE, {x, y, z}};
 }
 
 Expression epi_var(const Expression& x, const std::string& name) {
   Size size_x = size(x);
-  int var_id = rand();
+  int var_id = rand_r();
   VLOG(2) << "epi_var " << var_id << ", "
           << size_x.dims[0] << " x " << size_x.dims[1];
   return var(size_x.dims[0], size_x.dims[1], var_id);

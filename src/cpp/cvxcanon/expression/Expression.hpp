@@ -74,7 +74,6 @@ class Expression {
 
   template<typename T>
   const T& attr() const {
-    //printf("attr, pointer: %p->%p\n", data_.get(), data_->attributes.get());
     assert(data_->attributes.get() != nullptr);
     return static_cast<const T&>(*data_->attributes);
   }
@@ -96,7 +95,8 @@ class Expression {
       std::vector<Expression> args,
       const ExpressionAttributes* attributes = nullptr)
       : data_(new Data{
-          type, args, std::shared_ptr<const ExpressionAttributes>(attributes)}) {}
+          type, args,
+              std::shared_ptr<const ExpressionAttributes>(attributes)}) {}
 
  private:
   struct Data {
