@@ -2,14 +2,14 @@
 #include "LinearConeTransform.hpp"
 
 #include <unordered_map>
-
-#include <glog/logging.h>
+#include <vector>
 
 #include "cvxcanon/expression/Expression.hpp"
 #include "cvxcanon/expression/ExpressionShape.hpp"
 #include "cvxcanon/expression/ExpressionUtil.hpp"
 #include "cvxcanon/expression/TextFormat.hpp"
 #include "cvxcanon/util/MatrixUtil.hpp"
+#include "glog/logging.h"
 
 typedef Expression(*TransformFunction)(
     const Expression& expr,
@@ -112,7 +112,7 @@ Expression transform_expression(
   return output;
 }
 
-Problem LinearConeTransform::transform(const Problem& problem) {
+Problem LinearConeTransform::apply(const Problem& problem) {
   std::vector<Expression> constraints;
   Expression linear_objective = transform_expression(
       problem.objective, &constraints);

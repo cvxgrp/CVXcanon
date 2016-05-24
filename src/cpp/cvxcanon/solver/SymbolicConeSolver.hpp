@@ -3,6 +3,9 @@
 #ifndef SYMBOLIC_CONE_SOLVER_H
 #define SYMBOLIC_CONE_SOLVER_H
 
+#include <map>
+#include <utility>
+
 #include "cvxcanon/solver/ConeSolver.hpp"
 #include "cvxcanon/solver/Solver.hpp"
 
@@ -30,7 +33,7 @@ class VariableOffsetMap {
 
 class SymbolicConeSolver : public Solver {
  public:
-  SymbolicConeSolver(std::unique_ptr<ConeSolver> solver);
+  explicit SymbolicConeSolver(std::unique_ptr<ConeSolver> solver);
   Solution solve(const Problem& problem) override;
 
  private:

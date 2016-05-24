@@ -2,11 +2,12 @@
 #include "SplittingConeSolver.hpp"
 
 #include <unordered_map>
+#include <vector>
 
 #include "cvxcanon/util/MatrixUtil.hpp"
 
 namespace scs {
-#include <scs/include/util.h>
+#include "scs/include/util.h"
 }
 
 void SplittingConeSolver::build_scs_constraint(

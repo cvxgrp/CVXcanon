@@ -7,7 +7,7 @@
 class ProblemTransform {
  public:
   virtual ~ProblemTransform() {}
-  virtual Problem transform(const Problem& problem) = 0;
+  virtual Problem apply(const Problem& problem) = 0;
 };
 
 #endif  // PROBLEM_TRANSFORM_H

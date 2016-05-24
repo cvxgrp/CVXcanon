@@ -18,13 +18,15 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <map>
+#include <string>
 #include <unordered_map>
 
-#include <Eigen/Core>
-#include <Eigen/Sparse>
-#include <glog/logging.h>
+#include "Eigen/Core"
+#include "Eigen/Sparse"
+#include "glog/logging.h"
 
-#define NULL_MATRIX Eigen::SparseMatrix<double>(0,0)
+#define NULL_MATRIX Eigen::SparseMatrix<double>(0, 0)
 
 typedef Eigen::SparseMatrix<double> SparseMatrix;
 typedef Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> DenseMatrix;

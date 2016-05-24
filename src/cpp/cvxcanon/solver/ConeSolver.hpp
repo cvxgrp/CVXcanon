@@ -6,9 +6,10 @@
 #ifndef CONE_SOLVER_H
 #define CONE_SOLVER_H
 
-#include <Eigen/Core>
-#include <Eigen/Sparse>
+#include <vector>
 
+#include "Eigen/Core"
+#include "Eigen/Sparse"
 #include "cvxcanon/solver/SolverStatus.hpp"
 #include "cvxcanon/util/Utils.hpp"
 

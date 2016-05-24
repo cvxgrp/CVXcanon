@@ -6,14 +6,15 @@
 #define SPLITTING_CONIC_SOLVER_H
 
 #include <memory>
+#include <vector>
 
 #include "cvxcanon/solver/ConeSolver.hpp"
 
 namespace scs {
 typedef double scs_float;
 typedef int scs_int;
-#include <scs/linsys/amatrix.h>
-#include <scs/include/scs.h>
+#include "scs/linsys/amatrix.h"
+#include "scs/include/scs.h"
 }  // scs
 
 class SplittingConeSolver : public ConeSolver {
@@ -53,7 +54,6 @@ class SplittingConeSolver : public ConeSolver {
   // Used for building constraints
   int num_constrs_;
   std::vector<Triplet> A_coeffs_;
-
 };
 
 #endif  // SPLITTING_CONIC_SOLVER_H

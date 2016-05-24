@@ -5,8 +5,7 @@
 
 #include <map>
 
-#include <Eigen/Core>
-
+#include "Eigen/Core"
 #include "cvxcanon/expression/Expression.hpp"
 #include "cvxcanon/solver/SolverStatus.hpp"
 
@@ -18,7 +17,6 @@ class Solution {
   SolverStatus status;
   std::map<int, DenseVector> variable_values;
   double objective_value;
-
 };
 
 class Solver {

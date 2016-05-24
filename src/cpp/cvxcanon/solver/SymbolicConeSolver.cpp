@@ -3,20 +3,20 @@
 
 #include <memory>
 #include <unordered_map>
-
-#include <glog/logging.h>
+#include <vector>
 
 #include "cvxcanon/expression/ExpressionShape.hpp"
 #include "cvxcanon/expression/ExpressionUtil.hpp"
 #include "cvxcanon/expression/LinearExpression.hpp"
 #include "cvxcanon/util/MatrixUtil.hpp"
 #include "cvxcanon/util/Utils.hpp"
+#include "glog/logging.h"
 
 // Incrementally constructs the the coefficients for the objective and
 // constraints of the cone problem.
 class ConeProblemBuilder {
  public:
-  ConeProblemBuilder(VariableOffsetMap* var_offsets)
+  explicit ConeProblemBuilder(VariableOffsetMap* var_offsets)
       : var_offsets_(var_offsets),
         m_(0) {}
 
@@ -37,7 +37,8 @@ class ConeProblemBuilder {
     const int m = m_;
     const int n = var_offsets_->n();
 
-    cone_problem_.A = -sparse_matrix(m, n, A_coeffs_);  // negative by convention
+    // negative by convention: b - Ax in K
+    cone_problem_.A = -sparse_matrix(m, n, A_coeffs_);
     cone_problem_.b = sparse_matrix(m, 1, b_coeffs_);
     cone_problem_.c = sparse_matrix(n, 1, c_coeffs_);
 

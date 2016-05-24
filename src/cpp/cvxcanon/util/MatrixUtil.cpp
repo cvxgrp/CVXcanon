@@ -1,6 +1,9 @@
 
 #include "cvxcanon/util/MatrixUtil.hpp"
 
+#include <string>
+#include <vector>
+
 void append_block_triplets(
     const SparseMatrix& A, int i, int j,
     std::vector<Triplet>* coeffs) {
@@ -18,7 +21,7 @@ SparseMatrix sparse_matrix(int m, int n, const std::vector<Triplet>& coeffs) {
 }
 
 SparseMatrix scalar_matrix(double alpha, int n) {
-  return (alpha*DenseMatrix::Identity(n,n)).sparseView();
+  return (alpha*DenseMatrix::Identity(n, n)).sparseView();
 }
 
 SparseMatrix ones_matrix(int m, int n) {
@@ -26,7 +29,7 @@ SparseMatrix ones_matrix(int m, int n) {
 }
 
 SparseMatrix identity(int n) {
-  return DenseMatrix::Identity(n,n).sparseView();
+  return DenseMatrix::Identity(n, n).sparseView();
 }
 
 SparseMatrix reshape(const SparseMatrix& A, int m, int n) {

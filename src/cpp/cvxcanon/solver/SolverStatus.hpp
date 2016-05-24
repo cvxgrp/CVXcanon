@@ -10,4 +10,4 @@ enum SolverStatus {
   ERROR
 };
 
-#endif // SOLVER_STATUS_H
+#endif  // SOLVER_STATUS_H
