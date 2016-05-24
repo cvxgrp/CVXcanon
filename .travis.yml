@@ -4,37 +4,40 @@ python:
   - "3.4"
 os:
   - linux
-#  - osx
+
 before_install:
-  # Install conda to avoid a lengthy build process from scipy and numpy 
-  # binaries (CVXCanon will automatically build NUMPY from 
-  # source if needed. SCIPY is only used by cvxpy, but building from 
-  # source for each build is too slow)
-  - sudo pip install conda
+  # conda-based environment instead
+  - deactivate
+
+  # use miniconda installer
+  - wget http://repo.continuum.io/miniconda/Miniconda-3.9.1-Linux-x86_64.sh -O miniconda.sh
+  - chmod +x miniconda.sh && ./miniconda.sh -b
+  - export PATH=/home/travis/miniconda/bin:$PATH
+  - conda update --yes conda
+
   # install deps
-  - sudo conda init
-  - deps='pip numpy scipy'
+  - deps="nomkl pip numpy scipy"
   - conda create -p $HOME/py --yes $deps "python=$TRAVIS_PYTHON_VERSION"
   - export PATH=$HOME/py/bin:$PATH
 
-  # cvxpy dependency 
+  # cvxpy dependency
   - sudo apt-get install -qq libatlas-base-dev gfortran
   - export ATLAS="/usr/lib/atlas-base/libatlas.so"
 
 # command to install dependencies
 install:
   # compiling library
-  - "python setup.py install"
+  - python setup.py install
 
-  # adding cvxpy 
-  - "cd tests"
-  - "git clone https://github.com/cvxgrp/cvxpy.git"
-  - "cd cvxpy"
-  - "python setup.py install"
-  - "pip install nose"
+  # adding cvxpy
+  - cd tests
+  - git clone https://github.com/cvxgrp/cvxpy.git
+  - cd cvxpy
+  - python setup.py install
+  - pip install nose
 
 # command to run tests
-script:  "nosetests cvxpy"
+script:  nosetests cvxpy
 
 notifications:
   email: false
