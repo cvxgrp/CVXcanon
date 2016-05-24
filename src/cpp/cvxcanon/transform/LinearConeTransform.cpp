@@ -48,7 +48,8 @@ Expression transform_quad_over_lin(
 Expression transform_power(
     const Expression& expr,
     std::vector<Expression>* constraints) {
-  LOG(FATAL) << "Not implemented";
+  LOG(FATAL) << "Not implemented "
+             << "(p: " << expr.attr<PowerAttributes>().p << ")";
   return expr;
 }
 
