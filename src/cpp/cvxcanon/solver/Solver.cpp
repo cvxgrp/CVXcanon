@@ -13,7 +13,7 @@ Solution solve(const Problem& problem, const SolverOptions& solver_options) {
 
   VLOG(1) << "input problem:\n" << format_problem(problem);
   LinearConeTransform transform;
-  Problem cone_problem = transform.transform(problem);
+  Problem cone_problem = transform.apply(problem);
 
   VLOG(1) << "cone problem:\n" << format_problem(cone_problem);
   SymbolicConeSolver solver(std::make_unique<SplittingConeSolver>());

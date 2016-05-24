@@ -1,4 +1,6 @@
 
+#include <stdlib.h>
+
 #include <string>
 #include <vector>
 
@@ -90,7 +92,7 @@ Expression exp_cone(Expression x, Expression y, Expression z) {
 
 Expression epi_var(const Expression& x, const std::string& name) {
   Size size_x = size(x);
-  int var_id = rand_r();
+  int var_id = rand();  // NOLINT(runtime/threadsafe_fn)
   VLOG(2) << "epi_var " << var_id << ", "
           << size_x.dims[0] << " x " << size_x.dims[1];
   return var(size_x.dims[0], size_x.dims[1], var_id);
