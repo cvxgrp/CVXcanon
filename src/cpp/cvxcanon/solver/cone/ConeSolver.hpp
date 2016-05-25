@@ -1,10 +1,7 @@
-// Interface for cone solvers
-//
-// TODO(mwytock): This should likely be a pure C interface to ease
-// implementation for existing cone solvers (ECOS, SCS)
+// Specifical of cone problems and interface for cone solvers.
 
-#ifndef CONE_SOLVER_H
-#define CONE_SOLVER_H
+#ifndef CVXCANON_SOLVER_CONE_CONE_SOLVER_H
+#define CVXCANON_SOLVER_CONE_CONE_SOLVER_H
 
 #include <vector>
 
@@ -13,6 +10,7 @@
 #include "cvxcanon/solver/SolverStatus.hpp"
 #include "cvxcanon/util/Utils.hpp"
 
+// A cone constraint
 class ConeConstraint {
  public:
   enum Cone {
@@ -21,7 +19,6 @@ class ConeConstraint {
     SECOND_ORDER,
     EXPONENTIAL,
   };
-
   Cone cone;
   int offset, size;
 };
@@ -36,17 +33,23 @@ class ConeProblem {
   std::vector<ConeConstraint> constraints;
 };
 
+// The solution to a cone problem
 class ConeSolution {
  public:
   SolverStatus status;
+
+  // Primal and dual variables
   DenseVector x, y;
+
+  // Primal objective value
   double objective_value;
 };
 
+// The cone solver interface.
 class ConeSolver {
  public:
   virtual ~ConeSolver() {}
   virtual ConeSolution solve(const ConeProblem& problem) = 0;
 };
 
-#endif  // CONE_SOLVER_H
+#endif  // CVXCANON_SOLVER_CONE_CONE_SOLVER_H

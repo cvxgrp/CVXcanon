@@ -1,9 +1,13 @@
 // Interface to the splitting conic solver (SCS)
 //
 // See: https://github.com/cvxgrp/scs
+//
+// TODO(mwytock): It is expected that this interface will be implemented
+// directly in the SCS code base at some point and called via a plugin
+// architecture, see comment about pure C interface in README.md.
 
-#ifndef SPLITTING_CONIC_SOLVER_H
-#define SPLITTING_CONIC_SOLVER_H
+#ifndef CVXCANON_SOLVER_CONE_SPLITTING_CONIC_SOLVER_H
+#define CVXCANON_SOLVER_CONE_SPLITTING_CONIC_SOLVER_H
 
 #include <memory>
 #include <vector>
@@ -56,4 +60,4 @@ class SplittingConeSolver : public ConeSolver {
   std::vector<Triplet> A_coeffs_;
 };
 
-#endif  // SPLITTING_CONIC_SOLVER_H
+#endif  // CVXCANON_SOLVER_CONE_SPLITTING_CONIC_SOLVER_H

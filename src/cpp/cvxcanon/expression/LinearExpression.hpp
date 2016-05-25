@@ -5,7 +5,7 @@
 // replace LinOp with Expression everywhere.
 
 #ifndef CVXCANON_EXPRESSION_LINEAR_EXPRESSION_H
-#define CVXCANON_EXPRESISON_LINEAR_EXPRESSION_H
+#define CVXCANON_EXPRESSION_LINEAR_EXPRESSION_H
 
 #include <map>
 
