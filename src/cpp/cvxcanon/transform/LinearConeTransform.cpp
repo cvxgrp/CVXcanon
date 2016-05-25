@@ -37,7 +37,7 @@ Expression transform_quad_over_lin(
     std::vector<Expression>* constraints) {
   const Expression& x = expr.arg(0);
   const Expression& y = expr.arg(1);
-  Expression t = scalar_epi_var(expr, "qol");
+  Expression t = epi_var(expr, "qol");
 
   constraints->push_back(
       soc(vstack({add(y, neg(t)), mul(constant(2), x)}), add(y, t)));

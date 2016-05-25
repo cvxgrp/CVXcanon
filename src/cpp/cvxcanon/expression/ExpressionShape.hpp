@@ -1,10 +1,15 @@
+// Compute the output dimension of a function represented by an expression tree.
 
-#ifndef EXPRESSION_SHAPE_H
-#define EXPRESSION_SHAPE_H
+#ifndef CVXCANON_EXPRESSION_EXPRESSION_SHAPE_H
+#define CVXCANON_EXPRESSION_EXPRESSION_SHAPE_H
 
 #include "cvxcanon/expression/Expression.hpp"
 
+// The output dimensions of the expression
 Size size(const Expression& x);
+
+// The product of the output dimensions of the expression,
+// i.e. dims[0]*dims[1]*...
 int dim(const Expression& x);
 
-#endif  // EXPRESSION_SHAPE_H
+#endif  // CVXCANON_EXPRESSION_EXPRESSION_SHAPE_H

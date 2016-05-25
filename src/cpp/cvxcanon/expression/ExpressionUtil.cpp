@@ -1,10 +1,11 @@
 
+#include "cvxcanon/expression/ExpressionUtil.hpp"
+
 #include <stdlib.h>
 
 #include <string>
 #include <vector>
 
-#include "cvxcanon/expression/ExpressionUtil.hpp"
 #include "cvxcanon/expression/ExpressionShape.hpp"
 
 Expression add(Expression x, Expression y) {
@@ -96,26 +97,6 @@ Expression epi_var(const Expression& x, const std::string& name) {
   VLOG(2) << "epi_var " << var_id << ", "
           << size_x.dims[0] << " x " << size_x.dims[1];
   return var(size_x.dims[0], size_x.dims[1], var_id);
-}
-
-Expression scalar_epi_var(const Expression& x, const std::string& name) {
-  return var(1, 1, rand());
-}
-
-int count_nodes(const Expression& x) {
-  int retval = 1;
-  for (const Expression& arg : x.args()) {
-    retval += count_nodes(arg);
-  }
-  return retval;
-}
-
-int count_nodes(const Problem& problem) {
-  int retval = count_nodes(problem.objective);
-  for (const Expression& constr : problem.constraints) {
-    retval += count_nodes(constr);
-  }
-  return retval;
 }
 
 bool is_scalar(const Size& size) {

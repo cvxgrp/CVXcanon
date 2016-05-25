@@ -1153,28 +1153,6 @@ class Expression(_object):
 Expression_swigregister = _cvxcanon_swig.Expression_swigregister
 Expression_swigregister(Expression)
 
-class Size(_object):
-    __swig_setmethods__ = {}
-    __setattr__ = lambda self, name, value: _swig_setattr(self, Size, name, value)
-    __swig_getmethods__ = {}
-    __getattr__ = lambda self, name: _swig_getattr(self, Size, name)
-    __repr__ = _swig_repr
-    __swig_setmethods__["dims"] = _cvxcanon_swig.Size_dims_set
-    __swig_getmethods__["dims"] = _cvxcanon_swig.Size_dims_get
-    if _newclass:
-        dims = _swig_property(_cvxcanon_swig.Size_dims_get, _cvxcanon_swig.Size_dims_set)
-
-    def __init__(self):
-        this = _cvxcanon_swig.new_Size()
-        try:
-            self.this.append(this)
-        except Exception:
-            self.this = this
-    __swig_destroy__ = _cvxcanon_swig.delete_Size
-    __del__ = lambda self: None
-Size_swigregister = _cvxcanon_swig.Size_swigregister
-Size_swigregister(Size)
-
 class Problem(_object):
     __swig_setmethods__ = {}
     __setattr__ = lambda self, name, value: _swig_setattr(self, Problem, name, value)
@@ -1206,6 +1184,28 @@ class Problem(_object):
     __del__ = lambda self: None
 Problem_swigregister = _cvxcanon_swig.Problem_swigregister
 Problem_swigregister(Problem)
+
+class Size(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Size, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, Size, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["dims"] = _cvxcanon_swig.Size_dims_set
+    __swig_getmethods__["dims"] = _cvxcanon_swig.Size_dims_get
+    if _newclass:
+        dims = _swig_property(_cvxcanon_swig.Size_dims_get, _cvxcanon_swig.Size_dims_set)
+
+    def __init__(self):
+        this = _cvxcanon_swig.new_Size()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _cvxcanon_swig.delete_Size
+    __del__ = lambda self: None
+Size_swigregister = _cvxcanon_swig.Size_swigregister
+Size_swigregister(Size)
 
 class ConstAttributes(ExpressionAttributes):
     __swig_setmethods__ = {}

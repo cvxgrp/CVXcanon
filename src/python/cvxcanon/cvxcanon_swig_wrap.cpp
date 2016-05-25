@@ -22055,19 +22055,6 @@ fail:
 
 SWIGINTERN PyObject *_wrap_new_Expression__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
-  Expression *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)":new_Expression")) SWIG_fail;
-  result = (Expression *)new Expression();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Expression, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_Expression__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
   Expression::Type arg1 ;
   std::vector< Expression,std::allocator< Expression > > arg2 ;
   SwigValueWrapper< std::shared_ptr< ExpressionAttributes const > > arg3 ;
@@ -22109,6 +22096,19 @@ SWIGINTERN PyObject *_wrap_new_Expression__SWIG_1(PyObject *SWIGUNUSEDPARM(self)
     }
   }
   result = (Expression *)new Expression(arg1,arg2,arg3);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Expression, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_Expression__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Expression *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_Expression")) SWIG_fail;
+  result = (Expression *)new Expression();
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Expression, SWIG_POINTER_NEW |  0 );
   return resultobj;
 fail:
@@ -22204,7 +22204,7 @@ SWIGINTERN PyObject *_wrap_new_Expression(PyObject *self, PyObject *args) {
     argv[ii] = PyTuple_GET_ITEM(args,ii);
   }
   if (argc == 0) {
-    return _wrap_new_Expression__SWIG_0(self, args);
+    return _wrap_new_Expression__SWIG_1(self, args);
   }
   if (argc == 2) {
     int _v;
@@ -22252,7 +22252,7 @@ SWIGINTERN PyObject *_wrap_new_Expression(PyObject *self, PyObject *args) {
         int res = SWIG_ConvertPtr(argv[2], 0, SWIGTYPE_p_std__shared_ptrT_ExpressionAttributes_const_t, 0);
         _v = SWIG_CheckState(res);
         if (_v) {
-          return _wrap_new_Expression__SWIG_1(self, args);
+          return _wrap_new_Expression__SWIG_0(self, args);
         }
       }
     }
@@ -22261,8 +22261,8 @@ SWIGINTERN PyObject *_wrap_new_Expression(PyObject *self, PyObject *args) {
 fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'new_Expression'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    Expression::Expression()\n"
     "    Expression::Expression(Expression::Type,std::vector< Expression,std::allocator< Expression > >,std::shared_ptr< ExpressionAttributes const >)\n"
+    "    Expression::Expression()\n"
     "    Expression::Expression(Expression::Type,std::vector< Expression,std::allocator< Expression > >,ExpressionAttributes const *)\n"
     "    Expression::Expression(Expression::Type,std::vector< Expression,std::allocator< Expression > >)\n");
   return 0;
@@ -22294,99 +22294,6 @@ SWIGINTERN PyObject *Expression_swigregister(PyObject *SWIGUNUSEDPARM(self), PyO
   PyObject *obj;
   if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
   SWIG_TypeNewClientData(SWIGTYPE_p_Expression, SWIG_NewClientData(obj));
-  return SWIG_Py_Void();
-}
-
-SWIGINTERN PyObject *_wrap_Size_dims_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Size *arg1 = (Size *) 0 ;
-  std::vector< int,std::allocator< int > > *arg2 = (std::vector< int,std::allocator< int > > *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject * obj0 = 0 ;
-  PyObject * obj1 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"OO:Size_dims_set",&obj0,&obj1)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Size, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Size_dims_set" "', argument " "1"" of type '" "Size *""'"); 
-  }
-  arg1 = reinterpret_cast< Size * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t, 0 |  0 );
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Size_dims_set" "', argument " "2"" of type '" "std::vector< int,std::allocator< int > > *""'"); 
-  }
-  arg2 = reinterpret_cast< std::vector< int,std::allocator< int > > * >(argp2);
-  if (arg1) (arg1)->dims = *arg2;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_Size_dims_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Size *arg1 = (Size *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  std::vector< int,std::allocator< int > > *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:Size_dims_get",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Size, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Size_dims_get" "', argument " "1"" of type '" "Size *""'"); 
-  }
-  arg1 = reinterpret_cast< Size * >(argp1);
-  result = (std::vector< int,std::allocator< int > > *)& ((arg1)->dims);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t, 0 |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_new_Size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Size *result = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)":new_Size")) SWIG_fail;
-  result = (Size *)new Size();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Size, SWIG_POINTER_NEW |  0 );
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *_wrap_delete_Size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  Size *arg1 = (Size *) 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  PyObject * obj0 = 0 ;
-  
-  if (!PyArg_ParseTuple(args,(char *)"O:delete_Size",&obj0)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Size, SWIG_POINTER_DISOWN |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Size" "', argument " "1"" of type '" "Size *""'"); 
-  }
-  arg1 = reinterpret_cast< Size * >(argp1);
-  delete arg1;
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
-SWIGINTERN PyObject *Size_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *obj;
-  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
-  SWIG_TypeNewClientData(SWIGTYPE_p_Size, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
@@ -22677,6 +22584,99 @@ SWIGINTERN PyObject *Problem_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObje
   PyObject *obj;
   if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
   SWIG_TypeNewClientData(SWIGTYPE_p_Problem, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_Size_dims_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Size *arg1 = (Size *) 0 ;
+  std::vector< int,std::allocator< int > > *arg2 = (std::vector< int,std::allocator< int > > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:Size_dims_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Size, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Size_dims_set" "', argument " "1"" of type '" "Size *""'"); 
+  }
+  arg1 = reinterpret_cast< Size * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Size_dims_set" "', argument " "2"" of type '" "std::vector< int,std::allocator< int > > *""'"); 
+  }
+  arg2 = reinterpret_cast< std::vector< int,std::allocator< int > > * >(argp2);
+  if (arg1) (arg1)->dims = *arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Size_dims_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Size *arg1 = (Size *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::vector< int,std::allocator< int > > *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:Size_dims_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Size, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Size_dims_get" "', argument " "1"" of type '" "Size *""'"); 
+  }
+  arg1 = reinterpret_cast< Size * >(argp1);
+  result = (std::vector< int,std::allocator< int > > *)& ((arg1)->dims);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_Size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Size *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_Size")) SWIG_fail;
+  result = (Size *)new Size();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Size, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_Size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Size *arg1 = (Size *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_Size",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_Size, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Size" "', argument " "1"" of type '" "Size *""'"); 
+  }
+  arg1 = reinterpret_cast< Size * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *Size_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_Size, SWIG_NewClientData(obj));
   return SWIG_Py_Void();
 }
 
@@ -25650,11 +25650,6 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"new_Expression", _wrap_new_Expression, METH_VARARGS, NULL},
 	 { (char *)"delete_Expression", _wrap_delete_Expression, METH_VARARGS, NULL},
 	 { (char *)"Expression_swigregister", Expression_swigregister, METH_VARARGS, NULL},
-	 { (char *)"Size_dims_set", _wrap_Size_dims_set, METH_VARARGS, NULL},
-	 { (char *)"Size_dims_get", _wrap_Size_dims_get, METH_VARARGS, NULL},
-	 { (char *)"new_Size", _wrap_new_Size, METH_VARARGS, NULL},
-	 { (char *)"delete_Size", _wrap_delete_Size, METH_VARARGS, NULL},
-	 { (char *)"Size_swigregister", Size_swigregister, METH_VARARGS, NULL},
 	 { (char *)"new_Problem", _wrap_new_Problem, METH_VARARGS, NULL},
 	 { (char *)"Problem_sense_set", _wrap_Problem_sense_set, METH_VARARGS, NULL},
 	 { (char *)"Problem_sense_get", _wrap_Problem_sense_get, METH_VARARGS, NULL},
@@ -25664,6 +25659,11 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"Problem_constraints_get", _wrap_Problem_constraints_get, METH_VARARGS, NULL},
 	 { (char *)"delete_Problem", _wrap_delete_Problem, METH_VARARGS, NULL},
 	 { (char *)"Problem_swigregister", Problem_swigregister, METH_VARARGS, NULL},
+	 { (char *)"Size_dims_set", _wrap_Size_dims_set, METH_VARARGS, NULL},
+	 { (char *)"Size_dims_get", _wrap_Size_dims_get, METH_VARARGS, NULL},
+	 { (char *)"new_Size", _wrap_new_Size, METH_VARARGS, NULL},
+	 { (char *)"delete_Size", _wrap_delete_Size, METH_VARARGS, NULL},
+	 { (char *)"Size_swigregister", Size_swigregister, METH_VARARGS, NULL},
 	 { (char *)"ConstAttributes_set_dense_data", _wrap_ConstAttributes_set_dense_data, METH_VARARGS, NULL},
 	 { (char *)"ConstAttributes_size", _wrap_ConstAttributes_size, METH_VARARGS, NULL},
 	 { (char *)"ConstAttributes_dense_data_set", _wrap_ConstAttributes_dense_data_set, METH_VARARGS, NULL},

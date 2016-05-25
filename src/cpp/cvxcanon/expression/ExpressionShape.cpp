@@ -27,6 +27,10 @@ Size get_p_norm_shape(const Expression& expr) {
   return {{1, 1}};
 }
 
+Size get_quad_over_lin_shape(const Expression& expr) {
+  return {{1, 1}};
+}
+
 Size get_mul_shape(const Expression& expr) {
   assert(expr.args().size() == 2);
   Size lhs_size = size(expr.arg(0));
@@ -122,6 +126,7 @@ std::unordered_map<int, ShapeFunction> kShapeFunctions = {
 
   // Non linear functions
   {Expression::P_NORM, &get_p_norm_shape},
+  {Expression::QUAD_OVER_LIN, &get_quad_over_lin_shape},
   {Expression::SUM_ENTRIES, &get_sum_entries_shape},
 
   // Leaf nodes

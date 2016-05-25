@@ -1,13 +1,16 @@
 // Utility functions for constructing and manipulating expression trees.
 
-#ifndef EXPRESSION_UTIL_H
-#define EXPRESSION_UTIL_H
+#ifndef CVXCANON_EXPRESSION_EXPRESSION_UTIL_H
+#define CVXCANON_EXPRESSION_EXPRESSION_UTIL_H
 
 #include <string>
 #include <vector>
 
 #include "cvxcanon/expression/Expression.hpp"
 
+// Syntatic sugar that allows for writing expresison trees in natural functional
+// form, for example:
+// Expression expr = add(mul(const(A), var(10, 1)), neg(const(b)));
 Expression abs(Expression x);
 Expression add(Expression x, Expression y);
 Expression constant(DenseMatrix value);
@@ -23,19 +26,18 @@ Expression sum_entries(Expression x);
 Expression var(int m, int n);
 Expression vstack(std::vector<Expression> args);
 
-// Constraints
+// Syntatic sugar for constraints
 Expression eq(Expression x, Expression y);  // x == y
 Expression leq(Expression x, Expression y);  // x <= y
 Expression soc(Expression x, Expression y);  // ||x||_2 <= y
-
 // K = {(x,y,z) | y > 0, ye^(x/y) <= z} U {(x,y,z) | x <= 0, y = 0, z >= 0}
 Expression exp_cone(Expression x, Expression y, Expression z);
 
-// Utililties
-Expression epi_var(const Expression& x, const std::string& name);
-Expression scalar_epi_var(const Expression& x, const std::string& name);
-int count_nodes(const Expression& x);
-int count_nodes(const Problem& prob);
+// Construct a new VAR expression of the same size as f, intended to be used in
+// canonicalization when adding epigraph constraints.
+Expression epi_var(const Expression& f, const std::string& name);
+
+// Returns true if size represents a scalar, i.e. all dimensinos are 1
 bool is_scalar(const Size& size);
 
-#endif  // EXPRESSION_UTIL_H
+#endif  // CVXCANON_EXPRESSION_EXPRESSION_UTIL_H
