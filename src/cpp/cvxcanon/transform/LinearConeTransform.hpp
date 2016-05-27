@@ -18,6 +18,7 @@
 
 class LinearConeTransform : public ProblemTransform {
  public:
+  bool accepts(const Problem& problem) override;
   Problem apply(const Problem& problem) override;
 };
 

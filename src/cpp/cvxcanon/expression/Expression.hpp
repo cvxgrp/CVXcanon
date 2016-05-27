@@ -37,7 +37,7 @@ class Expression {
     UPPER_TRI,
     VSTACK,
 
-    // Elementwise functions
+    // Elementwise nonlinear functions
     ABS,
     ENTR,
     EXP,

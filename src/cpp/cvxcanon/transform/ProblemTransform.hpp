@@ -8,6 +8,7 @@
 class ProblemTransform {
  public:
   virtual ~ProblemTransform() {}
+  virtual bool accepts(const Problem& problem) { return true; }
   virtual Problem apply(const Problem& problem) = 0;
 };
 

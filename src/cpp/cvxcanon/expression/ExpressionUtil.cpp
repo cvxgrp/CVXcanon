@@ -5,6 +5,7 @@
 
 #include <string>
 #include <vector>
+#include <unordered_set>
 
 #include "cvxcanon/expression/ExpressionShape.hpp"
 
@@ -101,4 +102,49 @@ Expression epi_var(const Expression& x, const std::string& name) {
 
 bool is_scalar(const Size& size) {
   return size.dims[0] == 1 && size.dims[1] == 1;
+}
+
+std::unordered_set<int> kConstraintTypes = {
+  Expression::EQ,
+  Expression::LEQ,
+  Expression::SOC,
+  Expression::EXP_CONE,
+};
+
+std::unordered_set<int> kLinearTypes = {
+  Expression::ADD,
+  Expression::DIAG_MAT,
+  Expression::DIAG_VEC,
+  Expression::HSTACK,
+  Expression::INDEX,
+  Expression::KRON,
+  Expression::MUL,
+  Expression::NEG,
+  Expression::RESHAPE,
+  Expression::SUM_ENTRIES,
+  Expression::TRACE,
+  Expression::UPPER_TRI,
+  Expression::VSTACK,
+};
+
+std::unordered_set<int> kLeafTypes = {
+  Expression::CONST,
+  Expression::PARAM,
+  Expression::VAR,
+};
+
+bool is_type(const std::unordered_set<int>& types, const Expression& expr) {
+  return types.find(expr.type()) != types.end();
+}
+
+bool is_linear(const Expression& expr) {
+  return is_type(kLinearTypes, expr);
+}
+
+bool is_constraint(const Expression& expr) {
+  return is_type(kConstraintTypes, expr);
+}
+
+bool is_leaf(const Expression& expr) {
+  return is_type(kLeafTypes, expr);
 }

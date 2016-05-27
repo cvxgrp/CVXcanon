@@ -2,6 +2,7 @@
 #include "LinearConeTransform.hpp"
 
 #include <unordered_map>
+#include <unordered_set>
 #include <vector>
 
 #include "cvxcanon/expression/Expression.hpp"
@@ -122,4 +123,46 @@ Problem LinearConeTransform::apply(const Problem& problem) {
         transform_expression(constr, &constraints));
   }
   return {problem.sense, linear_objective, constraints};
+}
+
+// Return true if we have a transform for this expression itself
+bool have_transform_self(const Expression& expr) {
+  if (is_leaf(expr) || is_linear(expr) || is_constraint(expr))
+    return true;
+
+  auto iter = kTransforms.find(expr.type());
+  if (iter == kTransforms.end()) {
+    VLOG(1) << "No transform for " << format_expression(expr);
+    return false;
+  }
+
+  // Special case for P_NORM and POWER, transforms dependent on p
+  // TODO(mwytock): Remove this when we implement the full gm_constrs() logic.
+  const std::unordered_set<double> easy_p = {1, 2, INFINITY};
+  if (expr.type() == Expression::P_NORM)
+    return easy_p.find(expr.attr<PNormAttributes>().p) != easy_p.end();
+  if (expr.type() == Expression::POWER)
+    return easy_p.find(expr.attr<PowerAttributes>().p) != easy_p.end();
+
+  return true;
+}
+
+// Return true if we have a transform this expression and its children
+bool have_transform(const Expression& expr) {
+  if (!have_transform_self(expr))
+    return false;
+
+  for (const Expression& arg : expr.args()) {
+    if (!have_transform(arg))
+      return false;
+  }
+
+  return true;
+}
+
+bool LinearConeTransform::accepts(const Problem& problem) {
+  for (const Expression& constr : problem.constraints)
+    if (!have_transform(constr))
+      return false;
+  return have_transform(problem.objective);
 }

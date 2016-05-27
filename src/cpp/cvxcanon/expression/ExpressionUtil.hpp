@@ -40,4 +40,11 @@ Expression epi_var(const Expression& f, const std::string& name);
 // Returns true if size represents a scalar, i.e. all dimensinos are 1
 bool is_scalar(const Size& size);
 
+// Basic classes of expressions, note that these are functions only of the expr
+// itself, not its children.
+bool is_constraint(const Expression& expr);
+bool is_linear(const Expression& expr);
+bool is_leaf(const Expression& expr);
+
+
 #endif  // CVXCANON_EXPRESSION_EXPRESSION_UTIL_H

@@ -13,6 +13,11 @@ Solution solve(const Problem& problem, const SolverOptions& solver_options) {
 
   VLOG(1) << "input problem:\n" << format_problem(problem);
   LinearConeTransform transform;
+  if (!transform.accepts(problem)) {
+    VLOG(1) << "LinearConeTransform does not accept problem";
+    return {ERROR};
+  }
+
   Problem cone_problem = transform.apply(problem);
 
   VLOG(1) << "cone problem:\n" << format_problem(cone_problem);
