@@ -66,6 +66,7 @@ namespace std {
 }
 %apply ExpressionAttributes* {
   ConstAttributes*,
+  HuberAttributes*,
   IndexAttributes*,
   PNormAttributes*,
   PowerAttributes*,

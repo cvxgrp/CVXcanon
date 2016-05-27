@@ -91,8 +91,14 @@ def get_index_attributes(index):
         attr.keys.push_back(slice_swig)
     return attr
 
+def get_huber_attributes(huber):
+    attr = cvxcanon_swig.HuberAttributes()
+    attr.M = convert_expression(huber.M)
+    return attr
+
 ATTRIBUTE_MAP = {
     cvxpy.atoms.affine.index.index: get_index_attributes,
+    cvxpy.atoms.elementwise.huber.huber: get_huber_attributes,
     cvxpy.atoms.pnorm: get_pnorm_attributes,
     cvxpy.atoms.power: get_power_attributes,
     cvxpy.expressions.constants.constant.Constant: get_const_attributes,

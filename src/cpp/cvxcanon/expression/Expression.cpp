@@ -9,7 +9,6 @@ void ConstAttributes::set_dense_data(double* matrix, int rows, int cols) {
 }
 
 Size ConstAttributes::size() const {
-  VLOG(2) << "size: " << dense_data.rows() << " x " << dense_data.cols();
   return {{static_cast<int>(dense_data.rows()),
            static_cast<int>(dense_data.cols())}};
 }

@@ -5,6 +5,7 @@
 #include <string>
 
 #include "cvxcanon/expression/Expression.hpp"
+#include "cvxcanon/expression/ExpressionShape.hpp"
 #include "cvxcanon/util/Utils.hpp"
 
 std::unordered_map<int, std::string> kSenseNames = {
@@ -66,9 +67,21 @@ std::unordered_map<int, std::string> kExpressionNames = {
   {Expression::VAR, "var"},
 };
 
+std::string expression_name(const Expression& expr) {
+  return find_or_die(kExpressionNames, static_cast<int>(expr.type()));
+}
+
+std::string expression_size(const Expression& expr) {
+  std::string retval;
+  for (int d : size(expr).dims) {
+    if (!retval.empty()) retval += ", ";
+    retval += std::to_string(d);
+  }
+  return retval;
+}
+
 std::string format_expression(const Expression& expr) {
-  std::string retval = find_or_die(
-      kExpressionNames, static_cast<int>(expr.type()));
+  std::string retval = expression_name(expr);
   if (!expr.args().empty()) {
     retval += "(";
     for (int i = 0; i < expr.args().size(); i++) {
@@ -92,5 +105,17 @@ std::string format_problem(const Problem& problem) {
       retval += format_expression(problem.constraints[i]);
     }
   }
+  return retval;
+}
+
+std::string tree_format_node(const Expression& expr, const std::string& pre) {
+  return expression_size(expr) + ": " + pre + expression_name(expr);
+}
+
+std::string tree_format_expression(
+    const Expression& expr, const std::string& pre) {
+  std::string retval = tree_format_node(expr, pre);
+  for (const Expression& arg : expr.args())
+    retval += "\n" + tree_format_expression(arg, pre + "  ");
   return retval;
 }

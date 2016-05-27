@@ -1404,6 +1404,32 @@ class IndexAttributes(ExpressionAttributes):
 IndexAttributes_swigregister = _cvxcanon_swig.IndexAttributes_swigregister
 IndexAttributes_swigregister(IndexAttributes)
 
+class HuberAttributes(ExpressionAttributes):
+    __swig_setmethods__ = {}
+    for _s in [ExpressionAttributes]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, HuberAttributes, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ExpressionAttributes]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, HuberAttributes, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["M"] = _cvxcanon_swig.HuberAttributes_M_set
+    __swig_getmethods__["M"] = _cvxcanon_swig.HuberAttributes_M_get
+    if _newclass:
+        M = _swig_property(_cvxcanon_swig.HuberAttributes_M_get, _cvxcanon_swig.HuberAttributes_M_set)
+
+    def __init__(self):
+        this = _cvxcanon_swig.new_HuberAttributes()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _cvxcanon_swig.delete_HuberAttributes
+    __del__ = lambda self: None
+HuberAttributes_swigregister = _cvxcanon_swig.HuberAttributes_swigregister
+HuberAttributes_swigregister(HuberAttributes)
+
 
 _cvxcanon_swig.VARIABLE_swigconstant(_cvxcanon_swig)
 VARIABLE = _cvxcanon_swig.VARIABLE

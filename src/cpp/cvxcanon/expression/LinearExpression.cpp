@@ -25,6 +25,58 @@ std::vector<SparseMatrix> get_add_coefficients(const Expression& expr) {
   return coeffs;
 }
 
+std::vector<SparseMatrix> get_left_mul_coefficients(
+    const Expression& expr, const SparseMatrix& block) {
+  const int block_rows = block.rows();
+  const int block_cols = block.cols();
+  const int num_blocks = size(expr).dims[1];
+
+  Matrix coeffs (num_blocks * block_rows, num_blocks * block_cols);
+  std::vector<Triplet> tripletList;
+  tripletList.reserve(num_blocks * block.nonZeros());
+  for (int curr_block = 0; curr_block < num_blocks; curr_block++) {
+    int start_i = curr_block * block_rows;
+    int start_j = curr_block * block_cols;
+    for ( int k = 0; k < block.outerSize(); ++k ) {
+      for ( Matrix::InnerIterator it(block, k); it; ++it ) {
+        tripletList.push_back(Triplet(start_i + it.row(), start_j + it.col(),
+                                      it.value()));
+      }
+    }
+  }
+  coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
+  coeffs.makeCompressed();
+  return {coeffs};
+}
+
+std::vector<SparseMatrix> get_right_mul_coefficients(
+    const Expression& expr, const SparseMatrix& constant) {
+  const int rows = constant.rows();
+  const int cols = constant.cols();
+  const int n = size(expr).dims[0];
+
+  Matrix coeffs(cols * n, rows * n);
+  std::vector<Triplet> tripletList;
+  tripletList.reserve(n * constant.nonZeros());
+  for ( int k = 0; k < constant.outerSize(); ++k ) {
+    for ( Matrix::InnerIterator it(constant, k); it; ++it ) {
+      double val = it.value();
+
+      // each element of CONSTANT occupies an N x N block in the matrix
+      int row_start = it.col() * n;
+      int col_start = it.row() * n;
+      for (int i = 0; i < n; i++) {
+        int row_idx = row_start + i;
+        int col_idx = col_start + i;
+        tripletList.push_back(Triplet(row_idx, col_idx, val));
+      }
+    }
+  }
+  coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
+  coeffs.makeCompressed();
+  return {coeffs};
+}
+
 std::vector<SparseMatrix> get_neg_coefficients(const Expression& expr) {
   return {scalar_matrix(-1, dim(expr))};
 }
@@ -212,13 +264,13 @@ std::unordered_map<int, CoefficientFunction> kCoefficientFunctions = {
 
 // result += lhs*rhs
 void multiply_by_constant(
-    const SparseMatrix& lhs,
-    const std::map<int, Matrix>& rhs,
-    std::map<int, SparseMatrix>* result) {
+    const SparseMatrix& lhs, const CoeffMap& rhs, CoeffMap* result) {
   for (const auto& iter : rhs) {
     VLOG(3) << "multiplying\n"
             << "lhs:\n" << matrix_debug_string(lhs)
             << "rhs:\n" << matrix_debug_string(iter.second);
+
+    CHECK_EQ(lhs.cols(), iter.second.rows());
     SparseMatrix value = lhs*iter.second;
     auto ret = result->insert(std::make_pair(iter.first, value));
     if (!ret.second)
@@ -226,17 +278,10 @@ void multiply_by_constant(
   }
 }
 
-SparseMatrix promote_multiply(const SparseMatrix& A, int m, int n) {
-  if (A.rows() == 1 && A.cols() == 1) {
-    CHECK_EQ(m, n);
-    return scalar_matrix(A.coeff(0, 0), n);
-  }
+CoeffMap get_coefficients(const Expression& expr) {
+  VLOG(2) << "get_coefficients\n" << tree_format_expression(expr);
 
-  return reshape(A, m, n);
-}
-
-std::map<int, SparseMatrix> get_coefficients(const Expression& expr) {
-  std::map<int, SparseMatrix> coeffs;
+  CoeffMap coeffs;
 
   if (expr.type() == Expression::CONST) {
     coeffs[kConstCoefficientId] = to_vector(
@@ -249,19 +294,17 @@ std::map<int, SparseMatrix> get_coefficients(const Expression& expr) {
     assert(expr.args().size() == 2);
     CoeffMap lhs_coeffs = get_coefficients(expr.arg(0));
     CoeffMap rhs_coeffs = get_coefficients(expr.arg(1));
-    std::vector<SparseMatrix> f_coeffs;
+
     if (is_constant(lhs_coeffs)) {
-      // TODO(mwytock): matrix-matrix multiply not yet supported
-      assert(size(expr).dims[1] == 1);
-      SparseMatrix f_coeffs = promote_multiply(
-          lhs_coeffs[kConstCoefficientId],
-          size(expr).dims[0],
-          size(expr.arg(1)).dims[0]);
-      multiply_by_constant(f_coeffs, rhs_coeffs, &coeffs);
+      std::vector<SparseMatrix> f_coeffs = get_left_mul_coefficients(
+          expr, lhs_coeffs[kConstCoefficientId]);
+      multiply_by_constant(f_coeffs[0], rhs_coeffs, &coeffs);
     } else if (is_constant(rhs_coeffs)) {
-      LOG(FATAL) << "RHS constant not implemented";
+      std::vector<SparseMatrix> f_coeffs = get_right_mul_coefficients(
+          expr, rhs_coeffs[kConstCoefficientId]);
+      multiply_by_constant(f_coeffs[0], lhs_coeffs, &coeffs);
     } else {
-      LOG(FATAL) << "multiplying two non constants";
+      LOG(FATAL) << "multipying two non constants";
     }
   } else {
     auto iter = kCoefficientFunctions.find(expr.type());
@@ -276,7 +319,7 @@ std::map<int, SparseMatrix> get_coefficients(const Expression& expr) {
   }
 
   if (VLOG_IS_ON(2)) {
-    VLOG(2) << "get_coefficients " << format_expression(expr);
+    VLOG(2) << "get_coefficients done\n" << tree_format_expression(expr);
     for (const auto& iter : coeffs) {
       VLOG(2) <<  "id: " << iter.first << "\n"
               << matrix_debug_string(iter.second);

@@ -191,4 +191,8 @@ struct IndexAttributes : public ExpressionAttributes {
   std::vector<Slice> keys;
 };
 
+struct HuberAttributes : public ExpressionAttributes {
+  Expression M;
+};
+
 #endif  // CVXCANON_EXPRESISON_EXPRESSION_H

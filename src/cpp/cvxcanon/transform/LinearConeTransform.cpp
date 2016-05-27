@@ -72,8 +72,9 @@ Expression transform_power(
 Expression transform_huber(
     const Expression& expr,
     std::vector<Expression>* constraints) {
+  CHECK_EQ(1, expr.args().size());
   const Expression& x = expr.arg(0);
-  const Expression& M = expr.arg(1);
+  const Expression& M = expr.attr<HuberAttributes>().M;
   Expression n = epi_var(expr, "huber_n");
   Expression s = epi_var(expr, "huber_s");
 
