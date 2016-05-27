@@ -25,6 +25,7 @@ std::unordered_map<int, std::string> kExpressionNames = {
   {Expression::RESHAPE, "reshape"},
   {Expression::SUM_ENTRIES, "sum_entries"},
   {Expression::TRACE, "trace"},
+  {Expression::TRANSPOSE, "transpose"},
   {Expression::UPPER_TRI, "upper_tri"},
   {Expression::VSTACK, "vstack"},
 

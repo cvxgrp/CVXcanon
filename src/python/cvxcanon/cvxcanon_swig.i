@@ -68,6 +68,7 @@ namespace std {
   ConstAttributes*,
   IndexAttributes*,
   PNormAttributes*,
+  PowerAttributes*,
   ReshapeAttributes*,
   VarAttributes*};
 

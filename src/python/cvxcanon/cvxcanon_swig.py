@@ -1099,6 +1099,7 @@ class Expression(_object):
     RESHAPE = _cvxcanon_swig.Expression_RESHAPE
     SUM_ENTRIES = _cvxcanon_swig.Expression_SUM_ENTRIES
     TRACE = _cvxcanon_swig.Expression_TRACE
+    TRANSPOSE = _cvxcanon_swig.Expression_TRANSPOSE
     UPPER_TRI = _cvxcanon_swig.Expression_UPPER_TRI
     VSTACK = _cvxcanon_swig.Expression_VSTACK
     ABS = _cvxcanon_swig.Expression_ABS

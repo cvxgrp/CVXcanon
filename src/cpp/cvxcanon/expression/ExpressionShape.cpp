@@ -98,6 +98,13 @@ Size get_diag_vec_shape(const Expression& expr) {
   return {{n, n}};
 }
 
+Size get_transpose_shape(const Expression& expr) {
+  const Expression& x = expr.arg(0);
+  const int m = size(x).dims[0];
+  const int n = size(x).dims[1];
+  return {{n, m}};
+}
+
 typedef Size(*ShapeFunction)(const Expression& expr);
 
 std::unordered_map<int, ShapeFunction> kShapeFunctions = {
@@ -111,6 +118,7 @@ std::unordered_map<int, ShapeFunction> kShapeFunctions = {
   {Expression::NEG, &get_elementwise_shape},
   {Expression::RESHAPE, &get_reshape_shape},
   {Expression::VSTACK, &get_vstack_shape},
+  {Expression::TRANSPOSE, &get_transpose_shape},
 
   // Elementwise functions
   {Expression::ABS, &get_elementwise_shape},

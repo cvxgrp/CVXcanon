@@ -16,6 +16,14 @@ from cvxcanon import cvxpy_solver
 
 SOLVERS_TO_TRY = [SCS]
 
+# For debugging a single test
+# from cvxpy import *
+# atoms = [
+#     ([
+#         (lambda x: power(x, 2), (1, 1), [7.45], Constant([55.502500000000005])),
+#     ], Minimize),
+# ]
+
 def run_atom(atom, problem, obj_val, solver):
     assert problem.is_dcp()
     print(problem.objective)
@@ -43,7 +51,7 @@ def run_atom(atom, problem, obj_val, solver):
 
 def test_atom():
     for atom_list, objective_type in atoms[:1]:
-        for atom, size, args, obj_val in atom_list[:4]:
+        for atom, size, args, obj_val in atom_list[4:5]:
             for row in range(size[0]):
                 for col in range(size[1]):
                     for solver in SOLVERS_TO_TRY:

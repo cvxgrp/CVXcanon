@@ -175,6 +175,25 @@ std::vector<SparseMatrix> get_diag_vec_coefficients(const Expression& expr) {
   return {coeffs};
 }
 
+std::vector<SparseMatrix> get_transpose_coefficients(const Expression& expr) {
+  const int rows = size(expr).dims[0];
+  const int cols = size(expr).dims[1];
+
+  SparseMatrix coeffs(rows * cols, rows * cols);
+  std::vector<Triplet> tripletList;
+  tripletList.reserve(rows * cols);
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < cols; j++) {
+      int row_idx = rows * j + i;
+      int col_idx = i * cols + j;
+      tripletList.push_back(Triplet(row_idx, col_idx, 1.0));
+    }
+  }
+  coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
+  coeffs.makeCompressed();
+  return {coeffs};
+}
+
 typedef std::vector<SparseMatrix>(*CoefficientFunction)(
     const Expression& expr);
 
@@ -187,6 +206,7 @@ std::unordered_map<int, CoefficientFunction> kCoefficientFunctions = {
   {Expression::NEG, &get_neg_coefficients},
   {Expression::RESHAPE, &get_reshape_coefficients},
   {Expression::SUM_ENTRIES, &get_sum_entries_coefficients},
+  {Expression::TRANSPOSE, &get_transpose_coefficients},
   {Expression::VSTACK, &get_vstack_coefficients},
 };
 

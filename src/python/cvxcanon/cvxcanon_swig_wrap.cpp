@@ -23156,7 +23156,9 @@ SWIGINTERN PyObject *_wrap_new_PowerAttributes(PyObject *SWIGUNUSEDPARM(self), P
   
   if (!PyArg_ParseTuple(args,(char *)":new_PowerAttributes")) SWIG_fail;
   result = (PowerAttributes *)new PowerAttributes();
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_PowerAttributes, SWIG_POINTER_NEW |  0 );
+  {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_PowerAttributes, 0 );
+  }
   return resultobj;
 fail:
   return NULL;
@@ -26738,6 +26740,7 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, "Expression_RESHAPE",SWIG_From_int(static_cast< int >(Expression::RESHAPE)));
   SWIG_Python_SetConstant(d, "Expression_SUM_ENTRIES",SWIG_From_int(static_cast< int >(Expression::SUM_ENTRIES)));
   SWIG_Python_SetConstant(d, "Expression_TRACE",SWIG_From_int(static_cast< int >(Expression::TRACE)));
+  SWIG_Python_SetConstant(d, "Expression_TRANSPOSE",SWIG_From_int(static_cast< int >(Expression::TRANSPOSE)));
   SWIG_Python_SetConstant(d, "Expression_UPPER_TRI",SWIG_From_int(static_cast< int >(Expression::UPPER_TRI)));
   SWIG_Python_SetConstant(d, "Expression_VSTACK",SWIG_From_int(static_cast< int >(Expression::VSTACK)));
   SWIG_Python_SetConstant(d, "Expression_ABS",SWIG_From_int(static_cast< int >(Expression::ABS)));

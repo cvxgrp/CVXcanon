@@ -34,6 +34,7 @@ class Expression {
     RESHAPE,
     SUM_ENTRIES,
     TRACE,
+    TRANSPOSE,
     UPPER_TRI,
     VSTACK,
 

@@ -76,6 +76,11 @@ def get_pnorm_attributes(pnorm):
     attr.p = pnorm.p
     return attr
 
+def get_power_attributes(power):
+    attr = cvxcanon_swig.PowerAttributes()
+    attr.p = power.p
+    return attr
+
 def get_index_attributes(index):
     attr = cvxcanon_swig.IndexAttributes()
     for key in index.key:
@@ -89,6 +94,7 @@ def get_index_attributes(index):
 ATTRIBUTE_MAP = {
     cvxpy.atoms.affine.index.index: get_index_attributes,
     cvxpy.atoms.pnorm: get_pnorm_attributes,
+    cvxpy.atoms.power: get_power_attributes,
     cvxpy.expressions.constants.constant.Constant: get_const_attributes,
     cvxpy.expressions.variables.variable.Variable: get_var_attributes,
 }

@@ -2,7 +2,6 @@
 #include "LinearConeTransform.hpp"
 
 #include <unordered_map>
-#include <unordered_set>
 #include <vector>
 
 #include "cvxcanon/expression/Expression.hpp"
@@ -26,32 +25,48 @@ Expression transform_abs(
   return t;
 }
 
-Expression transform_p_norm(
-    const Expression& expr,
-    std::vector<Expression>* constraints) {
-  CHECK_EQ(expr.attr<PNormAttributes>().p, 1);
-  return sum_entries(transform_abs(abs(expr.arg(0)), constraints));
-}
-
 Expression transform_quad_over_lin(
     const Expression& expr,
     std::vector<Expression>* constraints) {
   const Expression& x = expr.arg(0);
   const Expression& y = expr.arg(1);
   Expression t = epi_var(expr, "qol");
-
   constraints->push_back(
-      soc(vstack({add(y, neg(t)), mul(constant(2), x)}), add(y, t)));
+      soc(hstack({add(y, neg(t)), mul(constant(2), x)}), add(y, t)));
   constraints->push_back(leq(constant(0), y));
   return t;
+}
+
+Expression transform_p_norm(
+    const Expression& expr,
+    std::vector<Expression>* constraints) {
+  const double p = expr.attr<PNormAttributes>().p;
+  const Expression& x = expr.arg(0);
+  if (p == 1) {
+    return sum_entries(transform_abs(abs(x), constraints));
+  } else if (p == 2) {
+    Expression t = epi_var(expr, "p_norm_2");
+    constraints->push_back(soc(x, t));
+    return t;
+  }
+
+  LOG(FATAL) << "Not implemented "
+             << "(p: " << expr.attr<PNormAttributes>().p << ")";
 }
 
 Expression transform_power(
     const Expression& expr,
     std::vector<Expression>* constraints) {
+  const double p = expr.attr<PowerAttributes>().p;
+  const Expression& x = expr.arg(0);
+  if (p == 1) {
+    return expr;
+  } else if (p == 2) {
+    return transform_quad_over_lin(quad_over_lin(x, constant(1)), constraints);
+  }
+
   LOG(FATAL) << "Not implemented "
              << "(p: " << expr.attr<PowerAttributes>().p << ")";
-  return expr;
 }
 
 Expression transform_huber(
@@ -138,11 +153,15 @@ bool have_transform_self(const Expression& expr) {
 
   // Special case for P_NORM and POWER, transforms dependent on p
   // TODO(mwytock): Remove this when we implement the full gm_constrs() logic.
-  const std::unordered_set<double> easy_p = {1, 2, INFINITY};
-  if (expr.type() == Expression::P_NORM)
-    return easy_p.find(expr.attr<PNormAttributes>().p) != easy_p.end();
-  if (expr.type() == Expression::POWER)
-    return easy_p.find(expr.attr<PowerAttributes>().p) != easy_p.end();
+  if (expr.type() == Expression::P_NORM) {
+    const double p = expr.attr<PNormAttributes>().p;
+    return p == 1 || p == 2;
+  }
+  if (expr.type() == Expression::POWER) {
+    const double p = expr.attr<PowerAttributes>().p;
+    LOG(INFO) << p;
+    return p == 1 || p == 2;
+  }
 
   return true;
 }

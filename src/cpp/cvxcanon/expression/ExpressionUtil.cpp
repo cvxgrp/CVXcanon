@@ -25,6 +25,10 @@ Expression abs(Expression x) {
   return {Expression::ABS, {x}};
 }
 
+Expression transpose(Expression x) {
+  return {Expression::TRANSPOSE, {x}};
+}
+
 Expression var(int m, int n, int var_id) {
   auto attr = std::make_shared<VarAttributes>();
   attr->id = var_id;
@@ -123,6 +127,7 @@ std::unordered_set<int> kLinearTypes = {
   Expression::RESHAPE,
   Expression::SUM_ENTRIES,
   Expression::TRACE,
+  Expression::TRANSPOSE,
   Expression::UPPER_TRI,
   Expression::VSTACK,
 };

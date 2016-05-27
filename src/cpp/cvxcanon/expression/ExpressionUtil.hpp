@@ -23,13 +23,20 @@ Expression power(Expression x, double p);
 Expression quad_over_lin(Expression x, Expression y);
 Expression reshape(Expression x, int m, int n);
 Expression sum_entries(Expression x);
+Expression transpose(Expression x);
 Expression var(int m, int n);
 Expression vstack(std::vector<Expression> args);
 
 // Syntatic sugar for constraints
 Expression eq(Expression x, Expression y);  // x == y
 Expression leq(Expression x, Expression y);  // x <= y
-Expression soc(Expression x, Expression y);  // ||x||_2 <= y
+
+// ||x||_2 <= y
+//
+// If y represents a vector, than x should be a matrix so that the constraint
+// can be applied to each (x_i, y_i) where x_i is a row of x.
+Expression soc(Expression x, Expression y);
+
 // K = {(x,y,z) | y > 0, ye^(x/y) <= z} U {(x,y,z) | x <= 0, y = 0, z >= 0}
 Expression exp_cone(Expression x, Expression y, Expression z);
 
