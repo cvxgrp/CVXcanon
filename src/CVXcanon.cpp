@@ -73,6 +73,19 @@ std::map<int, Matrix > get_coefficient(LinOp &lin){
 				coeffs[it->first] += it->second;
 		}
 	}
+	else if(lin.type == SUM)
+	{
+		for (unsigned i = 0; i < lin.args.size(); i++){
+			std::map<int, Matrix > rh_coeffs = get_coefficient(*lin.args[i]);
+			typedef std::map<int, Matrix>::iterator it_type;
+			for (it_type it = rh_coeffs.begin(); it != rh_coeffs.end(); ++it){
+				if(coeffs.count(it->first) == 0)
+					coeffs[it->first] = it->second;
+				else
+					coeffs[it->first] += it->second;		
+			}
+		}
+	}
 	else {
 		/* Multiply the arguments of the function coefficient in order */
 		std::vector<Matrix> coeff_mat = get_func_coeffs(lin); 

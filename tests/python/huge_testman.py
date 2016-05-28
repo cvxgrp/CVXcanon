@@ -1,4 +1,5 @@
 from cvxpy import *
+import os
 from os import listdir
 import numpy
 import glob
@@ -43,7 +44,9 @@ def run_testfile(filename):
 	print "***** TEST " + filename + " SUCCESSS, SAME ANSWERS ******"
 	return (oldtime, newtime)
 
-files = glob.glob("./364A_scripts/*.py")
+
+path = os.path.dirname(os.path.abspath(__file__))
+files = glob.glob(path + "/364A_scripts/*.py")
 
 oldtime = {};
 newtime = {};
