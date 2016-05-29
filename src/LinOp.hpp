@@ -91,7 +91,7 @@ public:
 	/* checks if LinOp can be directly applied to
 	   arguments without matrix multiplication */
 	bool has_direct_application() {
-		return (type == SUM || type == INDEX);
+		return (type == SUM || type == INDEX || type == TRANSPOSE);
 	}
 
 

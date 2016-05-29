@@ -43,8 +43,9 @@ std::vector<Matrix> get_conv_mat(LinOp &lin);
 std::vector<Matrix> get_hstack_mat(LinOp &lin);
 std::vector<Matrix> get_vstack_mat(LinOp &lin);
 std::vector<Matrix> get_kron_mat(LinOp &lin);
-std::map<int, Matrix> index_direct_apply(LinOp &lin, std::map<int, Matrix> &coeffs);
+std::map<int, Matrix> apply_transform(LinOp &lin, std::map<int, Matrix> &coeffs, Matrix (* transform)(LinOp&,  Matrix&));
 Matrix index_direct_apply(LinOp &lin,  Matrix &mat);
+Matrix transpose_direct_apply(LinOp &lin,  Matrix &mat);
 
 
 /**
@@ -547,7 +548,7 @@ std::vector<Matrix> get_diag_vec_mat(LinOp &lin) {
 	for (int i = 0; i < rows; i++) {
 		// index in the diagonal matrix
 		int row_idx = i * rows + i;
-		//index in the original vector
+		// index in the original vector
 		int col_idx = i;
 		tripletList.push_back(Triplet(row_idx, col_idx, 1.0));
 	}
@@ -570,7 +571,6 @@ std::vector<Matrix> get_transpose_mat(LinOp &lin) {
 	assert(lin.type == TRANSPOSE);
 	int rows = lin.size[0];
 	int cols = lin.size[1];
-
 	Matrix coeffs(rows * cols, rows * cols);
 
 	std::vector<Triplet> tripletList;
@@ -584,6 +584,7 @@ std::vector<Matrix> get_transpose_mat(LinOp &lin) {
 	}
 	coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
 	coeffs.makeCompressed();
+	std::cout << coeffs << std::endl;
 	return build_vector(coeffs);
 }
 
@@ -957,10 +958,13 @@ std::map<int, Matrix> directly_apply_linop(LinOp &lin, std::map<int, Matrix> coe
 		break;
 	case INDEX:
 		//std::cout << "Evaluating index!" << std::endl;
-		mapped_coeffs = index_direct_apply(lin, coeffs);
+		mapped_coeffs = apply_transform(lin, coeffs, index_direct_apply);
+		break;
+	case TRANSPOSE:
+		mapped_coeffs = apply_transform(lin, coeffs, transpose_direct_apply); 
 		break;
 	default:
-		std::cerr << "Error: linOp type invalid." << std::endl;
+		std::cerr << "Error: Invaled direct application." << std::endl;
 		exit(-1);
 	}
 	return mapped_coeffs;
@@ -968,13 +972,13 @@ std::map<int, Matrix> directly_apply_linop(LinOp &lin, std::map<int, Matrix> coe
 
 
 /**
- * Applies the indexing operation to every entry in map.
+ * Applies a transform operation to every entry in map.
  */
-std::map<int, Matrix> index_direct_apply(LinOp &lin, std::map<int, Matrix> &coeffs){
+std::map<int, Matrix> apply_transform(LinOp &lin, std::map<int, Matrix> &coeffs, Matrix (* transform)(LinOp&,  Matrix&)){
 	std::map<int, Matrix> result;
 	typedef std::map<int, Matrix >::iterator it_type;
 	for(it_type it = coeffs.begin(); it != coeffs.end(); ++it){
-		result[it->first] = index_direct_apply(lin, it->second);
+		result[it->first] = transform(lin, it->second);
 	}
 	return result;	
 }
@@ -1033,6 +1037,26 @@ Matrix index_direct_apply(LinOp &lin,  Matrix &mat){
 		col += col_step;
 		if ((col_step > 0 && col >= col_end) || (col_step < 0 && col < col_end)) {
 			break;
+		}
+	}
+	coeffs.makeCompressed();
+	return coeffs;
+}
+
+
+
+Matrix transpose_direct_apply(LinOp &lin,  Matrix &mat){
+	assert(lin.type == TRANSPOSE);
+	
+	int rows = lin.size[0];
+	int cols = lin.size[1];
+
+	Matrix coeffs(rows * cols, mat.cols());
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < cols; j++) {
+			int row_idx = rows * j + i;
+			int col_idx = i * cols + j;
+			coeffs.row(row_idx) = mat.row(col_idx);
 		}
 	}
 	coeffs.makeCompressed();
