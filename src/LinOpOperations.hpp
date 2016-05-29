@@ -23,6 +23,9 @@
 
 std::map<int, Matrix> get_variable_coeffs(LinOp &lin);
 std::map<int, Matrix> get_const_coeffs(LinOp &lin);
+std::map<int, Matrix> directly_apply_linop(LinOp &lin, std::map<int, Matrix> map);
 std::vector<Matrix> get_func_coeffs(LinOp& lin);
+bool has_direct_application(LinOp& lin);
+
 
 #endif

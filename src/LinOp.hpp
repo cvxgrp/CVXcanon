@@ -87,6 +87,14 @@ public:
 		        || type == SPARSE_CONST;
 	}
 
+
+	/* checks if LinOp can be directly applied to
+	   arguments without matrix multiplication */
+	bool has_direct_application() {
+		return (type == SUM || type == INDEX);
+	}
+
+
 	/* Initializes DENSE_DATA. MATRIX is a pointer to the data of a 2D
 	 * numpy array, ROWS and COLS are the size of the ARRAY.
 	 *

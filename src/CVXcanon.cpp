@@ -50,40 +50,35 @@ void mul_by_const(Matrix &coeff_mat,
 	}
 }
 
+void add_coefficients(std::map<int, Matrix > & coeffs, std::map<int, Matrix> & new_coeffs){
+	typedef std::map<int, Matrix >::iterator it_type;
+	for(it_type it = new_coeffs.begin(); it != new_coeffs.end(); ++it){
+		if(coeffs.count(it->first) == 0)
+			coeffs[it->first] = it->second ;
+		else
+			coeffs[it->first] += it->second;
+	}
+}
+
+
 std::map<int, Matrix > get_coefficient(LinOp &lin){
 	std::map<int, Matrix > coeffs;
+	std::map<int, Matrix> new_coeffs;
 	if (lin.type == VARIABLE){
-		std::map<int, Matrix> new_coeffs = get_variable_coeffs(lin);
-		typedef std::map<int, Matrix >::iterator it_type;
-		for(it_type it = new_coeffs.begin(); it != new_coeffs.end(); ++it){
-			if(coeffs.count(it->first) == 0)
-				coeffs[it->first] = it->second ;
-			else
-				coeffs[it->first] += it->second;
-		}
+		new_coeffs = get_variable_coeffs(lin);
+		add_coefficients(coeffs, new_coeffs);
 	}
 	else if (lin.has_constant_type()){
 		/* ID will be CONSTANT_TYPE */
-		std::map<int, Matrix> new_coeffs = get_const_coeffs(lin);
-		typedef std::map<int, Matrix >::iterator it_type;
-		for(it_type it = new_coeffs.begin(); it != new_coeffs.end(); ++it){
-			if(coeffs.count(it->first) == 0)
-				coeffs[it->first] = it->second;
-			else
-				coeffs[it->first] += it->second;
-		}
+		new_coeffs = get_const_coeffs(lin);
+		add_coefficients(coeffs, new_coeffs);
 	}
-	else if(lin.type == SUM)
+	else if(lin.has_direct_application())
 	{
 		for (unsigned i = 0; i < lin.args.size(); i++){
-			std::map<int, Matrix > rh_coeffs = get_coefficient(*lin.args[i]);
-			typedef std::map<int, Matrix>::iterator it_type;
-			for (it_type it = rh_coeffs.begin(); it != rh_coeffs.end(); ++it){
-				if(coeffs.count(it->first) == 0)
-					coeffs[it->first] = it->second;
-				else
-					coeffs[it->first] += it->second;		
-			}
+			std::map<int, Matrix > child_coeffs = get_coefficient(*lin.args[i]);
+			new_coeffs = directly_apply_linop(lin, child_coeffs);
+			add_coefficients(coeffs, new_coeffs);
 		}
 	}
 	else {
@@ -92,16 +87,9 @@ std::map<int, Matrix > get_coefficient(LinOp &lin){
 		for (unsigned i = 0; i < lin.args.size(); i++){
 			Matrix coeff = coeff_mat[i];
 			std::map<int, Matrix > rh_coeffs = get_coefficient(*lin.args[i]);
-			std::map<int,  Matrix > new_coeffs;
+			new_coeffs.clear();
 			mul_by_const(coeff, rh_coeffs, new_coeffs);
-
-			typedef std::map<int, Matrix>::iterator it_type;
-			for (it_type it = new_coeffs.begin(); it != new_coeffs.end(); ++it){
-				if(coeffs.count(it->first) == 0)
-					coeffs[it->first] = it->second;
-				else
-					coeffs[it->first] += it->second;		
-			}
+			add_coefficients(coeffs, new_coeffs);
 		}
 	}
 	return coeffs;

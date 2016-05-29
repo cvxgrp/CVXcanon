@@ -43,6 +43,9 @@ std::vector<Matrix> get_conv_mat(LinOp &lin);
 std::vector<Matrix> get_hstack_mat(LinOp &lin);
 std::vector<Matrix> get_vstack_mat(LinOp &lin);
 std::vector<Matrix> get_kron_mat(LinOp &lin);
+std::map<int, Matrix> index_direct_apply(LinOp &lin, std::map<int, Matrix> &coeffs);
+Matrix index_direct_apply(LinOp &lin,  Matrix &mat);
+
 
 /**
  * Computes a vector of coefficient matrices for the linOp LIN based on the
@@ -57,6 +60,7 @@ std::vector<Matrix> get_kron_mat(LinOp &lin);
  * Returns: std::vector of sparse coefficient matrices for LIN
  */
 std::vector<Matrix> get_func_coeffs(LinOp& lin) {
+	//std::cout << lin.type << std::endl;
 	std::vector<Matrix> coeffs;
 	switch (lin.type) {
 	case PROMOTE:
@@ -936,4 +940,101 @@ std::map<int, Matrix> get_const_coeffs(LinOp &lin) {
 	coeffs.makeCompressed();
 	id_to_coeffs[id] = coeffs;
 	return id_to_coeffs;
+}
+
+
+/**
+ * Returns a map from CONSTANT_ID to the data matrix of the corresponding
+ * to the matrix obtained from applying linop to matrix.
+ *
+ */
+std::map<int, Matrix> directly_apply_linop(LinOp &lin, std::map<int, Matrix> coeffs){
+
+	std::map<int, Matrix> mapped_coeffs;
+	switch (lin.type){
+	case SUM:
+		mapped_coeffs = coeffs;
+		break;
+	case INDEX:
+		//std::cout << "Evaluating index!" << std::endl;
+		mapped_coeffs = index_direct_apply(lin, coeffs);
+		break;
+	default:
+		std::cerr << "Error: linOp type invalid." << std::endl;
+		exit(-1);
+	}
+	return mapped_coeffs;
+}
+
+
+/**
+ * Applies the indexing operation to every entry in map.
+ */
+std::map<int, Matrix> index_direct_apply(LinOp &lin, std::map<int, Matrix> &coeffs){
+	std::map<int, Matrix> result;
+	typedef std::map<int, Matrix >::iterator it_type;
+	for(it_type it = coeffs.begin(); it != coeffs.end(); ++it){
+		result[it->first] = index_direct_apply(lin, it->second);
+	}
+	return result;	
+}
+
+
+
+/**
+ * Applies the indexing operation to a single matrix.
+ */
+Matrix index_direct_apply(LinOp &lin,  Matrix &mat){
+	assert(lin.type == INDEX);
+	int rows = lin.args[0]->size[0];
+	int cols = lin.args[0]->size[1];
+	Matrix coeffs (lin.size[0] * lin.size[1], rows * cols);
+
+
+	/* If slice is empty, return empty matrix */
+	if (coeffs.rows () == 0 ||  coeffs.cols() == 0) {
+		return coeffs;
+	}
+
+	std::vector<std::vector<int> > slices = get_slice_data(lin, rows, cols);
+
+	/* Row Slice Data */
+	int row_start = slices[0][0];
+	int row_end = slices[0][1];
+	int row_step = slices[0][2];
+
+	/* Column Slice Data */
+	int col_start = slices[1][0];
+	int col_end = slices[1][1];
+	int col_step = slices[1][2];
+
+	/* Set the index coefficients by looping over the column selection
+	 * first to remain consistent with CVXPY. */
+	int col = col_start;
+	int counter = 0;
+	while (true) {
+		if (col < 0 || col >= cols) {
+			break;
+		}
+		int row = row_start;
+		while (true) {
+			if (row < 0 || row >= rows) {
+				break;
+			}
+			int row_idx = counter;
+			int col_idx =  col * rows + row;
+			coeffs.row(row_idx) = mat.row(col_idx);
+			counter++;
+			row += row_step;
+			if ((row_step > 0 && row >= row_end) || (row_step < 0 && row < row_end)) {
+				break;
+			}
+		}
+		col += col_step;
+		if ((col_step > 0 && col >= col_end) || (col_step < 0 && col < col_end)) {
+			break;
+		}
+	}
+	coeffs.makeCompressed();
+	return coeffs;
 }
