@@ -584,7 +584,6 @@ std::vector<Matrix> get_transpose_mat(LinOp &lin) {
 	}
 	coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
 	coeffs.makeCompressed();
-	std::cout << coeffs << std::endl;
 	return build_vector(coeffs);
 }
 
