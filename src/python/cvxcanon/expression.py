@@ -73,12 +73,12 @@ def get_const_attributes(constant):
 
 def get_pnorm_attributes(pnorm):
     attr = cvxcanon_swig.PNormAttributes()
-    attr.p = pnorm.p
+    attr.p = float(pnorm.p)
     return attr
 
 def get_power_attributes(power):
     attr = cvxcanon_swig.PowerAttributes()
-    attr.p = power.p
+    attr.p = float(power.p)
     return attr
 
 def get_index_attributes(index):

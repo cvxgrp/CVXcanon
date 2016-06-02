@@ -105,6 +105,14 @@ Size get_transpose_shape(const Expression& expr) {
   return {{n, m}};
 }
 
+Size get_kron_shape(const Expression& expr) {
+  const Expression& A = expr.arg(0);
+  const Expression& B = expr.arg(1);
+  const int m = size(A).dims[0]*size(B).dims[0];
+  const int n = size(A).dims[1]*size(B).dims[1];
+  return {{m, n}};
+}
+
 typedef Size(*ShapeFunction)(const Expression& expr);
 
 std::unordered_map<int, ShapeFunction> kShapeFunctions = {
@@ -114,11 +122,12 @@ std::unordered_map<int, ShapeFunction> kShapeFunctions = {
   {Expression::DIAG_VEC, &get_diag_vec_shape},
   {Expression::HSTACK, &get_hstack_shape},
   {Expression::INDEX, &get_index_shape},
+  {Expression::KRON, &get_kron_shape},
   {Expression::MUL, &get_mul_shape},
   {Expression::NEG, &get_elementwise_shape},
   {Expression::RESHAPE, &get_reshape_shape},
-  {Expression::VSTACK, &get_vstack_shape},
   {Expression::TRANSPOSE, &get_transpose_shape},
+  {Expression::VSTACK, &get_vstack_shape},
 
   // Elementwise functions
   {Expression::ABS, &get_elementwise_shape},

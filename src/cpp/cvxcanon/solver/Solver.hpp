@@ -36,4 +36,7 @@ class Solver {
 // Solve an optimization problem specified in AST form.
 Solution solve(const Problem& problem, const SolverOptions& solver_options);
 
+// Checks if we can solve an optimization problem with the given solver options
+bool validate(const Problem& problem, const SolverOptions& solver_options);
+
 #endif  // CVXCANON_SOLVER_SOLVER_H

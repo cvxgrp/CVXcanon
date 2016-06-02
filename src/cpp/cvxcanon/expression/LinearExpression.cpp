@@ -254,6 +254,43 @@ std::vector<SparseMatrix> get_transpose_coefficients(const Expression& expr) {
   return {coeffs};
 }
 
+std::vector<SparseMatrix> get_kron_coefficients(
+    const Expression& expr, const SparseMatrix& constant) {
+  int lh_rows = constant.rows();
+  int lh_cols = constant.cols();
+  int rh_rows = size(expr.arg(1)).dims[0];
+  int rh_cols = size(expr.arg(1)).dims[1];
+
+  int rows = rh_rows * rh_cols * lh_rows * lh_cols;
+  int cols = rh_rows * rh_cols;
+  SparseMatrix coeffs(rows, cols);
+
+  std::vector<Triplet> tripletList;
+  tripletList.reserve(rh_rows * rh_cols * constant.nonZeros());
+  for ( int k = 0; k < constant.outerSize(); ++k ) {
+    for ( Matrix::InnerIterator it(constant, k); it; ++it ) {
+      int row = (rh_rows * rh_cols * (lh_rows * it.col())) + (it.row() * rh_rows);
+      int col = 0;
+      for(int j = 0; j < rh_cols; j++){
+        for(int i = 0; i < rh_rows; i++) {
+          tripletList.push_back(Triplet(row + i, col, it.value()));
+          col++;
+        }
+        row += lh_rows * rh_rows;
+      }
+    }
+  }
+
+  coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
+  coeffs.makeCompressed();
+
+  LOG(INFO) << "get_kron_coefficients\n"
+            << "A:\n" << matrix_debug_string(constant)
+            << "coeffs:\n" << matrix_debug_string(coeffs);
+
+  return {coeffs};
+}
+
 typedef std::vector<SparseMatrix>(*CoefficientFunction)(
     const Expression& expr);
 
@@ -286,15 +323,24 @@ void multiply_by_constant(
   }
 }
 
+SparseMatrix get_constant(const Expression& expr) {
+  CoeffMap coeffs = get_coefficients(expr);
+  CHECK(is_constant(coeffs));
+  return reshape(coeffs[kConstCoefficientId],
+                 size(expr).dims[0], size(expr).dims[1]);
+}
+
 CoeffMap get_coefficients(const Expression& expr) {
   VLOG(2) << "get_coefficients\n" << tree_format_expression(expr);
 
   CoeffMap coeffs;
 
   if (expr.type() == Expression::CONST) {
+    // Special case for constant
     coeffs[kConstCoefficientId] = to_vector(
         expr.attr<ConstAttributes>().dense_data).sparseView();
   } else if (expr.type() == Expression::VAR) {
+    // Special case for variable
     coeffs[expr.attr<VarAttributes>().id] = identity(dim(expr));
   } else if (expr.type() == Expression::MUL) {
     // Special case for binary mul operator which is guaranteed to have one
@@ -304,17 +350,30 @@ CoeffMap get_coefficients(const Expression& expr) {
     CoeffMap rhs_coeffs = get_coefficients(expr.arg(1));
 
     if (is_constant(lhs_coeffs)) {
-      std::vector<SparseMatrix> f_coeffs = get_left_mul_coefficients(
-          expr, lhs_coeffs[kConstCoefficientId]);
+      SparseMatrix A = reshape(
+          lhs_coeffs[kConstCoefficientId],
+          size(expr.arg(0)).dims[0],
+          size(expr.arg(0)).dims[1]);
+      std::vector<SparseMatrix> f_coeffs = get_left_mul_coefficients(expr, A);
       multiply_by_constant(f_coeffs[0], rhs_coeffs, &coeffs);
     } else if (is_constant(rhs_coeffs)) {
-      std::vector<SparseMatrix> f_coeffs = get_right_mul_coefficients(
-          expr, rhs_coeffs[kConstCoefficientId]);
+      SparseMatrix A = reshape(
+          rhs_coeffs[kConstCoefficientId],
+          size(expr.arg(1)).dims[0],
+          size(expr.arg(1)).dims[1]);
+      std::vector<SparseMatrix> f_coeffs = get_right_mul_coefficients(expr, A);
       multiply_by_constant(f_coeffs[0], lhs_coeffs, &coeffs);
     } else {
       LOG(FATAL) << "multipying two non constants";
     }
+  } else if (expr.type() == Expression::KRON) {
+    // Special case for binary kron operator, lhs must be constant
+    SparseMatrix A = get_constant(expr.arg(0));
+    CoeffMap rhs_coeffs = get_coefficients(expr.arg(1));
+    std::vector<SparseMatrix> f_coeffs = get_kron_coefficients(expr, A);
+    multiply_by_constant(f_coeffs[0], rhs_coeffs, &coeffs);
   } else {
+    // General case
     auto iter = kCoefficientFunctions.find(expr.type());
     CHECK(iter != kCoefficientFunctions.end())
         << "no linear coefficients for " << format_expression(expr);

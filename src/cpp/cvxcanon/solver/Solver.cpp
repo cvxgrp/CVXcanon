@@ -8,16 +8,16 @@
 #include "cvxcanon/solver/cone/SplittingConeSolver.hpp"
 #include "cvxcanon/transform/LinearConeTransform.hpp"
 
+bool validate(const Problem& problem, const SolverOptions& solver_options) {
+  LinearConeTransform transform;
+  return transform.accepts(problem);
+}
+
 Solution solve(const Problem& problem, const SolverOptions& solver_options) {
   // TODO(mwytock): Allow for different transforms/solvers as per SolveOptions
 
   VLOG(1) << "input problem:\n" << format_problem(problem);
   LinearConeTransform transform;
-  if (!transform.accepts(problem)) {
-    VLOG(1) << "LinearConeTransform does not accept problem";
-    return {ERROR};
-  }
-
   Problem cone_problem = transform.apply(problem);
 
   VLOG(1) << "cone problem:\n" << format_problem(cone_problem);

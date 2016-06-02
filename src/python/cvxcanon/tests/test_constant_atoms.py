@@ -17,21 +17,30 @@ from cvxcanon import cvxpy_solver
 SOLVERS_TO_TRY = [SCS]
 
 # For debugging a single test
-from cvxpy import *
-import cvxopt
-v = cvxopt.matrix([-1,2,-2], tc='d')
-atoms = [
-    ([
-        (quad_over_lin, (1, 1), [ [[-1,2,-2], [-1,2,-2]], 2], Constant([2*4.5])),
-        (quad_over_lin, (1, 1), [v, 2], Constant([4.5])),
-    ], Minimize),
-]
+# from cvxpy import *
+# atoms = [
+#     ([
+#         (lambda x: kron(np.matrix("1 2; 3 4"), x), (4, 4), [np.matrix("5 6; 7 8")],
+#             Constant(np.kron(np.matrix("1 2; 3 4").A, np.matrix("5 6; 7 8").A))),
+#     ], Minimize),
+# ]
+
+def check_solver_cvxcanon(prob, solver_name):
+    # Usual cvxpy checks
+    if not check_solver(prob, solver_name):
+        return False
+
+    # CVXcanon solver checks (e.g. do we have all transforms implemented)
+    if not cvxpy_solver.validate(prob, solver=solver_name):
+        return False
+
+    return True
 
 def run_atom(atom, problem, obj_val, solver):
     assert problem.is_dcp()
     print(problem.objective)
     print(problem.constraints)
-    if check_solver(problem, solver):
+    if check_solver_cvxcanon(problem, solver):
         print("solver", solver)
         tolerance = SOLVER_TO_TOL[solver]
 
@@ -53,8 +62,10 @@ def run_atom(atom, problem, obj_val, solver):
         assert( -tolerance <= (result - obj_val)/(1+np.abs(obj_val)) <= tolerance )
 
 def test_atom():
-    for atom_list, objective_type in atoms:
-        for atom, size, args, obj_val in atom_list:
+    for atom_list, objective_type in atoms[:1]:
+        for atom, size, args, obj_val in atom_list[:15]:
+    # for atom_list, objective_type in atoms:
+    #     for atom, size, args, obj_val in atom_list:
             for row in range(size[0]):
                 for col in range(size[1]):
                     for solver in SOLVERS_TO_TRY:

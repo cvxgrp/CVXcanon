@@ -1683,6 +1683,10 @@ def solve(problem, solver_options):
     return _cvxcanon_swig.solve(problem, solver_options)
 solve = _cvxcanon_swig.solve
 
+def validate(problem, solver_options):
+    return _cvxcanon_swig.validate(problem, solver_options)
+validate = _cvxcanon_swig.validate
+
 _cvxcanon_swig.OPTIMAL_swigconstant(_cvxcanon_swig)
 OPTIMAL = _cvxcanon_swig.OPTIMAL
 

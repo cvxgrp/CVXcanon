@@ -10,6 +10,12 @@ STATUS_MAP = {
     cvxcanon_swig.ERROR: cvxpy.SOLVER_ERROR,
 }
 
+def validate(cvxpy_problem, **kwargs):
+    """Check if we can solve the problem with the specified solver/options."""
+    problem = expression.convert_problem(cvxpy_problem)
+    options = cvxcanon_swig.SolverOptions()
+    return cvxcanon_swig.validate(problem, options)
+
 def solve(cvxpy_problem, **kwargs):
     problem = expression.convert_problem(cvxpy_problem)
     options = cvxcanon_swig.SolverOptions()

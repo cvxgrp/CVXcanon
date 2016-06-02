@@ -25392,6 +25392,43 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_validate(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Problem *arg1 = 0 ;
+  SolverOptions *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:validate",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1, SWIGTYPE_p_Problem,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "validate" "', argument " "1"" of type '" "Problem const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "validate" "', argument " "1"" of type '" "Problem const &""'"); 
+  }
+  arg1 = reinterpret_cast< Problem * >(argp1);
+  res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_SolverOptions,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "validate" "', argument " "2"" of type '" "SolverOptions const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "validate" "', argument " "2"" of type '" "SolverOptions const &""'"); 
+  }
+  arg2 = reinterpret_cast< SolverOptions * >(argp2);
+  result = (bool)validate((Problem const &)*arg1,(SolverOptions const &)*arg2);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *OPTIMAL_swigconstant(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *module;
   PyObject *d;
@@ -25889,6 +25926,7 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"Solver_solve", _wrap_Solver_solve, METH_VARARGS, NULL},
 	 { (char *)"Solver_swigregister", Solver_swigregister, METH_VARARGS, NULL},
 	 { (char *)"solve", _wrap_solve, METH_VARARGS, NULL},
+	 { (char *)"validate", _wrap_validate, METH_VARARGS, NULL},
 	 { (char *)"OPTIMAL_swigconstant", OPTIMAL_swigconstant, METH_VARARGS, NULL},
 	 { (char *)"INFEASIBLE_swigconstant", INFEASIBLE_swigconstant, METH_VARARGS, NULL},
 	 { (char *)"UNBOUNDED_swigconstant", UNBOUNDED_swigconstant, METH_VARARGS, NULL},
