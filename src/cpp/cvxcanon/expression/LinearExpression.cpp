@@ -26,21 +26,27 @@ std::vector<SparseMatrix> get_add_coefficients(const Expression& expr) {
 }
 
 std::vector<SparseMatrix> get_left_mul_coefficients(
-    const Expression& expr, const SparseMatrix& block) {
-  const int block_rows = block.rows();
-  const int block_cols = block.cols();
-  const int num_blocks = size(expr).dims[1];
+    const Expression& expr, SparseMatrix A) {
+  const int m = size(expr).dims[0];
+  const int n = size(expr).dims[1];
+  const int k = size(expr.arg(1)).dims[0];
 
-  Matrix coeffs (num_blocks * block_rows, num_blocks * block_cols);
+  // Handle promotion
+  if (A.rows() == 1 && A.cols() == 1 && k != 1)
+    A = A.coeff(0,0)*identity(k);
+
+  SparseMatrix coeffs(m*n, k*n);
   std::vector<Triplet> tripletList;
-  tripletList.reserve(num_blocks * block.nonZeros());
-  for (int curr_block = 0; curr_block < num_blocks; curr_block++) {
-    int start_i = curr_block * block_rows;
-    int start_j = curr_block * block_cols;
-    for ( int k = 0; k < block.outerSize(); ++k ) {
-      for ( Matrix::InnerIterator it(block, k); it; ++it ) {
-        tripletList.push_back(Triplet(start_i + it.row(), start_j + it.col(),
-                                      it.value()));
+  tripletList.reserve(n * A.nonZeros());
+  for (int j = 0; j < n; j++) {
+    const int row_start = m * j;
+    const int col_start = k * j;
+    for (int i = 0; i < A.outerSize(); i++) {
+      for (Matrix::InnerIterator it(A, i); it; ++it) {
+        const int row_idx = row_start + it.row();
+        const int col_idx = col_start + it.col();
+        const double val = it.value();
+        tripletList.push_back(Triplet(row_idx, col_idx, val));
       }
     }
   }
@@ -50,24 +56,26 @@ std::vector<SparseMatrix> get_left_mul_coefficients(
 }
 
 std::vector<SparseMatrix> get_right_mul_coefficients(
-    const Expression& expr, const SparseMatrix& constant) {
-  const int rows = constant.rows();
-  const int cols = constant.cols();
-  const int n = size(expr).dims[0];
+    const Expression& expr, SparseMatrix A) {
+  const int m = size(expr).dims[0];
+  const int n = size(expr).dims[1];
+  const int k = size(expr.arg(0)).dims[1];
 
-  Matrix coeffs(cols * n, rows * n);
+  // Handle promotion
+  if (A.rows() == 1 && A.cols() == 1 && k != 1)
+    A = A.coeff(0,0)*identity(k);
+
+  SparseMatrix coeffs(m*n,  m*k);
   std::vector<Triplet> tripletList;
-  tripletList.reserve(n * constant.nonZeros());
-  for ( int k = 0; k < constant.outerSize(); ++k ) {
-    for ( Matrix::InnerIterator it(constant, k); it; ++it ) {
-      double val = it.value();
-
-      // each element of CONSTANT occupies an N x N block in the matrix
-      int row_start = it.col() * n;
-      int col_start = it.row() * n;
-      for (int i = 0; i < n; i++) {
-        int row_idx = row_start + i;
-        int col_idx = col_start + i;
+  tripletList.reserve(m * A.nonZeros());
+  for (int i = 0; i < A.outerSize(); i++) {
+    for (Matrix::InnerIterator it(A, i); it; ++it) {
+      const double val = it.value();
+      const int row_start = it.col() * m;
+      const int col_start = it.row() * m;
+      for (int j = 0; j < m; j++) {
+        const int row_idx = row_start + j;
+        const int col_idx = col_start + j;
         tripletList.push_back(Triplet(row_idx, col_idx, val));
       }
     }

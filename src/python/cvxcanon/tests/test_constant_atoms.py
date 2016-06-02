@@ -17,12 +17,15 @@ from cvxcanon import cvxpy_solver
 SOLVERS_TO_TRY = [SCS]
 
 # For debugging a single test
-# from cvxpy import *
-# atoms = [
-#     ([
-#         (lambda x: power(x, 2), (1, 1), [7.45], Constant([55.502500000000005])),
-#     ], Minimize),
-# ]
+from cvxpy import *
+import cvxopt
+v = cvxopt.matrix([-1,2,-2], tc='d')
+atoms = [
+    ([
+        (quad_over_lin, (1, 1), [ [[-1,2,-2], [-1,2,-2]], 2], Constant([2*4.5])),
+        (quad_over_lin, (1, 1), [v, 2], Constant([4.5])),
+    ], Minimize),
+]
 
 def run_atom(atom, problem, obj_val, solver):
     assert problem.is_dcp()
@@ -50,8 +53,8 @@ def run_atom(atom, problem, obj_val, solver):
         assert( -tolerance <= (result - obj_val)/(1+np.abs(obj_val)) <= tolerance )
 
 def test_atom():
-    for atom_list, objective_type in atoms[:1]:
-        for atom, size, args, obj_val in atom_list[4:5]:
+    for atom_list, objective_type in atoms:
+        for atom, size, args, obj_val in atom_list:
             for row in range(size[0]):
                 for col in range(size[1]):
                     for solver in SOLVERS_TO_TRY:

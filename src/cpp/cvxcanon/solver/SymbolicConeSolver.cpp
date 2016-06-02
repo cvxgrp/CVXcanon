@@ -92,7 +92,6 @@ void ConeProblemBuilder::add_eq_constraint(const Expression& expr) {
   CoeffMap coeff_map = get_coefficients(add(y, neg(x)));
   add_constraint_cone(ConeConstraint::ZERO, n);
   add_constraint_coefficients(coeff_map, 0, n);
-
 }
 
 // leq(x,y) -> y - x in K_+

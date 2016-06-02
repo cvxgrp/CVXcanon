@@ -32,7 +32,8 @@ Expression transform_quad_over_lin(
   const Expression& y = expr.arg(1);
   Expression t = epi_var(expr, "qol");
   constraints->push_back(
-      soc(hstack({add(y, neg(t)), mul(constant(2), x)}), add(y, t)));
+      soc(hstack({add(y, neg(t)), reshape(mul(constant(2), x), 1, dim(x))}),
+          add(y, t)));
   constraints->push_back(leq(constant(0), y));
   return t;
 }
