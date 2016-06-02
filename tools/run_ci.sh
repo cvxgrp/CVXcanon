@@ -18,4 +18,5 @@ nosetests cvxcanon
 nosetests cvxpy
 
 # run c++ linter
-cpplint.py --extensions cpp,hpp $(find $build/CVXcanon/src -name *.cpp -o -name *.hpp)
+cpplint=$build/CVXcanon/third_party/cpplint/cpplint.py
+$cpplint --extensions cpp,hpp $(find $build/CVXcanon/src -name *.cpp -o -name *.hpp)

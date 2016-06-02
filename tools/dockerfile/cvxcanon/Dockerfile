@@ -33,8 +33,4 @@ RUN pip install -U numpy scipy
 RUN pip install -U cvxpy
 RUN pip install -U nose wheel
 
-# Get C++ linter
-RUN wget https://raw.githubusercontent.com/google/styleguide/gh-pages/cpplint/cpplint.py -O /usr/local/bin/cpplint.py
-RUN chmod +x /usr/local/bin/cpplint.py
-
 CMD ["bash"]
