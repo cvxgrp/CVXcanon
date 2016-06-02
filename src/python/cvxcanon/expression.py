@@ -25,6 +25,7 @@ TYPE_MAP = {
     cvxpy.atoms.affine.binary_operators.MulExpression: Expression.MUL,
     cvxpy.atoms.affine.diag.diag_mat: Expression.DIAG_MAT,
     cvxpy.atoms.affine.diag.diag_vec: Expression.DIAG_VEC,
+    cvxpy.atoms.affine.hstack.hstack: Expression.HSTACK,
     cvxpy.atoms.affine.index.index: Expression.INDEX,
     cvxpy.atoms.affine.kron.kron: Expression.KRON,
     cvxpy.atoms.affine.reshape.reshape: Expression.RESHAPE,
@@ -32,6 +33,7 @@ TYPE_MAP = {
     cvxpy.atoms.affine.trace.trace: Expression.TRACE,
     cvxpy.atoms.affine.unary_operators.NegExpression: Expression.NEG,
     cvxpy.atoms.affine.upper_tri.upper_tri: Expression.UPPER_TRI,
+    cvxpy.atoms.affine.vstack.vstack: Expression.VSTACK,
     cvxpy.atoms.elementwise.abs.abs: Expression.ABS,
     cvxpy.atoms.elementwise.entr.entr: Expression.ENTR,
     cvxpy.atoms.elementwise.exp.exp: Expression.EXP,
@@ -60,6 +62,43 @@ TYPE_MAP = {
     cvxpy.expressions.variables.variable.Variable: Expression.VAR,
     cvxpy.expressions.variables.semidef_var.SemidefUpperTri: Expression.VAR,
 }
+
+def get_slice(sl, arg_dim):
+    """Convert the python slice operator to swig form, handling None."""
+    slice_swig = cvxcanon_swig.Slice()
+
+    # step
+    if sl.step is not None:
+        slice_swig.step = sl.step
+    else:
+        slice_swig.step = 1
+
+    # start
+    if sl.start is not None:
+        if sl.start >= 0:
+            slice_swig.start = sl.start
+        else:
+            slice_swig.start = sl.start + arg_dim
+        slice_swig.start = min(slice_swig.start, arg_dim-1)
+    elif slice_swig.step < 0:
+        slice_swig.start = arg_dim - 1
+    else:
+        slice_swig.start = 0
+
+    # stop
+    if sl.stop is not None:
+        if sl.stop >= 0:
+            slice_swig.stop = sl.stop
+        else:
+            slice_swig.stop = sl.stop + arg_dim
+        slice_swig.stop = min(slice_swig.stop, arg_dim)
+    elif slice_swig.step < 0:
+        slice_swig.stop = -1
+    else:
+        slice_swig.stop = arg_dim
+
+
+    return slice_swig
 
 def get_var_attributes(variable):
     attr = cvxcanon_swig.VarAttributes()
@@ -99,12 +138,8 @@ def get_power_attributes(power):
 
 def get_index_attributes(index):
     attr = cvxcanon_swig.IndexAttributes()
-    for key in index.key:
-        slice_swig = cvxcanon_swig.Slice()
-        slice_swig.start = key.start
-        slice_swig.stop = key.stop
-        slice_swig.step = key.step
-        attr.keys.push_back(slice_swig)
+    for i, key in enumerate(index.key):
+        attr.keys.push_back(get_slice(key, index.args[0].size[i]))
     return attr
 
 def get_huber_attributes(huber):

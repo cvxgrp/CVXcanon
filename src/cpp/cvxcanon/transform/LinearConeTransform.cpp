@@ -47,7 +47,7 @@ Expression transform_p_norm(
     return sum_entries(transform_abs(abs(x), constraints));
   } else if (p == 2) {
     Expression t = epi_var(expr, "p_norm_2");
-    constraints->push_back(soc(x, t));
+    constraints->push_back(soc(reshape(x, 1, dim(x)), t));
     return t;
   }
 

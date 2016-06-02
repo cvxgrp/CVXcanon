@@ -183,13 +183,13 @@ std::vector<SparseMatrix> get_index_coefficients(const Expression& expr) {
       counter++;
       row += row_step;
       if ((row_step > 0 && row >= row_stop) ||
-          (row_step < 0 && row < row_stop)) {
+          (row_step < 0 && row <= row_stop)) {
         break;
       }
     }
     col += col_step;
     if ((col_step > 0 && col >= col_stop) ||
-        (col_step < 0 && col < col_stop)) {
+        (col_step < 0 && col <= col_stop)) {
       break;
     }
   }
