@@ -292,8 +292,48 @@ std::vector<SparseMatrix> get_kron_coefficients(
   return {coeffs};
 }
 
+std::vector<SparseMatrix> get_trace_coefficients(const Expression& expr) {
+  const int rows = size(expr.arg(0)).dims[0];
+  SparseMatrix coeffs (1, rows * rows);
+  for (int i = 0; i < rows; i++) {
+    coeffs.insert(0, i * rows + i) = 1;
+  }
+  coeffs.makeCompressed();
+  return {coeffs};
+}
+
+std::vector<SparseMatrix> get_upper_tri_coefficients(const Expression& expr) {
+  const Expression& x = expr.arg(0);
+  const int rows = size(x).dims[0];
+  const int cols = size(x).dims[1];
+
+  const int entries = size(expr).dims[0];
+  SparseMatrix coeffs(entries, rows * cols);
+
+  std::vector<Triplet> tripletList;
+  tripletList.reserve(entries);
+  int count = 0;
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < cols; j++) {
+      if (j > i) {
+        // index in the extracted vector
+        int row_idx = count;
+        count++;
+        // index in the original matrix
+        int col_idx = j * rows + i;
+        tripletList.push_back(Triplet(row_idx, col_idx, 1.0));
+      }
+    }
+  }
+  coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
+  coeffs.makeCompressed();
+  return {coeffs};
+}
+
 typedef std::vector<SparseMatrix>(*CoefficientFunction)(
     const Expression& expr);
+
+// typedef for get_{left|right}_mul_coefficients
 typedef std::vector<SparseMatrix>(*MulCoefficientFunction)(
     const SparseMatrix& A, int k);
 
@@ -306,7 +346,9 @@ std::unordered_map<int, CoefficientFunction> kCoefficientFunctions = {
   {Expression::NEG, &get_neg_coefficients},
   {Expression::RESHAPE, &get_reshape_coefficients},
   {Expression::SUM_ENTRIES, &get_sum_entries_coefficients},
+  {Expression::TRACE, &get_trace_coefficients},
   {Expression::TRANSPOSE, &get_transpose_coefficients},
+  {Expression::UPPER_TRI, &get_upper_tri_coefficients},
   {Expression::VSTACK, &get_vstack_coefficients},
 };
 

@@ -123,6 +123,17 @@ Size get_kron_shape(const Expression& expr) {
   return {{m, n}};
 }
 
+Size get_trace_shape(const Expression& expr) {
+  return {{1, 1}};
+}
+
+Size get_upper_tri_shape(const Expression& expr) {
+  const Expression& X = expr.arg(0);
+  const int m = size(X).dims[0];
+  const int n = size(X).dims[1];
+  return {{m*(n-1)/2, 1}};
+}
+
 typedef Size(*ShapeFunction)(const Expression& expr);
 
 std::unordered_map<int, ShapeFunction> kShapeFunctions = {
@@ -136,7 +147,10 @@ std::unordered_map<int, ShapeFunction> kShapeFunctions = {
   {Expression::MUL, &get_mul_shape},
   {Expression::NEG, &get_elementwise_shape},
   {Expression::RESHAPE, &get_reshape_shape},
+  {Expression::SUM_ENTRIES, &get_sum_entries_shape},
+  {Expression::TRACE, &get_trace_shape},
   {Expression::TRANSPOSE, &get_transpose_shape},
+  {Expression::UPPER_TRI, &get_upper_tri_shape},
   {Expression::VSTACK, &get_vstack_shape},
 
   // Elementwise functions
@@ -154,7 +168,6 @@ std::unordered_map<int, ShapeFunction> kShapeFunctions = {
   // Non linear functions
   {Expression::P_NORM, &get_p_norm_shape},
   {Expression::QUAD_OVER_LIN, &get_quad_over_lin_shape},
-  {Expression::SUM_ENTRIES, &get_sum_entries_shape},
 
   // Leaf nodes
   {Expression::CONST, &get_const_shape},

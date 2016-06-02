@@ -156,8 +156,15 @@ def get_sum_entries_attributes(sum_entries):
     attr.axis = get_axis(sum_entries)
     return attr
 
+def get_reshape_attributes(reshape):
+    attr = cvxcanon_swig.ReshapeAttributes()
+    attr.size.dims.push_back(reshape.rows)
+    attr.size.dims.push_back(reshape.cols)
+    return attr
+
 ATTRIBUTE_MAP = {
     cvxpy.atoms.affine.index.index: get_index_attributes,
+    cvxpy.atoms.affine.reshape.reshape: get_reshape_attributes,
     cvxpy.atoms.affine.sum_entries.sum_entries: get_sum_entries_attributes,
     cvxpy.atoms.elementwise.huber.huber: get_huber_attributes,
     cvxpy.atoms.pnorm: get_pnorm_attributes,
