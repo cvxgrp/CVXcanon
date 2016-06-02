@@ -71,9 +71,15 @@ Expression transform_power(
   const double p = expr.attr<PowerAttributes>().p;
   const Expression& x = expr.arg(0);
   if (p == 1) {
-    return expr;
+    return x;
   } else if (p == 2) {
-    return transform_quad_over_lin(quad_over_lin(x, constant(1)), constraints);
+    Expression t = epi_var(expr, "power_2");
+    Expression vec_t = reshape(t, dim(x), 1);
+    Expression vec_x = reshape(x, dim(x), 1);
+    constraints->push_back(
+        soc(hstack({add(constant(1), neg(vec_t)), mul(constant(2), vec_x)}),
+            add(constant(1), vec_t)));
+    return t;
   }
 
   LOG(FATAL) << "Not implemented "

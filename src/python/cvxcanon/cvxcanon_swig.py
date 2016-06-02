@@ -1453,6 +1453,32 @@ class HuberAttributes(ExpressionAttributes):
 HuberAttributes_swigregister = _cvxcanon_swig.HuberAttributes_swigregister
 HuberAttributes_swigregister(HuberAttributes)
 
+class SumEntriesAttributes(ExpressionAttributes):
+    __swig_setmethods__ = {}
+    for _s in [ExpressionAttributes]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SumEntriesAttributes, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ExpressionAttributes]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, SumEntriesAttributes, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["axis"] = _cvxcanon_swig.SumEntriesAttributes_axis_set
+    __swig_getmethods__["axis"] = _cvxcanon_swig.SumEntriesAttributes_axis_get
+    if _newclass:
+        axis = _swig_property(_cvxcanon_swig.SumEntriesAttributes_axis_get, _cvxcanon_swig.SumEntriesAttributes_axis_set)
+
+    def __init__(self):
+        this = _cvxcanon_swig.new_SumEntriesAttributes()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _cvxcanon_swig.delete_SumEntriesAttributes
+    __del__ = lambda self: None
+SumEntriesAttributes_swigregister = _cvxcanon_swig.SumEntriesAttributes_swigregister
+SumEntriesAttributes_swigregister(SumEntriesAttributes)
+
 
 _cvxcanon_swig.VARIABLE_swigconstant(_cvxcanon_swig)
 VARIABLE = _cvxcanon_swig.VARIABLE

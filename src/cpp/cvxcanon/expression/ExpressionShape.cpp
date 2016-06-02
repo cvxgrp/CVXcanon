@@ -30,8 +30,7 @@ Size get_axis_shape(const Expression& expr, int axis) {
 }
 
 Size get_sum_entries_shape(const Expression& expr) {
-  // TODO(mwytock): axis parameter
-  return {{1, 1}};
+  return get_axis_shape(expr, expr.attr<SumEntriesAttributes>().axis);
 }
 
 Size get_p_norm_shape(const Expression& expr) {

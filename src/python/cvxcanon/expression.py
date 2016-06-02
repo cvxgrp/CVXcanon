@@ -100,6 +100,9 @@ def get_slice(sl, arg_dim):
 
     return slice_swig
 
+def get_axis(atom):
+    return cvxcanon_swig.kNoAxis if atom.axis is None else atom.axis
+
 def get_var_attributes(variable):
     attr = cvxcanon_swig.VarAttributes()
     attr.id = variable.id
@@ -129,7 +132,7 @@ def get_const_attributes(constant):
 def get_pnorm_attributes(pnorm):
     attr = cvxcanon_swig.PNormAttributes()
     attr.p = float(pnorm.p)
-    attr.axis = cvxcanon_swig.kNoAxis if pnorm.axis is None else pnorm.axis
+    attr.axis = get_axis(pnorm)
     return attr
 
 def get_power_attributes(power):
@@ -148,14 +151,20 @@ def get_huber_attributes(huber):
     attr.M = convert_expression(huber.M)
     return attr
 
+def get_sum_entries_attributes(sum_entries):
+    attr = cvxcanon_swig.SumEntriesAttributes()
+    attr.axis = get_axis(sum_entries)
+    return attr
+
 ATTRIBUTE_MAP = {
     cvxpy.atoms.affine.index.index: get_index_attributes,
+    cvxpy.atoms.affine.sum_entries.sum_entries: get_sum_entries_attributes,
     cvxpy.atoms.elementwise.huber.huber: get_huber_attributes,
     cvxpy.atoms.pnorm: get_pnorm_attributes,
     cvxpy.atoms.power: get_power_attributes,
     cvxpy.expressions.constants.constant.Constant: get_const_attributes,
-    cvxpy.expressions.variables.variable.Variable: get_var_attributes,
     cvxpy.expressions.variables.semidef_var.SemidefUpperTri: get_semidef_upper_tri_attributes,
+    cvxpy.expressions.variables.variable.Variable: get_var_attributes,
 }
 
 def convert_expression(cvxpy_expr):

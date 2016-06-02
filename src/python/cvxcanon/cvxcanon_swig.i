@@ -71,6 +71,7 @@ namespace std {
   PNormAttributes*,
   PowerAttributes*,
   ReshapeAttributes*,
+  SumEntriesAttributes*,
   VarAttributes*};
 
 %include "cvxcanon/CVXcanon.hpp"

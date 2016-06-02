@@ -210,4 +210,8 @@ struct HuberAttributes : public ExpressionAttributes {
   Expression M;
 };
 
+struct SumEntriesAttributes : public ExpressionAttributes {
+  int axis;
+};
+
 #endif  // CVXCANON_EXPRESISON_EXPRESSION_H

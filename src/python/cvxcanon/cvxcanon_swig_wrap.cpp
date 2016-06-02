@@ -3029,42 +3029,43 @@ SWIG_Python_NonDynamicSetAttr(PyObject *obj, PyObject *name, PyObject *value) {
 #define SWIGTYPE_p_Solver swig_types[17]
 #define SWIGTYPE_p_SolverOptions swig_types[18]
 #define SWIGTYPE_p_SparseMatrix swig_types[19]
-#define SWIGTYPE_p_VarAttributes swig_types[20]
-#define SWIGTYPE_p_allocator_type swig_types[21]
-#define SWIGTYPE_p_char swig_types[22]
-#define SWIGTYPE_p_const_reference swig_types[23]
-#define SWIGTYPE_p_difference_type swig_types[24]
-#define SWIGTYPE_p_double swig_types[25]
-#define SWIGTYPE_p_key_type swig_types[26]
-#define SWIGTYPE_p_mapped_type swig_types[27]
-#define SWIGTYPE_p_operatortype swig_types[28]
-#define SWIGTYPE_p_p_PyObject swig_types[29]
-#define SWIGTYPE_p_reference swig_types[30]
-#define SWIGTYPE_p_size_type swig_types[31]
-#define SWIGTYPE_p_std__allocatorT_Expression_t swig_types[32]
-#define SWIGTYPE_p_std__allocatorT_LinOp_p_t swig_types[33]
-#define SWIGTYPE_p_std__allocatorT_Slice_t swig_types[34]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[35]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[36]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_int_const_int_t_t swig_types[37]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[38]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[39]
-#define SWIGTYPE_p_std__invalid_argument swig_types[40]
-#define SWIGTYPE_p_std__lessT_int_t swig_types[41]
-#define SWIGTYPE_p_std__mapT_int_DenseVector_std__lessT_int_t_std__allocatorT_std__pairT_int_const_DenseVector_t_t_t swig_types[42]
-#define SWIGTYPE_p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t swig_types[43]
-#define SWIGTYPE_p_std__shared_ptrT_ExpressionAttributes_const_t swig_types[44]
-#define SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t swig_types[45]
-#define SWIGTYPE_p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t swig_types[46]
-#define SWIGTYPE_p_std__vectorT_Slice_std__allocatorT_Slice_t_t swig_types[47]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[48]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[49]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[50]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[51]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[52]
-#define SWIGTYPE_p_value_type swig_types[53]
-static swig_type_info *swig_types[55];
-static swig_module_info swig_module = {swig_types, 54, 0, 0, 0, 0};
+#define SWIGTYPE_p_SumEntriesAttributes swig_types[20]
+#define SWIGTYPE_p_VarAttributes swig_types[21]
+#define SWIGTYPE_p_allocator_type swig_types[22]
+#define SWIGTYPE_p_char swig_types[23]
+#define SWIGTYPE_p_const_reference swig_types[24]
+#define SWIGTYPE_p_difference_type swig_types[25]
+#define SWIGTYPE_p_double swig_types[26]
+#define SWIGTYPE_p_key_type swig_types[27]
+#define SWIGTYPE_p_mapped_type swig_types[28]
+#define SWIGTYPE_p_operatortype swig_types[29]
+#define SWIGTYPE_p_p_PyObject swig_types[30]
+#define SWIGTYPE_p_reference swig_types[31]
+#define SWIGTYPE_p_size_type swig_types[32]
+#define SWIGTYPE_p_std__allocatorT_Expression_t swig_types[33]
+#define SWIGTYPE_p_std__allocatorT_LinOp_p_t swig_types[34]
+#define SWIGTYPE_p_std__allocatorT_Slice_t swig_types[35]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[36]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[37]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_int_const_int_t_t swig_types[38]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[39]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[40]
+#define SWIGTYPE_p_std__invalid_argument swig_types[41]
+#define SWIGTYPE_p_std__lessT_int_t swig_types[42]
+#define SWIGTYPE_p_std__mapT_int_DenseVector_std__lessT_int_t_std__allocatorT_std__pairT_int_const_DenseVector_t_t_t swig_types[43]
+#define SWIGTYPE_p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t swig_types[44]
+#define SWIGTYPE_p_std__shared_ptrT_ExpressionAttributes_const_t swig_types[45]
+#define SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t swig_types[46]
+#define SWIGTYPE_p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t swig_types[47]
+#define SWIGTYPE_p_std__vectorT_Slice_std__allocatorT_Slice_t_t swig_types[48]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[49]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[50]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[51]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[52]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[53]
+#define SWIGTYPE_p_value_type swig_types[54]
+static swig_type_info *swig_types[56];
+static swig_module_info swig_module = {swig_types, 55, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -23985,6 +23986,101 @@ SWIGINTERN PyObject *HuberAttributes_swigregister(PyObject *SWIGUNUSEDPARM(self)
   return SWIG_Py_Void();
 }
 
+SWIGINTERN PyObject *_wrap_SumEntriesAttributes_axis_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SumEntriesAttributes *arg1 = (SumEntriesAttributes *) 0 ;
+  int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:SumEntriesAttributes_axis_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SumEntriesAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SumEntriesAttributes_axis_set" "', argument " "1"" of type '" "SumEntriesAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< SumEntriesAttributes * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "SumEntriesAttributes_axis_set" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  if (arg1) (arg1)->axis = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_SumEntriesAttributes_axis_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SumEntriesAttributes *arg1 = (SumEntriesAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:SumEntriesAttributes_axis_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SumEntriesAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SumEntriesAttributes_axis_get" "', argument " "1"" of type '" "SumEntriesAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< SumEntriesAttributes * >(argp1);
+  result = (int) ((arg1)->axis);
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_SumEntriesAttributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SumEntriesAttributes *result = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)":new_SumEntriesAttributes")) SWIG_fail;
+  result = (SumEntriesAttributes *)new SumEntriesAttributes();
+  {
+    resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_SumEntriesAttributes, 0 );
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_SumEntriesAttributes(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SumEntriesAttributes *arg1 = (SumEntriesAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:delete_SumEntriesAttributes",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SumEntriesAttributes, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_SumEntriesAttributes" "', argument " "1"" of type '" "SumEntriesAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< SumEntriesAttributes * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *SumEntriesAttributes_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!PyArg_ParseTuple(args,(char*)"O:swigregister", &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_SumEntriesAttributes, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
 SWIGINTERN int Swig_var_CONSTANT_ID_set(PyObject *) {
   SWIG_Error(SWIG_AttributeError,"Variable CONSTANT_ID is read-only.");
   return 1;
@@ -26165,6 +26261,11 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"new_HuberAttributes", _wrap_new_HuberAttributes, METH_VARARGS, NULL},
 	 { (char *)"delete_HuberAttributes", _wrap_delete_HuberAttributes, METH_VARARGS, NULL},
 	 { (char *)"HuberAttributes_swigregister", HuberAttributes_swigregister, METH_VARARGS, NULL},
+	 { (char *)"SumEntriesAttributes_axis_set", _wrap_SumEntriesAttributes_axis_set, METH_VARARGS, NULL},
+	 { (char *)"SumEntriesAttributes_axis_get", _wrap_SumEntriesAttributes_axis_get, METH_VARARGS, NULL},
+	 { (char *)"new_SumEntriesAttributes", _wrap_new_SumEntriesAttributes, METH_VARARGS, NULL},
+	 { (char *)"delete_SumEntriesAttributes", _wrap_delete_SumEntriesAttributes, METH_VARARGS, NULL},
+	 { (char *)"SumEntriesAttributes_swigregister", SumEntriesAttributes_swigregister, METH_VARARGS, NULL},
 	 { (char *)"VARIABLE_swigconstant", VARIABLE_swigconstant, METH_VARARGS, NULL},
 	 { (char *)"PROMOTE_swigconstant", PROMOTE_swigconstant, METH_VARARGS, NULL},
 	 { (char *)"MUL_swigconstant", MUL_swigconstant, METH_VARARGS, NULL},
@@ -26277,6 +26378,9 @@ static void *_p_IndexAttributesTo_p_ExpressionAttributes(void *x, int *SWIGUNUSE
 static void *_p_HuberAttributesTo_p_ExpressionAttributes(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((ExpressionAttributes *)  ((HuberAttributes *) x));
 }
+static void *_p_SumEntriesAttributesTo_p_ExpressionAttributes(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((ExpressionAttributes *)  ((SumEntriesAttributes *) x));
+}
 static swig_type_info _swigt__p_ConstAttributes = {"_p_ConstAttributes", "ConstAttributes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_DenseMatrix = {"_p_DenseMatrix", "DenseMatrix *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Eigen__MatrixXd = {"_p_Eigen__MatrixXd", "Eigen::MatrixXd *", 0, 0, (void*)0, 0};
@@ -26297,6 +26401,7 @@ static swig_type_info _swigt__p_Solution = {"_p_Solution", "Solution *", 0, 0, (
 static swig_type_info _swigt__p_Solver = {"_p_Solver", "Solver *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SolverOptions = {"_p_SolverOptions", "SolverOptions *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SparseMatrix = {"_p_SparseMatrix", "SparseMatrix *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_SumEntriesAttributes = {"_p_SumEntriesAttributes", "SumEntriesAttributes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_VarAttributes = {"_p_VarAttributes", "VarAttributes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
@@ -26353,6 +26458,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Solver,
   &_swigt__p_SolverOptions,
   &_swigt__p_SparseMatrix,
+  &_swigt__p_SumEntriesAttributes,
   &_swigt__p_VarAttributes,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
@@ -26393,7 +26499,7 @@ static swig_cast_info _swigc__p_ConstAttributes[] = {  {&_swigt__p_ConstAttribut
 static swig_cast_info _swigc__p_DenseMatrix[] = {  {&_swigt__p_DenseMatrix, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Eigen__MatrixXd[] = {  {&_swigt__p_Eigen__MatrixXd, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Expression[] = {  {&_swigt__p_Expression, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_ExpressionAttributes[] = {  {&_swigt__p_ExpressionAttributes, 0, 0, 0},  {&_swigt__p_ConstAttributes, _p_ConstAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_VarAttributes, _p_VarAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_PNormAttributes, _p_PNormAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_PowerAttributes, _p_PowerAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_ReshapeAttributes, _p_ReshapeAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_IndexAttributes, _p_IndexAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_HuberAttributes, _p_HuberAttributesTo_p_ExpressionAttributes, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_ExpressionAttributes[] = {  {&_swigt__p_ExpressionAttributes, 0, 0, 0},  {&_swigt__p_ConstAttributes, _p_ConstAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_VarAttributes, _p_VarAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_PNormAttributes, _p_PNormAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_PowerAttributes, _p_PowerAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_ReshapeAttributes, _p_ReshapeAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_IndexAttributes, _p_IndexAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_HuberAttributes, _p_HuberAttributesTo_p_ExpressionAttributes, 0, 0},  {&_swigt__p_SumEntriesAttributes, _p_SumEntriesAttributesTo_p_ExpressionAttributes, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_HuberAttributes[] = {  {&_swigt__p_HuberAttributes, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_IndexAttributes[] = {  {&_swigt__p_IndexAttributes, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_LinOp[] = {  {&_swigt__p_LinOp, 0, 0, 0},{0, 0, 0, 0}};
@@ -26409,6 +26515,7 @@ static swig_cast_info _swigc__p_Solution[] = {  {&_swigt__p_Solution, 0, 0, 0},{
 static swig_cast_info _swigc__p_Solver[] = {  {&_swigt__p_Solver, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SolverOptions[] = {  {&_swigt__p_SolverOptions, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SparseMatrix[] = {  {&_swigt__p_SparseMatrix, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_SumEntriesAttributes[] = {  {&_swigt__p_SumEntriesAttributes, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_VarAttributes[] = {  {&_swigt__p_VarAttributes, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
@@ -26465,6 +26572,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Solver,
   _swigc__p_SolverOptions,
   _swigc__p_SparseMatrix,
+  _swigc__p_SumEntriesAttributes,
   _swigc__p_VarAttributes,
   _swigc__p_allocator_type,
   _swigc__p_char,

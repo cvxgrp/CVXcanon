@@ -76,8 +76,10 @@ Expression reshape(Expression x, int m, int n) {
   return {Expression::RESHAPE, {x}, attr};
 }
 
-Expression sum_entries(Expression x) {
-  return {Expression::SUM_ENTRIES, {x}};
+Expression sum_entries(Expression x, int axis) {
+  auto attr = std::make_shared<SumEntriesAttributes>();
+  attr->axis = axis;
+  return {Expression::SUM_ENTRIES, {x}, attr};
 }
 
 Expression eq(Expression x, Expression y) {

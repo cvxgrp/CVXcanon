@@ -25,22 +25,16 @@ std::vector<SparseMatrix> get_add_coefficients(const Expression& expr) {
   return coeffs;
 }
 
+// Coefficients for A*x
 std::vector<SparseMatrix> get_left_mul_coefficients(
-    const Expression& expr, SparseMatrix A) {
-  const int m = size(expr).dims[0];
-  const int n = size(expr).dims[1];
-  const int k = size(expr.arg(1)).dims[0];
+    const SparseMatrix& A, int n) {
 
-  // Handle promotion
-  if (A.rows() == 1 && A.cols() == 1 && k != 1)
-    A = A.coeff(0,0)*identity(k);
-
-  SparseMatrix coeffs(m*n, k*n);
+  SparseMatrix coeffs(A.rows()*n, A.cols()*n);
   std::vector<Triplet> tripletList;
   tripletList.reserve(n * A.nonZeros());
   for (int j = 0; j < n; j++) {
-    const int row_start = m * j;
-    const int col_start = k * j;
+    const int row_start = A.rows() * j;
+    const int col_start = A.cols() * j;
     for (int i = 0; i < A.outerSize(); i++) {
       for (Matrix::InnerIterator it(A, i); it; ++it) {
         const int row_idx = row_start + it.row();
@@ -55,17 +49,11 @@ std::vector<SparseMatrix> get_left_mul_coefficients(
   return {coeffs};
 }
 
+// Coefficients for x*A
 std::vector<SparseMatrix> get_right_mul_coefficients(
-    const Expression& expr, SparseMatrix A) {
-  const int m = size(expr).dims[0];
-  const int n = size(expr).dims[1];
-  const int k = size(expr.arg(0)).dims[1];
+    const SparseMatrix& A, int m) {
 
-  // Handle promotion
-  if (A.rows() == 1 && A.cols() == 1 && k != 1)
-    A = A.coeff(0,0)*identity(k);
-
-  SparseMatrix coeffs(m*n,  m*k);
+  SparseMatrix coeffs(m*A.cols(),  m*A.rows());
   std::vector<Triplet> tripletList;
   tripletList.reserve(m * A.nonZeros());
   for (int i = 0; i < A.outerSize(); i++) {
@@ -90,7 +78,20 @@ std::vector<SparseMatrix> get_neg_coefficients(const Expression& expr) {
 }
 
 std::vector<SparseMatrix> get_sum_entries_coefficients(const Expression& expr) {
-  return {ones_matrix(1, dim(expr.arg(0)))};
+  const int axis = expr.attr<SumEntriesAttributes>().axis;
+  const Expression& x = expr.arg(0);
+
+  if (axis == kNoAxis) {
+    return {ones_matrix(1, dim(x))};
+  } else if (axis == 0) {
+    SparseMatrix A = ones_matrix(1, size(x).dims[0]);
+    return get_left_mul_coefficients(A, size(x).dims[1]);
+  } else if (axis == 1) {
+    SparseMatrix A = ones_matrix(size(x).dims[1], 1);
+    return get_right_mul_coefficients(A, size(x).dims[0]);
+  } else {
+    LOG(FATAL) << "invalid axis " << axis;
+  }
 }
 
 std::vector<SparseMatrix> get_stack_coefficients(
@@ -293,6 +294,8 @@ std::vector<SparseMatrix> get_kron_coefficients(
 
 typedef std::vector<SparseMatrix>(*CoefficientFunction)(
     const Expression& expr);
+typedef std::vector<SparseMatrix>(*MulCoefficientFunction)(
+    const SparseMatrix& A, int k);
 
 std::unordered_map<int, CoefficientFunction> kCoefficientFunctions = {
   {Expression::ADD, &get_add_coefficients},
@@ -349,23 +352,42 @@ CoeffMap get_coefficients(const Expression& expr) {
     CoeffMap lhs_coeffs = get_coefficients(expr.arg(0));
     CoeffMap rhs_coeffs = get_coefficients(expr.arg(1));
 
+    SparseMatrix A;
+    int k;  // inner multiply dim
+    int l;  // outer multiply dim, non const side
+    MulCoefficientFunction f;
+    CoeffMap* x_coeffs;
+
     if (is_constant(lhs_coeffs)) {
-      SparseMatrix A = reshape(
+      A = reshape(
           lhs_coeffs[kConstCoefficientId],
           size(expr.arg(0)).dims[0],
           size(expr.arg(0)).dims[1]);
-      std::vector<SparseMatrix> f_coeffs = get_left_mul_coefficients(expr, A);
-      multiply_by_constant(f_coeffs[0], rhs_coeffs, &coeffs);
+      k = size(expr.arg(1)).dims[0];
+      l = size(expr.arg(1)).dims[1];
+
+      f = &get_left_mul_coefficients;
+      x_coeffs = &rhs_coeffs;
     } else if (is_constant(rhs_coeffs)) {
-      SparseMatrix A = reshape(
+      A = reshape(
           rhs_coeffs[kConstCoefficientId],
           size(expr.arg(1)).dims[0],
           size(expr.arg(1)).dims[1]);
-      std::vector<SparseMatrix> f_coeffs = get_right_mul_coefficients(expr, A);
-      multiply_by_constant(f_coeffs[0], lhs_coeffs, &coeffs);
+      k = size(expr.arg(0)).dims[1];
+      l = size(expr.arg(0)).dims[0];
+
+      f = &get_right_mul_coefficients;
+      x_coeffs = &lhs_coeffs;
     } else {
       LOG(FATAL) << "multipying two non constants";
     }
+
+    // Handle promotion
+    if (A.rows() == 1 && A.cols() == 1 && k != 1)
+      A = A.coeff(0,0)*identity(k);
+
+    std::vector<SparseMatrix> f_coeffs = f(A, l);
+    multiply_by_constant(f_coeffs[0], *x_coeffs, &coeffs);
   } else if (expr.type() == Expression::KRON) {
     // Special case for binary kron operator, lhs must be constant
     SparseMatrix A = get_constant(expr.arg(0));

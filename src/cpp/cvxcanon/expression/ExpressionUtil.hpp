@@ -22,7 +22,7 @@ Expression p_norm(Expression x, double p);
 Expression power(Expression x, double p);
 Expression quad_over_lin(Expression x, Expression y);
 Expression reshape(Expression x, int m, int n);
-Expression sum_entries(Expression x);
+Expression sum_entries(Expression x, int axis = kNoAxis);
 Expression transpose(Expression x);
 Expression var(int m, int n);
 Expression vstack(std::vector<Expression> args);
