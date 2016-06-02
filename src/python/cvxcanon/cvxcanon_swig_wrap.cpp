@@ -3028,42 +3028,43 @@ SWIG_Python_NonDynamicSetAttr(PyObject *obj, PyObject *name, PyObject *value) {
 #define SWIGTYPE_p_Solution swig_types[16]
 #define SWIGTYPE_p_Solver swig_types[17]
 #define SWIGTYPE_p_SolverOptions swig_types[18]
-#define SWIGTYPE_p_VarAttributes swig_types[19]
-#define SWIGTYPE_p_allocator_type swig_types[20]
-#define SWIGTYPE_p_char swig_types[21]
-#define SWIGTYPE_p_const_reference swig_types[22]
-#define SWIGTYPE_p_difference_type swig_types[23]
-#define SWIGTYPE_p_double swig_types[24]
-#define SWIGTYPE_p_key_type swig_types[25]
-#define SWIGTYPE_p_mapped_type swig_types[26]
-#define SWIGTYPE_p_operatortype swig_types[27]
-#define SWIGTYPE_p_p_PyObject swig_types[28]
-#define SWIGTYPE_p_reference swig_types[29]
-#define SWIGTYPE_p_size_type swig_types[30]
-#define SWIGTYPE_p_std__allocatorT_Expression_t swig_types[31]
-#define SWIGTYPE_p_std__allocatorT_LinOp_p_t swig_types[32]
-#define SWIGTYPE_p_std__allocatorT_Slice_t swig_types[33]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[34]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[35]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_int_const_int_t_t swig_types[36]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[37]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[38]
-#define SWIGTYPE_p_std__invalid_argument swig_types[39]
-#define SWIGTYPE_p_std__lessT_int_t swig_types[40]
-#define SWIGTYPE_p_std__mapT_int_DenseVector_std__lessT_int_t_std__allocatorT_std__pairT_int_const_DenseVector_t_t_t swig_types[41]
-#define SWIGTYPE_p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t swig_types[42]
-#define SWIGTYPE_p_std__shared_ptrT_ExpressionAttributes_const_t swig_types[43]
-#define SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t swig_types[44]
-#define SWIGTYPE_p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t swig_types[45]
-#define SWIGTYPE_p_std__vectorT_Slice_std__allocatorT_Slice_t_t swig_types[46]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[47]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[48]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[49]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[50]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[51]
-#define SWIGTYPE_p_value_type swig_types[52]
-static swig_type_info *swig_types[54];
-static swig_module_info swig_module = {swig_types, 53, 0, 0, 0, 0};
+#define SWIGTYPE_p_SparseMatrix swig_types[19]
+#define SWIGTYPE_p_VarAttributes swig_types[20]
+#define SWIGTYPE_p_allocator_type swig_types[21]
+#define SWIGTYPE_p_char swig_types[22]
+#define SWIGTYPE_p_const_reference swig_types[23]
+#define SWIGTYPE_p_difference_type swig_types[24]
+#define SWIGTYPE_p_double swig_types[25]
+#define SWIGTYPE_p_key_type swig_types[26]
+#define SWIGTYPE_p_mapped_type swig_types[27]
+#define SWIGTYPE_p_operatortype swig_types[28]
+#define SWIGTYPE_p_p_PyObject swig_types[29]
+#define SWIGTYPE_p_reference swig_types[30]
+#define SWIGTYPE_p_size_type swig_types[31]
+#define SWIGTYPE_p_std__allocatorT_Expression_t swig_types[32]
+#define SWIGTYPE_p_std__allocatorT_LinOp_p_t swig_types[33]
+#define SWIGTYPE_p_std__allocatorT_Slice_t swig_types[34]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[35]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[36]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_int_const_int_t_t swig_types[37]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[38]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[39]
+#define SWIGTYPE_p_std__invalid_argument swig_types[40]
+#define SWIGTYPE_p_std__lessT_int_t swig_types[41]
+#define SWIGTYPE_p_std__mapT_int_DenseVector_std__lessT_int_t_std__allocatorT_std__pairT_int_const_DenseVector_t_t_t swig_types[42]
+#define SWIGTYPE_p_std__mapT_int_int_std__lessT_int_t_std__allocatorT_std__pairT_int_const_int_t_t_t swig_types[43]
+#define SWIGTYPE_p_std__shared_ptrT_ExpressionAttributes_const_t swig_types[44]
+#define SWIGTYPE_p_std__vectorT_Expression_std__allocatorT_Expression_t_t swig_types[45]
+#define SWIGTYPE_p_std__vectorT_LinOp_p_std__allocatorT_LinOp_p_t_t swig_types[46]
+#define SWIGTYPE_p_std__vectorT_Slice_std__allocatorT_Slice_t_t swig_types[47]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[48]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[49]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[50]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[51]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[52]
+#define SWIGTYPE_p_value_type swig_types[53]
+static swig_type_info *swig_types[55];
+static swig_module_info swig_module = {swig_types, 54, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -22732,6 +22733,84 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_ConstAttributes_set_sparse_data(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ConstAttributes *arg1 = (ConstAttributes *) 0 ;
+  double *arg2 = (double *) 0 ;
+  int arg3 ;
+  double *arg4 = (double *) 0 ;
+  int arg5 ;
+  double *arg6 = (double *) 0 ;
+  int arg7 ;
+  int arg8 ;
+  int arg9 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyArrayObject *array2 = NULL ;
+  int i2 = 1 ;
+  PyArrayObject *array4 = NULL ;
+  int i4 = 1 ;
+  PyArrayObject *array6 = NULL ;
+  int i6 = 1 ;
+  int val8 ;
+  int ecode8 = 0 ;
+  int val9 ;
+  int ecode9 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  PyObject * obj3 = 0 ;
+  PyObject * obj4 = 0 ;
+  PyObject * obj5 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOOOOO:ConstAttributes_set_sparse_data",&obj0,&obj1,&obj2,&obj3,&obj4,&obj5)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ConstAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ConstAttributes_set_sparse_data" "', argument " "1"" of type '" "ConstAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< ConstAttributes * >(argp1);
+  {
+    array2 = obj_to_array_no_conversion(obj1, NPY_DOUBLE);
+    if (!array2 || !require_dimensions(array2,1) || !require_contiguous(array2)
+      || !require_native(array2)) SWIG_fail;
+    arg2 = (double*) array_data(array2);
+    arg3 = 1;
+    for (i2=0; i2 < array_numdims(array2); ++i2) arg3 *= array_size(array2,i2);
+  }
+  {
+    array4 = obj_to_array_no_conversion(obj2, NPY_DOUBLE);
+    if (!array4 || !require_dimensions(array4,1) || !require_contiguous(array4)
+      || !require_native(array4)) SWIG_fail;
+    arg4 = (double*) array_data(array4);
+    arg5 = 1;
+    for (i4=0; i4 < array_numdims(array4); ++i4) arg5 *= array_size(array4,i4);
+  }
+  {
+    array6 = obj_to_array_no_conversion(obj3, NPY_DOUBLE);
+    if (!array6 || !require_dimensions(array6,1) || !require_contiguous(array6)
+      || !require_native(array6)) SWIG_fail;
+    arg6 = (double*) array_data(array6);
+    arg7 = 1;
+    for (i6=0; i6 < array_numdims(array6); ++i6) arg7 *= array_size(array6,i6);
+  }
+  ecode8 = SWIG_AsVal_int(obj4, &val8);
+  if (!SWIG_IsOK(ecode8)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode8), "in method '" "ConstAttributes_set_sparse_data" "', argument " "8"" of type '" "int""'");
+  } 
+  arg8 = static_cast< int >(val8);
+  ecode9 = SWIG_AsVal_int(obj5, &val9);
+  if (!SWIG_IsOK(ecode9)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode9), "in method '" "ConstAttributes_set_sparse_data" "', argument " "9"" of type '" "int""'");
+  } 
+  arg9 = static_cast< int >(val9);
+  (arg1)->set_sparse_data(arg2,arg3,arg4,arg5,arg6,arg7,arg8,arg9);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_ConstAttributes_size(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   ConstAttributes *arg1 = (ConstAttributes *) 0 ;
@@ -22748,6 +22827,58 @@ SWIGINTERN PyObject *_wrap_ConstAttributes_size(PyObject *SWIGUNUSEDPARM(self), 
   arg1 = reinterpret_cast< ConstAttributes * >(argp1);
   result = ((ConstAttributes const *)arg1)->size();
   resultobj = SWIG_NewPointerObj((new Size(static_cast< const Size& >(result))), SWIGTYPE_p_Size, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ConstAttributes_sparse_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ConstAttributes *arg1 = (ConstAttributes *) 0 ;
+  bool arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:ConstAttributes_sparse_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ConstAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ConstAttributes_sparse_set" "', argument " "1"" of type '" "ConstAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< ConstAttributes * >(argp1);
+  ecode2 = SWIG_AsVal_bool(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "ConstAttributes_sparse_set" "', argument " "2"" of type '" "bool""'");
+  } 
+  arg2 = static_cast< bool >(val2);
+  if (arg1) (arg1)->sparse = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ConstAttributes_sparse_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ConstAttributes *arg1 = (ConstAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  bool result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:ConstAttributes_sparse_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ConstAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ConstAttributes_sparse_get" "', argument " "1"" of type '" "ConstAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< ConstAttributes * >(argp1);
+  result = (bool) ((arg1)->sparse);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
   return resultobj;
 fail:
   return NULL;
@@ -22808,6 +22939,66 @@ SWIGINTERN PyObject *_wrap_ConstAttributes_dense_data_get(PyObject *SWIGUNUSEDPA
   arg1 = reinterpret_cast< ConstAttributes * >(argp1);
   result =  ((arg1)->dense_data);
   resultobj = SWIG_NewPointerObj((new DenseMatrix(static_cast< const DenseMatrix& >(result))), SWIGTYPE_p_DenseMatrix, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ConstAttributes_sparse_data_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ConstAttributes *arg1 = (ConstAttributes *) 0 ;
+  SparseMatrix arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:ConstAttributes_sparse_data_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ConstAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ConstAttributes_sparse_data_set" "', argument " "1"" of type '" "ConstAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< ConstAttributes * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(obj1, &argp2, SWIGTYPE_p_SparseMatrix,  0  | 0);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ConstAttributes_sparse_data_set" "', argument " "2"" of type '" "SparseMatrix""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ConstAttributes_sparse_data_set" "', argument " "2"" of type '" "SparseMatrix""'");
+    } else {
+      SparseMatrix * temp = reinterpret_cast< SparseMatrix * >(argp2);
+      arg2 = *temp;
+      if (SWIG_IsNewObj(res2)) delete temp;
+    }
+  }
+  if (arg1) (arg1)->sparse_data = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ConstAttributes_sparse_data_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  ConstAttributes *arg1 = (ConstAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  SparseMatrix result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:ConstAttributes_sparse_data_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_ConstAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ConstAttributes_sparse_data_get" "', argument " "1"" of type '" "ConstAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< ConstAttributes * >(argp1);
+  result =  ((arg1)->sparse_data);
+  resultobj = SWIG_NewPointerObj((new SparseMatrix(static_cast< const SparseMatrix& >(result))), SWIGTYPE_p_SparseMatrix, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -22955,6 +23146,58 @@ SWIGINTERN PyObject *_wrap_VarAttributes_size_get(PyObject *SWIGUNUSEDPARM(self)
   arg1 = reinterpret_cast< VarAttributes * >(argp1);
   result = (Size *)& ((arg1)->size);
   resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Size, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_VarAttributes_variable_type_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  VarAttributes *arg1 = (VarAttributes *) 0 ;
+  VarAttributes::Type arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:VarAttributes_variable_type_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_VarAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VarAttributes_variable_type_set" "', argument " "1"" of type '" "VarAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< VarAttributes * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "VarAttributes_variable_type_set" "', argument " "2"" of type '" "VarAttributes::Type""'");
+  } 
+  arg2 = static_cast< VarAttributes::Type >(val2);
+  if (arg1) (arg1)->variable_type = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_VarAttributes_variable_type_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  VarAttributes *arg1 = (VarAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  VarAttributes::Type result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:VarAttributes_variable_type_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_VarAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "VarAttributes_variable_type_get" "', argument " "1"" of type '" "VarAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< VarAttributes * >(argp1);
+  result = (VarAttributes::Type) ((arg1)->variable_type);
+  resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
   return NULL;
@@ -25800,9 +26043,14 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"delete_Size", _wrap_delete_Size, METH_VARARGS, NULL},
 	 { (char *)"Size_swigregister", Size_swigregister, METH_VARARGS, NULL},
 	 { (char *)"ConstAttributes_set_dense_data", _wrap_ConstAttributes_set_dense_data, METH_VARARGS, NULL},
+	 { (char *)"ConstAttributes_set_sparse_data", _wrap_ConstAttributes_set_sparse_data, METH_VARARGS, NULL},
 	 { (char *)"ConstAttributes_size", _wrap_ConstAttributes_size, METH_VARARGS, NULL},
+	 { (char *)"ConstAttributes_sparse_set", _wrap_ConstAttributes_sparse_set, METH_VARARGS, NULL},
+	 { (char *)"ConstAttributes_sparse_get", _wrap_ConstAttributes_sparse_get, METH_VARARGS, NULL},
 	 { (char *)"ConstAttributes_dense_data_set", _wrap_ConstAttributes_dense_data_set, METH_VARARGS, NULL},
 	 { (char *)"ConstAttributes_dense_data_get", _wrap_ConstAttributes_dense_data_get, METH_VARARGS, NULL},
+	 { (char *)"ConstAttributes_sparse_data_set", _wrap_ConstAttributes_sparse_data_set, METH_VARARGS, NULL},
+	 { (char *)"ConstAttributes_sparse_data_get", _wrap_ConstAttributes_sparse_data_get, METH_VARARGS, NULL},
 	 { (char *)"new_ConstAttributes", _wrap_new_ConstAttributes, METH_VARARGS, NULL},
 	 { (char *)"delete_ConstAttributes", _wrap_delete_ConstAttributes, METH_VARARGS, NULL},
 	 { (char *)"ConstAttributes_swigregister", ConstAttributes_swigregister, METH_VARARGS, NULL},
@@ -25810,6 +26058,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"VarAttributes_id_get", _wrap_VarAttributes_id_get, METH_VARARGS, NULL},
 	 { (char *)"VarAttributes_size_set", _wrap_VarAttributes_size_set, METH_VARARGS, NULL},
 	 { (char *)"VarAttributes_size_get", _wrap_VarAttributes_size_get, METH_VARARGS, NULL},
+	 { (char *)"VarAttributes_variable_type_set", _wrap_VarAttributes_variable_type_set, METH_VARARGS, NULL},
+	 { (char *)"VarAttributes_variable_type_get", _wrap_VarAttributes_variable_type_get, METH_VARARGS, NULL},
 	 { (char *)"new_VarAttributes", _wrap_new_VarAttributes, METH_VARARGS, NULL},
 	 { (char *)"delete_VarAttributes", _wrap_delete_VarAttributes, METH_VARARGS, NULL},
 	 { (char *)"VarAttributes_swigregister", VarAttributes_swigregister, METH_VARARGS, NULL},
@@ -25978,6 +26228,7 @@ static swig_type_info _swigt__p_Slice = {"_p_Slice", "std::vector< Slice >::valu
 static swig_type_info _swigt__p_Solution = {"_p_Solution", "Solution *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Solver = {"_p_Solver", "Solver *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SolverOptions = {"_p_SolverOptions", "SolverOptions *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_SparseMatrix = {"_p_SparseMatrix", "SparseMatrix *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_VarAttributes = {"_p_VarAttributes", "VarAttributes *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
@@ -26033,6 +26284,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Solution,
   &_swigt__p_Solver,
   &_swigt__p_SolverOptions,
+  &_swigt__p_SparseMatrix,
   &_swigt__p_VarAttributes,
   &_swigt__p_allocator_type,
   &_swigt__p_char,
@@ -26088,6 +26340,7 @@ static swig_cast_info _swigc__p_Slice[] = {  {&_swigt__p_Slice, 0, 0, 0},{0, 0, 
 static swig_cast_info _swigc__p_Solution[] = {  {&_swigt__p_Solution, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Solver[] = {  {&_swigt__p_Solver, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SolverOptions[] = {  {&_swigt__p_SolverOptions, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_SparseMatrix[] = {  {&_swigt__p_SparseMatrix, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_VarAttributes[] = {  {&_swigt__p_VarAttributes, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
@@ -26143,6 +26396,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Solution,
   _swigc__p_Solver,
   _swigc__p_SolverOptions,
+  _swigc__p_SparseMatrix,
   _swigc__p_VarAttributes,
   _swigc__p_allocator_type,
   _swigc__p_char,
@@ -26919,6 +27173,8 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, "Expression_VAR",SWIG_From_int(static_cast< int >(Expression::VAR)));
   SWIG_Python_SetConstant(d, "Problem_MAXIMIZE",SWIG_From_int(static_cast< int >(Problem::MAXIMIZE)));
   SWIG_Python_SetConstant(d, "Problem_MINIMIZE",SWIG_From_int(static_cast< int >(Problem::MINIMIZE)));
+  SWIG_Python_SetConstant(d, "VarAttributes_UNKNOWN",SWIG_From_int(static_cast< int >(VarAttributes::UNKNOWN)));
+  SWIG_Python_SetConstant(d, "VarAttributes_SEMIDEF_UPPER_TRI",SWIG_From_int(static_cast< int >(VarAttributes::SEMIDEF_UPPER_TRI)));
   PyDict_SetItemString(md,(char*)"cvar", SWIG_globals());
   SWIG_addvarlink(SWIG_globals(),(char*)"CONSTANT_ID",Swig_var_CONSTANT_ID_get, Swig_var_CONSTANT_ID_set);
 #if PY_VERSION_HEX >= 0x03000000

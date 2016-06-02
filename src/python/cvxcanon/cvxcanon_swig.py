@@ -1222,12 +1222,23 @@ class ConstAttributes(ExpressionAttributes):
     def set_dense_data(self, matrix):
         return _cvxcanon_swig.ConstAttributes_set_dense_data(self, matrix)
 
+    def set_sparse_data(self, data, row_idxs, col_idxs, rows, cols):
+        return _cvxcanon_swig.ConstAttributes_set_sparse_data(self, data, row_idxs, col_idxs, rows, cols)
+
     def size(self):
         return _cvxcanon_swig.ConstAttributes_size(self)
+    __swig_setmethods__["sparse"] = _cvxcanon_swig.ConstAttributes_sparse_set
+    __swig_getmethods__["sparse"] = _cvxcanon_swig.ConstAttributes_sparse_get
+    if _newclass:
+        sparse = _swig_property(_cvxcanon_swig.ConstAttributes_sparse_get, _cvxcanon_swig.ConstAttributes_sparse_set)
     __swig_setmethods__["dense_data"] = _cvxcanon_swig.ConstAttributes_dense_data_set
     __swig_getmethods__["dense_data"] = _cvxcanon_swig.ConstAttributes_dense_data_get
     if _newclass:
         dense_data = _swig_property(_cvxcanon_swig.ConstAttributes_dense_data_get, _cvxcanon_swig.ConstAttributes_dense_data_set)
+    __swig_setmethods__["sparse_data"] = _cvxcanon_swig.ConstAttributes_sparse_data_set
+    __swig_getmethods__["sparse_data"] = _cvxcanon_swig.ConstAttributes_sparse_data_get
+    if _newclass:
+        sparse_data = _swig_property(_cvxcanon_swig.ConstAttributes_sparse_data_get, _cvxcanon_swig.ConstAttributes_sparse_data_set)
 
     def __init__(self):
         this = _cvxcanon_swig.new_ConstAttributes()
@@ -1250,6 +1261,8 @@ class VarAttributes(ExpressionAttributes):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, VarAttributes, name)
     __repr__ = _swig_repr
+    UNKNOWN = _cvxcanon_swig.VarAttributes_UNKNOWN
+    SEMIDEF_UPPER_TRI = _cvxcanon_swig.VarAttributes_SEMIDEF_UPPER_TRI
     __swig_setmethods__["id"] = _cvxcanon_swig.VarAttributes_id_set
     __swig_getmethods__["id"] = _cvxcanon_swig.VarAttributes_id_get
     if _newclass:
@@ -1258,6 +1271,10 @@ class VarAttributes(ExpressionAttributes):
     __swig_getmethods__["size"] = _cvxcanon_swig.VarAttributes_size_get
     if _newclass:
         size = _swig_property(_cvxcanon_swig.VarAttributes_size_get, _cvxcanon_swig.VarAttributes_size_set)
+    __swig_setmethods__["variable_type"] = _cvxcanon_swig.VarAttributes_variable_type_set
+    __swig_getmethods__["variable_type"] = _cvxcanon_swig.VarAttributes_variable_type_get
+    if _newclass:
+        variable_type = _swig_property(_cvxcanon_swig.VarAttributes_variable_type_get, _cvxcanon_swig.VarAttributes_variable_type_set)
 
     def __init__(self):
         this = _cvxcanon_swig.new_VarAttributes()

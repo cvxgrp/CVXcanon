@@ -1,6 +1,7 @@
 """Handles translating CVXPY expressions to CVXcanon expressions."""
 
 import numpy as np
+import scipy.sparse as sp
 
 from cvxcanon import cvxcanon_swig
 from cvxcanon.cvxcanon_swig import Expression, Problem
@@ -26,6 +27,7 @@ TYPE_MAP = {
     cvxpy.atoms.affine.diag.diag_vec: Expression.DIAG_VEC,
     cvxpy.atoms.affine.index.index: Expression.INDEX,
     cvxpy.atoms.affine.kron.kron: Expression.KRON,
+    cvxpy.atoms.affine.reshape.reshape: Expression.RESHAPE,
     cvxpy.atoms.affine.sum_entries.sum_entries: Expression.SUM_ENTRIES,
     cvxpy.atoms.affine.trace.trace: Expression.TRACE,
     cvxpy.atoms.affine.unary_operators.NegExpression: Expression.NEG,
@@ -56,6 +58,7 @@ TYPE_MAP = {
     cvxpy.expressions.constants.constant.Constant: Expression.CONST,
     cvxpy.expressions.constants.parameter.Parameter: Expression.PARAM,
     cvxpy.expressions.variables.variable.Variable: Expression.VAR,
+    cvxpy.expressions.variables.semidef_var.SemidefUpperTri: Expression.VAR,
 }
 
 def get_var_attributes(variable):
@@ -65,10 +68,23 @@ def get_var_attributes(variable):
     attr.size.dims.push_back(variable.size[1])
     return attr
 
+def get_semidef_upper_tri_attributes(variable):
+    attr = get_var_attributes(variable)
+    attr.variable_type = cvxcanon_swig.VarAttributes.SEMIDEF_UPPER_TRI
+    return attr
+
 def get_const_attributes(constant):
-    # TODO(mwytock): Handle sparse data as well
     attr = cvxcanon_swig.ConstAttributes()
-    attr.set_dense_data(np.asfortranarray(np.atleast_2d(constant.value)))
+    if sp.issparse(constant.value):
+        coo = sp.coo_matrix(constant.value)
+        attr.set_sparse_data(
+            coo.data,
+            coo.row.astype(float),
+            coo.col.astype(float),
+            coo.shape[0],
+            coo.shape[1])
+    else:
+        attr.set_dense_data(np.asfortranarray(np.atleast_2d(constant.value)))
     return attr
 
 def get_pnorm_attributes(pnorm):
@@ -103,6 +119,7 @@ ATTRIBUTE_MAP = {
     cvxpy.atoms.power: get_power_attributes,
     cvxpy.expressions.constants.constant.Constant: get_const_attributes,
     cvxpy.expressions.variables.variable.Variable: get_var_attributes,
+    cvxpy.expressions.variables.semidef_var.SemidefUpperTri: get_semidef_upper_tri_attributes,
 }
 
 def convert_expression(cvxpy_expr):

@@ -160,15 +160,27 @@ class Size {
 
 class ConstAttributes : public ExpressionAttributes {
  public:
-  // TODO(mwytock): Allow for sparse constants as well
   void set_dense_data(double* matrix, int rows, int cols);
+  void set_sparse_data(double* data, int data_len,
+                       double* row_idxs, int rows_len,
+                       double* col_idxs, int cols_len,
+                       int rows, int cols);
   Size size() const;
+
+  bool sparse;
   DenseMatrix dense_data;
+  SparseMatrix sparse_data;
 };
 
+
 struct VarAttributes : public ExpressionAttributes {
+  enum Type {
+    UNKNOWN,
+    SEMIDEF_UPPER_TRI,
+  };
   int id;
   Size size;
+  Type variable_type;
 };
 
 struct PNormAttributes : public ExpressionAttributes {
