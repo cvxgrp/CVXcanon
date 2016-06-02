@@ -1153,6 +1153,8 @@ class Expression(_object):
     __del__ = lambda self: None
 Expression_swigregister = _cvxcanon_swig.Expression_swigregister
 Expression_swigregister(Expression)
+cvar = _cvxcanon_swig.cvar
+kNoAxis = cvar.kNoAxis
 
 class Problem(_object):
     __swig_setmethods__ = {}
@@ -1301,6 +1303,10 @@ class PNormAttributes(ExpressionAttributes):
     __swig_getmethods__["p"] = _cvxcanon_swig.PNormAttributes_p_get
     if _newclass:
         p = _swig_property(_cvxcanon_swig.PNormAttributes_p_get, _cvxcanon_swig.PNormAttributes_p_set)
+    __swig_setmethods__["axis"] = _cvxcanon_swig.PNormAttributes_axis_set
+    __swig_getmethods__["axis"] = _cvxcanon_swig.PNormAttributes_axis_get
+    if _newclass:
+        axis = _swig_property(_cvxcanon_swig.PNormAttributes_axis_get, _cvxcanon_swig.PNormAttributes_axis_set)
 
     def __init__(self):
         this = _cvxcanon_swig.new_PNormAttributes()
@@ -1573,7 +1579,6 @@ class LinOp(_object):
     __del__ = lambda self: None
 LinOp_swigregister = _cvxcanon_swig.LinOp_swigregister
 LinOp_swigregister(LinOp)
-cvar = _cvxcanon_swig.cvar
 CONSTANT_ID = cvar.CONSTANT_ID
 
 class ProblemData(_object):

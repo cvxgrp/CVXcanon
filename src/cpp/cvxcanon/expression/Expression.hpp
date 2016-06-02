@@ -13,6 +13,8 @@ struct ExpressionAttributes {
   virtual ~ExpressionAttributes() {}
 };
 
+const int kNoAxis = -1;
+
 // A single node in the abstract syntax tree which includes a type, children and
 // an optional pointer to additional attributes.
 //
@@ -185,6 +187,7 @@ struct VarAttributes : public ExpressionAttributes {
 
 struct PNormAttributes : public ExpressionAttributes {
   double p;
+  int axis;
 };
 
 struct PowerAttributes : public ExpressionAttributes {

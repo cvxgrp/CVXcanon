@@ -129,6 +129,7 @@ def get_const_attributes(constant):
 def get_pnorm_attributes(pnorm):
     attr = cvxcanon_swig.PNormAttributes()
     attr.p = float(pnorm.p)
+    attr.axis = cvxcanon_swig.kNoAxis if pnorm.axis is None else pnorm.axis
     return attr
 
 def get_power_attributes(power):

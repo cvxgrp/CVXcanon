@@ -21958,6 +21958,20 @@ SWIGINTERN PyObject *ExpressionAttributes_swigregister(PyObject *SWIGUNUSEDPARM(
   return SWIG_Py_Void();
 }
 
+SWIGINTERN int Swig_var_kNoAxis_set(PyObject *) {
+  SWIG_Error(SWIG_AttributeError,"Variable kNoAxis is read-only.");
+  return 1;
+}
+
+
+SWIGINTERN PyObject *Swig_var_kNoAxis_get(void) {
+  PyObject *pyobj = 0;
+  
+  pyobj = SWIG_From_int(static_cast< int >(kNoAxis));
+  return pyobj;
+}
+
+
 SWIGINTERN PyObject *_wrap_Expression_type(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   Expression *arg1 = (Expression *) 0 ;
@@ -23293,6 +23307,58 @@ SWIGINTERN PyObject *_wrap_PNormAttributes_p_get(PyObject *SWIGUNUSEDPARM(self),
   arg1 = reinterpret_cast< PNormAttributes * >(argp1);
   result = (double) ((arg1)->p);
   resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_PNormAttributes_axis_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PNormAttributes *arg1 = (PNormAttributes *) 0 ;
+  int arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int val2 ;
+  int ecode2 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OO:PNormAttributes_axis_set",&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_PNormAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PNormAttributes_axis_set" "', argument " "1"" of type '" "PNormAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< PNormAttributes * >(argp1);
+  ecode2 = SWIG_AsVal_int(obj1, &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "PNormAttributes_axis_set" "', argument " "2"" of type '" "int""'");
+  } 
+  arg2 = static_cast< int >(val2);
+  if (arg1) (arg1)->axis = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_PNormAttributes_axis_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  PNormAttributes *arg1 = (PNormAttributes *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:PNormAttributes_axis_get",&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_PNormAttributes, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "PNormAttributes_axis_get" "', argument " "1"" of type '" "PNormAttributes *""'"); 
+  }
+  arg1 = reinterpret_cast< PNormAttributes * >(argp1);
+  result = (int) ((arg1)->axis);
+  resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
 fail:
   return NULL;
@@ -26065,6 +26131,8 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"VarAttributes_swigregister", VarAttributes_swigregister, METH_VARARGS, NULL},
 	 { (char *)"PNormAttributes_p_set", _wrap_PNormAttributes_p_set, METH_VARARGS, NULL},
 	 { (char *)"PNormAttributes_p_get", _wrap_PNormAttributes_p_get, METH_VARARGS, NULL},
+	 { (char *)"PNormAttributes_axis_set", _wrap_PNormAttributes_axis_set, METH_VARARGS, NULL},
+	 { (char *)"PNormAttributes_axis_get", _wrap_PNormAttributes_axis_get, METH_VARARGS, NULL},
 	 { (char *)"new_PNormAttributes", _wrap_new_PNormAttributes, METH_VARARGS, NULL},
 	 { (char *)"delete_PNormAttributes", _wrap_delete_PNormAttributes, METH_VARARGS, NULL},
 	 { (char *)"PNormAttributes_swigregister", PNormAttributes_swigregister, METH_VARARGS, NULL},
@@ -27129,6 +27197,8 @@ SWIG_init(void) {
   import_array();
   init();
   
+  PyDict_SetItemString(md,(char*)"cvar", SWIG_globals());
+  SWIG_addvarlink(SWIG_globals(),(char*)"kNoAxis",Swig_var_kNoAxis_get, Swig_var_kNoAxis_set);
   SWIG_Python_SetConstant(d, "Expression_ADD",SWIG_From_int(static_cast< int >(Expression::ADD)));
   SWIG_Python_SetConstant(d, "Expression_DIAG_MAT",SWIG_From_int(static_cast< int >(Expression::DIAG_MAT)));
   SWIG_Python_SetConstant(d, "Expression_DIAG_VEC",SWIG_From_int(static_cast< int >(Expression::DIAG_VEC)));
@@ -27175,7 +27245,6 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, "Problem_MINIMIZE",SWIG_From_int(static_cast< int >(Problem::MINIMIZE)));
   SWIG_Python_SetConstant(d, "VarAttributes_UNKNOWN",SWIG_From_int(static_cast< int >(VarAttributes::UNKNOWN)));
   SWIG_Python_SetConstant(d, "VarAttributes_SEMIDEF_UPPER_TRI",SWIG_From_int(static_cast< int >(VarAttributes::SEMIDEF_UPPER_TRI)));
-  PyDict_SetItemString(md,(char*)"cvar", SWIG_globals());
   SWIG_addvarlink(SWIG_globals(),(char*)"CONSTANT_ID",Swig_var_CONSTANT_ID_get, Swig_var_CONSTANT_ID_set);
 #if PY_VERSION_HEX >= 0x03000000
   return m;

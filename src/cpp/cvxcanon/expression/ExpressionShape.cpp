@@ -17,14 +17,25 @@ Size get_add_shape(const Expression& expr) {
   return expr_size;
 }
 
+Size get_axis_shape(const Expression& expr, int axis) {
+  const Expression& x = expr.arg(0);
+  if (axis == kNoAxis) {
+    return {{1, 1}};
+  } else if (axis == 0) {
+    return {{1, size(x).dims[1]}};
+  } else if (axis == 1) {
+    return {{size(x).dims[0], 1}};
+  }
+  LOG(FATAL) << "invalid axis: " << axis;
+}
+
 Size get_sum_entries_shape(const Expression& expr) {
   // TODO(mwytock): axis parameter
   return {{1, 1}};
 }
 
 Size get_p_norm_shape(const Expression& expr) {
-  // TODO(mwytock): axis parameter
-  return {{1, 1}};
+  return get_axis_shape(expr, expr.attr<PNormAttributes>().axis);
 }
 
 Size get_quad_over_lin_shape(const Expression& expr) {

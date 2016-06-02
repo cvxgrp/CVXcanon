@@ -42,12 +42,22 @@ Expression transform_p_norm(
     const Expression& expr,
     std::vector<Expression>* constraints) {
   const double p = expr.attr<PNormAttributes>().p;
+  const int axis = expr.attr<PNormAttributes>().axis;
   const Expression& x = expr.arg(0);
   if (p == 1) {
     return sum_entries(transform_abs(abs(x), constraints));
   } else if (p == 2) {
     Expression t = epi_var(expr, "p_norm_2");
-    constraints->push_back(soc(reshape(x, 1, dim(x)), t));
+    if (axis == kNoAxis) {
+      constraints->push_back(soc(reshape(x, 1, dim(x)), t));
+    } else if (axis == 0) {
+      constraints->push_back(soc(transpose(x), transpose(t)));
+    } else if (axis == 1) {
+      constraints->push_back(soc(x, t));
+    } else {
+      LOG(FATAL) << "invalid axis " << axis;
+    }
+
     return t;
   }
 
