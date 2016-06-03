@@ -46,6 +46,10 @@ Expression constant(DenseMatrix value) {
   return {Expression::CONST, {}, attr};
 }
 
+Expression diag_vec(Expression x) {
+  return {Expression::DIAG_VEC, {x}};
+}
+
 Expression quad_over_lin(Expression x, Expression y) {
   return {Expression::QUAD_OVER_LIN, {x, y}};
 }
@@ -154,4 +158,22 @@ bool is_constraint(const Expression& expr) {
 
 bool is_leaf(const Expression& expr) {
   return is_type(kLeafTypes, expr);
+}
+
+Expression promote_add(Expression x, const Size& size) {
+  const int m = size.dims[0];
+  const int n = size.dims[1];
+  if (dim(x) == 1 && (m != 1 || n != 1)) {
+    DenseMatrix ones = DenseMatrix::Constant(m, n, 1);
+    return mul(x, constant(ones));
+  }
+  return x;
+}
+
+Expression promote_multiply(Expression x, int k) {
+  if (dim(x) == 1 && k != 1) {
+    DenseMatrix ones = DenseMatrix::Constant(k, 1, 1);
+    return diag_vec(mul(constant(ones), x));
+  }
+  return x;
 }

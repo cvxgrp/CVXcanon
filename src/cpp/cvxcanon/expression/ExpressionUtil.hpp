@@ -15,6 +15,7 @@ Expression abs(Expression x);
 Expression add(Expression x, Expression y);
 Expression constant(DenseMatrix value);
 Expression constant(double value);
+Expression diag_vec(Expression x);
 Expression hstack(std::vector<Expression> args);
 Expression mul(Expression x, Expression y);
 Expression neg(Expression x);
@@ -26,6 +27,11 @@ Expression sum_entries(Expression x, int axis = kNoAxis);
 Expression transpose(Expression x);
 Expression var(int m, int n);
 Expression vstack(std::vector<Expression> args);
+
+// Return expressions that promote a scalar for use in either matrix addition or
+// multiplication. If no promotion is necessary, than these return the input.
+Expression promote_add(Expression x, const Size& size);  // alpha*11^T
+Expression promote_multiply(Expression x, int n);        // alpha*I
 
 // Syntatic sugar for constraints
 Expression eq(Expression x, Expression y);  // x == y

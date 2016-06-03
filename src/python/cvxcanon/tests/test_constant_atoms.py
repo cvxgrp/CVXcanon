@@ -23,6 +23,7 @@ def check_solver_cvxcanon(prob, solver_name):
 
     # CVXcanon solver checks (e.g. do we have all transforms implemented)
     if not cvxpy_solver.validate(prob, solver=solver_name):
+        print("CVXcanon missing transforms")
         return False
 
     return True
@@ -36,11 +37,11 @@ def run_atom(atom, problem, obj_val, solver):
         tolerance = SOLVER_TO_TOL[solver]
 
         problem_data = problem.get_problem_data(SCS)
-        print problem_data["dims"]
-        print "A:"
-        print problem_data["A"].todense()
-        print "b:", problem_data["b"]
-        print "c:", problem_data["c"]
+        print(problem_data["dims"])
+        print("A:")
+        print(problem_data["A"].todense())
+        print("b:", problem_data["b"])
+        print("c:", problem_data["c"])
 
         try:
             status, result = cvxpy_solver.solve(problem, solver=solver)

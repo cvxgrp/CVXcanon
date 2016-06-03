@@ -118,13 +118,122 @@ Expression transform_exp(
   return t;
 }
 
+Expression transform_entr(
+    const Expression& expr,
+    std::vector<Expression>* constraints) {
+  LOG(FATAL) << "not implemented";
+}
+
+Expression transform_kl_div(
+    const Expression& expr,
+    std::vector<Expression>* constraints) {
+  Expression x = promote_add(expr.arg(0), size(expr));
+  Expression y = promote_add(expr.arg(1), size(expr));
+  Expression t = epi_var(expr, "kl_div");
+  constraints->push_back(exp_cone(t, x, y));
+  constraints->push_back(leq(constant(0), y));
+  // -t - x  + y
+  return add(y, neg(add(x, t)));
+}
+
+Expression transform_log(
+    const Expression& expr,
+    std::vector<Expression>* constraints) {
+  LOG(FATAL) << "not implemented";
+}
+
+Expression transform_log1p(
+    const Expression& expr,
+    std::vector<Expression>* constraints) {
+  LOG(FATAL) << "not implemented";
+}
+
+Expression transform_max_elemwise(
+    const Expression& expr,
+    std::vector<Expression>* constraints) {
+  LOG(FATAL) << "not implemented";
+}
+
+Expression transform_geo_mean(
+    const Expression& expr,
+    std::vector<Expression>* constraints) {
+  LOG(FATAL) << "not implemented";
+}
+
+Expression transform_lambda_max(
+    const Expression& expr,
+    std::vector<Expression>* constraints) {
+  LOG(FATAL) << "not implemented";
+}
+
+Expression transform_log_det(
+    const Expression& expr,
+    std::vector<Expression>* constraints) {
+  LOG(FATAL) << "not implemented";
+}
+
+Expression transform_log_sum_exp(
+    const Expression& expr,
+    std::vector<Expression>* constraints) {
+  LOG(FATAL) << "not implemented";
+}
+
+Expression transform_matrix_frac(
+    const Expression& expr,
+    std::vector<Expression>* constraints) {
+  LOG(FATAL) << "not implemented";
+}
+
+Expression transform_max_entries(
+    const Expression& expr,
+    std::vector<Expression>* constraints) {
+  LOG(FATAL) << "not implemented";
+}
+
+Expression transform_norm_nuc(
+    const Expression& expr,
+    std::vector<Expression>* constraints) {
+  LOG(FATAL) << "not implemented";
+}
+
+Expression transform_sigma_max(
+    const Expression& expr,
+    std::vector<Expression>* constraints) {
+  LOG(FATAL) << "not implemented";
+}
+
+
+Expression transform_sum_largest(
+    const Expression& expr,
+    std::vector<Expression>* constraints) {
+  LOG(FATAL) << "not implemented";
+}
+
+
 std::unordered_map<int, TransformFunction> kTransforms = {
+  // Elementwise functions
   {Expression::ABS, &transform_abs},
+  {Expression::ENTR, &transform_entr},
   {Expression::EXP, &transform_exp},
   {Expression::HUBER, &transform_huber},
+  {Expression::KL_DIV, &transform_kl_div},
+  {Expression::LOG, &transform_log},
+  {Expression::LOG1P, &transform_log1p},
+  {Expression::MAX_ELEMWISE, &transform_max_elemwise},
   {Expression::POWER, &transform_power},
+
+  // General functions
+  {Expression::GEO_MEAN, &transform_geo_mean},
+  {Expression::LAMBDA_MAX, &transform_lambda_max},
+  {Expression::LOG_DET, &transform_log_det},
+  {Expression::LOG_SUM_EXP, &transform_log_sum_exp},
+  {Expression::MATRIX_FRAC, &transform_matrix_frac},
+  {Expression::MAX_ENTRIES, &transform_max_entries},
+  {Expression::NORM_NUC, &transform_norm_nuc},
   {Expression::P_NORM, &transform_p_norm},
   {Expression::QUAD_OVER_LIN, &transform_quad_over_lin},
+  {Expression::SIGMA_MAX, &transform_sigma_max},
+  {Expression::SUM_LARGEST, &transform_sum_largest},
 };
 
 Expression transform_expression(
