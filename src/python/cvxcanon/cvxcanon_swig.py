@@ -1124,9 +1124,10 @@ class Expression(_object):
     SIGMA_MAX = _cvxcanon_swig.Expression_SIGMA_MAX
     SUM_LARGEST = _cvxcanon_swig.Expression_SUM_LARGEST
     EQ = _cvxcanon_swig.Expression_EQ
-    LEQ = _cvxcanon_swig.Expression_LEQ
-    SOC = _cvxcanon_swig.Expression_SOC
     EXP_CONE = _cvxcanon_swig.Expression_EXP_CONE
+    LEQ = _cvxcanon_swig.Expression_LEQ
+    SDP = _cvxcanon_swig.Expression_SDP
+    SOC = _cvxcanon_swig.Expression_SOC
     CONST = _cvxcanon_swig.Expression_CONST
     PARAM = _cvxcanon_swig.Expression_PARAM
     VAR = _cvxcanon_swig.Expression_VAR
@@ -1478,6 +1479,84 @@ class SumEntriesAttributes(ExpressionAttributes):
     __del__ = lambda self: None
 SumEntriesAttributes_swigregister = _cvxcanon_swig.SumEntriesAttributes_swigregister
 SumEntriesAttributes_swigregister(SumEntriesAttributes)
+
+class MaxEntriesAttributes(ExpressionAttributes):
+    __swig_setmethods__ = {}
+    for _s in [ExpressionAttributes]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, MaxEntriesAttributes, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ExpressionAttributes]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, MaxEntriesAttributes, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["axis"] = _cvxcanon_swig.MaxEntriesAttributes_axis_set
+    __swig_getmethods__["axis"] = _cvxcanon_swig.MaxEntriesAttributes_axis_get
+    if _newclass:
+        axis = _swig_property(_cvxcanon_swig.MaxEntriesAttributes_axis_get, _cvxcanon_swig.MaxEntriesAttributes_axis_set)
+
+    def __init__(self):
+        this = _cvxcanon_swig.new_MaxEntriesAttributes()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _cvxcanon_swig.delete_MaxEntriesAttributes
+    __del__ = lambda self: None
+MaxEntriesAttributes_swigregister = _cvxcanon_swig.MaxEntriesAttributes_swigregister
+MaxEntriesAttributes_swigregister(MaxEntriesAttributes)
+
+class SumLargestAttributes(ExpressionAttributes):
+    __swig_setmethods__ = {}
+    for _s in [ExpressionAttributes]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, SumLargestAttributes, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ExpressionAttributes]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, SumLargestAttributes, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["k"] = _cvxcanon_swig.SumLargestAttributes_k_set
+    __swig_getmethods__["k"] = _cvxcanon_swig.SumLargestAttributes_k_get
+    if _newclass:
+        k = _swig_property(_cvxcanon_swig.SumLargestAttributes_k_get, _cvxcanon_swig.SumLargestAttributes_k_set)
+
+    def __init__(self):
+        this = _cvxcanon_swig.new_SumLargestAttributes()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _cvxcanon_swig.delete_SumLargestAttributes
+    __del__ = lambda self: None
+SumLargestAttributes_swigregister = _cvxcanon_swig.SumLargestAttributes_swigregister
+SumLargestAttributes_swigregister(SumLargestAttributes)
+
+class LogSumExpAttributes(ExpressionAttributes):
+    __swig_setmethods__ = {}
+    for _s in [ExpressionAttributes]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, LogSumExpAttributes, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ExpressionAttributes]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, LogSumExpAttributes, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["axis"] = _cvxcanon_swig.LogSumExpAttributes_axis_set
+    __swig_getmethods__["axis"] = _cvxcanon_swig.LogSumExpAttributes_axis_get
+    if _newclass:
+        axis = _swig_property(_cvxcanon_swig.LogSumExpAttributes_axis_get, _cvxcanon_swig.LogSumExpAttributes_axis_set)
+
+    def __init__(self):
+        this = _cvxcanon_swig.new_LogSumExpAttributes()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _cvxcanon_swig.delete_LogSumExpAttributes
+    __del__ = lambda self: None
+LogSumExpAttributes_swigregister = _cvxcanon_swig.LogSumExpAttributes_swigregister
+LogSumExpAttributes_swigregister(LogSumExpAttributes)
 
 
 _cvxcanon_swig.VARIABLE_swigconstant(_cvxcanon_swig)

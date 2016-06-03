@@ -33,6 +33,14 @@ Expression log(Expression x) {
   return {Expression::LOG, {x}};
 }
 
+Expression exp(Expression x) {
+  return {Expression::EXP, {x}};
+}
+
+Expression upper_tri(Expression x) {
+  return {Expression::UPPER_TRI, {x}};
+}
+
 Expression var(int m, int n, int var_id) {
   auto attr = std::make_shared<VarAttributes>();
   attr->id = var_id;
@@ -52,6 +60,14 @@ Expression constant(DenseMatrix value) {
 
 Expression diag_vec(Expression x) {
   return {Expression::DIAG_VEC, {x}};
+}
+
+Expression diag_mat(Expression A) {
+  return {Expression::DIAG_MAT, {A}};
+}
+
+Expression trace(Expression A) {
+  return {Expression::TRACE, {A}};
 }
 
 Expression quad_over_lin(Expression x, Expression y) {
@@ -90,6 +106,14 @@ Expression sum_entries(Expression x, int axis) {
   return {Expression::SUM_ENTRIES, {x}, attr};
 }
 
+Expression index(
+    Expression x, int start_i, int stop_i, int start_j, int stop_j) {
+  auto attr = std::make_shared<IndexAttributes>();
+  attr->keys.push_back({start_i, stop_i, 1});
+  attr->keys.push_back({start_j, stop_j, 1});
+  return {Expression::INDEX, {x}, attr};
+}
+
 Expression eq(Expression x, Expression y) {
   return {Expression::EQ, {x, y}};
 }
@@ -106,12 +130,20 @@ Expression exp_cone(Expression x, Expression y, Expression z) {
   return {Expression::EXP_CONE, {x, y, z}};
 }
 
+Expression sdp(Expression x) {
+  return {Expression::SDP, {x}};
+}
+
 Expression epi_var(const Expression& x, const std::string& name) {
-  Size size_x = size(x);
+  return epi_var_size(x, name, size(x));
+}
+
+Expression epi_var_size(
+    const Expression& x, const std::string& name, Size size) {
   int var_id = rand();  // NOLINT(runtime/threadsafe_fn)
   VLOG(2) << "epi_var " << var_id << ", "
-          << size_x.dims[0] << " x " << size_x.dims[1];
-  return var(size_x.dims[0], size_x.dims[1], var_id);
+          << size.dims[0] << " x " << size.dims[1];
+  return var(size.dims[0], size.dims[1], var_id);
 }
 
 bool is_scalar(const Size& size) {

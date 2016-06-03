@@ -57,9 +57,10 @@ std::unordered_map<int, std::string> kExpressionNames = {
 
   // Constraints
   {Expression::EQ, "eq"},
-  {Expression::LEQ, "leq"},
-  {Expression::SOC, "soc"},
   {Expression::EXP_CONE, "exp_cone"},
+  {Expression::LEQ, "leq"},
+  {Expression::SDP, "sdp"},
+  {Expression::SOC, "soc"},
 
   // Leaf nodes
   {Expression::CONST, "const"},

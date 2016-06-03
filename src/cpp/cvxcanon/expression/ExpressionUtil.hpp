@@ -16,7 +16,11 @@ Expression add(Expression x, Expression y);
 Expression constant(DenseMatrix value);
 Expression constant(double value);
 Expression diag_vec(Expression x);
+Expression diag_mat(Expression A);
+Expression exp(Expression x);
 Expression hstack(std::vector<Expression> args);
+Expression index(
+    Expression x, int start_i, int stop_i, int start_j, int stop_j);
 Expression log(Expression x);
 Expression mul(Expression x, Expression y);
 Expression neg(Expression x);
@@ -25,7 +29,9 @@ Expression power(Expression x, double p);
 Expression quad_over_lin(Expression x, Expression y);
 Expression reshape(Expression x, int m, int n);
 Expression sum_entries(Expression x, int axis = kNoAxis);
+Expression trace(Expression x);
 Expression transpose(Expression x);
+Expression upper_tri(Expression x);
 Expression var(int m, int n);
 Expression vstack(std::vector<Expression> args);
 
@@ -50,9 +56,11 @@ Expression exp_cone(Expression x, Expression y, Expression z);
 // X >> 0
 Expression sdp(Expression X);
 
-// Construct a new VAR expression of the same size as f, intended to be used in
-// canonicalization when adding epigraph constraints.
+// Construct a new VAR expression of the same size as f or specified size; used
+// in canonicalization when adding epigraph constraints.
 Expression epi_var(const Expression& f, const std::string& name);
+Expression epi_var_size(
+    const Expression& f, const std::string& name, Size size);
 
 // Returns true if size represents a scalar, i.e. all dimensinos are 1
 bool is_scalar(const Size& size);

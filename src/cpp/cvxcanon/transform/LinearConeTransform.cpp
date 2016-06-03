@@ -15,6 +15,23 @@ typedef Expression(*TransformFunction)(
     const Expression& expr,
     std::vector<Expression>* constraints);
 
+Expression promote_add_axis(
+    const Expression& t,
+    const Size& size_x,
+    int axis) {
+  if (axis == kNoAxis) {
+    return promote_add(t, size_x);
+  } else if (axis == 0) {
+    Expression ones = constant(ones_matrix(size_x.dims[0], 1));
+    return mul(ones, t);
+  } else if (axis == 1) {
+    Expression ones = constant(ones_matrix(1, size_x.dims[1]));
+    return mul(t, ones);
+  } else {
+    LOG(FATAL) << "invalid axis " << axis;
+  }
+}
+
 Expression transform_abs(
     const Expression& expr,
     std::vector<Expression>* constraints) {
@@ -165,9 +182,8 @@ Expression transform_max_elemwise(
     const Expression& expr,
     std::vector<Expression>* constraints) {
   Expression t = epi_var(expr, "max_elemwise");
-  for (const Expression& x : expr.args()) {
-    constraints->append(leq(promote_add(x, size(expr)), t));
-  }
+  for (const Expression& x : expr.args())
+    constraints->push_back(leq(promote_add(x, size(expr)), t));
   return t;
 }
 
@@ -183,7 +199,7 @@ Expression transform_lambda_max(
   const Expression& A = expr.arg(0);
   const int n = size(A).dims[0];
   Expression t = epi_var(expr, "lambda_max");
-  Expression prom_t = promote_add(t, {n, 1});
+  Expression prom_t = promote_add(t, {{n, 1}});
   // I*t - A
   constraints->push_back(sdp(add(diag_vec(prom_t), neg(A))));
   return t;
@@ -228,7 +244,7 @@ Expression transform_log_sum_exp(
   const Expression& x = expr.arg(0);
   const int axis = expr.attr<LogSumExpAttributes>().axis;
   Expression t = epi_var(expr, "log_sum_exp");
-  Expression x_minus_t = add(x, neg(promote_add_axis(t, axis)));
+  Expression x_minus_t = add(x, neg(promote_add_axis(t, size(x), axis)));
   Expression exp_x_minus_t = transform_exp(exp(x_minus_t), constraints);
   constraints->push_back(leq(sum_entries(exp_x_minus_t, axis), constant(1)));
   return t;
@@ -257,26 +273,13 @@ Expression transform_matrix_frac(
   return trace(T);
 }
 
-Expression promote_add_axis(const Expression& x, int axis) {
-  if (axis == kNoAxis) {
-    return promote_add(t, size(x));
-  } else if (axis == 0) {
-    Expression ones = constant(ones_matrix(size(x).dims[0], 1));
-    return mul(ones, t);
-  } else if (axis == 1) {
-    Expression ones = constant(ones_matrix(1, size(x).dims[1]));
-    return mul(t, ones);
-  } else {
-    LOG(FATAL) << "invalid axis " << axis;
-}
-
 Expression transform_max_entries(
     const Expression& expr,
     std::vector<Expression>* constraints) {
   const int axis = expr.attr<MaxEntriesAttributes>().axis;
   const Expression& x = expr.arg(0);
   Expression t = epi_var(expr, "max_entries");
-  Expression prom_t = promote_add_axis(t, axis);
+  Expression prom_t = promote_add_axis(t, size(x), axis);
   constraints->push_back(leq(x, prom_t));
   return t;
 }
@@ -307,7 +310,7 @@ Expression transform_sigma_max(
   const int m = size(A).dims[1];
 
   // Create a matrix with Schur complement I*t - (1/t)*A.T*A.
-  Expression X = epi_var_size(expr, "sigma_max_X", {{n+m, n+}});
+  Expression X = epi_var_size(expr, "sigma_max_X", {{n+m, n+m}});
   Expression t = epi_var(expr, "sigma_max");
 
   // Fix X using the fact that A must be affine by the DCP rules.
@@ -334,7 +337,7 @@ Expression transform_sum_largest(
   Expression t = epi_var_size(expr, "sum_largest_t", size(x));
 
   constraints->push_back(leq(x, add(t, q)));
-  constraints->push_back(leq(constrant(0), t));
+  constraints->push_back(leq(constant(0), t));
   return add(sum_entries(t), mul(constant(k), q));
 }
 

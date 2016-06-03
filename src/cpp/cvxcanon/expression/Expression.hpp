@@ -67,9 +67,10 @@ class Expression {
 
     // Constraints
     EQ,
-    LEQ,
-    SOC,
     EXP_CONE,
+    LEQ,
+    SDP,
+    SOC,
 
     // Leaf nodes
     CONST,
