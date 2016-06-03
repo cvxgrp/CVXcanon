@@ -76,7 +76,7 @@ void SplittingConeSolver::build_scs_problem(
       // SCS expects the matrix dimension for each SDP constraint, so we invert
       // n*(n+1)/2 to get the matrix dimension from the number of constraints.
       for (int i = 0; i < cone_.ssize; i++)
-        cone_s_[i] = lround(sqrt(1/4. + 2*cone_s_[i]) - 1/2.);
+        cone_s_[i] = symmetric_single_dim(cone_s_[i]);
     }
     build_scs_constraint(
         A, b, constr_map[ConeConstraint::EXPONENTIAL], &cone_.ep, nullptr);

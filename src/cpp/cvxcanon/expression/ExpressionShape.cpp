@@ -70,7 +70,11 @@ Size get_mul_shape(const Expression& expr) {
 }
 
 Size get_const_shape(const Expression& expr) {
-  return expr.attr<ConstAttributes>().size();
+  return expr.attr<ConstAttributes>().constant.size();
+}
+
+Size get_param_shape(const Expression& expr) {
+  return expr.attr<ParamAttributes>().size;
 }
 
 Size get_var_shape(const Expression& expr) {
@@ -189,6 +193,7 @@ std::unordered_map<int, ShapeFunction> kShapeFunctions = {
 
   // Leaf nodes
   {Expression::CONST, &get_const_shape},
+  {Expression::PARAM, &get_param_shape},
   {Expression::VAR, &get_var_shape},
 };
 

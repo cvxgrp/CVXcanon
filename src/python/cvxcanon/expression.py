@@ -59,6 +59,8 @@ TYPE_MAP = {
     cvxpy.constraints.leq_constraint.LeqConstraint: Expression.LEQ,
     cvxpy.expressions.constants.constant.Constant: Expression.CONST,
     cvxpy.expressions.constants.parameter.Parameter: Expression.PARAM,
+    # NOTE(mwytock): This maps all variables to a VAR expression, constraints
+    # will be added explicitly according to VARIABLE_CONSTRAINT_MAP, below
     cvxpy.expressions.variables.variable.Variable: Expression.VAR,
     cvxpy.expressions.variables.semidef_var.SemidefUpperTri: Expression.VAR,
 }
@@ -100,6 +102,20 @@ def get_slice(sl, arg_dim):
 
     return slice_swig
 
+def get_constant(value):
+    constant = cvxcanon_swig.Constant()
+    if sp.issparse(value):
+        coo = sp.coo_matrix(value)
+        constant.set_sparse_data(
+            coo.data,
+            coo.row.astype(float),
+            coo.col.astype(float),
+            coo.shape[0],
+            coo.shape[1])
+    else:
+        constant.set_dense_data(np.asfortranarray(np.atleast_2d(value)))
+    return constant
+
 def get_axis(atom):
     return cvxcanon_swig.kNoAxis if atom.axis is None else atom.axis
 
@@ -117,16 +133,7 @@ def get_semidef_upper_tri_attributes(variable):
 
 def get_const_attributes(constant):
     attr = cvxcanon_swig.ConstAttributes()
-    if sp.issparse(constant.value):
-        coo = sp.coo_matrix(constant.value)
-        attr.set_sparse_data(
-            coo.data,
-            coo.row.astype(float),
-            coo.col.astype(float),
-            coo.shape[0],
-            coo.shape[1])
-    else:
-        attr.set_dense_data(np.asfortranarray(np.atleast_2d(constant.value)))
+    attr.constant = get_constant(constant.value)
     return attr
 
 def get_pnorm_attributes(pnorm):
@@ -162,6 +169,14 @@ def get_reshape_attributes(reshape):
     attr.size.dims.push_back(reshape.cols)
     return attr
 
+def get_param_attributes(param):
+    attr = cvxcanon_swig.ParamAttributes()
+    attr.id = param.id
+    attr.size.dims.push_back(param.size[0])
+    attr.size.dims.push_back(param.size[1])
+    attr.constant = get_constant(param.value)
+    return attr
+
 ATTRIBUTE_MAP = {
     cvxpy.atoms.affine.index.index: get_index_attributes,
     cvxpy.atoms.affine.reshape.reshape: get_reshape_attributes,
@@ -170,7 +185,8 @@ ATTRIBUTE_MAP = {
     cvxpy.atoms.pnorm: get_pnorm_attributes,
     cvxpy.atoms.power: get_power_attributes,
     cvxpy.expressions.constants.constant.Constant: get_const_attributes,
-    cvxpy.expressions.variables.semidef_var.SemidefUpperTri: get_semidef_upper_tri_attributes,
+    cvxpy.expressions.constants.parameter.Parameter: get_param_attributes,
+    cvxpy.expressions.variables.semidef_var.SemidefUpperTri: get_var_attributes,
     cvxpy.expressions.variables.variable.Variable: get_var_attributes,
 }
 
@@ -185,10 +201,32 @@ def convert_expression(cvxpy_expr):
         ATTRIBUTE_MAP.get(t, lambda x: None)(cvxpy_expr))
     return expr
 
+
+# TODO(mwytock): Converting variable constraints in this fashion is a bit
+# cumbersome, it would be more convenient if constraint expressions were first
+# class citizens in CVXPY.
+def get_semidef_upper_tri_constraints(cvxpy_var):
+    args = cvxcanon_swig.ExpressionVector()
+    args.push_back(convert_expression(cvxpy_var))
+    yield cvxcanon_swig.Expression(Expression.SDP_VEC, args, None)
+
+VARIABLE_CONSTRAINT_MAP = {
+    cvxpy.expressions.variables.semidef_var.SemidefUpperTri: get_semidef_upper_tri_constraints,
+}
+
+def convert_variable_constraints(cvxpy_var):
+    t = type(cvxpy_var)
+    for constr in VARIABLE_CONSTRAINT_MAP.get(t, lambda x: [])(cvxpy_var):
+        yield constr
+
 def convert_problem(cvxpy_problem):
     problem = cvxcanon_swig.Problem()
     problem.sense = SENSE_MAP[type(cvxpy_problem.objective)]
     problem.objective = convert_expression(cvxpy_problem.objective.args[0])
     for cvxpy_constr in cvxpy_problem.constraints:
         problem.constraints.push_back(convert_expression(cvxpy_constr))
+    for cvxpy_var in cvxpy_problem.variables():
+        for constr in convert_variable_constraints(cvxpy_var):
+            problem.constraints.push_back(constr)
+
     return problem

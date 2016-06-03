@@ -367,15 +367,16 @@ CoeffMap get_coefficients(const Expression& expr) {
   VLOG(2) << "get_coefficients\n" << tree_format_expression(expr);
 
   CoeffMap coeffs;
-  if (expr.type() == Expression::CONST) {
-    // Special case for constant
-    SparseMatrix A;
-    if (expr.attr<ConstAttributes>().sparse) {
-      coeffs[kConstCoefficientId] = reshape(
-          expr.attr<ConstAttributes>().sparse_data, dim(expr), 1);
+  if (expr.type() == Expression::CONST || expr.type() == Expression::PARAM) {
+    // Special case for constants
+    const Constant& constant = (
+        expr.type() ==  Expression::CONST ?
+        expr.attr<ConstAttributes>().constant :
+        expr.attr<ParamAttributes>().constant);
+    if (constant.sparse) {
+      coeffs[kConstCoefficientId] = reshape(constant.sparse_data, dim(expr), 1);
     } else {
-      coeffs[kConstCoefficientId] = to_vector(
-          expr.attr<ConstAttributes>().dense_data).sparseView();
+      coeffs[kConstCoefficientId] = to_vector(constant.dense_data).sparseView();
     }
   } else if (expr.type() == Expression::VAR) {
     // Special case for variable

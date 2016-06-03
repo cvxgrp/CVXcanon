@@ -110,7 +110,8 @@ Expression constant(double value) {
 
 Expression constant(DenseMatrix value) {
   auto attr = std::make_shared<ConstAttributes>();
-  attr->dense_data = value;
+  attr->constant.dense_data = value;
+  attr->constant.sparse = false;
   return {Expression::CONST, {}, attr};
 }
 
@@ -155,6 +156,7 @@ std::unordered_set<int> kConstraintTypes = {
   Expression::EXP_CONE,
   Expression::LEQ,
   Expression::SDP,
+  Expression::SDP_VEC,
   Expression::SOC,
 };
 

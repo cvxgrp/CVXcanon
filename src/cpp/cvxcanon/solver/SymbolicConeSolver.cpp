@@ -26,10 +26,11 @@ class ConeProblemBuilder {
 
   // Specializations of add_constraint for each type of constraint expression
   void add_eq_constraint(const Expression& expr);
-  void add_leq_constraint(const Expression& expr);
-  void add_soc_constraint(const Expression& expr);
   void add_exp_cone_constraint(const Expression& expr);
+  void add_leq_constraint(const Expression& expr);
   void add_sdp_constraint(const Expression& expr);
+  void add_sdp_vec_constraint(const Expression& expr);
+  void add_soc_constraint(const Expression& expr);
 
   // Helper functions for building cone constraints, add the coefficients for
   // rows i, ... i+m to A, b matrices
@@ -159,7 +160,22 @@ SparseMatrix sdp_scaling_matrix(int n) {
   return sparse_matrix(n*(n+1)/2, n*n, coeffs);
 }
 
-// sdp(X)
+// Scales the off diagonal elements in a vector representing a symmetric matrix
+SparseMatrix sdp_vec_scaling_matrix(int n) {
+  std::vector<Triplet> coeffs;
+  int k = 0;
+  for (int j = 0; j < n; j++) {
+    for (int i = j; i < n; i++) {
+      coeffs.push_back(Triplet(k, k, i == j ? 1 : sqrt(2)));
+      k++;
+    }
+  }
+
+  const int y = n*(n+1)/2;
+  return sparse_matrix(y, y, coeffs);
+}
+
+// sdp(X) -> X in K_sdp
 void ConeProblemBuilder::add_sdp_constraint(const Expression& expr) {
   const Expression& X = expr.arg(0);
   const int n = size(X).dims[0];
@@ -170,12 +186,24 @@ void ConeProblemBuilder::add_sdp_constraint(const Expression& expr) {
   add_constraint_coefficients(coeff_map, 0, n*(n+1)/2);
 }
 
+// sdp_vec(x) -> full(x) in K_sdp
+void ConeProblemBuilder::add_sdp_vec_constraint(const Expression& expr) {
+  const Expression& x = expr.arg(0);
+  const int y = size(x).dims[0];
+
+  SparseMatrix F = sdp_vec_scaling_matrix(symmetric_single_dim(y));
+  CoeffMap coeff_map = get_coefficients(mul(constant(F), x));
+  add_constraint_cone(ConeConstraint::SEMIDEFINITE, y);
+  add_constraint_coefficients(coeff_map, 0, y);
+}
+
 typedef void(ConeProblemBuilder::*ConstraintHandler)(const Expression& expr);
 const std::unordered_map<int, ConstraintHandler> kConstraintHandlers = {
   {Expression::EQ,  &ConeProblemBuilder::add_eq_constraint},
   {Expression::EXP_CONE, &ConeProblemBuilder::add_exp_cone_constraint},
   {Expression::LEQ, &ConeProblemBuilder::add_leq_constraint},
   {Expression::SDP, &ConeProblemBuilder::add_sdp_constraint},
+  {Expression::SDP_VEC, &ConeProblemBuilder::add_sdp_vec_constraint},
   {Expression::SOC, &ConeProblemBuilder::add_soc_constraint},
 };
 

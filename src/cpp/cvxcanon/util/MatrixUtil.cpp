@@ -71,3 +71,7 @@ std::string vector_debug_string(const DenseVector& x) {
 
   return retval;
 }
+
+int symmetric_single_dim(int y) {
+  return lround(sqrt(1/4. + 2*y) - 1/2.);
+}

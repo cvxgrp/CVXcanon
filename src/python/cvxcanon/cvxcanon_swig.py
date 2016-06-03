@@ -1127,6 +1127,7 @@ class Expression(_object):
     EXP_CONE = _cvxcanon_swig.Expression_EXP_CONE
     LEQ = _cvxcanon_swig.Expression_LEQ
     SDP = _cvxcanon_swig.Expression_SDP
+    SDP_VEC = _cvxcanon_swig.Expression_SDP_VEC
     SOC = _cvxcanon_swig.Expression_SOC
     CONST = _cvxcanon_swig.Expression_CONST
     PARAM = _cvxcanon_swig.Expression_PARAM
@@ -1211,6 +1212,45 @@ class Size(_object):
 Size_swigregister = _cvxcanon_swig.Size_swigregister
 Size_swigregister(Size)
 
+class Constant(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, Constant, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, Constant, name)
+    __repr__ = _swig_repr
+
+    def set_dense_data(self, matrix):
+        return _cvxcanon_swig.Constant_set_dense_data(self, matrix)
+
+    def set_sparse_data(self, data, row_idxs, col_idxs, rows, cols):
+        return _cvxcanon_swig.Constant_set_sparse_data(self, data, row_idxs, col_idxs, rows, cols)
+
+    def size(self):
+        return _cvxcanon_swig.Constant_size(self)
+    __swig_setmethods__["sparse"] = _cvxcanon_swig.Constant_sparse_set
+    __swig_getmethods__["sparse"] = _cvxcanon_swig.Constant_sparse_get
+    if _newclass:
+        sparse = _swig_property(_cvxcanon_swig.Constant_sparse_get, _cvxcanon_swig.Constant_sparse_set)
+    __swig_setmethods__["dense_data"] = _cvxcanon_swig.Constant_dense_data_set
+    __swig_getmethods__["dense_data"] = _cvxcanon_swig.Constant_dense_data_get
+    if _newclass:
+        dense_data = _swig_property(_cvxcanon_swig.Constant_dense_data_get, _cvxcanon_swig.Constant_dense_data_set)
+    __swig_setmethods__["sparse_data"] = _cvxcanon_swig.Constant_sparse_data_set
+    __swig_getmethods__["sparse_data"] = _cvxcanon_swig.Constant_sparse_data_get
+    if _newclass:
+        sparse_data = _swig_property(_cvxcanon_swig.Constant_sparse_data_get, _cvxcanon_swig.Constant_sparse_data_set)
+
+    def __init__(self):
+        this = _cvxcanon_swig.new_Constant()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _cvxcanon_swig.delete_Constant
+    __del__ = lambda self: None
+Constant_swigregister = _cvxcanon_swig.Constant_swigregister
+Constant_swigregister(Constant)
+
 class ConstAttributes(ExpressionAttributes):
     __swig_setmethods__ = {}
     for _s in [ExpressionAttributes]:
@@ -1221,27 +1261,10 @@ class ConstAttributes(ExpressionAttributes):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, ConstAttributes, name)
     __repr__ = _swig_repr
-
-    def set_dense_data(self, matrix):
-        return _cvxcanon_swig.ConstAttributes_set_dense_data(self, matrix)
-
-    def set_sparse_data(self, data, row_idxs, col_idxs, rows, cols):
-        return _cvxcanon_swig.ConstAttributes_set_sparse_data(self, data, row_idxs, col_idxs, rows, cols)
-
-    def size(self):
-        return _cvxcanon_swig.ConstAttributes_size(self)
-    __swig_setmethods__["sparse"] = _cvxcanon_swig.ConstAttributes_sparse_set
-    __swig_getmethods__["sparse"] = _cvxcanon_swig.ConstAttributes_sparse_get
+    __swig_setmethods__["constant"] = _cvxcanon_swig.ConstAttributes_constant_set
+    __swig_getmethods__["constant"] = _cvxcanon_swig.ConstAttributes_constant_get
     if _newclass:
-        sparse = _swig_property(_cvxcanon_swig.ConstAttributes_sparse_get, _cvxcanon_swig.ConstAttributes_sparse_set)
-    __swig_setmethods__["dense_data"] = _cvxcanon_swig.ConstAttributes_dense_data_set
-    __swig_getmethods__["dense_data"] = _cvxcanon_swig.ConstAttributes_dense_data_get
-    if _newclass:
-        dense_data = _swig_property(_cvxcanon_swig.ConstAttributes_dense_data_get, _cvxcanon_swig.ConstAttributes_dense_data_set)
-    __swig_setmethods__["sparse_data"] = _cvxcanon_swig.ConstAttributes_sparse_data_set
-    __swig_getmethods__["sparse_data"] = _cvxcanon_swig.ConstAttributes_sparse_data_get
-    if _newclass:
-        sparse_data = _swig_property(_cvxcanon_swig.ConstAttributes_sparse_data_get, _cvxcanon_swig.ConstAttributes_sparse_data_set)
+        constant = _swig_property(_cvxcanon_swig.ConstAttributes_constant_get, _cvxcanon_swig.ConstAttributes_constant_set)
 
     def __init__(self):
         this = _cvxcanon_swig.new_ConstAttributes()
@@ -1254,6 +1277,40 @@ class ConstAttributes(ExpressionAttributes):
 ConstAttributes_swigregister = _cvxcanon_swig.ConstAttributes_swigregister
 ConstAttributes_swigregister(ConstAttributes)
 
+class ParamAttributes(ExpressionAttributes):
+    __swig_setmethods__ = {}
+    for _s in [ExpressionAttributes]:
+        __swig_setmethods__.update(getattr(_s, '__swig_setmethods__', {}))
+    __setattr__ = lambda self, name, value: _swig_setattr(self, ParamAttributes, name, value)
+    __swig_getmethods__ = {}
+    for _s in [ExpressionAttributes]:
+        __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
+    __getattr__ = lambda self, name: _swig_getattr(self, ParamAttributes, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["id"] = _cvxcanon_swig.ParamAttributes_id_set
+    __swig_getmethods__["id"] = _cvxcanon_swig.ParamAttributes_id_get
+    if _newclass:
+        id = _swig_property(_cvxcanon_swig.ParamAttributes_id_get, _cvxcanon_swig.ParamAttributes_id_set)
+    __swig_setmethods__["size"] = _cvxcanon_swig.ParamAttributes_size_set
+    __swig_getmethods__["size"] = _cvxcanon_swig.ParamAttributes_size_get
+    if _newclass:
+        size = _swig_property(_cvxcanon_swig.ParamAttributes_size_get, _cvxcanon_swig.ParamAttributes_size_set)
+    __swig_setmethods__["constant"] = _cvxcanon_swig.ParamAttributes_constant_set
+    __swig_getmethods__["constant"] = _cvxcanon_swig.ParamAttributes_constant_get
+    if _newclass:
+        constant = _swig_property(_cvxcanon_swig.ParamAttributes_constant_get, _cvxcanon_swig.ParamAttributes_constant_set)
+
+    def __init__(self):
+        this = _cvxcanon_swig.new_ParamAttributes()
+        try:
+            self.this.append(this)
+        except Exception:
+            self.this = this
+    __swig_destroy__ = _cvxcanon_swig.delete_ParamAttributes
+    __del__ = lambda self: None
+ParamAttributes_swigregister = _cvxcanon_swig.ParamAttributes_swigregister
+ParamAttributes_swigregister(ParamAttributes)
+
 class VarAttributes(ExpressionAttributes):
     __swig_setmethods__ = {}
     for _s in [ExpressionAttributes]:
@@ -1264,8 +1321,6 @@ class VarAttributes(ExpressionAttributes):
         __swig_getmethods__.update(getattr(_s, '__swig_getmethods__', {}))
     __getattr__ = lambda self, name: _swig_getattr(self, VarAttributes, name)
     __repr__ = _swig_repr
-    UNKNOWN = _cvxcanon_swig.VarAttributes_UNKNOWN
-    SEMIDEF_UPPER_TRI = _cvxcanon_swig.VarAttributes_SEMIDEF_UPPER_TRI
     __swig_setmethods__["id"] = _cvxcanon_swig.VarAttributes_id_set
     __swig_getmethods__["id"] = _cvxcanon_swig.VarAttributes_id_get
     if _newclass:
@@ -1274,10 +1329,6 @@ class VarAttributes(ExpressionAttributes):
     __swig_getmethods__["size"] = _cvxcanon_swig.VarAttributes_size_get
     if _newclass:
         size = _swig_property(_cvxcanon_swig.VarAttributes_size_get, _cvxcanon_swig.VarAttributes_size_set)
-    __swig_setmethods__["variable_type"] = _cvxcanon_swig.VarAttributes_variable_type_set
-    __swig_getmethods__["variable_type"] = _cvxcanon_swig.VarAttributes_variable_type_get
-    if _newclass:
-        variable_type = _swig_property(_cvxcanon_swig.VarAttributes_variable_type_get, _cvxcanon_swig.VarAttributes_variable_type_set)
 
     def __init__(self):
         this = _cvxcanon_swig.new_VarAttributes()

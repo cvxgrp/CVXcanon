@@ -43,5 +43,8 @@ std::string matrix_debug_string(const MatrixType& A) {
   return retval;
 }
 
+// Inverse of y = n(n+1)/2
+int symmetric_single_dim(int y);
+
 
 #endif  // MATRIX_UTIL_H

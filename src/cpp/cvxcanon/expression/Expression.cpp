@@ -5,14 +5,14 @@
 
 #include "cvxcanon/util/MatrixUtil.hpp"
 
-void ConstAttributes::set_dense_data(double* matrix, int rows, int cols) {
+void Constant::set_dense_data(double* matrix, int rows, int cols) {
   sparse = false;
   dense_data = Eigen::Map<DenseMatrix>(matrix, rows, cols);
   VLOG(2) << "set_dense_data: " << rows << " x " << cols << "\n"
           << matrix_debug_string(dense_data);
 }
 
-void ConstAttributes::set_sparse_data(
+void Constant::set_sparse_data(
     double* data, int data_len,
     double* row_idxs, int rows_len,
     double* col_idxs, int cols_len,
@@ -34,7 +34,7 @@ void ConstAttributes::set_sparse_data(
   sparse_data.makeCompressed();
 }
 
-Size ConstAttributes::size() const {
+Size Constant::size() const {
   int m, n;
   if (sparse) {
     m = sparse_data.rows();

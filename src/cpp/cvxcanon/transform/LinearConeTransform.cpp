@@ -341,7 +341,6 @@ Expression transform_sum_largest(
   return add(sum_entries(t), mul(constant(k), q));
 }
 
-
 std::unordered_map<int, TransformFunction> kTransforms = {
   // Elementwise functions
   {Expression::ABS, &transform_abs},

@@ -71,6 +71,7 @@ namespace std {
   LogSumExpAttributes*,
   MaxEntriesAttributes*,
   PNormAttributes*,
+  ParamAttributes*,
   PowerAttributes*,
   ReshapeAttributes*,
   SumEntriesAttributes*,

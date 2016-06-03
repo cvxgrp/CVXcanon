@@ -70,6 +70,7 @@ class Expression {
     EXP_CONE,
     LEQ,
     SDP,
+    SDP_VEC,
     SOC,
 
     // Leaf nodes
@@ -156,12 +157,8 @@ class Size {
   std::vector<int> dims;
 };
 
-// Expression attributes: in the remainder of the file we define type-specific
-// attributes for each Expression that requires them. Note that there is a 1:1
-// mapping between an expression type (e.g. CONST) and a subclass of
-// ExpressionAttributes (e.g. ConstAttributes).
-
-class ConstAttributes : public ExpressionAttributes {
+// Represents a dense or sparse constant
+class Constant {
  public:
   void set_dense_data(double* matrix, int rows, int cols);
   void set_sparse_data(double* data, int data_len,
@@ -175,15 +172,24 @@ class ConstAttributes : public ExpressionAttributes {
   SparseMatrix sparse_data;
 };
 
+// Expression attributes: in the remainder of the file we define type-specific
+// attributes for each Expression that requires them. Note that there is a 1:1
+// mapping between an expression type (e.g. CONST) and a subclass of
+// ExpressionAttributes (e.g. ConstAttributes).
 
-struct VarAttributes : public ExpressionAttributes {
-  enum Type {
-    UNKNOWN,
-    SEMIDEF_UPPER_TRI,
-  };
+struct ConstAttributes : public ExpressionAttributes {
+  Constant constant;
+};
+
+struct ParamAttributes : public ExpressionAttributes {
   int id;
   Size size;
-  Type variable_type;
+  Constant constant;
+};
+
+struct VarAttributes : public ExpressionAttributes {
+  int id;
+  Size size;
 };
 
 struct PNormAttributes : public ExpressionAttributes {
@@ -226,5 +232,6 @@ struct SumLargestAttributes : public ExpressionAttributes {
 struct LogSumExpAttributes : public ExpressionAttributes {
   int axis;
 };
+
 
 #endif  // CVXCANON_EXPRESISON_EXPRESSION_H
