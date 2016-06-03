@@ -390,15 +390,19 @@ CoeffMap get_coefficients(const Expression& expr) {
     CoeffMap rhs_coeffs = get_coefficients(rhs);
 
     if (is_constant(lhs_coeffs)) {
+      SparseMatrix A = reshape(
+          lhs_coeffs[kConstCoefficientId],
+          size(lhs).dims[0],
+          size(lhs).dims[1]);
       multiply_by_constant(
-          multiply_matrix_left(
-              lhs_coeffs[kConstCoefficientId], size(expr).dims[1]),
-          rhs_coeffs, &coeffs);
+          multiply_matrix_left(A, size(expr).dims[1]), rhs_coeffs, &coeffs);
     } else if (is_constant(rhs_coeffs)) {
+      SparseMatrix A = reshape(
+          rhs_coeffs[kConstCoefficientId],
+          size(rhs).dims[0],
+          size(rhs).dims[1]);
       multiply_by_constant(
-          multiply_matrix_right(
-              rhs_coeffs[kConstCoefficientId], size(expr).dims[0]),
-          lhs_coeffs, &coeffs);
+          multiply_matrix_right(A, size(expr).dims[0]), lhs_coeffs, &coeffs);
     } else {
       LOG(FATAL) << "multipying two non constants";
     }
