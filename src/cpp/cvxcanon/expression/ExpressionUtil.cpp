@@ -41,23 +41,6 @@ Expression upper_tri(Expression x) {
   return {Expression::UPPER_TRI, {x}};
 }
 
-Expression var(int m, int n, int var_id) {
-  auto attr = std::make_shared<VarAttributes>();
-  attr->id = var_id;
-  attr->size = {{m, n}};
-  return {Expression::VAR, {}, attr};
-}
-
-Expression constant(double value) {
-  return constant(DenseMatrix::Constant(1, 1, value));
-}
-
-Expression constant(DenseMatrix value) {
-  auto attr = std::make_shared<ConstAttributes>();
-  attr->dense_data = value;
-  return {Expression::CONST, {}, attr};
-}
-
 Expression diag_vec(Expression x) {
   return {Expression::DIAG_VEC, {x}};
 }
@@ -74,6 +57,14 @@ Expression quad_over_lin(Expression x, Expression y) {
   return {Expression::QUAD_OVER_LIN, {x, y}};
 }
 
+Expression hstack(std::vector<Expression> args) {
+  return {Expression::HSTACK, args};
+}
+
+Expression vstack(std::vector<Expression> args) {
+  return {Expression::VSTACK, args};
+}
+
 Expression p_norm(Expression x, double p) {
   auto attr = std::make_shared<PNormAttributes>();
   attr->p = p;
@@ -84,14 +75,6 @@ Expression power(Expression x, double p) {
   auto attr = std::make_shared<PowerAttributes>();
   attr->p = p;
   return {Expression::POWER, {x}, attr};
-}
-
-Expression hstack(std::vector<Expression> args) {
-  return {Expression::HSTACK, args};
-}
-
-Expression vstack(std::vector<Expression> args) {
-  return {Expression::VSTACK, args};
 }
 
 Expression reshape(Expression x, int m, int n) {
@@ -112,6 +95,23 @@ Expression index(
   attr->keys.push_back({start_i, stop_i, 1});
   attr->keys.push_back({start_j, stop_j, 1});
   return {Expression::INDEX, {x}, attr};
+}
+
+Expression var(int m, int n, int var_id) {
+  auto attr = std::make_shared<VarAttributes>();
+  attr->id = var_id;
+  attr->size = {{m, n}};
+  return {Expression::VAR, {}, attr};
+}
+
+Expression constant(double value) {
+  return constant(DenseMatrix::Constant(1, 1, value));
+}
+
+Expression constant(DenseMatrix value) {
+  auto attr = std::make_shared<ConstAttributes>();
+  attr->dense_data = value;
+  return {Expression::CONST, {}, attr};
 }
 
 Expression eq(Expression x, Expression y) {
@@ -152,9 +152,10 @@ bool is_scalar(const Size& size) {
 
 std::unordered_set<int> kConstraintTypes = {
   Expression::EQ,
-  Expression::LEQ,
-  Expression::SOC,
   Expression::EXP_CONE,
+  Expression::LEQ,
+  Expression::SDP,
+  Expression::SOC,
 };
 
 std::unordered_set<int> kLinearTypes = {
@@ -196,10 +197,10 @@ bool is_leaf(const Expression& expr) {
   return is_type(kLeafTypes, expr);
 }
 
-Expression promote_add(Expression x, const Size& size) {
-  const int m = size.dims[0];
-  const int n = size.dims[1];
-  if (dim(x) == 1 && (m != 1 || n != 1)) {
+Expression promote_add(Expression x, const Size& prom_size) {
+  if (is_scalar(size(x)) && !is_scalar(prom_size)) {
+    const int m = prom_size.dims[0];
+    const int n = prom_size.dims[1];
     DenseMatrix ones = DenseMatrix::Constant(m, n, 1);
     return mul(x, constant(ones));
   }
@@ -207,7 +208,7 @@ Expression promote_add(Expression x, const Size& size) {
 }
 
 Expression promote_multiply(Expression x, int k) {
-  if (dim(x) == 1 && k != 1) {
+  if (is_scalar(size(x)) && k != 1) {
     DenseMatrix ones = DenseMatrix::Constant(k, 1, 1);
     return diag_vec(mul(constant(ones), x));
   }

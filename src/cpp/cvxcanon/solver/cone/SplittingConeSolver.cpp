@@ -55,24 +55,35 @@ void SplittingConeSolver::build_scs_problem(
         A, b, constr_map[ConeConstraint::NON_NEGATIVE], &cone_.l, nullptr);
     cone_.qsize = constr_map[ConeConstraint::SECOND_ORDER].size();
     if (cone_.qsize != 0) {
-      q_.reset(new int[cone_.qsize]);
+      cone_q_.reset(new int[cone_.qsize]);
       build_scs_constraint(
-          A, b, constr_map[ConeConstraint::SECOND_ORDER], nullptr, q_.get());
-      cone_.q = q_.get();
+          A, b, constr_map[ConeConstraint::SECOND_ORDER], nullptr, cone_q_.get());
+      cone_.q = cone_q_.get();
+    }
+    cone_.ssize = constr_map[ConeConstraint::SEMIDEFINITE].size();
+    if (cone_.ssize != 0) {
+      cone_s_.reset(new int[cone_.ssize]);
+      build_scs_constraint(
+          A, b, constr_map[ConeConstraint::SEMIDEFINITE], nullptr, cone_s_.get());
+      cone_.s = cone_s_.get();
+
+      // SCS expects the matrix dimension for each SDP constraint, so we invert
+      // n*(n+1)/2 to get the matrix dimension from the number of constraints.
+      for (int i = 0; i < cone_.ssize; i++)
+        cone_s_[i] = lround(sqrt(1/4. + 2*cone_s_[i]) - 1/2.);
     }
     build_scs_constraint(
         A, b, constr_map[ConeConstraint::EXPONENTIAL], &cone_.ep, nullptr);
     CHECK_EQ(cone_.ep % 3, 0);
-    cone_.ep /= 3;
+    cone_.ep /= 3;  // SCS expects the total number of 3-tuples
 
-    cone_.ssize = 0;
     cone_.ed = 0;
     cone_.psize = 0;
 
     A_ = sparse_matrix(m, n, A_coeffs_);
   }
 
-  VLOG(2) << "SCS constraints:\n"
+  VLOG(1) << "SCS constraints:\n"
           << "A:\n" << matrix_debug_string(A_)
           << "b: " << vector_debug_string(b_);
 

@@ -6,15 +6,12 @@
 #include "cvxcanon/expression/ExpressionUtil.hpp"
 #include "cvxcanon/expression/TextFormat.hpp"
 
-Size get_add_shape(const Expression& expr) {
-  Size expr_size = {{1, 1}};
-  for (const Expression& arg : expr.args()) {
-    if (dim(arg) != 1) {
-      // Assume sizes are compatible
-      expr_size = size(arg);
-    }
-  }
-  return expr_size;
+Size get_scalar_shape(const Expression& expr) {
+  return {{1, 1}};
+}
+
+Size get_elementwise_shape(const Expression& expr) {
+  return size(expr.arg(0));
 }
 
 Size get_axis_shape(const Expression& expr, int axis) {
@@ -29,6 +26,17 @@ Size get_axis_shape(const Expression& expr, int axis) {
   LOG(FATAL) << "invalid axis: " << axis;
 }
 
+Size get_add_shape(const Expression& expr) {
+  Size expr_size = {{1, 1}};
+  for (const Expression& arg : expr.args()) {
+    if (dim(arg) != 1) {
+      // Assume sizes are compatible
+      expr_size = size(arg);
+    }
+  }
+  return expr_size;
+}
+
 Size get_sum_entries_shape(const Expression& expr) {
   return get_axis_shape(expr, expr.attr<SumEntriesAttributes>().axis);
 }
@@ -37,9 +45,14 @@ Size get_p_norm_shape(const Expression& expr) {
   return get_axis_shape(expr, expr.attr<PNormAttributes>().axis);
 }
 
-Size get_quad_over_lin_shape(const Expression& expr) {
-  return {{1, 1}};
+Size get_log_sum_exp_shape(const Expression& expr) {
+  return get_axis_shape(expr, expr.attr<LogSumExpAttributes>().axis);
 }
+
+Size get_max_entries_shape(const Expression& expr) {
+  return get_axis_shape(expr, expr.attr<MaxEntriesAttributes>().axis);
+}
+
 
 Size get_mul_shape(const Expression& expr) {
   assert(expr.args().size() == 2);
@@ -80,10 +93,6 @@ Size get_vstack_shape(const Expression& expr) {
 
 Size get_reshape_shape(const Expression& expr) {
   return expr.attr<ReshapeAttributes>().size;
-}
-
-Size get_elementwise_shape(const Expression& expr) {
-  return size(expr.arg(0));
 }
 
 Size get_index_shape(const Expression& expr) {
@@ -165,9 +174,18 @@ std::unordered_map<int, ShapeFunction> kShapeFunctions = {
   {Expression::MAX_ELEMWISE, &get_elementwise_shape},
   {Expression::POWER, &get_elementwise_shape},
 
-  // Non linear functions
+  // General non linear functions
+  {Expression::GEO_MEAN, &get_scalar_shape},
+  {Expression::LAMBDA_MAX, &get_scalar_shape},
+  {Expression::LOG_DET, &get_scalar_shape},
+  {Expression::LOG_SUM_EXP, &get_log_sum_exp_shape},
+  {Expression::MATRIX_FRAC, &get_scalar_shape},
+  {Expression::MAX_ENTRIES, &get_max_entries_shape},
+  {Expression::NORM_NUC, &get_scalar_shape},
   {Expression::P_NORM, &get_p_norm_shape},
-  {Expression::QUAD_OVER_LIN, &get_quad_over_lin_shape},
+  {Expression::QUAD_OVER_LIN, &get_scalar_shape},
+  {Expression::SIGMA_MAX, &get_scalar_shape},
+  {Expression::SUM_LARGEST, &get_scalar_shape},
 
   // Leaf nodes
   {Expression::CONST, &get_const_shape},

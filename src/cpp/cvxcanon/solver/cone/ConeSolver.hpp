@@ -14,10 +14,11 @@
 class ConeConstraint {
  public:
   enum Cone {
-    ZERO,
+    EXPONENTIAL,
     NON_NEGATIVE,
     SECOND_ORDER,
-    EXPONENTIAL,
+    SEMIDEFINITE,
+    ZERO,
   };
   Cone cone;
   int offset, size;

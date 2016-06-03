@@ -48,7 +48,7 @@ class SplittingConeSolver : public ConeSolver {
 
   // SCS supporting data structures
   scs::AMatrix A_matrix_;
-  std::unique_ptr<int[]> q_;
+  std::unique_ptr<int[]> cone_q_, cone_s_;
   DenseVector s_;
 
   // Constraints ordered the way SCS needs them

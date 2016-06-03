@@ -29,6 +29,7 @@ class ConeProblemBuilder {
   void add_leq_constraint(const Expression& expr);
   void add_soc_constraint(const Expression& expr);
   void add_exp_cone_constraint(const Expression& expr);
+  void add_sdp_constraint(const Expression& expr);
 
   // Helper functions for building cone constraints, add the coefficients for
   // rows i, ... i+m to A, b matrices
@@ -145,18 +146,43 @@ void ConeProblemBuilder::add_exp_cone_constraint(const Expression& expr) {
   }
 }
 
+// Linear transform that extracts upper tri + diagonal elements and scales the
+// off-diagonal elements by sqrt(2)
+SparseMatrix sdp_scaling_matrix(int n) {
+  std::vector<Triplet> coeffs;
+  for (int i = 0; i < n; i++) {
+    for (int j = i; j < n; j++) {
+      coeffs.push_back(Triplet(i, j, i == j ? 1 : sqrt(2)));
+    }
+  }
+  return sparse_matrix(n*(n+1)/2, n*n, coeffs);
+}
+
+// sdp(X)
+void ConeProblemBuilder::add_sdp_constraint(const Expression& expr) {
+  const Expression& X = expr.arg(0);
+  const int n = size(X).dims[0];
+
+  SparseMatrix F = sdp_scaling_matrix(n);
+  CoeffMap coeff_map = get_coefficients(mul(constant(F), reshape(X, n*n, 1)));
+  add_constraint_cone(ConeConstraint::SEMIDEFINITE, n*(n+1)/2);
+  add_constraint_coefficients(coeff_map, 0, n*(n+1)/2);
+}
+
 typedef void(ConeProblemBuilder::*ConstraintHandler)(const Expression& expr);
 const std::unordered_map<int, ConstraintHandler> kConstraintHandlers = {
   {Expression::EQ,  &ConeProblemBuilder::add_eq_constraint},
-  {Expression::LEQ, &ConeProblemBuilder::add_leq_constraint},
-  {Expression::SOC, &ConeProblemBuilder::add_soc_constraint},
   {Expression::EXP_CONE, &ConeProblemBuilder::add_exp_cone_constraint},
+  {Expression::LEQ, &ConeProblemBuilder::add_leq_constraint},
+  {Expression::SDP, &ConeProblemBuilder::add_sdp_constraint},
+  {Expression::SOC, &ConeProblemBuilder::add_soc_constraint},
 };
 
 void ConeProblemBuilder::add_constraint(const Expression& expr) {
   VLOG(2) << "add_constraint " << format_expression(expr);
   auto iter = kConstraintHandlers.find(expr.type());
-  CHECK(iter != kConstraintHandlers.end());
+  CHECK(iter != kConstraintHandlers.end())
+      << "no handler for " << format_expression(expr);
   (this->*iter->second)(expr);
 }
 
