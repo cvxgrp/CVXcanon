@@ -8,12 +8,13 @@
 
 third_party=$PWD/third_party
 build=$PWD/build-deps
+system=$(uname -s)
 
 mkdir -p $build
 
 cmake_flags="-DCMAKE_INSTALL_PREFIX=$build"
-if [ "$(uname -s)" == "Linux" ]; then
-    cmake_flags+=" -DCMAKE_CXX_FLAGS=-fPIC"
+if [ $system == "Linux" ]; then
+    cmake_flags += " -DCMAKE_CXX_FLAGS=-fPIC"
     export CXXFLAGS=-fPIC
 fi
 
@@ -29,5 +30,7 @@ make -j install
 # SCS
 mkdir -p $build/scs
 cd $build/scs
-make -C $third_party/scs OUT=$build/scs
+scs_flags="USE_LAPACK=1"
+scs_targets=$build/scs/libscsdir.a
+make -C $third_party/scs OUT=$build/scs "$scs_flags" "$scs_targets"
 cp $build/scs/*.a $build/lib
