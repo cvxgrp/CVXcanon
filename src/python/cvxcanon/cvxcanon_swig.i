@@ -68,10 +68,13 @@ namespace std {
   ConstAttributes*,
   HuberAttributes*,
   IndexAttributes*,
+  LogSumExpAttributes*,
+  MaxEntriesAttributes*,
   PNormAttributes*,
   PowerAttributes*,
   ReshapeAttributes*,
   SumEntriesAttributes*,
+  SumLargestAttributes*,
   VarAttributes*};
 
 %include "cvxcanon/CVXcanon.hpp"

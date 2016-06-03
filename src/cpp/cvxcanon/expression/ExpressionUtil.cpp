@@ -29,6 +29,10 @@ Expression transpose(Expression x) {
   return {Expression::TRANSPOSE, {x}};
 }
 
+Expression log(Expression x) {
+  return {Expression::LOG, {x}};
+}
+
 Expression var(int m, int n, int var_id) {
   auto attr = std::make_shared<VarAttributes>();
   attr->id = var_id;

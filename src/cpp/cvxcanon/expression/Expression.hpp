@@ -214,4 +214,16 @@ struct SumEntriesAttributes : public ExpressionAttributes {
   int axis;
 };
 
+struct MaxEntriesAttributes : public ExpressionAttributes {
+  int axis;
+};
+
+struct SumLargestAttributes : public ExpressionAttributes {
+  int k;
+};
+
+struct LogSumExpAttributes : public ExpressionAttributes {
+  int axis;
+};
+
 #endif  // CVXCANON_EXPRESISON_EXPRESSION_H

@@ -17,6 +17,7 @@ Expression constant(DenseMatrix value);
 Expression constant(double value);
 Expression diag_vec(Expression x);
 Expression hstack(std::vector<Expression> args);
+Expression log(Expression x);
 Expression mul(Expression x, Expression y);
 Expression neg(Expression x);
 Expression p_norm(Expression x, double p);
@@ -45,6 +46,9 @@ Expression soc(Expression x, Expression y);
 
 // K = {(x,y,z) | y > 0, ye^(x/y) <= z} U {(x,y,z) | x <= 0, y = 0, z >= 0}
 Expression exp_cone(Expression x, Expression y, Expression z);
+
+// X >> 0
+Expression sdp(Expression X);
 
 // Construct a new VAR expression of the same size as f, intended to be used in
 // canonicalization when adding epigraph constraints.
