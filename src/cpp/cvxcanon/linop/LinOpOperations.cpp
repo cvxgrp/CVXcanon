@@ -313,20 +313,7 @@ std::vector<std::vector<int> > get_slice_data(LinOp &lin, int rows, int cols) {
 	std::vector<int> col_slice = lin.slice[1];
 	assert(row_slice.size() == 3);
 	assert(col_slice.size() == 3);
-
-	if (row_slice[0] < 0) {
-		row_slice[0] = rows + row_slice[0];
-	}
-	if (row_slice[1] < 0) {
-		row_slice[1] = rows + row_slice[1];
-	}
-
-	if (col_slice[0] < 0) {
-		col_slice[0] = cols + col_slice[0];
-	}
-	if (col_slice[1] < 0) {
-		col_slice[1] = cols + col_slice[1];
-	}
+  
 	std::vector<std::vector<int> > slices;
 	slices.push_back(row_slice);
 	slices.push_back(col_slice);
@@ -635,15 +622,16 @@ std::vector<Matrix> get_index_mat(LinOp &lin) {
 			}
 			int row_idx = counter;
 			int col_idx = col * rows + row;
+
 			tripletList.push_back(Triplet(row_idx, col_idx, 1.0));
 			counter++;
 			row += row_step;
-			if ((row_step > 0 && row >= row_end) || (row_step < 0 && row < row_end)) {
+			if ((row_step > 0 && row >= row_end) || (row_step < 0 && row <= row_end)) {
 				break;
 			}
 		}
 		col += col_step;
-		if ((col_step > 0 && col >= col_end) || (col_step < 0 && col < col_end)) {
+		if ((col_step > 0 && col >= col_end) || (col_step < 0 && col <= col_end)) {
 			break;
 		}
 	}

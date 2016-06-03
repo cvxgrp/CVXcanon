@@ -13,13 +13,11 @@
 #    You should have received a copy of the GNU General Public License
 #    along with CVXcanon.  If not, see <http:#www.gnu.org/licenses/>.
 
-from collections import deque
-
-from cvxpy.lin_ops.lin_op import *
+import CVXcanon
 import numpy as np
+from cvxpy.lin_ops.lin_op import *
 import scipy.sparse
-
-from cvxcanon import cvxcanon_swig
+from collections import deque
 
 def get_problem_matrix(constrs, id_to_col=None, constr_offsets=None):
     '''
@@ -37,9 +35,9 @@ def get_problem_matrix(constrs, id_to_col=None, constr_offsets=None):
         const_vec: a numpy column vector representing the constant_data in our problem
     '''
     linOps = [constr.expr for constr in constrs]
-    lin_vec = cvxcanon_swig.LinOpVector()
+    lin_vec = CVXcanon.LinOpVector()
 
-    id_to_col_C = cvxcanon_swig.IntIntMap()
+    id_to_col_C = CVXcanon.IntIntMap()
     if id_to_col is None:
         id_to_col = {}
 
@@ -57,13 +55,13 @@ def get_problem_matrix(constrs, id_to_col=None, constr_offsets=None):
         lin_vec.push_back(tree)
 
     if constr_offsets is None:
-        problemData = cvxcanon_swig.build_matrix(lin_vec, id_to_col_C)
+        problemData = CVXcanon.build_matrix(lin_vec, id_to_col_C)
     else:
         # Load constraint offsets into a C++ vector
-        constr_offsets_C = cvxcanon_swig.IntVector()
+        constr_offsets_C = CVXcanon.IntVector()
         for offset in constr_offsets:
             constr_offsets_C.push_back(int(offset))
-        problemData = cvxcanon_swig.build_matrix(lin_vec, id_to_col_C,
+        problemData = CVXcanon.build_matrix(lin_vec, id_to_col_C,
                                             constr_offsets_C)
 
     # Unpacking
@@ -120,25 +118,35 @@ def set_slice_data(linC, linPy):
     integers into our vector.
     '''
     for i, sl in enumerate(linPy.data):
-        vec = cvxcanon_swig.IntVector()
+        vec = CVXcanon.IntVector()
+        arg_dim = linPy.args[0].size[i]
 
-        start = 0
-        if sl.start is not None:
-            start = sl.start
-
-        stop = linPy.args[0].size[i]
-        if sl.stop is not None:
-            stop = sl.stop
-
-        step = 1
         if sl.step is not None:
             step = sl.step
+        else:
+            step = 1
 
-        # handle [::-1] case
-        if step < 0 and sl.start is None and sl.stop is None:
-            tmp = start
-            start = stop - 1
-            stop = tmp
+        if sl.start is not None:
+            if sl.start >= 0:
+                start = sl.start
+            else:
+                start = sl.start + arg_dim
+            start = min(sl.start, arg_dim-1)
+        elif step < 0:
+            start = arg_dim - 1
+        else:
+            start = 0
+
+        if sl.stop is not None:
+            if sl.stop >= 0:
+                stop = sl.stop
+            else:
+                stop = sl.stop + arg_dim
+            stop = min(stop, arg_dim)
+        elif step < 0:
+            stop = -1
+        else:
+            stop = arg_dim
 
         for var in [start, stop, step]:
             vec.push_back(var)
@@ -147,30 +155,30 @@ def set_slice_data(linC, linPy):
 
 
 type_map = {
-    "VARIABLE": cvxcanon_swig.VARIABLE,
-    "PROMOTE": cvxcanon_swig.PROMOTE,
-    "MUL": cvxcanon_swig.MUL,
-    "RMUL": cvxcanon_swig.RMUL,
-    "MUL_ELEM": cvxcanon_swig.MUL_ELEM,
-    "DIV": cvxcanon_swig.DIV,
-    "SUM": cvxcanon_swig.SUM,
-    "NEG": cvxcanon_swig.NEG,
-    "INDEX": cvxcanon_swig.INDEX,
-    "TRANSPOSE": cvxcanon_swig.TRANSPOSE,
-    "SUM_ENTRIES": cvxcanon_swig.SUM_ENTRIES,
-    "TRACE": cvxcanon_swig.TRACE,
-    "RESHAPE": cvxcanon_swig.RESHAPE,
-    "DIAG_VEC": cvxcanon_swig.DIAG_VEC,
-    "DIAG_MAT": cvxcanon_swig.DIAG_MAT,
-    "UPPER_TRI": cvxcanon_swig.UPPER_TRI,
-    "CONV": cvxcanon_swig.CONV,
-    "HSTACK": cvxcanon_swig.HSTACK,
-    "VSTACK": cvxcanon_swig.VSTACK,
-    "SCALAR_CONST": cvxcanon_swig.SCALAR_CONST,
-    "DENSE_CONST": cvxcanon_swig.DENSE_CONST,
-    "SPARSE_CONST": cvxcanon_swig.SPARSE_CONST,
-    "NO_OP": cvxcanon_swig.NO_OP,
-    "KRON": cvxcanon_swig.KRON
+    "VARIABLE": CVXcanon.VARIABLE,
+    "PROMOTE": CVXcanon.PROMOTE,
+    "MUL": CVXcanon.MUL,
+    "RMUL": CVXcanon.RMUL,
+    "MUL_ELEM": CVXcanon.MUL_ELEM,
+    "DIV": CVXcanon.DIV,
+    "SUM": CVXcanon.SUM,
+    "NEG": CVXcanon.NEG,
+    "INDEX": CVXcanon.INDEX,
+    "TRANSPOSE": CVXcanon.TRANSPOSE,
+    "SUM_ENTRIES": CVXcanon.SUM_ENTRIES,
+    "TRACE": CVXcanon.TRACE,
+    "RESHAPE": CVXcanon.RESHAPE,
+    "DIAG_VEC": CVXcanon.DIAG_VEC,
+    "DIAG_MAT": CVXcanon.DIAG_MAT,
+    "UPPER_TRI": CVXcanon.UPPER_TRI,
+    "CONV": CVXcanon.CONV,
+    "HSTACK": CVXcanon.HSTACK,
+    "VSTACK": CVXcanon.VSTACK,
+    "SCALAR_CONST": CVXcanon.SCALAR_CONST,
+    "DENSE_CONST": CVXcanon.DENSE_CONST,
+    "SPARSE_CONST": CVXcanon.SPARSE_CONST,
+    "NO_OP": CVXcanon.NO_OP,
+    "KRON": CVXcanon.KRON
 }
 
 
@@ -195,7 +203,7 @@ def build_lin_op_tree(root_linPy, tmp):
     root_linC: a C++ LinOp tree created through our swig interface
     '''
     Q = deque()
-    root_linC = cvxcanon_swig.LinOp()
+    root_linC = CVXcanon.LinOp()
     Q.append((root_linPy, root_linC))
 
     while len(Q) > 0:
@@ -203,7 +211,7 @@ def build_lin_op_tree(root_linPy, tmp):
 
         # Updating the arguments our LinOp
         for argPy in linPy.args:
-            tree = cvxcanon_swig.LinOp()
+            tree = CVXcanon.LinOp()
             tmp.append(tree)
             Q.append((argPy, tree))
             linC.args.push_back(tree)
