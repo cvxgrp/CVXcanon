@@ -146,13 +146,14 @@ void ConeProblemBuilder::add_exp_cone_constraint(const Expression& expr) {
   }
 }
 
-// Linear transform that extracts upper tri + diagonal elements and scales the
+// Linear transform that extracts lower tri + diagonal elements and scales the
 // off-diagonal elements by sqrt(2)
 SparseMatrix sdp_scaling_matrix(int n) {
   std::vector<Triplet> coeffs;
-  for (int i = 0; i < n; i++) {
-    for (int j = i; j < n; j++) {
-      coeffs.push_back(Triplet(i, j, i == j ? 1 : sqrt(2)));
+  int k = 0;
+  for (int j = 0; j < n; j++) {
+    for (int i = j; i < n; i++) {
+      coeffs.push_back(Triplet(k++, n*j+i, i == j ? 1 : sqrt(2)));
     }
   }
   return sparse_matrix(n*(n+1)/2, n*n, coeffs);

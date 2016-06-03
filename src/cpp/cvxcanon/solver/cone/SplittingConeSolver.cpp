@@ -34,8 +34,14 @@ void SplittingConeSolver::build_scs_problem(
   const int m = problem.A.rows();
   const int n = problem.A.cols();
 
-  // Inputs: problem.A, problem.b -  original constraints
-  // Outputs: A_, b_ - with shuffled rows, will build incrementally
+  // SCS expects the contraints to be specified in a certain order based on cone
+  // type, whereas the ConeProblem interface is more flexible. In this block, we
+  // shuffle the constraints so that they are in the order required by SCS and
+  // at the same time build the SCS cone data structure which contains the sizes
+  // of each constraint.
+  //
+  // Inputs: problem.A, problem.b, wwith  original constraints
+  // Outputs: A_, b_, with shuffled rows
   {
     Eigen::SparseMatrix<double, Eigen::RowMajor> A = problem.A;
     const DenseVector& b = problem.b;
@@ -81,13 +87,13 @@ void SplittingConeSolver::build_scs_problem(
     cone_.psize = 0;
 
     A_ = sparse_matrix(m, n, A_coeffs_);
+
+    VLOG(1) << "SCS constraints:\n"
+            << "A:\n" << matrix_debug_string(A_)
+            << "b: " << vector_debug_string(b_);
   }
 
-  VLOG(1) << "SCS constraints:\n"
-          << "A:\n" << matrix_debug_string(A_)
-          << "b: " << vector_debug_string(b_);
-
-  // Build SCS data structures
+  // Now we fill in the rest of the structs that make up the SCS interface.
   A_matrix_.m = m;
   A_matrix_.n = n;
   A_matrix_.p = A_.outerIndexPtr();
