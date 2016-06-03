@@ -31,6 +31,8 @@ SOURCES = [
 LIBRARIES = []
 if "linux" in sys.platform:
     LIBRARIES += ["rt"]
+    # SCS dependencies
+    LIBRARIES += ["blas", "lapack"]
 
 STATIC_LIBRARIES = [
     "build-deps/lib/libglog.a",
