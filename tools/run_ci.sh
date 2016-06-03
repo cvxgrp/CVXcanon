@@ -2,15 +2,15 @@
 #
 # Script for running continuous integration tests
 
-build=/build
+base=$(dirname "${BASH_SOURCE[0]}")/..
 
 # build/install cvxcanon
-cd $build/CVXcanon
+cd $base
 tools/build_third_party.sh
 python setup.py install
 
 # install cvxpy
-cd $build/cvxpy
+cd $base/../cvxpy
 python setup.py install
 
 # run tests
@@ -18,5 +18,4 @@ nosetests cvxcanon
 nosetests cvxpy
 
 # run c++ linter
-cpplint=$build/CVXcanon/third_party/cpplint/cpplint.py
-$cpplint --extensions cpp,hpp $(find $build/CVXcanon/src -name *.cpp -o -name *.hpp)
+$base/tools/run_lint.sh

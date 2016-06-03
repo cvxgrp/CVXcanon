@@ -90,8 +90,9 @@ void ConeProblemBuilder::add_eq_constraint(const Expression& expr) {
   const Expression& x = expr.arg(0);
   const Expression& y = expr.arg(1);
 
-  const int n = dim(x);
-  CoeffMap coeff_map = get_coefficients(add(y, neg(x)));
+  Expression y_minus_x = add(y, neg(x));
+  const int n = dim(y_minus_x);
+  CoeffMap coeff_map = get_coefficients(y_minus_x);
   add_constraint_cone(ConeConstraint::ZERO, n);
   add_constraint_coefficients(coeff_map, 0, n);
 }
@@ -101,8 +102,9 @@ void ConeProblemBuilder::add_leq_constraint(const Expression& expr) {
   const Expression& x = expr.arg(0);
   const Expression& y = expr.arg(1);
 
-  const int n = dim(x);
-  CoeffMap coeff_map = get_coefficients(add(y, neg(x)));
+  Expression y_minus_x = add(y, neg(x));
+  const int n = dim(y_minus_x);
+  CoeffMap coeff_map = get_coefficients(y_minus_x);
   add_constraint_cone(ConeConstraint::NON_NEGATIVE, n);
   add_constraint_coefficients(coeff_map, 0, n);
 }
@@ -265,9 +267,18 @@ SymbolicConeSolver::SymbolicConeSolver(
 Solution SymbolicConeSolver::solve(const Problem& problem) {
   VariableOffsetMap var_offsets;
   ConeProblemBuilder builder(&var_offsets);
-  builder.add_objective(problem.objective);
+
+  Expression objective = problem.objective;
+  if (problem.sense == Problem::MAXIMIZE)
+    objective = neg(objective);
+
+  builder.add_objective(objective);
   for (const Expression& constr : problem.constraints)
     builder.add_constraint(constr);
 
-  return get_solution(cone_solver_->solve(builder.build()), var_offsets);
+  Solution solution = get_solution(
+      cone_solver_->solve(builder.build()), var_offsets);
+  if (problem.sense == Problem::MAXIMIZE)
+    solution.objective_value = -solution.objective_value;
+  return solution;
 }

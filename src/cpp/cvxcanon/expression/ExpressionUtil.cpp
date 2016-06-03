@@ -199,7 +199,7 @@ bool is_leaf(const Expression& expr) {
   return is_type(kLeafTypes, expr);
 }
 
-Expression promote_add(Expression x, const Size& prom_size) {
+Expression promote_ones(Expression x, const Size& prom_size) {
   if (is_scalar(size(x)) && !is_scalar(prom_size)) {
     const int m = prom_size.dims[0];
     const int n = prom_size.dims[1];
@@ -209,7 +209,7 @@ Expression promote_add(Expression x, const Size& prom_size) {
   return x;
 }
 
-Expression promote_multiply(Expression x, int k) {
+Expression promote_identity(Expression x, int k) {
   if (is_scalar(size(x)) && k != 1) {
     DenseMatrix ones = DenseMatrix::Constant(k, 1, 1);
     return diag_vec(mul(constant(ones), x));

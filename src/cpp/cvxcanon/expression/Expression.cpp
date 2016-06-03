@@ -1,9 +1,10 @@
 
 #include "cvxcanon/expression/Expression.hpp"
 
-#include <glog/logging.h>
+#include <vector>
 
 #include "cvxcanon/util/MatrixUtil.hpp"
+#include "glog/logging.h"
 
 void Constant::set_dense_data(double* matrix, int rows, int cols) {
   sparse = false;
@@ -25,7 +26,9 @@ void Constant::set_sparse_data(
   tripletList.reserve(data_len);
   for (int idx = 0; idx < data_len; idx++) {
     tripletList.push_back(
-        Triplet(int(row_idxs[idx]), int(col_idxs[idx]), data[idx]));
+        Triplet(static_cast<int>(row_idxs[idx]),
+                static_cast<int>(col_idxs[idx]),
+                data[idx]));
   }
 
   sparse = true;

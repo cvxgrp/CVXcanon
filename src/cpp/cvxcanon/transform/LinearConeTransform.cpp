@@ -20,7 +20,7 @@ Expression promote_add_axis(
     const Size& size_x,
     int axis) {
   if (axis == kNoAxis) {
-    return promote_add(t, size_x);
+    return promote_ones(t, size_x);
   } else if (axis == 0) {
     Expression ones = constant(ones_matrix(size_x.dims[0], 1));
     return mul(ones, t);
@@ -150,8 +150,8 @@ Expression transform_entr(
 Expression transform_kl_div(
     const Expression& expr,
     std::vector<Expression>* constraints) {
-  Expression x = promote_add(expr.arg(0), size(expr));
-  Expression y = promote_add(expr.arg(1), size(expr));
+  Expression x = promote_ones(expr.arg(0), size(expr));
+  Expression y = promote_ones(expr.arg(1), size(expr));
   Expression t = epi_var(expr, "kl_div");
   constraints->push_back(exp_cone(t, x, y));
   constraints->push_back(leq(constant(0), y));
@@ -183,7 +183,7 @@ Expression transform_max_elemwise(
     std::vector<Expression>* constraints) {
   Expression t = epi_var(expr, "max_elemwise");
   for (const Expression& x : expr.args())
-    constraints->push_back(leq(promote_add(x, size(expr)), t));
+    constraints->push_back(leq(x, t));
   return t;
 }
 
@@ -199,7 +199,7 @@ Expression transform_lambda_max(
   const Expression& A = expr.arg(0);
   const int n = size(A).dims[0];
   Expression t = epi_var(expr, "lambda_max");
-  Expression prom_t = promote_add(t, {{n, 1}});
+  Expression prom_t = promote_ones(t, {{n, 1}});
   // I*t - A
   constraints->push_back(sdp(add(diag_vec(prom_t), neg(A))));
   return t;
@@ -317,13 +317,12 @@ Expression transform_sigma_max(
   // X[0:n, 0:n] == I_n*t
   // X[0:n, n:n+m] == A
   // X[n:n+m, n:n+m] == I_m*t
-  constraints->push_back(eq(index(X, 0, n, 0, n), promote_multiply(t, n)));
+  constraints->push_back(eq(index(X, 0, n, 0, n), promote_identity(t, n)));
   constraints->push_back(eq(index(X, 0, n, n, n+m), A));
-  constraints->push_back(eq(index(X, n, n+m, n, n+m), promote_multiply(t, m)));
+  constraints->push_back(eq(index(X, n, n+m, n, n+m), promote_identity(t, m)));
   constraints->push_back(sdp(X));
   return t;
 }
-
 
 // min sum_entries(t) + kq
 // s.t. x <= t + q
@@ -341,6 +340,17 @@ Expression transform_sum_largest(
   return add(sum_entries(t), mul(constant(k), q));
 }
 
+Expression transform_logistic(
+    const Expression& expr,
+    std::vector<Expression>* constraints) {
+  const Expression& x = expr.arg(0);
+  Expression t = epi_var(expr, "logistic");
+  Expression exp_neg_t = transform_exp(exp(neg(t)), constraints);
+  Expression exp_x_minus_t = transform_exp(exp(add(x, neg(t))), constraints);
+  constraints->push_back(leq(add(exp_neg_t, exp_x_minus_t), constant(1)));
+  return t;
+}
+
 std::unordered_map<int, TransformFunction> kTransforms = {
   // Elementwise functions
   {Expression::ABS, &transform_abs},
@@ -354,8 +364,10 @@ std::unordered_map<int, TransformFunction> kTransforms = {
   {Expression::POWER, &transform_power},
 
   // General functions
-  {Expression::GEO_MEAN, &transform_geo_mean},
+  // TODO(mwytock): add implementation
+  // {Expression::GEO_MEAN, &transform_geo_mean},
   {Expression::LAMBDA_MAX, &transform_lambda_max},
+  {Expression::LOGISTIC, &transform_logistic},
   {Expression::LOG_DET, &transform_log_det},
   {Expression::LOG_SUM_EXP, &transform_log_sum_exp},
   {Expression::MATRIX_FRAC, &transform_matrix_frac},

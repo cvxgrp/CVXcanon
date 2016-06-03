@@ -63,14 +63,16 @@ void SplittingConeSolver::build_scs_problem(
     if (cone_.qsize != 0) {
       cone_q_.reset(new int[cone_.qsize]);
       build_scs_constraint(
-          A, b, constr_map[ConeConstraint::SECOND_ORDER], nullptr, cone_q_.get());
+          A, b, constr_map[ConeConstraint::SECOND_ORDER], nullptr,
+          cone_q_.get());
       cone_.q = cone_q_.get();
     }
     cone_.ssize = constr_map[ConeConstraint::SEMIDEFINITE].size();
     if (cone_.ssize != 0) {
       cone_s_.reset(new int[cone_.ssize]);
       build_scs_constraint(
-          A, b, constr_map[ConeConstraint::SEMIDEFINITE], nullptr, cone_s_.get());
+          A, b, constr_map[ConeConstraint::SEMIDEFINITE], nullptr,
+          cone_s_.get());
       cone_.s = cone_s_.get();
 
       // SCS expects the matrix dimension for each SDP constraint, so we invert

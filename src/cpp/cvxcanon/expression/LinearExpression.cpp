@@ -266,10 +266,11 @@ std::vector<SparseMatrix> get_kron_coefficients(
   tripletList.reserve(rh_rows * rh_cols * constant.nonZeros());
   for ( int k = 0; k < constant.outerSize(); ++k ) {
     for ( Matrix::InnerIterator it(constant, k); it; ++it ) {
-      int row = (rh_rows * rh_cols * (lh_rows * it.col())) + (it.row() * rh_rows);
+      int row = (rh_rows * rh_cols * (lh_rows * it.col())) +
+                (it.row() * rh_rows);
       int col = 0;
-      for(int j = 0; j < rh_cols; j++){
-        for(int i = 0; i < rh_rows; i++) {
+      for (int j = 0; j < rh_cols; j++) {
+        for (int i = 0; i < rh_rows; i++) {
           tripletList.push_back(Triplet(row + i, col, it.value()));
           col++;
         }
@@ -285,7 +286,7 @@ std::vector<SparseMatrix> get_kron_coefficients(
 
 std::vector<SparseMatrix> get_trace_coefficients(const Expression& expr) {
   const int rows = size(expr.arg(0)).dims[0];
-  SparseMatrix coeffs (1, rows * rows);
+  SparseMatrix coeffs(1, rows * rows);
   for (int i = 0; i < rows; i++) {
     coeffs.insert(0, i * rows + i) = 1;
   }
@@ -385,8 +386,8 @@ CoeffMap get_coefficients(const Expression& expr) {
     // Special case for binary mul operator which is guaranteed to have one
     // constant argument by DCP rules.
     CHECK_EQ(expr.args().size(), 2);
-    Expression lhs = promote_multiply(expr.arg(0), size(expr).dims[0]);
-    Expression rhs = promote_multiply(expr.arg(1), size(expr).dims[1]);
+    Expression lhs = promote_identity(expr.arg(0), size(expr).dims[0]);
+    Expression rhs = promote_identity(expr.arg(1), size(expr).dims[1]);
     CoeffMap lhs_coeffs = get_coefficients(lhs);
     CoeffMap rhs_coeffs = get_coefficients(rhs);
 

@@ -171,7 +171,7 @@ def get_reshape_attributes(cvxpy_expr):
 
 def get_param_attributes(cvxpy_expr):
     attr = cvxcanon_swig.ParamAttributes()
-    attr.id = cvxpy_epxr.id
+    attr.id = cvxpy_expr.id
     attr.size.dims.push_back(cvxpy_expr.size[0])
     attr.size.dims.push_back(cvxpy_expr.size[1])
     attr.constant = get_constant(cvxpy_expr.value)

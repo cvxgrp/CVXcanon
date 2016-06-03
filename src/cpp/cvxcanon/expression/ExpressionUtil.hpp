@@ -37,8 +37,8 @@ Expression vstack(std::vector<Expression> args);
 
 // Return expressions that promote a scalar for use in either matrix addition or
 // multiplication. If no promotion is necessary, than these return the input.
-Expression promote_add(Expression x, const Size& size);  // alpha*11^T
-Expression promote_multiply(Expression x, int n);        // alpha*I
+Expression promote_ones(Expression x, const Size& size);  // alpha*11^T
+Expression promote_identity(Expression x, int n);         // alpha*I
 
 // Syntatic sugar for constraints
 Expression eq(Expression x, Expression y);  // x == y
