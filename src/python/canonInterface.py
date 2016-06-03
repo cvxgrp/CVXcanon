@@ -119,24 +119,34 @@ def set_slice_data(linC, linPy):
     '''
     for i, sl in enumerate(linPy.data):
         vec = CVXcanon.IntVector()
+        arg_dim = linPy.args[0].size[i]
 
-        start = 0
-        if sl.start is not None:
-            start = sl.start
-
-        stop = linPy.args[0].size[i]
-        if sl.stop is not None:
-            stop = sl.stop
-
-        step = 1
         if sl.step is not None:
             step = sl.step
+        else:
+            step = 1
 
-        # handle [::-1] case
-        if step < 0 and sl.start is None and sl.stop is None:
-            tmp = start
-            start = stop - 1
-            stop = tmp
+        if sl.start is not None:
+            if sl.start >= 0:
+                start = sl.start
+            else:
+                start = sl.start + arg_dim
+            start = min(sl.start, arg_dim-1)
+        elif step < 0:
+            start = arg_dim - 1
+        else:
+            start = 0
+
+        if sl.stop is not None:
+            if sl.stop >= 0:
+                stop = sl.stop
+            else:
+                stop = sl.stop + arg_dim
+            stop = min(stop, arg_dim)
+        elif step < 0:
+            stop = -1
+        else:
+            stop = arg_dim
 
         for var in [start, stop, step]:
             vec.push_back(var)

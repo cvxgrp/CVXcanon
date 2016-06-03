@@ -311,20 +311,7 @@ std::vector<std::vector<int> > get_slice_data(LinOp &lin, int rows, int cols) {
 	std::vector<int> col_slice = lin.slice[1];
 	assert(row_slice.size() == 3);
 	assert(col_slice.size() == 3);
-
-	if (row_slice[0] < 0) {
-		row_slice[0] = rows + row_slice[0];
-	}
-	if (row_slice[1] < 0) {
-		row_slice[1] = rows + row_slice[1];
-	}
-
-	if (col_slice[0] < 0) {
-		col_slice[0] = cols + col_slice[0];
-	}
-	if (col_slice[1] < 0) {
-		col_slice[1] = cols + col_slice[1];
-	}
+  
 	std::vector<std::vector<int> > slices;
 	slices.push_back(row_slice);
 	slices.push_back(col_slice);
