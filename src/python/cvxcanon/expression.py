@@ -153,28 +153,43 @@ def get_index_attributes(index):
         attr.keys.push_back(get_slice(key, index.args[0].size[i]))
     return attr
 
-def get_huber_attributes(huber):
+def get_huber_attributes(cvxpy_expr):
     attr = cvxcanon_swig.HuberAttributes()
-    attr.M = convert_expression(huber.M)
+    attr.M = convert_expression(cvxpy_expr.M)
     return attr
 
-def get_sum_entries_attributes(sum_entries):
+def get_sum_entries_attributes(cvxpy_expr):
     attr = cvxcanon_swig.SumEntriesAttributes()
-    attr.axis = get_axis(sum_entries)
+    attr.axis = get_axis(cvxpy_expr)
     return attr
 
-def get_reshape_attributes(reshape):
+def get_reshape_attributes(cvxpy_expr):
     attr = cvxcanon_swig.ReshapeAttributes()
-    attr.size.dims.push_back(reshape.rows)
-    attr.size.dims.push_back(reshape.cols)
+    attr.size.dims.push_back(cvxpy_expr.rows)
+    attr.size.dims.push_back(cvxpy_expr.cols)
     return attr
 
-def get_param_attributes(param):
+def get_param_attributes(cvxpy_expr):
     attr = cvxcanon_swig.ParamAttributes()
-    attr.id = param.id
-    attr.size.dims.push_back(param.size[0])
-    attr.size.dims.push_back(param.size[1])
-    attr.constant = get_constant(param.value)
+    attr.id = cvxpy_epxr.id
+    attr.size.dims.push_back(cvxpy_expr.size[0])
+    attr.size.dims.push_back(cvxpy_expr.size[1])
+    attr.constant = get_constant(cvxpy_expr.value)
+    return attr
+
+def get_log_sum_exp_attributes(cvxpy_expr):
+    attr = cvxcanon_swig.LogSumExpAttributes()
+    attr.axis = get_axis(cvxpy_expr)
+    return attr
+
+def get_max_entries_attributes(cvxpy_expr):
+    attr = cvxcanon_swig.MaxEntriesAttributes()
+    attr.axis = get_axis(cvxpy_expr)
+    return attr
+
+def get_sum_largest_attributes(cvxpy_expr):
+    attr = cvxcanon_swig.SumLargestAttributes()
+    attr.k = cvxpy_expr.k
     return attr
 
 ATTRIBUTE_MAP = {
@@ -182,8 +197,11 @@ ATTRIBUTE_MAP = {
     cvxpy.atoms.affine.reshape.reshape: get_reshape_attributes,
     cvxpy.atoms.affine.sum_entries.sum_entries: get_sum_entries_attributes,
     cvxpy.atoms.elementwise.huber.huber: get_huber_attributes,
+    cvxpy.atoms.log_sum_exp: get_log_sum_exp_attributes,
+    cvxpy.atoms.max_entries: get_max_entries_attributes,
     cvxpy.atoms.pnorm: get_pnorm_attributes,
     cvxpy.atoms.power: get_power_attributes,
+    cvxpy.atoms.sum_largest: get_sum_largest_attributes,
     cvxpy.expressions.constants.constant.Constant: get_const_attributes,
     cvxpy.expressions.constants.parameter.Parameter: get_param_attributes,
     cvxpy.expressions.variables.semidef_var.SemidefUpperTri: get_var_attributes,

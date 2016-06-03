@@ -184,6 +184,9 @@ void ConeProblemBuilder::add_sdp_constraint(const Expression& expr) {
   CoeffMap coeff_map = get_coefficients(mul(constant(F), reshape(X, n*n, 1)));
   add_constraint_cone(ConeConstraint::SEMIDEFINITE, n*(n+1)/2);
   add_constraint_coefficients(coeff_map, 0, n*(n+1)/2);
+
+  // Also add equality constraint to enforce symmetry
+  add_constraint(eq(upper_tri(X), upper_tri(transpose(X))));
 }
 
 // sdp_vec(x) -> full(x) in K_sdp
