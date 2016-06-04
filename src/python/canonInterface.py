@@ -13,7 +13,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with CVXcanon.  If not, see <http:#www.gnu.org/licenses/>.
 
-import CVXcanon
+from cvxcanon import cvxcanon_swig as CVXcanon
 import numpy as np
 from cvxpy.lin_ops.lin_op import *
 import scipy.sparse
