@@ -102,10 +102,9 @@ Size get_reshape_shape(const Expression& expr) {
 Size get_index_shape(const Expression& expr) {
   std::vector<int> dims;
   for (const Slice& slice : expr.attr<IndexAttributes>().keys) {
-    const int n = size(expr.arg(0)).dims[dims.size()];
-    const int start = slice.start < 0 ? n + slice.start : slice.start;
-    const int stop  = slice.stop  < 0 ? n + slice.stop  : slice.stop;
-    const int size_i = (stop - start) / slice.step;
+    const int size_i = (slice.stop - slice.start) / slice.step;
+    LOG(INFO) << "shape: (" << slice.stop << " - " << slice.start << ") / "
+              << slice.step << " = " << size_i;
     dims.push_back(size_i < 0 ? 0 : size_i);
   }
   return {dims};

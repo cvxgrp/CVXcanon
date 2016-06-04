@@ -138,58 +138,29 @@ std::vector<SparseMatrix> get_reshape_coefficients(const Expression& expr) {
   return {identity(dim(expr))};
 }
 
+bool slice_done(const Slice& slice, int i) {
+  if (slice.step > 0)
+    return i >= slice.stop;
+  else
+    return i <= slice.stop;
+}
+
 std::vector<SparseMatrix> get_index_coefficients(const Expression& expr) {
-  const int rows = size(expr.arg(0)).dims[0];
-  const int cols = size(expr.arg(0)).dims[1];
-  SparseMatrix coeffs(dim(expr), rows * cols);
+  const Expression& X = expr.arg(0);
+  const int m = size(X).dims[0];
+  const int n = size(X).dims[1];
+  SparseMatrix coeffs(dim(expr), m*n);
 
-  /* If slice is empty, return empty matrix */
-  if (coeffs.rows() == 0 ||  coeffs.cols() == 0) {
-    return {coeffs};
-  }
-
-  /* Row Slice Data */
-  const Slice& rs = expr.attr<IndexAttributes>().keys[0];
-  int row_start = rs.start < 0 ? rows + rs.start : rs.start;
-  int row_stop = rs.stop < 0 ? rows + rs.stop : rs.stop;
-  int row_step = rs.step;
-
-  /* Column Slice Data */
-  const Slice& cs = expr.attr<IndexAttributes>().keys[1];
-  int col_start = cs.start < 0 ? cols + cs.start : cs.start;
-  int col_stop = cs.stop < 0 ? cols + cs.stop : cs.stop;
-  int col_step = cs.step;
-
-  /* Set the index coefficients by looping over the column selection
-   * first to remain consistent with CVXPY. */
+  const Slice& row = expr.attr<IndexAttributes>().keys[0];
+  const Slice& col = expr.attr<IndexAttributes>().keys[1];
+  int k = 0;
   std::vector<Triplet> tripletList;
-  int col = col_start;
-  int counter = 0;
-  while (true) {
-    if (col < 0 || col >= cols) {
-      break;
-    }
-    int row = row_start;
-    while (true) {
-      if (row < 0 || row >= rows) {
-        break;
-      }
-      int row_idx = counter;
-      int col_idx = col * rows + row;
-      tripletList.push_back(Triplet(row_idx, col_idx, 1.0));
-      counter++;
-      row += row_step;
-      if ((row_step > 0 && row >= row_stop) ||
-          (row_step < 0 && row <= row_stop)) {
-        break;
-      }
-    }
-    col += col_step;
-    if ((col_step > 0 && col >= col_stop) ||
-        (col_step < 0 && col <= col_stop)) {
-      break;
+  for (int j = col.start; !slice_done(col, j); j += col.step) {
+    for (int i = row.start ; !slice_done(row, i); i += row.step) {
+      tripletList.push_back(Triplet(k++, j*m+i, 1));
     }
   }
+
   coeffs.setFromTriplets(tripletList.begin(), tripletList.end());
   coeffs.makeCompressed();
   return {coeffs};
