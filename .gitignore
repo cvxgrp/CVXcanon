@@ -1,5 +1,6 @@
 # Ignore the build and lib dirs
 build
+build-cc
 build-deps
 lib
 dist
