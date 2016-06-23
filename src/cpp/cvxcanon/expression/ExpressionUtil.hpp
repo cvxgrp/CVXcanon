@@ -32,7 +32,7 @@ Expression sum_entries(Expression x, int axis = kNoAxis);
 Expression trace(Expression x);
 Expression transpose(Expression x);
 Expression upper_tri(Expression x);
-Expression var(int m, int n);
+Expression var(int m, int n, int var_id);
 Expression vstack(std::vector<Expression> args);
 
 // Return expressions that promote a scalar for use in either matrix addition or

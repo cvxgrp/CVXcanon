@@ -77,6 +77,8 @@ class Expression {
     CONST,
     PARAM,
     VAR,
+
+    NUM_TYPES,
   };
 
   // The type of this expression
