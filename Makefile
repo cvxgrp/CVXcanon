@@ -41,7 +41,7 @@ LDLIBS += -framework Accelerate
 endif
 
 ifeq ($(SYSTEM),Linux)
-LDLIBS += -lpthread -lblas
+LDLIBS += -lpthread -lblas -llapack
 endif
 
 common_cc = \
