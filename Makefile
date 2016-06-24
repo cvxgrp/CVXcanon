@@ -69,6 +69,7 @@ tests = \
 	cvxcanon/expression/TextFormatTest
 
 deps = \
+	ecos \
 	glog \
 	scsdir
 
