@@ -8,7 +8,7 @@ cd $(dirname "${BASH_SOURCE[0]}")/..
 tools/build_third_party.sh
 
 # build and run C++ tests
-make -j test
+make -j all test
 
 # install python bindings and cvxpy
 python setup.py install

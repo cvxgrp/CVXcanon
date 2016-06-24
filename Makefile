@@ -36,6 +36,12 @@ SYSTEM = $(shell uname -s)
 
 LDLIBS = -L$(deps_dir)/lib -lecos -lglog -lscsdir
 
+ifeq ($(SYSTEM),Linux)
+CFLAGS += -fPIC
+CXXFLAGS += -fPIC
+LDLIBS += -lpthread -lblas
+endif
+
 common_cc = \
 	cvxcanon/CVXcanon.cpp \
 	cvxcanon/expression/Expression.cpp \
