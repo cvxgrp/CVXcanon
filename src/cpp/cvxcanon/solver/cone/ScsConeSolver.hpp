@@ -6,26 +6,25 @@
 // directly in the SCS code base at some point and called via a plugin
 // architecture, see comment about pure C interface in README.md.
 
-#ifndef CVXCANON_SOLVER_CONE_SPLITTING_CONIC_SOLVER_H
-#define CVXCANON_SOLVER_CONE_SPLITTING_CONIC_SOLVER_H
+#ifndef CVXCANON_SOLVER_CONE_SCS_CONE_SOLVER_H
+#define CVXCANON_SOLVER_CONE_SCS_CONE_SOLVER_H
 
 #include <memory>
 #include <vector>
 
 #include "cvxcanon/solver/cone/ConeSolver.hpp"
 
-namespace scs {
-typedef double scs_float;
-typedef int scs_int;
-#include "scs/linsys/amatrix.h"
-#include "scs/include/scs.h"
-}  // scs
 
-class SplittingConeSolver : public ConeSolver {
+class ScsConeSolver : public ConeSolver {
  public:
+  ScsConeSolver();
+  ~ScsConeSolver();
+
   ConeSolution solve(const ConeProblem& problem) override;
 
  private:
+  struct ScsData;
+
   void build_scs_problem(
       const ConeProblem& problem,
       ConeSolution* solution);
@@ -40,14 +39,9 @@ class SplittingConeSolver : public ConeSolver {
   SolverStatus get_scs_status();
 
   // SCS data structures
-  scs::Data data_;
-  scs::Cone cone_;
-  scs::Info info_;
-  scs::Sol sol_;
-  scs::Settings settings_;
+  std::unique_ptr<ScsData> scs_data_;
 
   // SCS supporting data structures
-  scs::AMatrix A_matrix_;
   std::unique_ptr<int[]> cone_q_, cone_s_;
   DenseVector s_;
 
@@ -60,4 +54,4 @@ class SplittingConeSolver : public ConeSolver {
   std::vector<Triplet> A_coeffs_;
 };
 
-#endif  // CVXCANON_SOLVER_CONE_SPLITTING_CONIC_SOLVER_H
+#endif  // CVXCANON_SOLVER_CONE_SCS_CONE_SOLVER_H

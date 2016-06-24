@@ -1,5 +1,5 @@
 
-#include "cvxcanon/solver/cone/SplittingConeSolver.hpp"
+#include "cvxcanon/solver/cone/ScsConeSolver.hpp"
 
 #include <unordered_map>
 #include <vector>
@@ -7,10 +7,30 @@
 #include "cvxcanon/util/MatrixUtil.hpp"
 
 namespace scs {
+#include "scs/include/scs.h"
 #include "scs/include/util.h"
-}
+#include "scs/linsys/amatrix.h"
+typedef double scs_float;
+typedef int scs_int;
+}  // namespace scs
 
-void SplittingConeSolver::build_scs_constraint(
+struct ScsConeSolver::ScsData {
+  // SCS data structures
+  scs::Data data_;
+  scs::Cone cone_;
+  scs::Info info_;
+  scs::Sol sol_;
+  scs::Settings settings_;
+
+  // SCS supporting data structures
+  scs::AMatrix A_matrix_;
+};
+
+ScsConeSolver::ScsConeSolver() : scs_data_(new ScsData) {}
+
+ScsConeSolver::~ScsConeSolver() {}
+
+void ScsConeSolver::build_scs_constraint(
     const Eigen::SparseMatrix<double, Eigen::RowMajor>& A,
     const DenseVector& b,
     const std::vector<ConeConstraint>& constraints,
@@ -28,7 +48,7 @@ void SplittingConeSolver::build_scs_constraint(
   }
 }
 
-void SplittingConeSolver::build_scs_problem(
+void ScsConeSolver::build_scs_problem(
     const ConeProblem& problem,
     ConeSolution* solution) {
   const int m = problem.A.rows();
@@ -56,37 +76,38 @@ void SplittingConeSolver::build_scs_problem(
     }
 
     build_scs_constraint(
-        A, b, constr_map[ConeConstraint::ZERO], &cone_.f, nullptr);
+        A, b, constr_map[ConeConstraint::ZERO], &scs_data_->cone_.f, nullptr);
     build_scs_constraint(
-        A, b, constr_map[ConeConstraint::NON_NEGATIVE], &cone_.l, nullptr);
-    cone_.qsize = constr_map[ConeConstraint::SECOND_ORDER].size();
-    if (cone_.qsize != 0) {
-      cone_q_.reset(new int[cone_.qsize]);
+        A, b, constr_map[ConeConstraint::NON_NEGATIVE], &scs_data_->cone_.l,
+        nullptr);
+    scs_data_->cone_.qsize = constr_map[ConeConstraint::SECOND_ORDER].size();
+    if (scs_data_->cone_.qsize != 0) {
+      cone_q_.reset(new int[scs_data_->cone_.qsize]);
       build_scs_constraint(
           A, b, constr_map[ConeConstraint::SECOND_ORDER], nullptr,
           cone_q_.get());
-      cone_.q = cone_q_.get();
+      scs_data_->cone_.q = cone_q_.get();
     }
-    cone_.ssize = constr_map[ConeConstraint::SEMIDEFINITE].size();
-    if (cone_.ssize != 0) {
-      cone_s_.reset(new int[cone_.ssize]);
+    scs_data_->cone_.ssize = constr_map[ConeConstraint::SEMIDEFINITE].size();
+    if (scs_data_->cone_.ssize != 0) {
+      cone_s_.reset(new int[scs_data_->cone_.ssize]);
       build_scs_constraint(
           A, b, constr_map[ConeConstraint::SEMIDEFINITE], nullptr,
           cone_s_.get());
-      cone_.s = cone_s_.get();
+      scs_data_->cone_.s = cone_s_.get();
 
       // SCS expects the matrix dimension for each SDP constraint, so we invert
       // n*(n+1)/2 to get the matrix dimension from the number of constraints.
-      for (int i = 0; i < cone_.ssize; i++)
+      for (int i = 0; i < scs_data_->cone_.ssize; i++)
         cone_s_[i] = symmetric_single_dim(cone_s_[i]);
     }
     build_scs_constraint(
-        A, b, constr_map[ConeConstraint::EXPONENTIAL], &cone_.ep, nullptr);
-    CHECK_EQ(cone_.ep % 3, 0);
-    cone_.ep /= 3;  // SCS expects the total number of 3-tuples
+        A, b, constr_map[ConeConstraint::EXPONENTIAL], &scs_data_->cone_.ep, nullptr);
+    CHECK_EQ(scs_data_->cone_.ep % 3, 0);
+    scs_data_->cone_.ep /= 3;  // SCS expects the total number of 3-tuples
 
-    cone_.ed = 0;
-    cone_.psize = 0;
+    scs_data_->cone_.ed = 0;
+    scs_data_->cone_.psize = 0;
 
     A_ = sparse_matrix(m, n, A_coeffs_);
 
@@ -96,46 +117,50 @@ void SplittingConeSolver::build_scs_problem(
   }
 
   // Now we fill in the rest of the structs that make up the SCS interface.
-  A_matrix_.m = m;
-  A_matrix_.n = n;
-  A_matrix_.p = A_.outerIndexPtr();
-  A_matrix_.i = A_.innerIndexPtr();
-  A_matrix_.x = A_.valuePtr();
+  scs_data_->A_matrix_.m = m;
+  scs_data_->A_matrix_.n = n;
+  scs_data_->A_matrix_.p = A_.outerIndexPtr();
+  scs_data_->A_matrix_.i = A_.innerIndexPtr();
+  scs_data_->A_matrix_.x = A_.valuePtr();
 
-  data_.m = m;
-  data_.n = n;
-  data_.A = &A_matrix_;
-  data_.b = const_cast<double*>(b_.data());
-  data_.c = const_cast<double*>(problem.c.data());
-  data_.stgs = &settings_;
-  scs::setDefaultSettings(&data_);
-  settings_.verbose = 0;
+  scs_data_->data_.m = m;
+  scs_data_->data_.n = n;
+  scs_data_->data_.A = &scs_data_->A_matrix_;
+  scs_data_->data_.b = const_cast<double*>(b_.data());
+  scs_data_->data_.c = const_cast<double*>(problem.c.data());
+  scs_data_->data_.stgs = &scs_data_->settings_;
+  scs::setDefaultSettings(&scs_data_->data_);
+  scs_data_->settings_.verbose = 0;
 
   s_ = DenseVector(A_.rows());
   solution->x = DenseVector(A_.cols());
   solution->y = DenseVector(A_.rows());
-  sol_.x = const_cast<double*>(solution->x.data());
-  sol_.y = const_cast<double*>(solution->y.data());
-  sol_.s = const_cast<double*>(s_.data());
+  scs_data_->sol_.x = const_cast<double*>(solution->x.data());
+  scs_data_->sol_.y = const_cast<double*>(solution->y.data());
+  scs_data_->sol_.s = const_cast<double*>(s_.data());
 }
 
-SolverStatus SplittingConeSolver::get_scs_status() {
-  if (strcmp(info_.status, "Solved") == 0) {
+SolverStatus ScsConeSolver::get_scs_status() {
+  if (strcmp(scs_data_->info_.status, "Solved") == 0) {
     return OPTIMAL;
-  } else if (strcmp(info_.status, "Infeasible") == 0) {
+  } else if (strcmp(scs_data_->info_.status, "Infeasible") == 0) {
     return INFEASIBLE;
-  } else if (strcmp(info_.status, "Unbounded") == 0) {
+  } else if (strcmp(scs_data_->info_.status, "Unbounded") == 0) {
     return UNBOUNDED;
   } else {
     return ERROR;
   }
 }
 
-ConeSolution SplittingConeSolver::solve(const ConeProblem& problem) {
+ConeSolution ScsConeSolver::solve(const ConeProblem& problem) {
   ConeSolution solution;
   build_scs_problem(problem, &solution);
-  scs::scs(&data_, &cone_, &sol_, &info_);
-  solution.objective_value = info_.pobj;
+  scs::scs(
+      &scs_data_->data_,
+      &scs_data_->cone_,
+      &scs_data_->sol_,
+      &scs_data_->info_);
+  solution.objective_value = scs_data_->info_.pobj;
   solution.status = get_scs_status();
   return solution;
 }

@@ -18,6 +18,7 @@ build_dir = build-cc
 tools_dir = tools
 gtest_dir = third_party/googletest/googletest
 eigen_dir = third_party
+ecos_dir = third_party/ecos
 deps_dir = build-deps
 
 # Optimization flags, use OPTFLAGS=-g when debugging
@@ -52,9 +53,10 @@ common_cc = \
 	cvxcanon/expression/LinearExpression.cpp \
 	cvxcanon/expression/TextFormat.cpp \
 	cvxcanon/linop/LinOpOperations.cpp \
-	cvxcanon/solver/cone/SplittingConeSolver.cpp \
 	cvxcanon/solver/Solver.cpp \
 	cvxcanon/solver/SymbolicConeSolver.cpp \
+	cvxcanon/solver/cone/EcosConeSolver.cpp \
+	cvxcanon/solver/cone/ScsConeSolver.cpp \
 	cvxcanon/transform/LinearConeTransform.cpp \
 	cvxcanon/util/Init.cpp \
 	cvxcanon/util/MatrixUtil.cpp \
@@ -89,6 +91,9 @@ $(build_dir):
 
 $(build_dir)/%.o: $(src_dir)/%.cpp | $(build_dir)
 	$(COMPILE.cc) $(OUTPUT_OPTION) $<
+
+$(build_dir)/cvxcanon/solver/cone/EcosConeSolver.o: $(src_dir)/cvxcanon/solver/cone/EcosConeSolver.cpp | $(build_dir)
+	$(COMPILE.cc) $(OUTPUT_OPTION) -I$(ecos_dir)/external/SuiteSparse_config $<
 
 gtest_srcs = $(gtest_dir)/src/*.cc $(gtest_dir)/src/*.h
 

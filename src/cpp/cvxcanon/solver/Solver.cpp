@@ -5,7 +5,8 @@
 
 #include "cvxcanon/expression/TextFormat.hpp"
 #include "cvxcanon/solver/SymbolicConeSolver.hpp"
-#include "cvxcanon/solver/cone/SplittingConeSolver.hpp"
+#include "cvxcanon/solver/cone/EcosConeSolver.hpp"
+#include "cvxcanon/solver/cone/ScsConeSolver.hpp"
 #include "cvxcanon/transform/LinearConeTransform.hpp"
 
 bool validate(const Problem& problem, const SolverOptions& solver_options) {
@@ -21,6 +22,6 @@ Solution solve(const Problem& problem, const SolverOptions& solver_options) {
   Problem cone_problem = transform.apply(problem);
 
   VLOG(1) << "cone problem:\n" << format_problem(cone_problem);
-  SymbolicConeSolver solver(std::make_unique<SplittingConeSolver>());
+  SymbolicConeSolver solver(std::make_unique<ScsConeSolver>());
   return solver.solve(cone_problem);
 }
