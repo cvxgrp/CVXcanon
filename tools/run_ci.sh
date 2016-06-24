@@ -2,20 +2,29 @@
 #
 # Script for running continuous integration tests
 
-base=$(dirname "${BASH_SOURCE[0]}")/..
+cd $(dirname "${BASH_SOURCE[0]}")/..
 
-# build/install cvxcanon
-cd $base
+# build third party dependencies
 tools/build_third_party.sh
-python setup.py install
 
-# install cvxpy
-cd $base/../cvxpy
-python setup.py install
+# build and run C++ tests
+make -j test
 
-# run tests
+# install python bindings and cvxpy
+python setup.py install
+( cd ../cvxpy && python setup.py install )
+
+# handle C++ dynamic library loading
+system=$(uname -s)
+if [ $system == "Darwin" ]; then
+    export DYLD_LIBRARY_PATH=$PWD/build-deps/lib
+else
+    export LD_LIBRARY_PATH=$PWD/build-deps/lib
+fi
+
+# run python tests
 nosetests cvxcanon
 nosetests cvxpy
 
 # run c++ linter
-$base/tools/run_lint.sh
+tools/run_lint.sh

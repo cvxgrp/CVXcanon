@@ -27940,6 +27940,7 @@ SWIG_init(void) {
   SWIG_Python_SetConstant(d, "Expression_CONST",SWIG_From_int(static_cast< int >(Expression::CONST)));
   SWIG_Python_SetConstant(d, "Expression_PARAM",SWIG_From_int(static_cast< int >(Expression::PARAM)));
   SWIG_Python_SetConstant(d, "Expression_VAR",SWIG_From_int(static_cast< int >(Expression::VAR)));
+  SWIG_Python_SetConstant(d, "Expression_NUM_TYPES",SWIG_From_int(static_cast< int >(Expression::NUM_TYPES)));
   SWIG_Python_SetConstant(d, "Problem_MAXIMIZE",SWIG_From_int(static_cast< int >(Problem::MAXIMIZE)));
   SWIG_Python_SetConstant(d, "Problem_MINIMIZE",SWIG_From_int(static_cast< int >(Problem::MINIMIZE)));
   SWIG_addvarlink(SWIG_globals(),(char*)"CONSTANT_ID",Swig_var_CONSTANT_ID_get, Swig_var_CONSTANT_ID_set);

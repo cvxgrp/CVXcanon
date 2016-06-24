@@ -26,8 +26,7 @@ struct ScsConeSolver::ScsData {
   scs::AMatrix A_matrix_;
 };
 
-ScsConeSolver::ScsConeSolver() : scs_data_(new ScsData) {}
-
+ScsConeSolver::ScsConeSolver() : scs_data_(new ScsData()) {}
 ScsConeSolver::~ScsConeSolver() {}
 
 void ScsConeSolver::build_scs_constraint(
@@ -102,7 +101,8 @@ void ScsConeSolver::build_scs_problem(
         cone_s_[i] = symmetric_single_dim(cone_s_[i]);
     }
     build_scs_constraint(
-        A, b, constr_map[ConeConstraint::EXPONENTIAL], &scs_data_->cone_.ep, nullptr);
+        A, b, constr_map[ConeConstraint::EXPONENTIAL], &scs_data_->cone_.ep,
+        nullptr);
     CHECK_EQ(scs_data_->cone_.ep % 3, 0);
     scs_data_->cone_.ep /= 3;  // SCS expects the total number of 3-tuples
 

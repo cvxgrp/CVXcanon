@@ -1132,6 +1132,7 @@ class Expression(_object):
     CONST = _cvxcanon_swig.Expression_CONST
     PARAM = _cvxcanon_swig.Expression_PARAM
     VAR = _cvxcanon_swig.Expression_VAR
+    NUM_TYPES = _cvxcanon_swig.Expression_NUM_TYPES
 
     def type(self):
         return _cvxcanon_swig.Expression_type(self)

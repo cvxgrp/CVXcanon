@@ -4,8 +4,17 @@
 #
 # Usage: run_tests.sh test1 ... testN
 
+system=$(uname -s)
+if [ $system == "Darwin" ]; then
+    ld_library_path=DYLD_LIBRARY_PATH
+else
+    ld_library_path=LD_LIBRARY_PATH
+fi
+export ld_library_path
+
 run_test() {
     echo $1:
+    export $ld_library_path=$PWD/build-deps/lib
     $1
 }
 export -f run_test

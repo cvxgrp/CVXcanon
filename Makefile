@@ -2,9 +2,7 @@
 #
 # NOTE(mwytock): You must run tools/build_third_party.sh first
 #
-# TODO(mwytock): This is just a skeleton with basic support for running C++
-# tests using googletest.  Theres a bunch of things we want to add, for example:
-# - build libcvxcanon.a
+# TODO(mwytock): A bunch of things to add, for example:
 # - execute tools/build_third_party.sh (if necessary)
 # - automatic dependency generation (e.g. for header file changes)
 #
@@ -36,14 +34,7 @@ CXXFLAGS += -I$(gtest_dir)/include
 # System-specific configuration
 SYSTEM = $(shell uname -s)
 
-# BLAS
-ifeq ($(SYSTEM),Darwin)
-LDLIBS += -framework Accelerate
-endif
-
-ifeq ($(SYSTEM),Linux)
-LDLIBS += -lpthread -lblas -llapack
-endif
+LDLIBS = -L$(deps_dir)/lib -lecos -lglog -lscsdir
 
 common_cc = \
 	cvxcanon/CVXcanon.cpp \
@@ -68,24 +59,28 @@ common_test_cc = \
 tests = \
 	cvxcanon/expression/TextFormatTest
 
-deps = \
-	ecos \
-	glog \
-	scsdir
+libs = cvxcanon
 
 # Stop make from deleting intermediate files
 .SECONDARY:
 
+build_libs = $(libs:%=$(build_dir)/lib%.a)
 build_tests = $(tests:%=$(build_dir)/%)
 
-test: $(build_tests)
-	@$(tools_dir)/run_tests.sh $(build_tests)
+# Targets
+
+all: $(build_libs)
 
 clean:
 	rm -rf $(build_dir)
 
-build_sub_dirs = $(addprefix $(build_dir)/, $(dir $(common_cc)))
+test: $(build_tests)
+	@$(tools_dir)/run_tests.sh $(build_tests)
 
+
+# Compilation rules
+
+build_sub_dirs = $(addprefix $(build_dir)/, $(dir $(common_cc)))
 $(build_dir):
 	mkdir -p $(build_sub_dirs)
 
@@ -103,7 +98,13 @@ $(build_dir)/gtest-all.o: $(gtest_srcs)
 	$(COMPILE.cc) -I$(gtest_dir) -Wno-missing-field-initializers -c $(gtest_dir)/src/gtest-all.cc -o $@
 
 common_obj = $(common_cc:%.cpp=$(build_dir)/%.o)
-common_obj += $(deps:%=$(deps_dir)/lib/lib%.a)
+
+$(build_dir)/libcvxcanon.a: $(common_obj)
+	$(AR) rcs $@ $^
+ifeq ($(SYSTEM),Darwin)
+	ranlib $@
+endif
+
 common_test_obj = $(common_test_cc:%.cpp=$(build_dir)/%.o)
 common_test_obj += $(common_obj)
 common_test_obj += $(build_dir)/gtest-all.o

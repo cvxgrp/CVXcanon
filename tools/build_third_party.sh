@@ -18,6 +18,12 @@ if [ $system == "Linux" ]; then
     export CXXFLAGS=-fPIC
 fi
 
+if [ $system == "Darwin" ]; then
+    shared=dylib
+else
+    shared=so
+fi
+
 # pull submodules
 git submodule update --init
 
@@ -29,14 +35,11 @@ make -j install
 
 # SCS
 mkdir -p $build/scs
-cd $build/scs
 scs_flags="USE_LAPACK=1"
-scs_targets=$build/scs/libscsdir.a
+scs_targets=$build/scs/libscsdir.${shared}
 make -C $third_party/scs OUT=$build/scs "$scs_flags" "$scs_targets"
-cp $build/scs/*.a $build/lib
+cp $build/scs/*.${shared} $build/lib
 
 # ECOS
-mkdir -p $build/ecos
-ecos_targets=$third_party/ecos/libecos.a
-make -C $third_party/ecos $ecos_targets
-cp $ecos_targets $build/lib
+make -C $third_party/ecos libecos.${shared}
+cp $third_party/ecos/libecos.${shared} $build/lib

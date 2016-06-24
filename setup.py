@@ -10,33 +10,26 @@ import numpy
 
 PYTHON_DIR = "src/python"
 
-SOURCES = [
-    "src/cpp/cvxcanon/CVXcanon.cpp",
-    "src/cpp/cvxcanon/expression/Expression.cpp",
-    "src/cpp/cvxcanon/expression/ExpressionShape.cpp",
-    "src/cpp/cvxcanon/expression/ExpressionUtil.cpp",
-    "src/cpp/cvxcanon/expression/LinearExpression.cpp",
-    "src/cpp/cvxcanon/expression/TextFormat.cpp",
-    "src/cpp/cvxcanon/linop/LinOpOperations.cpp",
-    "src/cpp/cvxcanon/solver/Solver.cpp",
-    "src/cpp/cvxcanon/solver/SymbolicConeSolver.cpp",
-    "src/cpp/cvxcanon/solver/cone/SplittingConeSolver.cpp",
-    "src/cpp/cvxcanon/transform/LinearConeTransform.cpp",
-    "src/cpp/cvxcanon/util/Init.cpp",
-    "src/cpp/cvxcanon/util/MatrixUtil.cpp",
-    "src/cpp/cvxcanon/util/Utils.cpp",
-    "src/python/cvxcanon/cvxcanon_swig_wrap.cpp",
+LIBRARIES = [
+    "cvxcanon",
+    "ecos",
+    "glog",
+    "scsdir",
 ]
-
-LIBRARIES = []
 if "linux" in sys.platform:
     LIBRARIES += ["rt"]
-    # SCS dependencies
-    LIBRARIES += ["blas", "lapack"]
 
-STATIC_LIBRARIES = [
-    "build-deps/lib/libglog.a",
-    "build-deps/lib/libscsdir.a",
+LIBRARY_DIRS = [
+    "build-cc",
+    "build-deps/lib",
+]
+
+INCLUDE_DIRS = [
+    "build-deps/include",
+    "src/cpp",
+    "src/python",
+    "third_party",
+    numpy.get_include(),
 ]
 
 # Read version from file
@@ -48,17 +41,12 @@ with open(os.path.join(base_dir,  PYTHON_DIR, "cvxcanon", "_version__.py")) as f
 cvxcanon_swig = Extension(
     name="cvxcanon._cvxcanon_swig",
     language="c++",
-    sources=SOURCES,
+    sources=["src/python/cvxcanon/cvxcanon_swig_wrap.cpp"],
     libraries=LIBRARIES,
+    library_dirs=LIBRARY_DIRS,
+    include_dirs=INCLUDE_DIRS,
     extra_compile_args=["-std=c++14"],
-    include_dirs=[
-        "build-deps/include",
-        "src/cpp",
-        "src/python",
-        "third_party",
-        numpy.get_include(),
-    ],
-    extra_link_args=STATIC_LIBRARIES,
+
     # Enable debug checks
     # TODO(mwytock): Better way to do debug builds?
     undef_macros=["NDEBUG"]
