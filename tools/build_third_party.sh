@@ -36,7 +36,6 @@ make -C $third_party/scs OUT=$build/scs "$scs_flags" "$scs_targets"
 cp $build/scs/*.a $build/lib
 
 # ECOS
-mkdir -p $build/ecos
 ecos_targets=$third_party/ecos/libecos.a
-make -C $third_party/ecos $ecos_targets
+make -C $third_party/ecos libecos.a
 cp $ecos_targets $build/lib
