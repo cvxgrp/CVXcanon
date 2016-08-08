@@ -15,7 +15,6 @@
 
 import CVXcanon
 import numpy as np
-from cvxpy.lin_ops.lin_op import *
 import scipy.sparse
 from collections import deque
 
@@ -92,7 +91,7 @@ def format_matrix(matrix, format='dense'):
 def set_matrix_data(linC, linPy):
     '''  Calls the appropriate CVXCanon function to set the matrix data field of our C++ linOp.
     '''
-    if isinstance(linPy.data, LinOp):
+    if isinstance(linPy.data, tuple):  #this is supposed to be a cvxpy LinOp
         if linPy.data.type == 'sparse_const':
             coo = format_matrix(linPy.data.data, 'sparse')
             linC.set_sparse_data(coo.data, coo.row.astype(float),
@@ -230,7 +229,8 @@ def build_lin_op_tree(root_linPy, tmp):
             set_slice_data(linC, linPy)
         elif isinstance(linPy.data, float) or isinstance(linPy.data, int):
             linC.set_dense_data(format_matrix(linPy.data, 'scalar'))
-        elif isinstance(linPy.data, LinOp) and linPy.data.type == 'scalar_const':
+        #this is supposed to be a cvxpy LinOp 
+        elif isinstance(linPy.data, tuple) and linPy.data.type == 'scalar_const':
             linC.set_dense_data(format_matrix(linPy.data.data, 'scalar'))
         else:
             set_matrix_data(linC, linPy)
