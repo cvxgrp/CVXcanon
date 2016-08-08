@@ -17,7 +17,7 @@ with open(os.path.join(base_dir, "src", "python", "_version__.py")) as f:
 
 setup(
     name='CVXcanon',
-    version=about["__version__"],
+    version="0.1.0",
     setup_requires=['numpy'],
     author='Jack Zhu, John Miller, Paul Quigley',
     author_email='jackzhu@stanford.edu, millerjp@stanford.edu, piq93@stanford.edu',
