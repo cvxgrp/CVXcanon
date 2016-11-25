@@ -118,7 +118,7 @@ def set_slice_data(linC, linPy):
     '''
     for i, sl in enumerate(linPy.data):
         vec = CVXcanon.IntVector()
-        arg_dim = linPy.args[0].size[i]
+        arg_dim = linPy.args[0].shape[i]
 
         if sl.step is not None:
             step = sl.step
@@ -219,8 +219,8 @@ def build_lin_op_tree(root_linPy, tmp):
         linC.type = get_type(linPy.type.upper())
 
         # Setting size
-        linC.size.push_back(int(linPy.size[0]))
-        linC.size.push_back(int(linPy.size[1]))
+        linC.size.push_back(int(linPy.shape[0]))
+        linC.size.push_back(int(linPy.shape[1]))
 
         # Loading the problem data into the appropriate array format
         if linPy.data is None:
