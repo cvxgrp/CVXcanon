@@ -1,13 +1,21 @@
 from setuptools import setup, Extension, find_packages
 from setuptools.command.install import install
 from distutils.command.build import build
-import numpy
 import os
+
+
+class get_numpy_include(object):
+    """Returns Numpy's include path with lazy import.
+    """
+    def __str__(self):
+        import numpy
+        return numpy.get_include()
+
 
 canon = Extension(
     '_CVXcanon',
     sources=['src/CVXcanon.cpp', 'src/LinOpOperations.cpp', 'src/python/CVXcanon_wrap.cpp'],
-    include_dirs=['src/', 'src/python/', 'include/Eigen', numpy.get_include()]
+    include_dirs=['src/', 'src/python/', 'include/Eigen', get_numpy_include()]
 )
 
 base_dir = os.path.dirname(__file__)
