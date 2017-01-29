@@ -1,7 +1,4 @@
-from setuptools import setup, Extension, find_packages
-from setuptools.command.install import install
-from distutils.command.build import build
-import os
+from setuptools import setup, Extension
 
 
 class get_numpy_include(object):
@@ -18,10 +15,6 @@ canon = Extension(
     include_dirs=['src/', 'src/python/', 'include/Eigen', get_numpy_include()]
 )
 
-base_dir = os.path.dirname(__file__)
-about = {}
-with open(os.path.join(base_dir, "src", "python", "_version__.py")) as f:
-    exec(f.read(), about)
 
 setup(
     name='CVXcanon',
