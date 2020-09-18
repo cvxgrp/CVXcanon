@@ -18,7 +18,7 @@ canon = Extension(
 
 setup(
     name='CVXcanon',
-    version="0.1.1",
+    version="0.1.2",
     setup_requires=['numpy'],
     author='Jack Zhu, John Miller, Paul Quigley',
     author_email='jackzhu@stanford.edu, millerjp@stanford.edu, piq93@stanford.edu',
